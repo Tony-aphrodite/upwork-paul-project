@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-paper font-body text-[15px] leading-relaxed text-ink antialiased; }
+  h1, h2, h3 { @apply font-display font-semibold text-brand; }
+  :focus-visible { outline: 2px solid #E0A458; outline-offset: 2px; border-radius: 4px; }
+}
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-7xl px-4 sm:px-6; }
+  .card { @apply min-w-0 rounded-xl border border-line bg-white shadow-card; }
+  .btn { @apply inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg px-3.5 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-brand text-white hover:bg-brand-deep; }
+  .btn-outline { @apply btn border border-line bg-white text-brand hover:border-brand/50; }
+  .btn-ghost { @apply btn text-muted hover:bg-brand-soft hover:text-brand; }
+  .field { @apply min-h-[38px] w-full rounded-lg border border-line bg-white px-3 py-2 text-[14px] text-ink focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/10; }
+  .label { @apply mb-1 block text-[13px] font-semibold text-ink; }
+  .eyebrow { @apply text-[11.5px] font-bold uppercase tracking-[0.14em] text-muted; }
+  .chip { @apply inline-flex items-center whitespace-nowrap rounded-full px-2 py-0.5 text-[12px] font-bold; }
+  .th { @apply px-3 py-2 text-left text-[11.5px] font-bold uppercase tracking-wider text-muted; }
+  .td { @apply px-3 py-2.5 align-top; }
+  .code { @apply rounded-lg bg-brand-deep p-4 font-mono text-[12.5px] leading-relaxed text-[#E7EFF1]; }
+}
+
+/* Screen-reader-only labels are absolutely positioned; without this they escape horizontal scrollers and widen the page on phones. */
+.overflow-x-auto { position: relative; }

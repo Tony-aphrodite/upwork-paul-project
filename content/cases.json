@@ -1,0 +1,764 @@
+[
+ {
+  "id": "alone-with-falls",
+  "title": "Living alone after two falls",
+  "summary": "84, lives alone in Nelson, two falls this year, no smoke alarms, EPOA unclear.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-JW8401",
+   "preparedFor": {
+    "name": "Anna Whitaker",
+    "relationship": "daughter"
+   },
+   "person": {
+    "firstName": "Joan",
+    "lastName": "Whitaker",
+    "age": 84,
+    "region": "Nelson",
+    "town": "Stoke, Nelson"
+   },
+   "living": {
+    "situation": "alone",
+    "homeType": "house",
+    "ownsHome": true
+   },
+   "support": {
+    "current": [
+     {
+      "type": "family",
+      "hoursPerWeek": 3
+     }
+    ],
+    "familySupport": "limited"
+   },
+   "mobility": {
+    "level": "uses_aid",
+    "fallsLast12Months": 2,
+    "fearOfFalling": true,
+    "drives": false
+   },
+   "health": {
+    "conditions": [
+     "Osteoarthritis",
+     "High blood pressure"
+    ],
+    "concerns": [
+     "Unsteady in the mornings"
+    ],
+    "medications": "self"
+   },
+   "cognition": {
+    "concern": "none",
+    "diagnosis": "none",
+    "wandering": false
+   },
+   "hospital": {
+    "recentAdmission": false,
+    "status": "none"
+   },
+   "homeSafety": {
+    "concerns": [
+     "Loose rugs in the hallway",
+     "Poor lighting on the back steps"
+    ],
+    "smokeAlarms": false,
+    "personalAlarm": false,
+    "stairs": true
+   },
+   "funding": {
+    "needsAssessment": "none",
+    "residentialSubsidy": "not_applicable",
+    "budgetConcern": "none"
+   },
+   "legal": {
+    "epoaProperty": "unsure",
+    "epoaWelfare": "no",
+    "epoaActivated": false,
+    "will": "yes",
+    "advanceCarePlan": false
+   },
+   "transport": {
+    "mainMode": "family",
+    "difficulties": true
+   },
+   "social": {
+    "isolation": "moderate",
+    "activities": [
+     "Church on Sundays"
+    ]
+   },
+   "respite": {
+    "needed": false,
+    "used": false
+   },
+   "future": {
+    "preference": "stay_home",
+    "timeframe": "within_2_years"
+   },
+   "goals": [
+    "Stay in her own home",
+    "Keep going to church"
+   ],
+   "notes": "Anna visits every Saturday and lives 40 minutes away.",
+   "extra": {}
+  }
+ },
+ {
+  "id": "dementia-exhausted-spouse",
+  "title": "Dementia and an exhausted spouse",
+  "summary": "79 with dementia in Tauranga, wandering, wife is the carer and close to exhaustion.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-PA7902",
+   "preparedFor": {
+    "name": "Mark Aldous",
+    "relationship": "son"
+   },
+   "person": {
+    "firstName": "Peter",
+    "lastName": "Aldous",
+    "age": 79,
+    "region": "Bay of Plenty",
+    "town": "Tauranga"
+   },
+   "living": {
+    "situation": "with_partner",
+    "homeType": "house",
+    "ownsHome": true
+   },
+   "support": {
+    "current": [
+     {
+      "type": "family"
+     }
+    ],
+    "familySupport": "moderate",
+    "mainCarer": {
+     "name": "Ruth",
+     "relationship": "wife",
+     "strain": "high"
+    }
+   },
+   "mobility": {
+    "level": "independent",
+    "fallsLast12Months": 0,
+    "fearOfFalling": false,
+    "drives": true
+   },
+   "health": {
+    "conditions": [
+     "Type 2 diabetes"
+    ],
+    "concerns": [
+     "Sleeping poorly"
+    ],
+    "medications": "family"
+   },
+   "cognition": {
+    "concern": "moderate",
+    "diagnosis": "dementia",
+    "wandering": true
+   },
+   "hospital": {
+    "recentAdmission": false,
+    "status": "none"
+   },
+   "homeSafety": {
+    "concerns": [
+     "Leaves the stove on"
+    ],
+    "smokeAlarms": true,
+    "personalAlarm": false,
+    "stairs": false
+   },
+   "funding": {
+    "needsAssessment": "requested",
+    "residentialSubsidy": "not_applicable",
+    "budgetConcern": "some"
+   },
+   "legal": {
+    "epoaProperty": "no",
+    "epoaWelfare": "no",
+    "epoaActivated": false,
+    "will": "yes",
+    "advanceCarePlan": false
+   },
+   "transport": {
+    "mainMode": "drives",
+    "difficulties": false
+   },
+   "social": {
+    "isolation": "moderate",
+    "activities": [
+     "Walking group"
+    ]
+   },
+   "respite": {
+    "needed": true,
+    "used": false
+   },
+   "future": {
+    "preference": "stay_home",
+    "timeframe": "within_2_years"
+   },
+   "goals": [
+    "Keep Peter at home while it is safe",
+    "Give Ruth regular breaks"
+   ],
+   "notes": "Ruth has not had a full night's sleep in weeks.",
+   "extra": {},
+   "partner": {
+    "name": "Ruth Aldous",
+    "age": 77,
+    "health": "some_concerns"
+   }
+  }
+ },
+ {
+  "id": "hospital-discharge",
+  "title": "Hospital discharge after a hip fracture",
+  "summary": "86 in hospital in Palmerston North, lives alone, discharge due next week, no support arranged.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-AB8603",
+   "preparedFor": {
+    "name": "Claire Bell",
+    "relationship": "niece"
+   },
+   "person": {
+    "firstName": "Arthur",
+    "lastName": "Bell",
+    "age": 86,
+    "region": "Manawatū-Whanganui",
+    "town": "Palmerston North"
+   },
+   "living": {
+    "situation": "alone",
+    "homeType": "unit",
+    "ownsHome": true
+   },
+   "support": {
+    "current": [],
+    "familySupport": "limited"
+   },
+   "mobility": {
+    "level": "needs_help",
+    "fallsLast12Months": 1,
+    "fearOfFalling": true,
+    "drives": false
+   },
+   "health": {
+    "conditions": [
+     "Hip fracture (recovering)",
+     "Heart failure"
+    ],
+    "concerns": [
+     "Short of breath on exertion"
+    ],
+    "medications": "needs_help"
+   },
+   "cognition": {
+    "concern": "mild",
+    "diagnosis": "none",
+    "wandering": false
+   },
+   "hospital": {
+    "recentAdmission": true,
+    "status": "in_hospital",
+    "reason": "A hip fracture from a fall",
+    "dischargeDate": "2026-09-29"
+   },
+   "homeSafety": {
+    "concerns": [
+     "Shower over the bath"
+    ],
+    "smokeAlarms": true,
+    "personalAlarm": false,
+    "stairs": false
+   },
+   "funding": {
+    "needsAssessment": "none",
+    "residentialSubsidy": "not_applicable",
+    "budgetConcern": "some"
+   },
+   "legal": {
+    "epoaProperty": "yes",
+    "epoaWelfare": "yes",
+    "epoaActivated": false,
+    "will": "yes",
+    "advanceCarePlan": false
+   },
+   "transport": {
+    "mainMode": "family",
+    "difficulties": true
+   },
+   "social": {
+    "isolation": "moderate",
+    "activities": []
+   },
+   "respite": {
+    "needed": false,
+    "used": false
+   },
+   "future": {
+    "preference": "stay_home",
+    "timeframe": "now"
+   },
+   "goals": [
+    "Get back home safely"
+   ],
+   "notes": "",
+   "extra": {}
+  }
+ },
+ {
+  "id": "healthy-couple",
+  "title": "Healthy couple planning ahead",
+  "summary": "72 and 70 in Christchurch, well, thinking about a retirement village in two years, no EPOAs.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-GP7204",
+   "preparedFor": {
+    "name": "Graham Pike",
+    "relationship": "self"
+   },
+   "person": {
+    "firstName": "Graham",
+    "lastName": "Pike",
+    "age": 72,
+    "region": "Canterbury",
+    "town": "Christchurch"
+   },
+   "living": {
+    "situation": "with_partner",
+    "homeType": "house",
+    "ownsHome": true
+   },
+   "support": {
+    "current": [],
+    "familySupport": "strong"
+   },
+   "mobility": {
+    "level": "independent",
+    "fallsLast12Months": 0,
+    "fearOfFalling": false,
+    "drives": true
+   },
+   "health": {
+    "conditions": [],
+    "concerns": [],
+    "medications": "self"
+   },
+   "cognition": {
+    "concern": "none",
+    "diagnosis": "none",
+    "wandering": false
+   },
+   "hospital": {
+    "recentAdmission": false,
+    "status": "none"
+   },
+   "homeSafety": {
+    "concerns": [],
+    "smokeAlarms": true,
+    "personalAlarm": false,
+    "stairs": true
+   },
+   "funding": {
+    "needsAssessment": "none",
+    "residentialSubsidy": "not_applicable",
+    "budgetConcern": "none"
+   },
+   "legal": {
+    "epoaProperty": "no",
+    "epoaWelfare": "no",
+    "epoaActivated": false,
+    "will": "yes",
+    "advanceCarePlan": false
+   },
+   "transport": {
+    "mainMode": "drives",
+    "difficulties": false
+   },
+   "social": {
+    "isolation": "low",
+    "activities": [
+     "Golf",
+     "Bridge club"
+    ]
+   },
+   "respite": {
+    "needed": false,
+    "used": false
+   },
+   "future": {
+    "preference": "retirement_village",
+    "timeframe": "within_2_years",
+    "weeklyBudget": 200
+   },
+   "goals": [
+    "Downsize before it becomes urgent",
+    "Stay close to the grandchildren"
+   ],
+   "notes": "",
+   "extra": {},
+   "partner": {
+    "name": "Susan Pike",
+    "age": 70,
+    "health": "well"
+   }
+  }
+ },
+ {
+  "id": "residential-care",
+  "title": "Family considering residential care",
+  "summary": "91 in Dunedin, assessed at hospital level, daughter caring and exhausted, subsidy under consideration.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-DM9105",
+   "preparedFor": {
+    "name": "Helen Mason",
+    "relationship": "daughter"
+   },
+   "person": {
+    "firstName": "Dorothy",
+    "lastName": "Mason",
+    "preferredName": "Dot",
+    "age": 91,
+    "region": "Otago",
+    "town": "Dunedin"
+   },
+   "living": {
+    "situation": "with_family",
+    "homeType": "house",
+    "ownsHome": true
+   },
+   "support": {
+    "current": [
+     {
+      "type": "family"
+     },
+     {
+      "type": "personal_care",
+      "hoursPerWeek": 14,
+      "funded": true
+     }
+    ],
+    "familySupport": "strong",
+    "mainCarer": {
+     "name": "Helen",
+     "relationship": "daughter",
+     "strain": "high"
+    }
+   },
+   "mobility": {
+    "level": "wheelchair",
+    "fallsLast12Months": 3,
+    "fearOfFalling": true,
+    "drives": false
+   },
+   "health": {
+    "conditions": [
+     "Parkinson's disease",
+     "Macular degeneration"
+    ],
+    "concerns": [
+     "Swallowing difficulties"
+    ],
+    "medications": "needs_help"
+   },
+   "cognition": {
+    "concern": "moderate",
+    "diagnosis": "unknown",
+    "wandering": false
+   },
+   "hospital": {
+    "recentAdmission": true,
+    "status": "discharged_recently",
+    "reason": "A chest infection"
+   },
+   "homeSafety": {
+    "concerns": [
+     "Cannot manage the stairs any more"
+    ],
+    "smokeAlarms": true,
+    "personalAlarm": true,
+    "stairs": true
+   },
+   "funding": {
+    "needsAssessment": "completed",
+    "assessedLevel": "hospital",
+    "residentialSubsidy": "considering",
+    "budgetConcern": "some"
+   },
+   "legal": {
+    "epoaProperty": "yes",
+    "epoaWelfare": "yes",
+    "epoaActivated": false,
+    "will": "yes",
+    "advanceCarePlan": true
+   },
+   "transport": {
+    "mainMode": "family",
+    "difficulties": true
+   },
+   "social": {
+    "isolation": "moderate",
+    "activities": [
+     "Visits from the grandchildren"
+    ]
+   },
+   "respite": {
+    "needed": true,
+    "used": true
+   },
+   "future": {
+    "preference": "residential_care",
+    "timeframe": "now",
+    "weeklyBudget": 1600
+   },
+   "goals": [
+    "Find a care home close to Helen",
+    "Keep Mum comfortable"
+   ],
+   "notes": "",
+   "extra": {}
+  }
+ },
+ {
+  "id": "funding-worries",
+  "title": "Worried about funding and affordability",
+  "summary": "80 in Auckland, renting, on NZ Super, isolated, no EPOAs, costs are the main worry.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-MT8006",
+   "preparedFor": {
+    "name": "Daniel Tan",
+    "relationship": "son"
+   },
+   "person": {
+    "firstName": "Mei Lin",
+    "lastName": "Tan",
+    "age": 80,
+    "region": "Auckland",
+    "town": "Henderson, Auckland"
+   },
+   "living": {
+    "situation": "alone",
+    "homeType": "apartment",
+    "ownsHome": false
+   },
+   "support": {
+    "current": [
+     {
+      "type": "home_help",
+      "hoursPerWeek": 2,
+      "funded": true
+     }
+    ],
+    "familySupport": "limited"
+   },
+   "mobility": {
+    "level": "uses_aid",
+    "fallsLast12Months": 1,
+    "fearOfFalling": false,
+    "drives": false
+   },
+   "health": {
+    "conditions": [
+     "COPD"
+    ],
+    "concerns": [
+     "Breathless climbing to the bus stop"
+    ],
+    "medications": "pharmacy_packs"
+   },
+   "cognition": {
+    "concern": "mild",
+    "diagnosis": "none",
+    "wandering": false
+   },
+   "hospital": {
+    "recentAdmission": false,
+    "status": "none"
+   },
+   "homeSafety": {
+    "concerns": [],
+    "smokeAlarms": true,
+    "personalAlarm": true,
+    "stairs": false
+   },
+   "funding": {
+    "needsAssessment": "completed",
+    "assessedLevel": "home_support",
+    "residentialSubsidy": "not_applicable",
+    "budgetConcern": "significant"
+   },
+   "legal": {
+    "epoaProperty": "no",
+    "epoaWelfare": "no",
+    "epoaActivated": false,
+    "will": "unsure",
+    "advanceCarePlan": false
+   },
+   "transport": {
+    "mainMode": "public",
+    "difficulties": true
+   },
+   "social": {
+    "isolation": "high",
+    "activities": []
+   },
+   "respite": {
+    "needed": false,
+    "used": false
+   },
+   "future": {
+    "preference": "undecided",
+    "timeframe": "within_6_months",
+    "weeklyBudget": 250
+   },
+   "goals": [
+    "Keep costs manageable on NZ Super",
+    "Feel less alone"
+   ],
+   "notes": "",
+   "extra": {}
+  }
+ },
+ {
+  "id": "long-content-stress",
+  "title": "Long-content stress test",
+  "summary": "Fictional worst case that switches on 16 of the 18 modules, with long text, to test page breaks and overflow.",
+  "profile": {
+   "schemaVersion": "1.0",
+   "profileId": "FP-HF8807",
+   "preparedFor": {
+    "name": "Catherine Fitzgerald-Montgomery",
+    "relationship": "granddaughter and enduring power of attorney"
+   },
+   "person": {
+    "firstName": "Harold",
+    "lastName": "Fitzgerald-Montgomery",
+    "preferredName": "Harry",
+    "age": 88,
+    "region": "Bay of Plenty",
+    "town": "Whakatāne"
+   },
+   "living": {
+    "situation": "alone",
+    "homeType": "house",
+    "ownsHome": true
+   },
+   "support": {
+    "current": [
+     {
+      "type": "family",
+      "hoursPerWeek": 4
+     },
+     {
+      "type": "meals"
+     },
+     {
+      "type": "home_help",
+      "hoursPerWeek": 3,
+      "funded": false
+     },
+     {
+      "type": "day_programme",
+      "hoursPerWeek": 6
+     }
+    ],
+    "familySupport": "limited",
+    "mainCarer": {
+     "name": "Catherine",
+     "relationship": "granddaughter",
+     "strain": "high"
+    }
+   },
+   "mobility": {
+    "level": "needs_help",
+    "fallsLast12Months": 4,
+    "fearOfFalling": true,
+    "drives": true
+   },
+   "health": {
+    "conditions": [
+     "Vascular dementia",
+     "Atrial fibrillation",
+     "Chronic kidney disease stage 3",
+     "Type 2 diabetes",
+     "Osteoporosis",
+     "Hearing loss",
+     "Cataracts in both eyes"
+    ],
+    "concerns": [
+     "Weight loss",
+     "Night-time confusion"
+    ],
+    "medications": "needs_help"
+   },
+   "cognition": {
+    "concern": "significant",
+    "diagnosis": "dementia",
+    "wandering": true
+   },
+   "hospital": {
+    "recentAdmission": true,
+    "status": "in_hospital",
+    "reason": "A fall with a head injury and a urinary tract infection that caused sudden confusion",
+    "dischargeDate": "2026-10-02"
+   },
+   "homeSafety": {
+    "concerns": [
+     "Steep driveway",
+     "Gas heater left on",
+     "Loose carpet on the stairs",
+     "No rail in the shower",
+     "Front door lock that jams",
+     "Overgrown path to the letterbox"
+    ],
+    "smokeAlarms": false,
+    "personalAlarm": false,
+    "stairs": true
+   },
+   "funding": {
+    "needsAssessment": "requested",
+    "residentialSubsidy": "considering",
+    "budgetConcern": "significant"
+   },
+   "legal": {
+    "epoaProperty": "no",
+    "epoaWelfare": "no",
+    "epoaActivated": false,
+    "will": "unsure",
+    "advanceCarePlan": false
+   },
+   "transport": {
+    "mainMode": "none",
+    "difficulties": true
+   },
+   "social": {
+    "isolation": "high",
+    "activities": []
+   },
+   "respite": {
+    "needed": true,
+    "used": false
+   },
+   "future": {
+    "preference": "residential_care",
+    "timeframe": "now",
+    "weeklyBudget": 1450
+   },
+   "goals": [
+    "Stay near the beach he has lived beside for sixty years",
+    "Keep his dog, Biscuit, for as long as possible",
+    "Be close enough for Catherine to visit after work every day",
+    "Avoid another emergency admission"
+   ],
+   "notes": "Test string for wrapping: https://example.com/a-very-long-link-without-any-spaces-that-must-wrap-inside-the-document-and-never-overflow-the-page-margins-at-all",
+   "extra": {}
+  }
+ }
+]

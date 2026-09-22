@@ -1,0 +1,14 @@
+[
+  { "id": "pv-harbourview-village", "name": "Harbourview Lifestyle Village", "type": "retirement_village", "regions": ["Canterbury"], "careLevels": ["rest_home", "hospital"], "dementiaSupport": false, "weeklyCostFrom": 180, "availability": "waitlist" },
+  { "id": "pv-rimu-grove", "name": "Rimu Grove Village", "type": "retirement_village", "regions": ["Canterbury"], "careLevels": [], "weeklyCostFrom": 140, "availability": "available" },
+  { "id": "pv-tasman-homecare", "name": "Tasman Home Support Collective", "type": "home_care", "regions": ["Nelson", "Tasman"], "careLevels": ["home_support"], "dementiaSupport": true, "availability": "available" },
+  { "id": "pv-bay-homecare", "name": "Bayside Care at Home", "type": "home_care", "regions": ["Bay of Plenty"], "careLevels": ["home_support"], "dementiaSupport": true, "availability": "waitlist" },
+  { "id": "pv-manawatu-homecare", "name": "Plainsview Home Support", "type": "home_care", "regions": ["Manawatū-Whanganui"], "careLevels": ["home_support"], "dementiaSupport": false, "availability": "available" },
+  { "id": "pv-otago-lodge", "name": "Glenlea Care Lodge", "type": "residential_care", "regions": ["Otago"], "careLevels": ["rest_home", "hospital"], "dementiaSupport": false, "weeklyCostFrom": 1450, "availability": "available" },
+  { "id": "pv-otago-memory", "name": "Silverstream Memory Care", "type": "residential_care", "regions": ["Otago"], "careLevels": ["dementia", "hospital"], "dementiaSupport": true, "weeklyCostFrom": 1600, "availability": "waitlist" },
+  { "id": "pv-bay-respite", "name": "Coastline Respite House", "type": "residential_care", "regions": ["Bay of Plenty"], "careLevels": ["rest_home", "dementia"], "dementiaSupport": true, "weeklyCostFrom": 1380, "availability": "available" },
+  { "id": "pv-akl-care", "name": "Waitākere Gardens Care Home", "type": "residential_care", "regions": ["Auckland"], "careLevels": ["rest_home", "hospital"], "dementiaSupport": false, "weeklyCostFrom": 1500, "availability": "unknown" },
+  { "id": "pv-memory-club", "name": "Memory Café Network (community)", "type": "community", "regions": ["Bay of Plenty", "Nelson", "Otago", "Auckland"], "dementiaSupport": true, "availability": "available" },
+  { "id": "pv-legal-seniors", "name": "Seniors' Legal Clinic (community law)", "type": "legal", "regions": ["Auckland", "Bay of Plenty", "Canterbury", "Otago", "Nelson", "Manawatū-Whanganui"], "availability": "available" },
+  { "id": "pv-mobility-aids", "name": "Able Living Equipment", "type": "equipment", "regions": ["Nelson", "Tasman", "Manawatū-Whanganui", "Canterbury"], "availability": "available" }
+]
