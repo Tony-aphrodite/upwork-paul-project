@@ -5,6 +5,8 @@ const nextConfig = {
   poweredByHeader: false,
   // The serverless Chromium package ships a compressed binary; it must not be bundled.
   serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
+  // Its compressed Chromium binaries are read from disk at runtime, so file tracing must be told to ship them.
+  outputFileTracingIncludes: { "/api/documents": ["./node_modules/@sparticuz/chromium/bin/**"] },
   async headers() {
     return [{ source: "/(.*)", headers: [
       { key: "X-Content-Type-Options", value: "nosniff" },
