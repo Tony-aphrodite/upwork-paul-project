@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { ActionPlan, FamilyProfile, ModuleDefinition } from "@/lib/schema";
+import { Questionnaire } from "@/lib/questionnaire/schema";
 
-const SCHEMAS = { "family-profile": FamilyProfile, "action-plan": ActionPlan, "module-definition": ModuleDefinition } as const;
+const SCHEMAS = { "family-profile": FamilyProfile, "action-plan": ActionPlan, "module-definition": ModuleDefinition, questionnaire: Questionnaire } as const;
 
 /** JSON Schema for each contract, generated from the same Zod definitions the server validates with. */
 export async function GET(_: Request, { params }: { params: Promise<{ name: string }> }) {

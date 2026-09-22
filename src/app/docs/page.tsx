@@ -3,7 +3,7 @@ import { ArrowDown } from "lucide-react";
 
 export const metadata: Metadata = { title: "Technical documentation" };
 
-const TOC: [string, string][] = [["architecture", "Recommended architecture"], ["data", "Data model"], ["modules", "Conditional modules"], ["versions", "Versions and the living plan"], ["pdf", "Document generation"], ["api", "API"], ["security", "Security and privacy"], ["integration", "Future integration"], ["stages", "MVP stages"]];
+const TOC: [string, string][] = [["architecture", "Recommended architecture"], ["questionnaire", "The questionnaire"], ["data", "Data model"], ["pilot", "Running the pilot"], ["modules", "Conditional modules"], ["versions", "Versions and the living plan"], ["pdf", "Document generation"], ["api", "API"], ["security", "Security and privacy"], ["integration", "Future integration"], ["stages", "MVP stages"]];
 
 const H = ({ id, children }: { id: string; children: React.ReactNode }) => <h2 id={id} className="scroll-mt-24 border-t border-line pt-10 text-[23px]">{children}</h2>;
 const Code = ({ children }: { children: string }) => <pre className="code mt-3 overflow-x-auto">{children}</pre>;
@@ -29,7 +29,7 @@ export default function Docs() {
         <H id="architecture">Recommended architecture</H>
         <p>The simplest thing that scales: one TypeScript codebase with a pure plan engine, Postgres for data, object storage for documents, and headless Chromium for PDFs.</p>
         <div className="mt-4 grid gap-2 text-center text-[14px] font-semibold">
-          {[["Questionnaire (later)", "sends answers"], ["Profile mapper", "answers → Family Profile (validated)"], ["Plan engine", "profile + module library + previous version → Action Plan"], ["Plan store", "immutable versions, actions table for reminders and dashboards"], ["Document service", "Action Plan → HTML/CSS template → PDF"], ["Secure storage", "encrypted PDFs, short-lived signed links"]].map(([t, d], i, a) => (
+          {[["Questionnaire", "conditional questions, held as content"], ["Profile mapper", "answers → Family Profile (validated)"], ["Plan engine", "profile + module library + previous version → Action Plan"], ["Plan store", "immutable versions, actions table for reminders and dashboards"], ["Document service", "Action Plan → HTML/CSS template → PDF"], ["Secure storage", "encrypted PDFs, short-lived signed links"]].map(([t, d], i, a) => (
             <div key={t}><div className="rounded-xl border border-line bg-white p-3"><span className="text-brand">{t}</span><span className="block text-[13px] font-normal text-muted">{d}</span></div>{i < a.length - 1 && <ArrowDown size={16} className="mx-auto mt-2 text-muted" aria-hidden="true" />}</div>
           ))}
         </div>
@@ -42,6 +42,17 @@ export default function Docs() {
           ["Hosting", "Vercel or any Node host; Chromium via @sparticuz/chromium or a container", "The demo runs on Vercel; a container is a drop-in swap if PDF volume grows"],
         ]} />
         <p className="text-[14px] text-muted">In this demo there is no database: the test console keeps fictional plans in the browser, and the server is stateless. The storage interface is the only piece that changes for production.</p>
+
+        <H id="questionnaire">The questionnaire</H>
+        <p>The questions are content, in <code className="font-mono">content/questionnaire.json</code>, validated on load against the <a className="font-semibold text-brand underline" href="/api/schemas/questionnaire">Questionnaire schema</a>. Sections and questions carry the same declarative <code className="font-mono">when</code> conditions the plan modules use, read over the answers instead of the profile, which is how &ldquo;you will only be shown questions that are relevant to you&rdquo; works without any branching code.</p>
+        <T head={["Piece", "Where", "Why it is separate"]} rows={[
+          ["Questions", "content/questionnaire.json", "Reword, reorder or add a question without a release; the version is stamped on every plan"],
+          ["Branching", "when conditions on sections and questions", "Five conditional sections today: hospital, memory, funding, village, residential care"],
+          ["Mapping", "src/lib/questionnaire/map.ts", "Answers to Family Profile in one place, so either side can change alone"],
+          ["Validation", "src/lib/questionnaire/logic.ts", "Required answers, choose-up-to-three and grid rows, used by the form and the API"],
+        ]} />
+        <p>The mapping records what it worked out from other answers and what the questionnaire never asked, and both are shown to the family and the navigator. Every raw answer is kept on the profile, so a profile can be re-derived when the mapping improves. Changing a question does not invalidate old plans: they keep the version they were made from.</p>
+        <p className="text-[14px] text-muted">The public routes under <code className="font-mono">/api/questionnaire/</code> store nothing. Answers arrive with the request, the plan and the PDF are returned to that browser, and in the pilot a navigator reviews the plan before it is sent.</p>
 
         <H id="data">Data model</H>
         <p>Three contracts, each with a JSON Schema: <a className="font-semibold text-brand underline" href="/api/schemas/family-profile">Family Profile</a>, <a className="font-semibold text-brand underline" href="/api/schemas/action-plan">Action Plan</a> and <a className="font-semibold text-brand underline" href="/api/schemas/module-definition">Module definition</a>.</p>
@@ -106,6 +117,16 @@ audit_log       (at, actor, action, plan_id, version)                           
           ["GET /api/schemas/{name}", "JSON Schema for each contract", "family-profile, action-plan, module-definition"],
           ["GET /api/library", "Modules, sources and sample providers", "Admin only"],
         ]} />
+
+        <H id="pilot">Running the pilot</H>
+        <p>The next milestone is 50 plans, so the console tracks each one through the pilot: submitted, reviewed by a navigator, changes needed, approved, sent, and then the family&rsquo;s feedback. Each plan records the questionnaire version and the module set that produced it, so feedback from the third family can be compared with the fortieth after the questions have changed.</p>
+        <T head={["Step", "Who", "What the system does"]} rows={[
+          ["Family submits", "Family", "Answers validated, profile built, plan generated, both PDFs available immediately"],
+          ["Review", "Navigator", "Plan opens in the console with urgent flags first; a note records what needs changing"],
+          ["Send", "Navigator", "Plan marked as sent, which is what counts towards the 50"],
+          ["Feedback", "Family", "Two questions, stored against the plan and its questionnaire version"],
+        ]} />
+        <p className="text-[14px] text-muted">In this demo the queue lives in the browser because there is no database. In production the same states sit on the plan record, and the review queue is a query.</p>
 
         <H id="security">Security and privacy</H>
         <ul className="list-disc space-y-1 pl-5">

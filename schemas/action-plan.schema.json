@@ -35,6 +35,10 @@
         },
         "moduleSet": {
           "type": "string"
+        },
+        "questionnaireVersion": {
+          "description": "Which version of the questionnaire produced the answers, so pilot feedback can be compared",
+          "type": "string"
         }
       },
       "required": [
@@ -64,6 +68,34 @@
         },
         "nextStep": {
           "type": "string"
+        },
+        "urgent": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": [
+                "no",
+                "possibly",
+                "yes",
+                "unsure"
+              ]
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "guidance": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "level",
+            "items",
+            "guidance"
+          ]
         }
       },
       "required": [
@@ -317,6 +349,11 @@
             "items": {
               "type": "string"
             }
+          },
+          "verifiedOn": {
+            "description": "When this provider's information was last checked; the questionnaire asks families to be told",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
           }
         },
         "required": [

@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { LogOut } from "lucide-react";
 import { Logo } from "./ui";
 
-const NAV: [string, string][] = [["Workspace", "/admin"], ["Modules", "/admin/modules"], ["Docs", "/docs"]];
+const NAV: [string, string][] = [["Workspace", "/admin"], ["Pilot", "/admin/pilot"], ["Modules", "/admin/modules"], ["Repository", "/admin/repository"], ["Docs", "/docs"]];
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();

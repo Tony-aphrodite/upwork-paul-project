@@ -21,7 +21,7 @@ function flatKeys(v: unknown, acc: Record<string, true> = {}): Record<string, tr
 }
 
 export type Library = { modules: ModuleDefinition[]; sources: Source[]; providers: Provider[]; moduleSet: string };
-export type GenerateOptions = { now?: Date; previous?: ActionPlan; reason?: string; planId?: string };
+export type GenerateOptions = { now?: Date; previous?: ActionPlan; reason?: string; planId?: string; questionnaireVersion?: string };
 
 /** Which modules apply, at what priority. Exposed separately so the decision logic can be tested and explained. */
 export function relevantModules(profile: FamilyProfile, modules: ModuleDefinition[]) {
@@ -31,19 +31,50 @@ export function relevantModules(profile: FamilyProfile, modules: ModuleDefinitio
     .sort((a, b) => rank(a.level) - rank(b.level) || a.def.order - b.def.order);
 }
 
-/** Transparent matching: every option lists which of the family's criteria it meets, misses or cannot confirm. */
+const PRICE_CEILING: Record<string, number> = { under_400k: 400_000, "400k_600k": 600_000, "600k_800k": 800_000, "800k_1m": 1_000_000, over_1m: Number.MAX_SAFE_INTEGER };
+const ACCOMMODATION: Record<string, string> = { villa: "villa", apartment: "apartment", serviced_apartment: "serviced apartment", care_suite: "care suite" };
+
+/**
+ * Transparent matching: every option lists which of the family's criteria it meets, misses or cannot confirm.
+ * Nothing is ranked because a provider pays, and a record with no verification date says so rather than looking current.
+ */
 export function matchProviders(profile: FamilyProfile, providers: Provider[], moduleId: string, types: string[]): ProviderMatch[] {
   const needsDementia = profile.cognition.diagnosis === "dementia" || profile.cognition.concern === "significant";
+  const v = profile.village;
+  const wantedTypes = (v?.accommodationTypes ?? []).filter((t) => t !== "open");
+  const ceiling = v && v.priceBand !== "unknown" && v.priceBand !== "prefer_not_to_say" ? PRICE_CEILING[v.priceBand] : undefined;
+  const wantsPets = (v?.mattersMost ?? []).some((m) => /pets/i.test(m));
+  const wantsOnSiteCare = v?.onSiteCare === "essential" || v?.onSiteCare === "important";
+  const otherPreferences = (v?.mattersMost ?? []).filter((m) => !/pets/i.test(m));
+
   return providers.filter((p) => types.includes(p.type)).map((p) => {
     const matched: string[] = [], notMatched: string[] = [], unknown: string[] = [];
     (p.regions.includes(profile.person.region) ? matched : notMatched).push(`Location: ${profile.person.region}`);
+    if (v?.locationPreference === "particular_area" && v.preferredArea) (p.town && v.preferredArea.toLowerCase().includes(p.town.toLowerCase()) ? matched : unknown).push(`Preferred area: ${v.preferredArea}`);
     if (profile.funding.assessedLevel && p.careLevels.length) (p.careLevels.includes(profile.funding.assessedLevel) ? matched : notMatched).push(`Care level: ${profile.funding.assessedLevel.replace("_", " ")}`);
     if (needsDementia && p.dementiaSupport !== undefined) (p.dementiaSupport ? matched : notMatched).push("Dementia support");
+    // The village questions only make sense for somewhere to live, so they are not held against a home-care or equipment provider.
+    const isResidence = p.type === "retirement_village" || p.type === "residential_care";
+    if (isResidence && wantedTypes.length) {
+      if (!p.accommodationTypes.length) unknown.push(`Accommodation type: ${wantedTypes.map((t) => ACCOMMODATION[t]).join(" or ")} not confirmed`);
+      else {
+        const shared = wantedTypes.filter((t) => p.accommodationTypes.includes(t as (typeof p.accommodationTypes)[number]));
+        (shared.length ? matched : notMatched).push(`Accommodation: ${(shared.length ? shared : wantedTypes).map((t) => ACCOMMODATION[t]).join(", ")}`);
+      }
+    }
+    if (isResidence && wantsOnSiteCare) (p.careLevels.length ? matched : notMatched).push(p.careLevels.length ? `Care on site: ${p.careLevels.map((c) => c.replace("_", " ")).join(", ")}` : "Higher levels of care on the same site");
+    if (isResidence && wantsPets) p.petsAllowed === undefined ? unknown.push("Pets not confirmed") : (p.petsAllowed ? matched : notMatched).push("Pets allowed");
+    if (isResidence && ceiling !== undefined) {
+      if (p.purchaseFrom === undefined) unknown.push("Purchase price not confirmed");
+      else (p.purchaseFrom <= ceiling ? matched : notMatched).push(`Entry price from $${p.purchaseFrom.toLocaleString("en-NZ")}`);
+    }
+    for (const want of otherPreferences) if (p.features.some((f) => f.toLowerCase() === want.toLowerCase())) matched.push(want);
     if (profile.future.weeklyBudget !== undefined && p.weeklyCostFrom !== undefined) (p.weeklyCostFrom <= profile.future.weeklyBudget ? matched : notMatched).push(`Budget: up to $${profile.future.weeklyBudget.toLocaleString("en-NZ")} a week`);
     if (p.availability === "available") matched.push("Availability: vacancy or capacity now");
     else if (p.availability === "waitlist") notMatched.push("Availability: waiting list");
     else unknown.push("Availability not confirmed");
-    return { providerId: p.id, name: p.name, type: p.type, moduleId, matched, notMatched, unknown };
+    if (!p.verifiedOn) unknown.push("We have not confirmed this information recently");
+    return { providerId: p.id, name: p.name, type: p.type, moduleId, matched, notMatched, unknown, verifiedOn: p.verifiedOn };
   }).filter((m) => m.matched.some((x) => x.startsWith("Location")))
     .sort((a, b) => b.matched.length - a.matched.length || a.notMatched.length - b.notMatched.length)
     .slice(0, 3);
@@ -61,6 +92,24 @@ export function diff(prev: ActionPlan | undefined, next: Pick<ActionPlan, "actio
     modulesAdded: [...nextMods].filter((m) => !prevMods.has(m)),
     modulesRemoved: [...prevMods].filter((m) => !nextMods.has(m)),
   };
+}
+
+/**
+ * Q18A: "The Action Plan should flag these separately from ordinary planning recommendations."
+ * These items are not turned into ordinary actions; they are shown first, with who to contact today.
+ */
+export function urgentBlock(profile: FamilyProfile): ActionPlan["summary"]["urgent"] {
+  const u = profile.urgent;
+  if (!u || u.level === "no" || (u.flags.length === 0 && !u.detail.trim())) return undefined;
+  const items = [...u.flags, ...(u.detail.trim() ? [u.detail.trim()] : [])];
+  const safeguarding = u.flags.some((f) => /neglect|abuse|exploitation/i.test(f));
+  const guidance = [
+    u.level === "yes" ? "You told us something may need urgent attention." : u.level === "possibly" ? "You told us something may possibly need urgent attention." : "You were not sure whether something needs urgent attention.",
+    "Please raise these with their GP or the hospital team first, and with the needs assessment service if one is involved.",
+    safeguarding ? "For concerns about neglect, abuse or exploitation, contact the Elder Abuse Response Service on 0800 32 668 65 (0800 EA NOT OK)." : "",
+    "If someone is in immediate danger or needs urgent medical attention, call 111.",
+  ].filter(Boolean).join(" ");
+  return { level: u.level, items, guidance };
 }
 
 export const nextVersion = (v?: string) => { if (!v) return "1.0"; const [a, b] = v.split(".").map(Number); return `${a}.${b + 1}`; };
@@ -136,12 +185,13 @@ export function generatePlan(profile: FamilyProfile, lib: Library, opts: Generat
     version: nextVersion(prev?.version),
     createdAt: prev?.createdAt ?? now,
     updatedAt: now,
-    generatedBy: { engine: "kinfield-rules", engineVersion: ENGINE_VERSION, moduleSet: lib.moduleSet },
+    generatedBy: { engine: "kinfield-rules", engineVersion: ENGINE_VERSION, moduleSet: lib.moduleSet, questionnaireVersion: opts.questionnaireVersion ?? prev?.generatedBy.questionnaireVersion ?? (profile.extra as { questionnaireVersion?: string })?.questionnaireVersion },
     profileHash: hash(profile),
     summary: {
       situation: situation(profile),
       attention: chosen.filter((c) => c.level === "now").map((c) => r(c.def.headline)),
       nextStep: live[0] ? `${live[0].title} (${live[0].timing.toLowerCase()})` : "Review this plan with your Kinfield navigator.",
+      urgent: urgentBlock(profile),
     },
     priorities,
     modules,

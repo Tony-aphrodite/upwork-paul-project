@@ -86,6 +86,9 @@ tr.group td { background: var(--brand-soft); font-weight: 700; color: var(--bran
 .match b { color: var(--brand); } .yes { color: var(--ahead); } .no { color: var(--now); }
 .two { columns: 2; column-gap: 8mm; } .two > * { break-inside: avoid; }
 .support { background: var(--brand-soft); border-radius: 3mm; padding: 5mm 6mm; break-inside: avoid; }
+.urgent { border: 1.2mm solid var(--now); border-radius: 3mm; padding: 4mm 5mm; margin-bottom: 6mm; break-inside: avoid; }
+.urgent h2 { color: var(--now); border: 0; margin: 0 0 2mm; }
+.urgent .guidance { background: var(--now-soft, #F8E9E6); border-radius: 2mm; padding: 3mm 4mm; margin-top: 3mm; font-weight: 600; }
 .sources li { font-size: 9pt; }
 /* On screen (the admin preview) show the document as sheets; print and PDF ignore this block. */
 @media screen {
@@ -98,6 +101,7 @@ tr.group td { background: var(--brand-soft); font-weight: 700; color: var(--bran
 .sum-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; border-bottom: 2px solid var(--brand); padding-bottom: 3mm; margin-bottom: 4mm; }
 .sum-head h1 { font-size: 17pt; }
 .facts { width: 100%; }
+.facts tr.flagged th, .facts tr.flagged td { background: var(--now-soft); color: var(--now); font-weight: 700; }
 .facts th { width: 44mm; text-transform: none; letter-spacing: 0; font-size: 9pt; color: var(--brand); border-bottom: 1px solid var(--line); vertical-align: top; }
 .facts td ul { margin: 0; padding-left: 4mm; } .facts td li { margin: 0 0 .6mm; }
 `;
@@ -135,6 +139,15 @@ export function renderPlanHtml(plan: ActionPlan, profile: FamilyProfile, opts: R
     </dl>
     <p class="conf">This plan contains personal information. Please share it only with people involved in ${esc(name)}'s care.</p>
   </div>`;
+
+  // Q18A: flagged separately, before the ordinary planning content, and never mixed into the action table.
+  const urgent = !plan.summary.urgent ? "" : `
+  <section class="urgent">
+    <h2>Things you told us may need urgent attention</h2>
+    <ul>${plan.summary.urgent.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
+    <p class="guidance">${esc(plan.summary.urgent.guidance)}</p>
+    <p class="meta">These are listed separately from the planning steps in the rest of this plan.</p>
+  </section>`;
 
   const glance = `
   <section>
@@ -184,7 +197,7 @@ export function renderPlanHtml(plan: ActionPlan, profile: FamilyProfile, opts: R
         ${when(m.whoCanHelp.length, () => `<h4>Who may be able to help</h4><p>${m.whoCanHelp.map(esc).join(" · ")}</p>`)}
         ${when(m.questions.length, () => `<h4>Questions worth asking</h4>${qFor.map((f) => `<p style="margin-bottom:1mm"><strong>${esc(f)}</strong></p><ul>${m.questions.filter((q) => q.for === f).map((q) => `<li>${esc(q.question)}</li>`).join("")}</ul>`).join("")}`)}
         ${when(m.usefulInformation.length, () => `<h4>Useful information</h4>${m.usefulInformation.map((i) => `<div class="info"><strong>${esc(i.title)}</strong>${ref(i.sourceId)}<br>${esc(i.body)}</div>`).join("")}`)}
-        ${when(matches.length, () => `<h4>Options that may suit</h4><p class="meta">Shown because they match ${esc(name)}'s criteria, not as recommendations. Sample providers for testing.</p>${matches.map((x) => `<div class="match"><b>${esc(x.name)}</b><br><span class="yes">Matches: ${x.matched.map(esc).join("; ")}</span>${x.notMatched.length ? `<br><span class="no">Does not match: ${x.notMatched.map(esc).join("; ")}</span>` : ""}${x.unknown.length ? `<br><span class="muted">To check: ${x.unknown.map(esc).join("; ")}</span>` : ""}</div>`).join("")}`)}
+        ${when(matches.length, () => `<h4>Options that may suit</h4><p class="meta">Shown because they match ${esc(name)}'s criteria, not as recommendations. Sample providers for testing.</p>${matches.map((x) => `<div class="match"><b>${esc(x.name)}</b><br><span class="yes">Matches: ${x.matched.map(esc).join("; ")}</span>${x.notMatched.length ? `<br><span class="no">Does not match: ${x.notMatched.map(esc).join("; ")}</span>` : ""}${x.unknown.length ? `<br><span class="muted">To check: ${x.unknown.map(esc).join("; ")}</span>` : ""}<br><span class="meta">${x.verifiedOn ? `Information last verified ${esc(fmtDate(x.verifiedOn))}` : "We have not verified this information recently"}</span></div>`).join("")}`)}
       </article>`;
     }).join("")}
   </section>`;
@@ -214,7 +227,7 @@ export function renderPlanHtml(plan: ActionPlan, profile: FamilyProfile, opts: R
     <p class="small muted">This plan gives general information based on what your family told us. It is not medical, legal or financial advice. Eligibility for funding and services is decided by the agencies involved, and details such as thresholds change over time. Please check with the relevant professional before making decisions.</p>
   </section>`;
 
-  const body = cover + `<main>${glance}${priorities}${told}${steps}${modules}${checklist}${support}${sources}</main>`;
+  const body = cover + `<main>${urgent}${glance}${priorities}${told}${steps}${modules}${checklist}${support}${sources}</main>`;
   return doc(`Family Action Plan, ${full}, version ${plan.version}`, body, opts.fonts, `${BRAND.name} · Family Action Plan · ${plan.planId} · v${plan.version}`);
 }
 
@@ -240,6 +253,8 @@ export function renderSummaryHtml(plan: ActionPlan, profile: FamilyProfile, opts
   ].filter(Boolean);
   const concerns = [...p.health.concerns, ...(p.cognition.concern !== "none" ? [`Memory and thinking: ${p.cognition.concern} concern${p.cognition.diagnosis === "dementia" ? " (dementia diagnosis)" : p.cognition.diagnosis === "mci" ? " (mild cognitive impairment)" : " (no diagnosis yet)"}`] : []), ...(p.support.mainCarer?.strain === "high" ? [`Main carer (${p.support.mainCarer.relationship}) reports high strain`] : [])];
   const rows: [string, string][] = [
+    ...(plan.summary.urgent ? ([["Family flagged as needing attention", li(plan.summary.urgent.items)]] as [string, string][]) : []),
+    ...(p.network?.professionals.length ? ([["Already involved", li(p.network.professionals)]] as [string, string][]) : []),
     ["Current living situation", esc(`${LIVING[p.living.situation]}, ${p.person.town}${p.partner ? `. Partner: ${p.partner.name}, ${p.partner.age}` : ""}`)],
     ["Existing support", li(p.support.current.map((s) => `${SUPPORT[s.type]}${s.hoursPerWeek ? `, ${s.hoursPerWeek} h/week` : ""}${s.funded ? " (funded)" : ""}`))],
     ["Mobility", esc(`${MOB[p.mobility.level]}${p.mobility.fearOfFalling ? "; fear of falling" : ""}`)],
@@ -258,7 +273,7 @@ export function renderSummaryHtml(plan: ActionPlan, profile: FamilyProfile, opts
     <div><div class="label">Professional summary</div><h1>${esc(full)}, ${p.person.age}</h1><p class="muted" style="margin:1mm 0 0">${esc(p.person.town)} · Family contact: ${esc(p.preparedFor.name)}${p.preparedFor.relationship === "self" ? "" : ` (${esc(p.preparedFor.relationship)})`}</p></div>
     <div class="brand" style="font-size:9pt">${LOGO.replace('width="36" height="36"', 'width="26" height="26"')}<span>${BRAND.name}</span></div>
   </header>
-  <table class="facts"><tbody>${rows.map(([k, v]) => `<tr><th scope="row">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>
+  <table class="facts"><tbody>${rows.map(([k, v]) => `<tr${k.startsWith("Family flagged") ? ' class="flagged"' : ""}><th scope="row">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table>
   <p class="small muted" style="margin-top:4mm">Summarised from Family Action Plan ${esc(plan.planId)}, version ${esc(plan.version)} (${esc(fmtDate(plan.updatedAt))}). Shared with the family's consent. Information is as reported by the family and has not been clinically verified. Contact ${BRAND.name}: ${BRAND.phone}.</p>`;
   return doc(`Professional summary, ${full}`, body, opts.fonts, `${BRAND.name} · Professional summary · ${plan.planId} · v${plan.version}`, true);
 }

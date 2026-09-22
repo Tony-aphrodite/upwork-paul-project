@@ -8,8 +8,16 @@ import type { ActionPlan, FamilyProfile } from "./schema";
  * no database. Production swaps this for the PlanRepository described in the docs (Postgres, encrypted at rest):
  * the same shape, one record per plan with immutable versions.
  */
-export type PlanRecord = { planId: string; caseId?: string; profile: FamilyProfile; versions: ActionPlan[]; working: ActionPlan };
+/** Pilot state. The brief's next milestone is 50 real plans, so each plan carries where it is in that process. */
+export type PilotStatus = "draft" | "awaiting_review" | "changes_needed" | "approved" | "sent";
+export type PilotFeedback = { useful: "very" | "somewhat" | "not_really"; didSomething: boolean; comment: string; at: string };
+export type Pilot = { status: PilotStatus; submittedAt?: string; reviewedBy?: string; reviewedAt?: string; sentAt?: string; reviewNote?: string; feedback?: PilotFeedback };
+
+export type PlanRecord = { planId: string; caseId?: string; profile: FamilyProfile; versions: ActionPlan[]; working: ActionPlan; source?: "console" | "questionnaire"; pilot?: Pilot };
 export type Workspace = { plans: Record<string, PlanRecord>; customModules: unknown[] };
+
+export const PILOT_TARGET = 50;
+export const PILOT_LABEL: Record<PilotStatus, string> = { draft: "Draft", awaiting_review: "Awaiting navigator review", changes_needed: "Changes needed", approved: "Approved", sent: "Sent to the family" };
 
 const KEY = "kinfield-workspace-v1";
 const EMPTY: Workspace = { plans: {}, customModules: [] };
@@ -31,6 +39,11 @@ export const workspace = {
   get: load,
   update(fn: (w: Workspace) => Workspace) { save(fn(load())); },
   upsert(rec: PlanRecord) { save({ ...load(), plans: { ...load().plans, [rec.planId]: rec } }); },
+  setPilot(planId: string, patch: Partial<Pilot>) {
+    const rec = load().plans[planId];
+    if (!rec) return;
+    this.upsert({ ...rec, pilot: { status: "draft", ...rec.pilot, ...patch } });
+  },
   remove(planId: string) { const { [planId]: _, ...rest } = load().plans; save({ ...load(), plans: rest }); },
   clear() { save(EMPTY); },
 };

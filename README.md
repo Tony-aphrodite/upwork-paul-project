@@ -5,8 +5,11 @@ A first version of a **living Family Action Plan system** for an ageing-navigati
 Everything here is fictional: the families, the provider list and the name "Kinfield Navigator". The phone number is a placeholder.
 
 ```
-Questionnaire data → Family Profile (validated) → Action Plan (structured, versioned) → HTML/CSS template → PDF
+Conditional questionnaire → Family Profile (validated) → Action Plan (structured, versioned) → HTML/CSS template → PDF
 ```
+
+A family fills in the questionnaire at `/questionnaire` (66 questions, five conditional sections, nothing stored on a server),
+gets their plan and both PDFs at the end, and the plan joins the navigator's pilot queue for review before it is sent.
 
 ## Run it
 
@@ -14,7 +17,7 @@ Questionnaire data → Family Profile (validated) → Action Plan (structured, v
 npm install
 npm run dev                                   # http://localhost:3000, demo password: navigator-demo
 CHROME_PATH=/usr/bin/google-chrome npm run dev   # local PDF generation uses an installed Chrome
-npm test                                      # 39 tests (the PDF test runs when CHROME_PATH is set)
+npm test                                      # 69 tests (the PDF test runs when CHROME_PATH is set)
 npm run schemas                               # writes schemas/*.schema.json
 CHROME_PATH=... npm run samples               # renders both PDFs for every test case into samples/
 ```
@@ -27,13 +30,18 @@ On Vercel, PDFs use `@sparticuz/chromium`. Set `AUTH_SECRET` (and optionally `AD
 | --- | --- |
 | `src/lib/schema.ts` | The contracts (Zod): Family Profile, Action Plan, Action, Module definition, Provider. Exported as JSON Schema in `schemas/` and at `/api/schemas/{name}` |
 | `src/lib/engine/` | The plan engine: pure functions, no I/O. Conditions, templating, "what you told us", generation, versioning, diffs, transparent provider matching |
+| `content/questionnaire.json` | The family questionnaire as content: sections, questions, options and the conditions that decide which are shown |
+| `src/lib/questionnaire/` | Questionnaire schema, the conditional logic and validation, and the answers → Family Profile mapping |
 | `content/modules.json` | The 18 modules from the brief, as data: when each applies, its priority rules, text and actions |
 | `content/sources.json` | Sources cited in the plan, with review dates |
 | `content/cases.json` | Seven fictional families: the six from the brief plus a long-content stress case |
-| `content/providers.json` | Sample providers for the matching demo (fictional) |
+| `content/providers.json` | Sample providers for the matching demo (fictional), including accommodation, pets, entry price and when each record was last verified |
 | `src/doc/templates.ts` | The two document templates (HTML/CSS), shared by the browser preview and the server PDF |
 | `src/doc/pdf.ts` | Headless Chromium: HTML in, PDF bytes out, nothing written to disk |
-| `src/app/api/` | Sign-in, generate, validate, documents, schemas, library |
+| `src/app/api/` | Sign-in, generate, validate, documents, schemas, library, and the public questionnaire routes (plan and PDF, stateless) |
+| `src/app/questionnaire/` | The family questionnaire and the plan it produces |
+| `src/app/admin/pilot/` | The 50-plan pilot: review queue, approve or request changes, mark as sent, and what families said |
+| `src/app/admin/repository/` | The repository behind the plans: questions, sources and provider records with their review dates |
 | `src/app/admin/` | The test console: load cases, paste or upload data, edit progress, change the profile, regenerate, preview, download, compare versions, add modules |
 | `src/app/docs/` | Technical documentation for future integration |
 | `samples/` | Rendered PDFs for all seven test cases |
@@ -41,6 +49,9 @@ On Vercel, PDFs use `@sparticuz/chromium`. Set `AUTH_SECRET` (and optionally `AD
 ## Design decisions
 
 - **The plan is data; the PDF is a view.** Each action is its own record with a stable key, priority, timing, owner, status, source and notes. Any system can read the plan as JSON; the PDF is regenerated from it at any time.
+- **The questions are content too.** Sections and questions live in `content/questionnaire.json` with the same declarative conditions the modules use, read over the answers. Rewording or adding a question is an edit and a new version; every plan records the questionnaire version it came from, so pilot feedback can be compared across changes.
+- **Nothing is invented in the mapping.** Values worked out from other answers are listed as inferred, and anything the questionnaire never asks is recorded as not asked instead of defaulting to a concern. Every raw answer is kept on the profile, so a profile can be re-derived when the mapping improves.
+- **Urgent concerns are kept apart.** Q18A answers are shown first in the plan, the PDF and the professional summary, with who to contact today, and are never mixed into the ordinary action list.
 - **Modules are content, not code.** Conditions use a small safe vocabulary (`eq`, `in`, `gte`, `truthy`, … combined with `all`, `any`, `not`). A module that does not apply never appears. New modules are added as records, validated by schema, with no rebuild; the admin Modules page demonstrates this.
 - **A living plan.** Regenerating after a profile change passes the previous version to the engine: status, notes and owners carry over by key, actions that no longer apply are kept as "No longer required", and navigator, family or AI actions are never dropped. Every version is immutable and records what changed.
 - **Transparent options.** Where providers are shown, each lists the criteria it matches, does not match, or cannot confirm. There is no hidden ranking or "recommended" label.
@@ -54,6 +65,7 @@ On Vercel, PDFs use `@sparticuz/chromium`. Set `AUTH_SECRET` (and optionally `AD
 | --- | --- |
 | `tests/engine.test.ts` | Schemas and content integrity (every condition field exists in the profile schema, every cited source exists, no unfilled placeholders), module selection and priority for each test family, versioning and carry-over, provider transparency, adding a module as data |
 | `tests/documents.test.ts` | Escaping, omitted sections, cover details, every action in the table and checklist, the summary's required items; with Chrome: PDFs for every case, summaries within 2 pages, and no element wider than the page |
+| `tests/questionnaire.test.ts` | The questionnaire as valid content, conditional sections appearing and disappearing, pruning hidden answers, "choose up to three" and grid validation, the mapping into a valid profile (including what it infers and what it never asks), the urgent block, and village matching against the family's own criteria |
 | `tests/api.test.ts` | Generate, validate and schema endpoints, input limits, the middleware guard, sign-in and rate limiting, log redaction |
 
 Five core rules (escaping, status carry-over, module conditions, the auth guard, keeping retired actions) were each broken on purpose; the suite failed every time.

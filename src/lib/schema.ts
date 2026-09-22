@@ -95,6 +95,56 @@ export const FamilyProfile = z.object({
   }),
   goals: z.array(z.string()).default([]),
   notes: z.string().default(""),
+
+  /* Added with the September questionnaire. Every group is optional so profiles written against schema 1.0 still validate. */
+  intake: z.object({
+    completedBy: z.enum(["self", "family_member", "partner", "friend", "helping_person", "helping_family", "other"]),
+    involvement: z.enum(["active", "some", "prefers_family", "reluctant", "difficulty", "unable", "unsure"]),
+    reasonNow: z.enum(["planning_ahead", "noticed_changes", "needs_more_help", "increasingly_concerned", "something_changed", "major_event", "important_decision", "struggling", "not_sure"]),
+    deadline: z.enum(["none", "days", "weeks", "months", "no_deadline", "unsure"]).default("none"),
+    deadlineDetail: z.string().default(""),
+    worry: z.string().default("").describe("Q10, in the family's own words"),
+  }).optional(),
+  everyday: z.object({
+    needsHelpWith: z.array(z.string()).default([]).describe("Q12 everyday activities"),
+    changeSinceSixMonths: z.enum(["same", "slightly_more", "noticeably_more", "significantly_more", "varies", "unsure"]).default("same"),
+    supportSufficient: z.enum(["yes", "mostly", "probably_not", "definitely_not", "none", "unsure"]).default("unsure"),
+    carerPressure: z.enum(["significant", "some", "possibly", "no", "unsure"]).default("unsure"),
+  }).optional(),
+  /** Q18/Q18A. The questionnaire asks for these to be flagged separately from ordinary planning recommendations. */
+  urgent: z.object({
+    level: z.enum(["no", "possibly", "yes", "unsure"]).default("no"),
+    flags: z.array(z.string()).default([]),
+    detail: z.string().default(""),
+  }).optional(),
+  village: z.object({
+    locationPreference: z.enum(["current_area", "near_family", "particular_area", "flexible", "unsure"]).default("unsure"),
+    preferredArea: z.string().default(""),
+    accommodationTypes: z.array(z.enum(["villa", "apartment", "serviced_apartment", "care_suite", "open"])).default([]),
+    independence: z.enum(["fully_independent", "support_nearby", "some_help", "significant_needs", "increasing", "unsure"]).default("unsure"),
+    onSiteCare: z.enum(["essential", "important", "nice_to_have", "not_important", "unsure"]).default("unsure"),
+    mattersMost: z.array(z.string()).default([]).describe("RV5, including pets, meals, transport and dementia care"),
+    priceBand: z.enum(["under_400k", "400k_600k", "600k_800k", "800k_1m", "over_1m", "unknown", "prefer_not_to_say"]).default("unknown"),
+    timing: z.enum(["asap", "within_3_months", "3_6_months", "6_12_months", "over_a_year", "exploring", "unsure"]).default("exploring"),
+  }).optional(),
+  residentialCare: z.object({
+    stage: z.enum(["future_only", "wondering", "professional_suggested", "assessment_identified", "actively_looking", "urgent", "unsure"]).default("future_only"),
+    assessedLevel: z.enum(["rest_home", "hospital", "dementia", "psychogeriatric", "other", "none", "unsure"]).default("none").describe("Recorded only when a formal assessment identified it; Ageing Navigator never sets this itself"),
+    helpWanted: z.array(z.string()).default([]),
+  }).optional(),
+  network: z.object({
+    professionals: z.array(z.string()).default([]).describe("Q29, so the plan does not send families back to people already involved"),
+    alreadyTried: z.string().default(""),
+  }).optional(),
+  decisions: z.object({
+    organiser: z.enum(["older_person", "you", "partner", "other_family", "shared", "professional", "nobody", "unsure"]).default("unsure").describe("Q28, used as the default owner on new actions"),
+    agreement: z.enum(["yes", "mostly", "some_differences", "significant_disagreement", "not_discussed", "unsure"]).default("unsure"),
+    distance: z.enum(["no", "elsewhere_nz", "overseas", "several_elsewhere", "other"]).default("no"),
+    responsibilityToday: z.enum(["older_person", "partner", "you", "other_family", "shared", "nobody", "other", "unsure"]).default("unsure"),
+  }).optional(),
+  barriers: z.array(z.string()).default([]).describe("Q31, what is making it hardest to move forward"),
+  mostUseful: z.array(z.string()).max(3).default([]).describe("Q32, at most three"),
+
   extra: z.record(z.string(), z.unknown()).default({}).describe("New questionnaire fields land here until the schema adds them"),
 });
 export type FamilyProfile = z.infer<typeof FamilyProfile>;
@@ -149,6 +199,7 @@ export const ProviderMatch = z.object({
   matched: z.array(z.string()),
   notMatched: z.array(z.string()),
   unknown: z.array(z.string()),
+  verifiedOn: isoDate.optional().describe("When this provider's information was last checked; the questionnaire asks families to be told"),
 });
 export type ProviderMatch = z.infer<typeof ProviderMatch>;
 
@@ -171,9 +222,15 @@ export const ActionPlan = z.object({
   version: z.string().regex(/^\d+\.\d+$/),
   createdAt: z.string(),
   updatedAt: z.string(),
-  generatedBy: z.object({ engine: z.string(), engineVersion: z.string(), moduleSet: z.string() }),
+  generatedBy: z.object({ engine: z.string(), engineVersion: z.string(), moduleSet: z.string(), questionnaireVersion: z.string().optional().describe("Which version of the questionnaire produced the answers, so pilot feedback can be compared") }),
   profileHash: z.string().describe("Fingerprint of the profile this version was generated from"),
-  summary: z.object({ situation: z.array(z.string()), attention: z.array(z.string()), nextStep: z.string() }),
+  summary: z.object({
+    situation: z.array(z.string()),
+    attention: z.array(z.string()),
+    nextStep: z.string(),
+    /** Q18A items, kept apart from ordinary planning recommendations as the questionnaire requires. */
+    urgent: z.object({ level: z.enum(["no", "possibly", "yes", "unsure"]), items: z.array(z.string()), guidance: z.string() }).optional(),
+  }),
   priorities: z.array(z.object({ moduleId: z.string(), title: z.string(), why: z.string(), level: Priority })).max(5),
   modules: z.array(PlanModule),
   actions: z.array(Action),
@@ -229,5 +286,12 @@ export const Provider = z.object({
   dementiaSupport: z.boolean().optional(),
   weeklyCostFrom: z.number().optional(),
   availability: z.enum(["available", "waitlist", "unknown"]),
+  /* Added for the village questions (RV1 to RV7). Anything left out is reported as "not confirmed" rather than assumed. */
+  accommodationTypes: z.array(z.enum(["villa", "apartment", "serviced_apartment", "care_suite"])).default([]),
+  petsAllowed: z.boolean().optional(),
+  purchaseFrom: z.number().optional().describe("Indicative entry price for a villa or apartment, in NZD"),
+  features: z.array(z.string()).default([]).describe("Matched against RV5, e.g. meals, transport, social activities, garden"),
+  town: z.string().optional(),
+  verifiedOn: isoDate.optional().describe("When a navigator last checked this record"),
 });
 export type Provider = z.infer<typeof Provider>;

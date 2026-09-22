@@ -2,9 +2,10 @@ import Link from "next/link";
 import { ArrowRight, Database, FileText, History, Layers, ShieldCheck, SlidersHorizontal } from "lucide-react";
 import { Logo } from "@/components/ui";
 
-const FLOW = ["Questionnaire data", "Structured Family Profile", "Structured Action Plan", "Reusable HTML/CSS template", "Professional PDF"];
+const FLOW = ["Conditional questionnaire", "Structured Family Profile", "Structured Action Plan", "Reusable HTML/CSS template", "Professional PDF"];
 const POINTS: [typeof Database, string, string][] = [
   [Database, "Plans are data, not documents", "Every action is its own record with priority, timing, owner and status. The PDF is just one view of it."],
+  [SlidersHorizontal, "The questionnaire is data too", "Questions, options and the \u201conly show this if\u201d rules live in a versioned file. Reword a question without a release, and every plan records the version it came from."],
   [Layers, "Modules switch on by rule", "Eighteen topic modules, each with conditions written as data. Irrelevant topics never appear, and new ones need no code."],
   [History, "A living plan", "Update the profile or the progress and a new version is created. Status and notes carry over; nothing starts from scratch."],
   [FileText, "Two documents, one source", "A full Family Action Plan and a one-to-two page Professional Summary, both generated from the same record."],
@@ -23,7 +24,8 @@ export default function Landing() {
         <ol className="mt-10 flex flex-wrap items-center gap-2 text-[14px] font-semibold">
           {FLOW.map((f, i) => <li key={f} className="flex items-center gap-2"><span className="rounded-lg bg-white px-3 py-2 text-brand shadow-card">{f}</span>{i < FLOW.length - 1 && <ArrowRight size={16} className="text-muted" aria-hidden="true" />}</li>)}
         </ol>
-        <div className="mt-10 flex flex-wrap gap-3"><Link href="/login" className="btn-primary !min-h-[46px] !px-5">Open the test console<ArrowRight size={17} aria-hidden="true" /></Link><Link href="/docs" className="btn-outline !min-h-[46px] !px-5">Read the technical docs</Link></div>
+        <div className="mt-10 flex flex-wrap gap-3"><Link href="/questionnaire" className="btn-primary !min-h-[46px] !px-5">Fill in the family questionnaire<ArrowRight size={17} aria-hidden="true" /></Link><Link href="/login" className="btn-outline !min-h-[46px] !px-5">Open the test console</Link><Link href="/docs" className="btn-outline !min-h-[46px] !px-5">Read the technical docs</Link></div>
+        <p className="mt-3 text-[13.5px] text-muted">The questionnaire is the family&rsquo;s way in: {" "}66 questions, five conditional sections, and a plan with both PDFs at the end. No answers are stored on a server.</p>
       </section>
       <section className="border-t border-line bg-white py-14">
         <div className="wrap grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
