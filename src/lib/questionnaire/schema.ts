@@ -8,7 +8,12 @@ import { Condition } from "../schema";
  */
 
 export const QUESTION_TYPES = ["single", "multi", "short", "long", "tri_grid"] as const;
-export const Option = z.object({ value: z.string().min(1), label: z.string().min(1) });
+export const Option = z.object({
+  value: z.string().min(1),
+  label: z.string().min(1),
+  /** Multi-select only: choosing this option clears the others, as "None of these" or "Not sure" should. */
+  exclusive: z.boolean().optional(),
+});
 export type Option = z.infer<typeof Option>;
 
 export const QuestionDefinition = z.object({
@@ -21,6 +26,13 @@ export const QuestionDefinition = z.object({
   /** Multi-select only: the most options a family may choose, as Q32 ("choose up to three") requires. */
   max: z.number().int().positive().optional(),
   options: z.array(Option).default([]),
+  /**
+   * Standard answers for people who do not know (section 11 of the build brief). The content importer appends them to
+   * the options with standard labels, marked exclusive, so the form and the rules treat them like any other option.
+   */
+  unsure: z.array(z.enum(["unsure", "dont_know", "not_applicable"])).default([]),
+  /** Which pathway a question belongs to, for the content team's reference. It has no effect on the flow. */
+  pathway: z.string().optional(),
   /** tri_grid only: one row per document, each answered with the same options. */
   items: z.array(z.object({ id: z.string().regex(/^[a-z0-9_]+$/), label: z.string() })).default([]),
   when: Condition.optional().describe("Evaluated against the answers given so far"),
@@ -28,6 +40,9 @@ export const QuestionDefinition = z.object({
   if ((q.type === "single" || q.type === "multi" || q.type === "tri_grid") && q.options.length < 2) ctx.addIssue({ code: "custom", message: `${q.id}: ${q.type} questions need at least two options`, path: ["options"] });
   if (q.type === "tri_grid" && q.items.length < 1) ctx.addIssue({ code: "custom", message: `${q.id}: a grid needs at least one row`, path: ["items"] });
   if (q.max !== undefined && q.type !== "multi") ctx.addIssue({ code: "custom", message: `${q.id}: max only applies to multi-select questions`, path: ["max"] });
+  const values = q.options.map((o) => o.value);
+  const dup = values.find((v, i) => values.indexOf(v) !== i);
+  if (dup) ctx.addIssue({ code: "custom", message: `${q.id}: the option "${dup}" appears twice`, path: ["options"] });
 });
 export type QuestionDefinition = z.infer<typeof QuestionDefinition>;
 
