@@ -1,7 +1,8 @@
 /**
  * Database migrations, in order. Each runs once, inside a transaction, and is recorded in schema_migrations.
  * They are TypeScript strings rather than .sql files so the same list is available to the migrate script, the local
- * database and the tests without reading files at runtime. Never edit a migration that has run in production: add one.
+ * database and the tests without reading files at runtime. Once a migration has run in production (none has yet,
+ * as of 2026-10-01), never edit it: add a new one.
  *
  * Row-level security is switched on for every table with no policies. The app connects as the table owner, which
  * is not affected; the hosting provider's public API roles can then read nothing.
@@ -18,12 +19,16 @@ create table navigators (
   setup_token_hash text unique,
   setup_expires_at timestamptz,
   disabled_at timestamptz,
+  -- Sessions signed before this moment are refused: set on password reset and on disabling.
+  sessions_valid_after timestamptz not null default now(),
   created_at timestamptz not null default now()
 );
 
 create table cases (
   id uuid primary key default gen_random_uuid(),
   reference text not null unique,
+  -- Chosen by the family's browser once per questionnaire, so a retried submission finds the case it already made.
+  submission_id text unique,
   status text not null default 'submitted' check (status in ('submitted', 'in_review', 'released', 'closed')),
   version integer not null default 1,
   submitted_at timestamptz not null default now(),
@@ -105,6 +110,7 @@ alter table family_links enable row level security;
 alter table implementation_requests enable row level security;
 alter table events enable row level security;
 alter table rate_limits enable row level security;
+alter table schema_migrations enable row level security;
 `,
   },
 ];

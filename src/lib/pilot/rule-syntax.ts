@@ -1,4 +1,4 @@
-import type { Condition } from "../schema";
+import type { Condition } from "../rules/condition";
 import type { QuestionDefinition } from "../questionnaire/schema";
 
 /**
@@ -22,7 +22,8 @@ import type { QuestionDefinition } from "../questionnaire/schema";
 export class RuleError extends Error {}
 
 type Tok = { kind: "word" | "comma" | "open" | "close"; text: string; at: number };
-const KEYWORDS = new Set(["and", "or", "not", "is", "in", "has", "any", "all", "answered"]);
+/** Words with a meaning in conditions; option values and question IDs cannot be one of these. */
+export const KEYWORDS = new Set(["and", "or", "not", "is", "in", "has", "any", "all", "answered"]);
 
 function tokenize(src: string): Tok[] {
   const out: Tok[] = [];
@@ -118,13 +119,16 @@ class Parser {
       throw new RuleError(`After "${field} not", write "answered" or "in".`);
     }
     if (this.take("is")) {
-      if (this.take("not")) return { field, op: "neq", value: this.checked(q, field, "is", [this.value()])[0] };
-      return { field, op: "eq", value: this.checked(q, field, "is", [this.value()])[0] };
+      const negate = this.take("not");
+      const value = this.checked(q, field, "is", [this.value()])[0];
+      if (this.peek()?.kind === "comma") throw new RuleError(`"is" takes one option. For several, write "${field} ${negate ? "not in" : "in"} a, b".`);
+      return { field, op: negate ? "neq" : "eq", value };
     }
     if (this.take("in")) return { field, op: "in", value: this.checked(q, field, "in", this.values()) };
     if (this.take("has")) {
       const mode = this.take("any") ? "any" : this.take("all") ? "all" : "one";
       const vals = this.checked(q, field, "has", mode === "one" ? [this.value()] : this.values());
+      if (mode === "one" && this.peek()?.kind === "comma") throw new RuleError(`For several options write "${field} has any a, b" (at least one) or "${field} has all a, b" (every one).`);
       const parts: Condition[] = vals.map((value) => ({ field, op: "includes", value }));
       if (parts.length === 1) return parts[0];
       return mode === "all" ? { all: parts } : { any: parts };

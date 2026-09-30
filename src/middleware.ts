@@ -8,7 +8,7 @@ import { SESSION_COOKIE, verifySession } from "@/lib/auth";
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (await verifySession(req.cookies.get(SESSION_COOKIE)?.value)) return NextResponse.next();
-  if (pathname.startsWith("/api/")) return NextResponse.json({ error: "Sign in required" }, { status: 401 });
+  if (pathname.startsWith("/api/")) return NextResponse.json({ error: "Sign in required" }, { status: 401, headers: { "Cache-Control": "no-store" } });
   const url = req.nextUrl.clone();
   url.pathname = "/login";
   url.search = `?next=${encodeURIComponent(pathname)}`;

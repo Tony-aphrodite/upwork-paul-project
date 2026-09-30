@@ -28,7 +28,7 @@ export default async function PlanPage({ params }: { params: Promise<{ token: st
   }
   const plan = c.releasedPlan;
   return (
-    <FamilyShell notice={content.texts.notice}>
+    <FamilyShell>
       <div className="mx-auto max-w-3xl">
         {plan.contentStatus === "draft" && <p className="mb-4 rounded-lg bg-soon-soft p-3 text-[13.5px] text-soon"><strong>Test version.</strong> This plan uses draft wording that Ageing Navigator has not yet approved.</p>}
         <p className="eyebrow">{BRAND.planTitle}</p>
@@ -43,7 +43,7 @@ export default async function PlanPage({ params }: { params: Promise<{ token: st
           <h2 className="text-[22px]">Ask for help with this plan</h2>
           <p className="mt-2 text-[15px]">{plan.cta}</p>
           <p className="mt-2 text-[14px] text-muted">{content.texts.request_intro}</p>
-          <RequestForm token={token} services={plan.services} />
+          <RequestForm token={token} services={plan.services} doneText={content.texts.request_done} />
         </section>
 
         <section className="card mt-6 p-5 sm:p-7">

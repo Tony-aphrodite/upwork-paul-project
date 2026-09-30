@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Condition } from "../schema";
+import { Condition } from "../rules/condition";
 
 /**
  * The questionnaire is content, not code. Questions, options, help text and the "only show this if" rules all live in
@@ -33,6 +33,8 @@ export const QuestionDefinition = z.object({
   unsure: z.array(z.enum(["unsure", "dont_know", "not_applicable"])).default([]),
   /** Which pathway a question belongs to, for the content team's reference. It has no effect on the flow. */
   pathway: z.string().optional(),
+  /** The content team's notes (Questions tab), kept so they survive an export and import. Never shown to families. */
+  notes: z.string().optional(),
   /** tri_grid only: one row per document, each answered with the same options. */
   items: z.array(z.object({ id: z.string().regex(/^[a-z0-9_]+$/), label: z.string() })).default([]),
   when: Condition.optional().describe("Evaluated against the answers given so far"),

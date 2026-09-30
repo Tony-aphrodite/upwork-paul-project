@@ -11,13 +11,14 @@ import { FAMILIES } from "./pilot-families";
 const content = PilotContent.parse(contentJson);
 const NOW = new Date("2026-10-01T09:00:00Z");
 const planFor = (i: number) => generatePilotPlan(content, FAMILIES[i].answers, FAMILIES[i].person, { now: NOW });
+const doc = (plan: ReturnType<typeof planFor>, issuedOn = NOW) => renderPlanDocument(plan, { fonts: { kind: "url", base: "/fonts" }, issuedOn, reference: "AN-TEST01", coverNote: content.texts.plan_cover_note });
 
 describe("the plan renderer", () => {
   it("escapes everything a navigator or family typed", () => {
     const plan = planFor(0);
     plan.actions[0].title = '<script>alert("x")</script>';
     plan.personName = "<b>Peggy</b>";
-    const html = renderPlanSections(plan, { mode: "web" }) + renderPlanDocument(plan, { fonts: { kind: "url", base: "/fonts" }, issuedOn: NOW, reference: "AN-TEST01" });
+    const html = renderPlanSections(plan, { mode: "web" }) + doc(plan);
     expect(html).not.toContain("<script>");
     expect(html).not.toContain("<b>Peggy</b>");
     expect(html).toContain("&lt;script&gt;");
@@ -43,8 +44,26 @@ describe("the plan renderer", () => {
   });
 
   it("puts the date on the New Zealand calendar", () => {
-    const html = renderPlanDocument(planFor(0), { fonts: { kind: "url", base: "/fonts" }, issuedOn: new Date("2026-09-30T22:30:00Z"), reference: "AN-TEST01" });
-    expect(html).toContain("1 October 2026");
+    expect(doc(planFor(0), new Date("2026-09-30T22:30:00Z"))).toContain("1 October 2026");
+  });
+
+  it("writes the PDF footer as CSS text, so names with quotes or ampersands print as typed", () => {
+    const plan = planFor(0);
+    plan.personName = `O'Brien & "Co"`;
+    const html = doc(plan);
+    expect(html).toContain(`content: "Ageing Navigator · O'Brien & \\"Co\\" · AN-TEST01"`);
+    expect(html).not.toMatch(/content: "[^"]*&amp;/);
+  });
+
+  it("puts no private link in the PDF, and leaves out texts a navigator cleared", () => {
+    const plan = planFor(0);
+    plan.intro = "";
+    plan.cta = " ";
+    const html = doc(plan);
+    expect(html).not.toContain("/p/");
+    expect(html).toContain("use the link in your email");
+    expect(html).not.toMatch(/<p>\s*<\/p>/);
+    expect(html).not.toContain('class="intro"');
   });
 });
 
@@ -62,7 +81,7 @@ describe("the CSV export", () => {
 describe.skipIf(!process.env.CHROME_PATH)("the PDF, with Chrome", () => {
   afterAll(() => closeBrowser());
   it.each(FAMILIES.map((f, i) => [f.id, i] as const))("renders %s on a sensible number of pages", async (_, i) => {
-    const pdf = await htmlToPdf(renderPlanDocument(planFor(i), { fonts: { kind: "inline", files: INLINE_FONTS }, issuedOn: NOW, reference: "AN-TEST01" }));
+    const pdf = await htmlToPdf(renderPlanDocument(planFor(i), { fonts: { kind: "inline", files: INLINE_FONTS }, issuedOn: NOW, reference: "AN-TEST01", coverNote: content.texts.plan_cover_note }));
     const pages = pageCount(pdf);
     expect(pages).toBeGreaterThanOrEqual(3);
     expect(pages).toBeLessThanOrEqual(10);

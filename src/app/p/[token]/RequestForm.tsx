@@ -3,10 +3,12 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { CheckCircle2, Loader2 } from "lucide-react";
+import { LIMITS, isPhone } from "@/lib/validate";
 
 type Service = { id: string; label: string; suggested: boolean };
 
-export function RequestForm({ token, services }: { token: string; services: Service[] }) {
+/** "Would you like Ageing Navigator to organise this?" The services that fit the plan's pathways start ticked. */
+export function RequestForm({ token, services, doneText }: { token: string; services: Service[]; doneText: string }) {
   const [chosen, setChosen] = useState<string[]>(services.filter((s) => s.suggested).map((s) => s.id));
   const [method, setMethod] = useState<"phone" | "email">("phone");
   const [phone, setPhone] = useState("");
@@ -15,16 +17,20 @@ export function RequestForm({ token, services }: { token: string; services: Serv
   const [state, setState] = useState<"idle" | "busy" | "sent">("idle");
   const [error, setError] = useState("");
 
-  if (state === "sent") return <p role="status" className="mt-5 flex items-start gap-2 rounded-lg bg-ahead-soft p-4 text-[15px] text-ahead"><CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden="true" />Thank you. A navigator will contact you to talk it through.</p>;
+  if (state === "sent") return <p role="status" className="mt-5 flex items-start gap-2 rounded-lg bg-ahead-soft p-4 text-[15px] text-ahead"><CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden="true" />{doneText}</p>;
 
   const send = async () => {
     setError("");
-    if (method === "phone" && phone.replace(/\D/g, "").length < 6) { setError("Please give a phone number, or choose email."); return; }
+    if (method === "phone" && !isPhone(phone)) { setError("Please give a phone number (numbers only, at least six digits), or choose email."); document.getElementById("rq-phone")?.focus(); return; }
     setState("busy");
-    const res = await fetch(`/api/p/${token}/request`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ services: chosen, contactMethod: method, phone, bestTime, message }) }).catch(() => null);
+    const res = await fetch(`/api/p/${token}/request`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ services: chosen, contactMethod: method, ...(method === "phone" ? { phone } : {}), bestTime, message }),
+    }).catch(() => null);
     if (res?.ok) { setState("sent"); return; }
     setState("idle");
-    setError((await res?.json().catch(() => null))?.error ?? "We could not send this. Please try again.");
+    const json = await res?.json().catch(() => null);
+    setError(json?.details?.[0]?.message ?? json?.error ?? "We could not send this. Please check your connection and try again.");
   };
 
   return (
@@ -52,11 +58,11 @@ export function RequestForm({ token, services }: { token: string; services: Serv
           ))}
         </div>
       </fieldset>
-      {method === "phone" && <div><label htmlFor="rq-phone" className="label !text-[15px]">Phone number</label><input id="rq-phone" type="tel" inputMode="tel" autoComplete="tel" className="field max-w-xs !text-[15px]" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>}
-      <div><label htmlFor="rq-time" className="label !text-[15px]">Best time to reach you (optional)</label><input id="rq-time" className="field max-w-md !text-[15px]" maxLength={200} value={bestTime} onChange={(e) => setBestTime(e.target.value)} /></div>
-      <div><label htmlFor="rq-msg" className="label !text-[15px]">Anything we should know first? (optional)</label><textarea id="rq-msg" rows={3} maxLength={2000} className="field !text-[15px]" value={message} onChange={(e) => setMessage(e.target.value)} /></div>
+      {method === "phone" && <div><label htmlFor="rq-phone" className="label !text-[15px]">Phone number</label><input id="rq-phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={LIMITS.phone} className="field max-w-xs !text-[15px]" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>}
+      <div><label htmlFor="rq-time" className="label !text-[15px]">Best time to reach you (optional)</label><input id="rq-time" className="field max-w-md !text-[15px]" maxLength={LIMITS.bestTime} value={bestTime} onChange={(e) => setBestTime(e.target.value)} /></div>
+      <div><label htmlFor="rq-msg" className="label !text-[15px]">Anything we should know first? (optional)</label><textarea id="rq-msg" rows={3} maxLength={LIMITS.message} className="field !text-[15px]" value={message} onChange={(e) => setMessage(e.target.value)} /></div>
       {error && <p role="alert" className="text-[14px] font-semibold text-now">{error}</p>}
-      <button className="btn-primary !min-h-[44px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Ask Ageing Navigator for help</button>
+      <button type="submit" className="btn-primary !min-h-[44px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Ask Ageing Navigator for help</button>
     </form>
   );
 }

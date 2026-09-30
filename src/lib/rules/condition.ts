@@ -1,16 +1,32 @@
-import type { Condition } from "../schema";
+import { z } from "zod";
 
-/** Read a dotted path such as "support.mainCarer.strain". Missing segments give undefined. */
+/**
+ * Declarative conditions: the one rule format used by the questionnaire (which questions show), the content
+ * (which pathways, sentences, actions and information apply) and, later, matching and funding rules. There is no
+ * eval and no code in content: only these operators, combined with all/any/not, read over the family's answers.
+ * The content spreadsheet writes them in a sentence-like form (`rule-syntax.ts`).
+ */
+export type Condition =
+  | { all: Condition[] }
+  | { any: Condition[] }
+  | { not: Condition }
+  | { field: string; op: "eq" | "neq" | "in" | "gte" | "lte" | "truthy" | "falsy" | "includes" | "exists"; value?: unknown };
+
+export const Condition: z.ZodType<Condition> = z.lazy(() => z.union([
+  z.object({ all: z.array(Condition) }).strict(),
+  z.object({ any: z.array(Condition) }).strict(),
+  z.object({ not: Condition }).strict(),
+  z.object({ field: z.string(), op: z.enum(["eq", "neq", "in", "gte", "lte", "truthy", "falsy", "includes", "exists"]), value: z.unknown().optional() }).strict(),
+]));
+
+/** Read a dotted path such as "q21.epoa_property". Missing segments give undefined. */
 export function read(obj: unknown, path: string): unknown {
   return path.split(".").reduce<unknown>((o, k) => (o != null && typeof o === "object" ? (o as Record<string, unknown>)[k] : undefined), obj);
 }
 
 const truthy = (v: unknown) => (Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null && v !== false && v !== "" && v !== 0);
 
-/**
- * Evaluate a declarative condition. Modules are data, so there is no eval and no code in content:
- * only these operators, which the module schema validates.
- */
+/** Evaluate a condition; no condition means "always". */
 export function test(c: Condition | undefined, data: unknown): boolean {
   if (!c) return true;
   if ("all" in c) return c.all.every((x) => test(x, data));
@@ -30,7 +46,7 @@ export function test(c: Condition | undefined, data: unknown): boolean {
   }
 }
 
-/** Every field path a condition reads, used to check module content against the profile schema. */
+/** Every field path a condition reads. */
 export function fieldsOf(c: Condition | undefined): string[] {
   if (!c) return [];
   if ("all" in c) return c.all.flatMap(fieldsOf);

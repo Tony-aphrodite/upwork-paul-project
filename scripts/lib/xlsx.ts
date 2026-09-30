@@ -98,9 +98,9 @@ export async function readWorkbook(file: string): Promise<Rows> {
     const list: Record<string, string>[] = [];
     ws.eachRow({ includeEmpty: false }, (row, n) => {
       if (n === 1) return;
-      const rec: Record<string, string> = {};
+      const rec: Record<string, string> = { __row: String(n) };
       headers.forEach((h, col) => { if (h) rec[h] = text(row.getCell(col).value); });
-      if (Object.values(rec).some((v) => v.trim())) list.push(rec);
+      if (Object.entries(rec).some(([k, v]) => k !== "__row" && v.trim())) list.push(rec);
     });
     rows[tab.name] = list;
   }

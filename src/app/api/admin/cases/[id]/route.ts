@@ -1,43 +1,34 @@
 import { z } from "zod";
-import { NextResponse } from "next/server";
-import { navigatorOr401 } from "@/lib/session";
-import { Conflict, deleteCase, getCase, saveWorking } from "@/lib/cases";
+import { deleteCase, saveWorking } from "@/lib/cases";
 import { PilotPlan } from "@/lib/pilot/plan";
 import { bad, ok, parse } from "@/lib/api";
+import { caseRoute } from "@/lib/route";
 
 export const runtime = "nodejs";
-type Ctx = { params: Promise<{ id: string }> };
 
 const Save = z.object({ version: z.number().int().positive(), plan: PilotPlan, note: z.string().max(5000).default("") });
 
-/** Save the navigator's edits to the working plan. Refused if someone else saved first. */
-export async function PATCH(req: Request, { params }: Ctx) {
-  const nav = await navigatorOr401(req);
-  if (nav instanceof NextResponse) return nav;
-  const { id } = await params;
+/**
+ * Save the navigator's edits to the working plan; refused (409) if someone else saved first. Navigators edit wording
+ * only: the plan's sources, services and generation details are taken from the stored plan, whatever is sent.
+ */
+export const PATCH = caseRoute(async (req, nav, c) => {
   const parsed = await parse(req, Save, 1024 * 1024);
   if ("error" in parsed) return parsed.error;
-  if (!(await getCase(id))) return bad("Case not found.", undefined, 404);
-  try {
-    return ok({ version: await saveWorking(id, parsed.data.version, parsed.data.plan, parsed.data.note, nav.id) });
-  } catch (e) {
-    if (e instanceof Conflict) return bad(e.message, undefined, 409);
-    throw e;
-  }
-}
-
-const Delete = z.object({ confirm: z.string() });
+  const stored = c.workingPlan;
+  const plan: PilotPlan = {
+    ...parsed.data.plan,
+    schema: stored.schema, generatedAt: stored.generatedAt, contentVersion: stored.contentVersion, contentStatus: stored.contentStatus,
+    questionnaireVersion: stored.questionnaireVersion, sources: stored.sources, services: stored.services, disclaimer: stored.disclaimer,
+  };
+  return ok({ version: await saveWorking(c.id, parsed.data.version, plan, parsed.data.note, nav.id) });
+});
 
 /** Delete the case now, with its link and requests. The navigator types the case reference to confirm. */
-export async function DELETE(req: Request, { params }: Ctx) {
-  const nav = await navigatorOr401(req);
-  if (nav instanceof NextResponse) return nav;
-  const { id } = await params;
-  const parsed = await parse(req, Delete, 4096);
+export const DELETE = caseRoute(async (req, nav, c) => {
+  const parsed = await parse(req, z.object({ confirm: z.string().max(40) }), 4096);
   if ("error" in parsed) return parsed.error;
-  const c = await getCase(id);
-  if (!c) return bad("Case not found.", undefined, 404);
   if (parsed.data.confirm.trim().toUpperCase() !== c.reference) return bad(`Type ${c.reference} to confirm.`);
-  await deleteCase(id, nav.id);
+  await deleteCase(c.id, nav.id);
   return ok();
-}
+});

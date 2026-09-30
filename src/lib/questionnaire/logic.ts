@@ -1,4 +1,5 @@
-import { test } from "../engine/conditions";
+import { test } from "../rules/condition";
+import { EMAIL_RE, LIMITS } from "../validate";
 import type { Answers, QuestionDefinition, Questionnaire, QuestionnaireSection } from "./schema";
 
 /**
@@ -30,14 +31,14 @@ export function checkSection(section: VisibleSection, answers: Answers): Issue[]
   const issues: Issue[] = [];
   for (const q of section.questions) {
     const v = answers[q.id];
-    if (!q.optional && !isAnswered(v)) { issues.push({ questionId: q.id, message: "Please answer this question, or choose Not sure." }); continue; }
+    if (!q.optional && !isAnswered(v)) { issues.push({ questionId: q.id, message: offersNotSure(q) ? "Please answer this question, or choose Not sure." : "Please answer this question." }); continue; }
     if (!isAnswered(v)) continue;
     if (q.type === "multi" && q.max && Array.isArray(v) && v.length > q.max) issues.push({ questionId: q.id, message: `Please choose up to ${q.max}.` });
     if (q.type === "tri_grid" && !q.optional) {
       const rows = (v ?? {}) as Record<string, string>;
       if (q.items.some((i) => !rows[i.id])) issues.push({ questionId: q.id, message: "Please answer every row, or choose Not sure." });
     }
-    if (q.format === "email" && typeof v === "string" && !/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(v.trim())) issues.push({ questionId: q.id, message: "Please check this email address." });
+    if (q.format === "email" && typeof v === "string" && !EMAIL_RE.test(v.trim())) issues.push({ questionId: q.id, message: "Please check this email address." });
   }
   return issues;
 }
@@ -53,11 +54,24 @@ export function progress(doc: Questionnaire, answers: Answers): { answered: numb
   return { answered, total: questions.length, percent: questions.length ? Math.round((answered / questions.length) * 100) : 0 };
 }
 
-/** Drop answers to questions that are no longer shown, so a changed answer cannot leave a hidden section behind. */
+/**
+ * Drop answers to questions that are no longer shown, so a changed answer cannot leave a hidden section behind.
+ * Repeated until nothing changes: removing one answer can hide a question that depended on it.
+ */
 export function pruneAnswers(doc: Questionnaire, answers: Answers): Answers {
-  const visible = new Set(visibleSections(doc, answers).flatMap((s) => s.questions.map((q) => q.id)));
-  return Object.fromEntries(Object.entries(answers).filter(([k]) => visible.has(k)));
+  let current = answers;
+  for (;;) {
+    const visible = new Set(visibleSections(doc, current).flatMap((s) => s.questions.map((q) => q.id)));
+    const next = Object.fromEntries(Object.entries(current).filter(([k]) => visible.has(k)));
+    if (Object.keys(next).length === Object.keys(current).length) return next;
+    current = next;
+  }
 }
+
+/** Whether a question lets people say they do not know: a standard unsure answer, or an option worded that way. */
+const NOT_SURE_VALUES = new Set(["unsure", "not_sure", "dont_know"]);
+const NOT_SURE_LABEL = /^(i['’]?m )?(not sure|unsure|don['’]?t know)/i;
+export const offersNotSure = (q: QuestionDefinition) => q.options.some((o) => NOT_SURE_VALUES.has(o.value) || NOT_SURE_LABEL.test(o.label));
 
 export const questionIndex = (doc: Questionnaire): Map<string, QuestionDefinition> =>
   new Map(doc.sections.flatMap((s) => s.questions).map((q) => [q.id, q]));
@@ -71,7 +85,7 @@ export function labelsFor(q: QuestionDefinition, value: unknown): string[] {
   return [];
 }
 
-export const TEXT_LIMIT = { short: 200, long: 2000 } as const;
+export const TEXT_LIMIT = { short: LIMITS.shortAnswer, long: LIMITS.longAnswer } as const;
 
 /**
  * Server-side clean-up of submitted answers: unknown questions, options that do not exist, wrong types and

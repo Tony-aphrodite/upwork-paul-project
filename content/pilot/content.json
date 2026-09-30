@@ -1,9 +1,9 @@
 {
-  "version": "2026-09-30.1",
+  "version": "2026-10-01.1",
   "status": "draft",
   "questionnaire": {
     "id": "ageing-navigator",
-    "version": "2026-09-30.1",
+    "version": "2026-10-01.1",
     "title": "Family Ageing Questionnaire",
     "intro": [
       "Tell us what's happening, and we'll help you work out what to do next.",
@@ -432,7 +432,7 @@
                 "label": "Needing more help at home"
               },
               {
-                "value": "a_family_member_or_unpaid_carer_becoming_tired_or_overwhelme",
+                "value": "carer_under_pressure",
                 "label": "A family member or unpaid carer becoming tired or overwhelmed"
               },
               {
@@ -524,7 +524,7 @@
                 "label": "They have stopped or reduced driving"
               },
               {
-                "value": "a_spouse_partner_or_important_support_person_can_no_longer_p",
+                "value": "support_person_cannot_continue",
                 "label": "A spouse, partner or important support person can no longer provide as much help"
               },
               {
@@ -1242,7 +1242,7 @@
             "type": "multi",
             "label": "What is concerning you?",
             "help": "These are shown separately at the top of your Action Plan, ahead of ordinary planning steps.",
-            "optional": false,
+            "optional": true,
             "options": [
               {
                 "value": "recent_or_repeated_falls",
@@ -1469,9 +1469,16 @@
               {
                 "value": "other",
                 "label": "Other"
+              },
+              {
+                "value": "unsure",
+                "label": "Unsure",
+                "exclusive": true
               }
             ],
-            "unsure": [],
+            "unsure": [
+              "unsure"
+            ],
             "items": []
           }
         ]
@@ -2451,7 +2458,25 @@
             ],
             "unsure": [],
             "pathway": "residential",
-            "items": []
+            "items": [],
+            "when": {
+              "any": [
+                {
+                  "field": "q19",
+                  "op": "in",
+                  "value": [
+                    "completed",
+                    "receiving",
+                    "reassessment"
+                  ]
+                },
+                {
+                  "field": "rc1",
+                  "op": "eq",
+                  "value": "assessment_identified"
+                }
+              ]
+            }
           },
           {
             "id": "rc3",
@@ -2618,9 +2643,15 @@
               {
                 "value": "other",
                 "label": "Other"
+              },
+              {
+                "value": "unsure",
+                "label": "Unsure"
               }
             ],
-            "unsure": [],
+            "unsure": [
+              "unsure"
+            ],
             "items": []
           },
           {
@@ -2846,9 +2877,16 @@
               {
                 "value": "other",
                 "label": "Other"
+              },
+              {
+                "value": "unsure",
+                "label": "Unsure",
+                "exclusive": true
               }
             ],
-            "unsure": [],
+            "unsure": [
+              "unsure"
+            ],
             "items": []
           },
           {
@@ -2934,9 +2972,16 @@
               {
                 "value": "something_else",
                 "label": "Something else"
+              },
+              {
+                "value": "unsure",
+                "label": "Unsure",
+                "exclusive": true
               }
             ],
-            "unsure": [],
+            "unsure": [
+              "unsure"
+            ],
             "items": []
           },
           {
@@ -2954,58 +2999,69 @@
   },
   "settings": {
     "urgentWhen": {
-      "field": "q18",
-      "op": "in",
-      "value": [
-        "yes",
-        "possibly"
+      "any": [
+        {
+          "field": "q18",
+          "op": "in",
+          "value": [
+            "yes",
+            "possibly"
+          ]
+        },
+        {
+          "field": "q18a",
+          "op": "truthy"
+        }
       ]
     },
-    "urgentWhenText": "q18 in yes, possibly",
+    "urgentWhenText": "q18 in yes, possibly or q18a answered",
     "urgentItemsQuestion": "q18a"
   },
   "pathways": [
     {
       "id": "stay_home",
       "name": "Stay at home, with the right support",
-      "explanation": "{{name}} would like to stay at home, or staying at home may still work with the right support. This is a possible pathway to investigate: what help at home is available, and what would make home safer.",
+      "explanation": "{{name}} would like to stay at home. This is a possible pathway to investigate: what help at home is available, and what would make home safer.",
       "approved": false,
       "when": {
-        "any": [
+        "field": "q23",
+        "op": "in",
+        "value": [
+          "stay_home",
+          "stay_home_if_workable"
+        ]
+      },
+      "whenText": "q23 in stay_home, stay_home_if_workable"
+    },
+    {
+      "id": "stay_home",
+      "name": "Staying at home, with the right support",
+      "explanation": "Staying at home with the right support may still work. It is a possible pathway to investigate alongside any others you are considering.",
+      "approved": false,
+      "when": {
+        "all": [
           {
             "field": "q23",
             "op": "in",
             "value": [
-              "stay_home",
-              "stay_home_if_workable"
+              "open",
+              "family_differs",
+              "not_discussed",
+              "unsure"
             ]
           },
           {
-            "all": [
-              {
-                "field": "q23",
-                "op": "in",
-                "value": [
-                  "open",
-                  "family_differs",
-                  "not_discussed",
-                  "unsure"
-                ]
-              },
-              {
-                "field": "q6",
-                "op": "in",
-                "value": [
-                  "alone",
-                  "with_partner",
-                  "with_family"
-                ]
-              }
+            "field": "q6",
+            "op": "in",
+            "value": [
+              "alone",
+              "with_partner",
+              "with_family"
             ]
           }
         ]
       },
-      "whenText": "q23 in stay_home, stay_home_if_workable or (q23 in open, family_differs, not_discussed, unsure and q6 in alone, with_partner, with_family)"
+      "whenText": "q23 in open, family_differs, not_discussed, unsure and q6 in alone, with_partner, with_family"
     },
     {
       "id": "village",
@@ -3036,6 +3092,18 @@
         ]
       },
       "whenText": "q23 in village, serviced, planning_move or trigger has considering_village or q8 has retirement_villages"
+    },
+    {
+      "id": "residential",
+      "name": "Residential care",
+      "explanation": "{{name}} already lives in residential care. A possible pathway to investigate is whether the current care still meets their needs. Any change in the level of care is decided through a formal needs assessment, not by Ageing Navigator.",
+      "approved": false,
+      "when": {
+        "field": "q6",
+        "op": "eq",
+        "value": "residential_care"
+      },
+      "whenText": "q6 is residential_care"
     },
     {
       "id": "residential",
@@ -3071,6 +3139,7 @@
   ],
   "summary": [
     {
+      "id": "summary-1",
       "section": "situation",
       "text": "{{name}} lives alone.",
       "approved": false,
@@ -3082,6 +3151,7 @@
       "whenText": "q6 is alone"
     },
     {
+      "id": "summary-2",
       "section": "situation",
       "text": "{{name}} lives with their partner.",
       "approved": false,
@@ -3093,6 +3163,7 @@
       "whenText": "q6 is with_partner"
     },
     {
+      "id": "summary-3",
       "section": "situation",
       "text": "{{name}} lives with family.",
       "approved": false,
@@ -3104,6 +3175,7 @@
       "whenText": "q6 is with_family"
     },
     {
+      "id": "summary-4",
       "section": "situation",
       "text": "{{name}} lives in a retirement village.",
       "approved": false,
@@ -3118,6 +3190,7 @@
       "whenText": "q6 in village_independent, village_serviced"
     },
     {
+      "id": "summary-5",
       "section": "situation",
       "text": "{{name}} lives in residential care.",
       "approved": false,
@@ -3129,6 +3202,7 @@
       "whenText": "q6 is residential_care"
     },
     {
+      "id": "summary-6",
       "section": "situation",
       "text": "{{name}} is in hospital at the moment.",
       "approved": false,
@@ -3140,6 +3214,7 @@
       "whenText": "q6 is in_hospital"
     },
     {
+      "id": "summary-7",
       "section": "situation",
       "text": "What has changed: {{answer.trigger}}.",
       "approved": false,
@@ -3150,6 +3225,7 @@
       "whenText": "trigger answered"
     },
     {
+      "id": "summary-8",
       "section": "situation",
       "text": "{{name}} needs help with {{answer.q12}}.",
       "approved": false,
@@ -3160,6 +3236,7 @@
       "whenText": "q12 answered"
     },
     {
+      "id": "summary-9",
       "section": "situation",
       "text": "Support in place now: {{answer.q14}}.",
       "approved": false,
@@ -3170,6 +3247,7 @@
       "whenText": "q14 answered"
     },
     {
+      "id": "summary-10",
       "section": "situation",
       "text": "Someone is giving a lot of unpaid support and may be under pressure.",
       "approved": false,
@@ -3184,6 +3262,7 @@
       "whenText": "q16 in significant, some"
     },
     {
+      "id": "summary-11",
       "section": "situation",
       "text": "A needs assessment has been done, or funded support is already in place.",
       "approved": false,
@@ -3198,6 +3277,7 @@
       "whenText": "q19 in completed, receiving"
     },
     {
+      "id": "summary-12",
       "section": "matters",
       "text": "Your main concerns: {{answer.q8}}.",
       "approved": false,
@@ -3208,16 +3288,26 @@
       "whenText": "q8 answered"
     },
     {
+      "id": "summary-13",
       "section": "matters",
       "text": "What {{name}} wants about where to live: {{answer.q23}}.",
       "approved": false,
       "when": {
         "field": "q23",
-        "op": "truthy"
+        "op": "in",
+        "value": [
+          "stay_home",
+          "stay_home_if_workable",
+          "village",
+          "serviced",
+          "residential_care",
+          "planning_move"
+        ]
       },
-      "whenText": "q23 answered"
+      "whenText": "q23 in stay_home, stay_home_if_workable, village, serviced, residential_care, planning_move"
     },
     {
+      "id": "summary-14",
       "section": "matters",
       "text": "What would help most right now: {{answer.q32}}.",
       "approved": false,
@@ -3228,6 +3318,7 @@
       "whenText": "q32 answered"
     },
     {
+      "id": "summary-15",
       "section": "matters",
       "text": "The family does not yet agree about what should happen, so shared decisions matter.",
       "approved": false,
@@ -3240,6 +3331,22 @@
         ]
       },
       "whenText": "q26 in some_differences, significant_disagreement"
+    },
+    {
+      "id": "summary-16",
+      "section": "matters",
+      "text": "Where {{name}} should live in future has not been settled yet.",
+      "approved": false,
+      "when": {
+        "field": "q23",
+        "op": "in",
+        "value": [
+          "family_differs",
+          "not_discussed",
+          "unsure"
+        ]
+      },
+      "whenText": "q23 in family_differs, not_discussed, unsure"
     }
   ],
   "actions": [
@@ -3264,21 +3371,29 @@
       ],
       "approved": false,
       "when": {
-        "field": "q18",
-        "op": "in",
-        "value": [
-          "yes",
-          "possibly"
+        "any": [
+          {
+            "field": "q18",
+            "op": "in",
+            "value": [
+              "yes",
+              "possibly"
+            ]
+          },
+          {
+            "field": "q18a",
+            "op": "truthy"
+          }
         ]
       },
-      "whenText": "q18 in yes, possibly"
+      "whenText": "q18 in yes, possibly or q18a answered"
     },
     {
       "key": "hospital-discharge",
       "topic": "Hospital",
       "priority": "now",
       "title": "Plan the discharge with the hospital team before the day",
-      "why": "Leaving hospital without support in place is one of the most common reasons older people are readmitted.",
+      "why": "Leaving hospital without the right support in place can lead to problems at home.",
       "nextStep": "Ask to speak with the ward's discharge planner or social worker about what support will be in place at home.",
       "whoCanHelp": [
         "Hospital social worker",
@@ -4018,7 +4133,7 @@
       "topic": "Wellbeing",
       "priority": "plan_ahead",
       "title": "Look for social activities and visiting services",
-      "why": "Loneliness affects health as much as many physical conditions.",
+      "why": "Loneliness can affect health and wellbeing.",
       "nextStep": "Contact Age Concern about visiting services and local activities.",
       "whoCanHelp": [
         "Age Concern",
@@ -4247,28 +4362,22 @@
             "any": [
               {
                 "field": "rc2",
+                "op": "falsy"
+              },
+              {
+                "field": "rc2",
                 "op": "in",
                 "value": [
                   "none",
                   "unsure",
                   "other"
                 ]
-              },
-              {
-                "field": "rc1",
-                "op": "in",
-                "value": [
-                  "future_only",
-                  "wondering",
-                  "professional_suggested",
-                  "unsure"
-                ]
               }
             ]
           }
         ]
       },
-      "whenText": "(q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care) and (rc2 in none, unsure, other or rc1 in future_only, wondering, professional_suggested, unsure)"
+      "whenText": "(q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care) and (rc2 not answered or rc2 in none, unsure, other)"
     },
     {
       "key": "residential-search",
@@ -4295,15 +4404,29 @@
       "sourceId": "eldernet",
       "approved": false,
       "when": {
-        "field": "rc1",
-        "op": "in",
-        "value": [
-          "assessment_identified",
-          "actively_looking",
-          "urgent"
+        "all": [
+          {
+            "field": "rc1",
+            "op": "in",
+            "value": [
+              "assessment_identified",
+              "actively_looking",
+              "urgent"
+            ]
+          },
+          {
+            "field": "rc2",
+            "op": "in",
+            "value": [
+              "rest_home",
+              "hospital",
+              "dementia",
+              "psychogeriatric"
+            ]
+          }
         ]
       },
-      "whenText": "rc1 in assessment_identified, actively_looking, urgent"
+      "whenText": "rc1 in assessment_identified, actively_looking, urgent and rc2 in rest_home, hospital, dementia, psychogeriatric"
     },
     {
       "key": "residential-funding",
@@ -4459,6 +4582,7 @@
   ],
   "information": [
     {
+      "id": "info-1",
       "section": "funding",
       "title": "Needs assessment",
       "text": "Publicly funded support for older people usually starts with a needs assessment by the local NASC service. The assessment decides what support may be offered.",
@@ -4477,6 +4601,7 @@
       "whenText": "q19 in none, thinking, dont_know_what, unsure"
     },
     {
+      "id": "info-2",
       "section": "funding",
       "title": "Residential Care Subsidy and Loan",
       "text": "Work and Income decides who receives the Residential Care Subsidy or the Residential Care Loan, after a needs assessment confirms that long-term residential care is needed.",
@@ -4509,6 +4634,7 @@
       "whenText": "q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care"
     },
     {
+      "id": "info-3",
       "section": "funding",
       "title": "Carer Support Subsidy",
       "text": "Health NZ's Carer Support Subsidy may help pay for a break for a full-time unpaid carer, once a needs assessment has been done.",
@@ -4525,6 +4651,7 @@
       "whenText": "q16 in significant, some"
     },
     {
+      "id": "info-4",
       "section": "check",
       "title": "Your deadline",
       "text": "You told us a decision or deadline is coming soon. Check which steps in this plan need to happen before it.",
@@ -4540,6 +4667,7 @@
       "whenText": "q11 in days, weeks"
     },
     {
+      "id": "info-5",
       "section": "professional",
       "title": "Memory changes",
       "text": "Only a health professional can assess memory changes or diagnose dementia. The GP is the place to start.",
@@ -4551,6 +4679,7 @@
       "whenText": "m1 answered"
     },
     {
+      "id": "info-6",
       "section": "professional",
       "title": "Level of care",
       "text": "Ageing Navigator does not decide the level of residential care someone needs. That is decided through a formal needs assessment.",
@@ -4583,6 +4712,7 @@
       "whenText": "q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care"
     },
     {
+      "id": "info-7",
       "section": "professional",
       "title": "Legal advice",
       "text": "The law requires independent legal advice before signing an Occupation Right Agreement.",
@@ -4614,6 +4744,7 @@
       "whenText": "q23 in village, serviced, planning_move or trigger has considering_village or q8 has retirement_villages"
     },
     {
+      "id": "info-8",
       "section": "professional",
       "title": "Financial advice",
       "text": "This plan does not give financial advice. For decisions about property, savings or paying for care, consider an independent financial adviser.",
@@ -4655,7 +4786,14 @@
     "cta_residential": "Would you like Ageing Navigator to search for and coordinate Residential Care?",
     "feedback_intro": "Ageing Navigator is being tested with a small number of families. Your answers help us make the plans better for the next family.",
     "questionnaire_title": "Family Ageing Questionnaire",
-    "questionnaire_intro": "Tell us what's happening, and we'll help you work out what to do next.\n\nThis questionnaire prepares your free personalised Family Ageing Action Plan. Depending on your situation it takes around 10 to 15 minutes, and you will only be shown questions that are relevant to you.\n\nYou don't need to know every answer. “Not sure” is useful information too.\n\nPlease don't include account numbers, passwords, detailed medical records or other highly confidential information."
+    "questionnaire_intro": "Tell us what's happening, and we'll help you work out what to do next.\n\nThis questionnaire prepares your free personalised Family Ageing Action Plan. Depending on your situation it takes around 10 to 15 minutes, and you will only be shown questions that are relevant to you.\n\nYou don't need to know every answer. “Not sure” is useful information too.\n\nPlease don't include account numbers, passwords, detailed medical records or other highly confidential information.",
+    "home_eyebrow": "Free for families in the Bay of Plenty",
+    "home_heading": "Something has changed. What should happen next?",
+    "home_intro": "A fall, a diagnosis, a hospital stay, or simply planning ahead. Answer a few questions about the situation and we will prepare a free, personalised Family Ageing Action Plan: the pathways worth exploring, what to do first, who can help, and what to ask.",
+    "consent_checkbox": "I agree, and I have the older person's agreement or am acting in their interests.",
+    "contact_intro": "We only use these details to send the plan and to contact you about it.",
+    "plan_cover_note": "This plan is private to your family. It is information and navigation, not medical, legal or financial advice.",
+    "request_done": "Thank you. A navigator will contact you to talk it through."
   },
   "services": [
     {

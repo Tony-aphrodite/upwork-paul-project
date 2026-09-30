@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { Condition, PRIORITIES } from "../schema";
+import { Condition } from "../rules/condition";
+import { PRIORITIES } from "../priority";
 import { Questionnaire } from "../questionnaire/schema";
 
 /**
@@ -16,7 +17,8 @@ export const PathwayId = z.enum(PATHWAY_IDS);
 export type PathwayId = z.infer<typeof PathwayId>;
 
 export const ContentPathway = z.object({ id: PathwayId, name: z.string().min(1), explanation: z.string().min(1), approved: z.boolean(), ...Guard });
-export const ContentSummary = z.object({ section: z.enum(["situation", "matters"]), text: z.string().min(1), approved: z.boolean(), ...Guard });
+const RowId = z.string().regex(/^[a-z0-9_-]+$/, "Use lower-case letters, numbers, hyphens and underscores");
+export const ContentSummary = z.object({ id: RowId, section: z.enum(["situation", "matters"]), text: z.string().min(1), approved: z.boolean(), ...Guard });
 export const ContentAction = z.object({
   key: z.string().regex(/^[a-z0-9-]+$/, "Use lower-case letters, numbers and hyphens"),
   topic: z.string().default(""),
@@ -34,6 +36,7 @@ export const ContentAction = z.object({
 });
 export const INFO_SECTIONS = ["funding", "check", "professional"] as const;
 export const ContentInformation = z.object({
+  id: RowId,
   section: z.enum(INFO_SECTIONS),
   title: z.string().default(""),
   text: z.string().min(1),
@@ -42,12 +45,18 @@ export const ContentInformation = z.object({
   ...Guard,
 });
 export const ContentService = z.object({ id: z.string().regex(/^[a-z0-9_-]+$/), label: z.string().min(1), pathway: PathwayId.optional() });
-export const ContentSource = z.object({ id: z.string().min(1), title: z.string().min(1), publisher: z.string().default(""), url: z.url(), lastChecked: isoDate });
+/** Web addresses must be http(s): anything else (javascript:, data:) could run in a family's browser. */
+export const WebUrl = z.url({ protocol: /^https?$/, message: "Use a web address starting with https://" });
+export const ContentSource = z.object({ id: z.string().min(1), title: z.string().min(1), publisher: z.string().default(""), url: WebUrl, lastChecked: isoDate });
 
 /** Texts the app needs. Missing optional ones simply leave their feature out (for example marketing consent). */
 export const TEXT_KEYS = {
-  required: ["notice", "consent", "thank_you", "urgent_guidance", "plan_intro", "disclaimer", "pathway_none", "cta_default", "email_release_subject", "email_release_body", "request_intro"],
-  optional: ["marketing_consent", "cta_stay_home", "cta_village", "cta_residential", "feedback_intro", "questionnaire_title", "questionnaire_intro"],
+  required: [
+    "home_heading", "home_intro", "notice", "consent", "consent_checkbox", "thank_you", "urgent_guidance",
+    "plan_intro", "plan_cover_note", "disclaimer", "pathway_none", "cta_default",
+    "email_release_subject", "email_release_body", "request_intro", "request_done",
+  ],
+  optional: ["home_eyebrow", "marketing_consent", "cta_stay_home", "cta_village", "cta_residential", "feedback_intro", "questionnaire_title", "questionnaire_intro", "contact_intro"],
 } as const;
 
 export const PilotContent = z.object({
@@ -68,13 +77,19 @@ export const PilotContent = z.object({
   sources: z.array(ContentSource),
 }).superRefine((c, ctx) => {
   for (const k of TEXT_KEYS.required) if (!c.texts[k]?.trim()) ctx.addIssue({ code: "custom", message: `Texts: "${k}" is missing`, path: ["texts", k] });
-  const keys = c.actions.map((a) => a.key);
-  const dup = keys.find((k, i) => keys.indexOf(k) !== i);
-  if (dup) ctx.addIssue({ code: "custom", message: `Actions: the key "${dup}" is used twice`, path: ["actions"] });
+  if (c.texts.email_release_body && !c.texts.email_release_body.includes("{{link}}")) ctx.addIssue({ code: "custom", message: "Texts: email_release_body must contain {{link}}, or the family cannot open their plan", path: ["texts", "email_release_body"] });
+  const unique = (tab: "actions" | "summary" | "information", ids: string[], what: string) => ids.forEach((id, i) => {
+    if (ids.indexOf(id) !== i) ctx.addIssue({ code: "custom", message: `${what} "${id}" is used twice`, path: [tab, i] });
+  });
+  unique("actions", c.actions.map((a) => a.key), "The key");
+  unique("summary", c.summary.map((s) => s.id), "The ID");
+  unique("information", c.information.map((s) => s.id), "The ID");
   const sources = new Set(c.sources.map((s) => s.id));
-  for (const [i, r] of [...c.actions, ...c.information].entries()) {
-    if (r.sourceId && !sources.has(r.sourceId)) ctx.addIssue({ code: "custom", message: `Source "${r.sourceId}" is not in the Sources tab`, path: [i < c.actions.length ? "actions" : "information", i] });
-  }
+  const cite = (tab: "actions" | "information", rows: { sourceId?: string }[]) => rows.forEach((r, i) => {
+    if (r.sourceId && !sources.has(r.sourceId)) ctx.addIssue({ code: "custom", message: `Source "${r.sourceId}" is not in the Sources tab`, path: [tab, i, "sourceId"] });
+  });
+  cite("actions", c.actions);
+  cite("information", c.information);
 });
 export type PilotContent = z.infer<typeof PilotContent>;
 export type ContentAction = z.infer<typeof ContentAction>;

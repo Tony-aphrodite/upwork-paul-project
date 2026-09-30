@@ -1,4 +1,5 @@
 import { createHash, createHmac, randomBytes, scrypt as scryptCb, timingSafeEqual } from "node:crypto";
+import { authSecret } from "./auth";
 import { promisify } from "node:util";
 
 /**
@@ -30,11 +31,32 @@ export async function verifyPassword(password: string, stored: string | null | u
   return !!stored && got.length === expected.length && timingSafeEqual(got, expected);
 }
 
-const keySecret = () => process.env.AUTH_SECRET ?? "dev-only-secret-change-me-dev-only-secret";
-export const pseudonym = (value: string) => createHmac("sha256", keySecret()).update(value).digest("hex").slice(0, 32);
+/** A key for pseudonyms derived from AUTH_SECRET, so the session-signing key is never used for anything else. */
+const pseudonymKey = () => createHmac("sha256", authSecret()).update("ageing-navigator/pseudonym/v1").digest();
+export const pseudonym = (value: string) => createHmac("sha256", pseudonymKey()).update(value).digest("hex").slice(0, 32);
 
-/** The caller's address as the hosting platform reports it; used only through `pseudonym`. */
-export const clientIp = (req: Request) => (req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip") ?? "local").split(",")[0].trim();
+/** Constant-time comparison of two secrets of any length. */
+export const sameSecret = (a: string, b: string) => {
+  const x = createHash("sha256").update(a).digest(), y = createHash("sha256").update(b).digest();
+  return timingSafeEqual(x, y) && a.length === b.length;
+};
+
+/** An IPv6 address reduced to its /64 network, which one household or phone usually owns in full. */
+function ipv6Prefix(ip: string): string {
+  const [head, tail = ""] = ip.split("::");
+  const h = head ? head.split(":") : [], t = tail ? tail.split(":") : [];
+  const full = ip.includes("::") ? [...h, ...Array(8 - h.length - t.length).fill("0"), ...t] : h;
+  return `${full.slice(0, 4).map((g) => g.toLowerCase().replace(/^0+(?=.)/, "")).join(":")}::/64`;
+}
+
+/**
+ * Who is calling, for rate limits only (always through `pseudonym`, never stored in clear): the address the hosting
+ * platform reports, with IPv6 reduced to its /64 so rotating addresses inside one network count as one caller.
+ */
+export const clientIp = (req: Request) => {
+  const ip = (req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip") ?? "local").split(",")[0].trim();
+  return ip.includes(":") && !ip.includes(".") ? ipv6Prefix(ip) : ip;
+};
 
 const REF_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 /** Case references such as AN-7KQ2MX: short enough to read over the phone, no 0/O or 1/I. */

@@ -3,12 +3,14 @@ import clsx from "clsx";
 import { AlertTriangle, MessageSquare, PhoneCall } from "lucide-react";
 import { counts, listCases, STATUS_LABEL, type ListFilter } from "@/lib/cases";
 import { PATHWAY_LABEL, nzDateTime } from "@/lib/format";
+import { requireNavigator } from "@/lib/session";
 
 const TABS: [ListFilter, string][] = [["open", "To review"], ["released", "Released"], ["closed", "Closed"], ["all", "All"]];
 const STATUS_CLS = { submitted: "bg-now-soft text-now", in_review: "bg-soon-soft text-soon", released: "bg-ahead-soft text-ahead", closed: "bg-line/60 text-muted" } as const;
 
 /** The case list. It shows who and what stage, not health details; urgent cases come first in "To review". */
 export default async function Cases({ searchParams }: { searchParams: Promise<{ show?: string }> }) {
+  await requireNavigator();
   const show = ((await searchParams).show ?? "open") as ListFilter;
   const filter: ListFilter = TABS.some(([k]) => k === show) ? show : "open";
   const [rows, n] = await Promise.all([listCases(filter), counts()]);

@@ -1,8 +1,8 @@
 import { BRAND } from "../brand";
-import { PRIORITY_LABEL } from "../schema";
-import { fmtDate } from "../engine/context";
+import { PRIORITY_LABEL } from "../priority";
+import { fmtDate } from "../text";
 import { nzLongDate } from "../format";
-import { citedSources, liveActions, liveInformation, thingsToCheck, type PilotPlan } from "./plan";
+import { citedSources, liveActions, liveInformation, livePathways, thingsToCheck, type PilotPlan } from "./plan";
 
 /**
  * One renderer for the family's page, the navigator's preview and the PDF. Pure string building, all text escaped,
@@ -14,11 +14,17 @@ const ESC: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"
 export const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => ESC[c]);
 const when = (cond: unknown, html: () => string) => (cond ? html() : "");
 const ul = (xs: string[], cls = "") => (xs.length ? `<ul${cls ? ` class="${cls}"` : ""}>${xs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "");
+/** A paragraph, or nothing when the text is empty (a navigator may clear a text). */
+const para = (s: string, cls = "") => (s.trim() ? `<p${cls ? ` class="${cls}"` : ""}>${esc(s)}</p>` : "");
+/** Text inside a CSS string (the PDF footer): HTML entities are not decoded there, so escape for CSS instead. */
+const cssString = (s: string) => s.replace(/[\\"]/g, (c) => `\\${c}`).replace(/[\r\n]+/g, " ").replace(/</g, "\\3C ");
 
 export type SectionOptions = {
-  /** Where the family asks for help; on the web page this is the form's anchor, in the PDF the plan page address. */
+  /** On the web page: where the family asks for help (the form's anchor). The PDF carries no link. */
   requestHref?: string;
   mode: "web" | "pdf";
+  /** How the PDF tells people to get in touch (it has no link, so a forwarded PDF opens nothing). */
+  contact?: string;
 };
 
 export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): string {
@@ -33,23 +39,23 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
 
   const parts: string[] = [];
 
-  parts.push(`<section class="intro"><p>${esc(plan.intro)}</p></section>`);
+  if (plan.intro.trim()) parts.push(`<section class="intro">${para(plan.intro)}</section>`);
 
   if (plan.urgent) parts.push(`
     <section class="urgent" aria-labelledby="urgent-h">
       <h2 id="urgent-h">Things that may need urgent attention</h2>
       ${ul(plan.urgent.items)}
-      <p class="guidance">${esc(plan.urgent.guidance)}</p>
+      ${para(plan.urgent.guidance, "guidance")}
     </section>`);
 
   if (plan.situation.length) parts.push(`<section><h2>Your current situation</h2>${ul(plan.situation, "plain")}</section>`);
   if (plan.matters.length) parts.push(`<section><h2>What matters most</h2>${ul(plan.matters, "plain")}</section>`);
 
-  parts.push(`<section><h2>${plan.pathways.length > 1 ? "Pathways to explore" : "Your likely pathway"}</h2>${
-    plan.pathways.length
-      ? plan.pathways.map((p) => `<div class="pathway"><h3>${esc(p.name)}</h3><p>${esc(p.explanation)}</p></div>`).join("")
-      : `<p>${esc(plan.pathwayNote)}</p>`
-  }</section>`);
+  const pathways = livePathways(plan);
+  const pathwayBody = pathways.length
+    ? pathways.map((p) => `<div class="pathway"><h3>${esc(p.name)}</h3>${para(p.explanation)}</div>`).join("")
+    : para(plan.pathwayNote);
+  if (pathwayBody) parts.push(`<section><h2>${pathways.length > 1 ? "Pathways to explore" : "Your likely pathway"}</h2>${pathwayBody}</section>`);
 
   if (actions.length) parts.push(`
     <section>
@@ -83,11 +89,11 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
   parts.push(`
     <section class="support">
       <h2>Help from ${esc(BRAND.name)}</h2>
-      <p>${esc(plan.cta)}</p>
+      ${para(plan.cta)}
       ${ul(plan.services.map((s) => s.label))}
       ${opts.mode === "web" && opts.requestHref
         ? `<p><a class="button" href="${esc(opts.requestHref)}">Ask for help with this plan</a></p>`
-        : `<p>To ask for help, ${opts.requestHref ? `open <a href="${esc(opts.requestHref)}">your plan page</a> (the link in your email) or ` : ""}contact us on ${esc(BRAND.phone)} or ${esc(BRAND.email)}.</p>`}
+        : para(opts.contact ?? `To ask for help, use the link in your email, or contact us on ${BRAND.phone} or ${BRAND.email}.`)}
     </section>`);
 
   if (sources.length) parts.push(`
@@ -96,7 +102,7 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
       <ol class="sources">${sources.map((s) => `<li>${esc(s.title)}${when(s.publisher, () => `, ${esc(s.publisher)}`)}. <a href="${esc(s.url)}">${esc(s.url)}</a> (checked ${esc(fmtDate(s.lastChecked))})</li>`).join("")}</ol>
     </section>`);
 
-  parts.push(`<section class="disclaimer"><p>${esc(plan.disclaimer)}</p></section>`);
+  if (plan.disclaimer.trim()) parts.push(`<section class="disclaimer">${para(plan.disclaimer)}</section>`);
   return parts.join("\n");
 }
 
@@ -153,14 +159,14 @@ function fontFaces(src: FontSource) {
 @font-face { font-family: "Literata"; font-weight: 300 800; src: ${url("literata-latin-wght-normal.woff2")}; }`;
 }
 
-export type DocumentOptions = { fonts: FontSource; issuedOn: Date; reference: string; requestHref?: string; watermark?: string };
+export type DocumentOptions = { fonts: FontSource; issuedOn: Date; reference: string; coverNote: string; watermark?: string };
 
 export function renderPlanDocument(plan: PilotPlan, opts: DocumentOptions): string {
-  const footer = `${BRAND.name} · ${plan.personName} · ${opts.reference}`.replace(/"/g, "'");
+  const footer = cssString(`${BRAND.name} · ${plan.personName} · ${opts.reference}`);
   const css = `
 ${fontFaces(opts.fonts)}
 @page { size: A4; margin: 18mm 17mm 20mm;
-  @bottom-left { content: "${esc(footer)}"; font: 8pt "Atkinson Hyperlegible", sans-serif; color: ${c.muted}; }
+  @bottom-left { content: "${footer}"; font: 8pt "Atkinson Hyperlegible", sans-serif; color: ${c.muted}; }
   @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8pt "Atkinson Hyperlegible", sans-serif; color: ${c.muted}; } }
 @page cover { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
 * { box-sizing: border-box; }
@@ -185,8 +191,8 @@ ${PLAN_CSS(".plan")}`;
       <dt>Date</dt><dd>${esc(nzLongDate(opts.issuedOn))}</dd>
       <dt>Reference</dt><dd>${esc(opts.reference)}</dd>
     </dl>
-    <p class="note">This plan is private to your family. It is information and navigation, not medical, legal or financial advice.</p>
+    ${para(opts.coverNote, "note")}
   </div>`;
   return `<!doctype html><html lang="en-NZ"><head><meta charset="utf-8"><title>${esc(BRAND.planTitle)} · ${esc(plan.personName)}</title><style>${css}</style></head>
-<body>${when(opts.watermark, () => `<div class="watermark">${esc(opts.watermark)}</div>`)}${cover}<main class="plan">${renderPlanSections(plan, { mode: "pdf", requestHref: opts.requestHref })}</main></body></html>`;
+<body>${when(opts.watermark, () => `<div class="watermark">${esc(opts.watermark)}</div>`)}${cover}<main class="plan">${renderPlanSections(plan, { mode: "pdf" })}</main></body></html>`;
 }

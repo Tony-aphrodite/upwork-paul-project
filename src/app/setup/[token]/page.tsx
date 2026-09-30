@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Logo } from "@/components/ui";
 import { setupTokenValid } from "@/lib/navigators";
+import { MIN_PASSWORD } from "@/lib/validate";
 import { SetupForm } from "./SetupForm";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +18,7 @@ export default async function Setup({ params }: { params: Promise<{ token: strin
         {who ? (
           <>
             <h1 className="mt-6 text-[22px]">Welcome, {who.name}</h1>
-            <p className="mt-1 text-[14px] text-muted">Choose a password for {who.email}. Use at least 12 characters; a short sentence works well.</p>
+            <p className="mt-1 text-[14px] text-muted">Choose a password for {who.email}. Use at least {MIN_PASSWORD} characters; a short sentence works well.</p>
             <SetupForm token={token} />
           </>
         ) : (

@@ -3,11 +3,10 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { CheckCircle2, Loader2 } from "lucide-react";
+import { MADE_SENSE, USEFUL } from "@/lib/case-status";
+import { LIMITS } from "@/lib/validate";
 
-const USEFUL = [["very", "Very useful"], ["somewhat", "Somewhat useful"], ["not_really", "Not really useful"]] as const;
-const SENSE = [["yes", "Yes"], ["partly", "Partly"], ["no", "No"]] as const;
-
-/** The pilot's feedback questions for the free plan (build brief section 41). */
+/** The pilot's feedback questions for the free plan (build brief section 41). The options are shared with the API. */
 export function FeedbackForm({ token, given }: { token: string; given: boolean }) {
   const [useful, setUseful] = useState("");
   const [madeSense, setMadeSense] = useState("");
@@ -36,19 +35,20 @@ export function FeedbackForm({ token, given }: { token: string; given: boolean }
     if (!useful || !madeSense) { setError("Please answer the first two questions."); return; }
     setState("busy"); setError("");
     const res = await fetch(`/api/p/${token}/feedback`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ useful, madeSense, missing, confusing, wantsHelp }) }).catch(() => null);
-    if (res?.ok) setState("sent");
-    else { setState("idle"); setError("We could not send this. Please try again."); }
+    if (res?.ok) { setState("sent"); return; }
+    setState("idle");
+    setError((await res?.json().catch(() => null))?.error ?? "We could not send this. Please check your connection and try again.");
   };
 
   return (
     <form className="mt-5 space-y-5" onSubmit={(e) => { e.preventDefault(); void send(); }} noValidate>
       {choice("useful", USEFUL, useful, setUseful, "How useful was the plan?")}
-      {choice("sense", SENSE, madeSense, setMadeSense, "Did the recommendations make sense?")}
-      <div><label htmlFor="fb-missing" className="label !text-[15px]">Was anything important missing? (optional)</label><textarea id="fb-missing" rows={2} maxLength={2000} className="field !text-[15px]" value={missing} onChange={(e) => setMissing(e.target.value)} /></div>
-      <div><label htmlFor="fb-confusing" className="label !text-[15px]">Was anything confusing or incorrect? (optional)</label><textarea id="fb-confusing" rows={2} maxLength={2000} className="field !text-[15px]" value={confusing} onChange={(e) => setConfusing(e.target.value)} /></div>
+      {choice("sense", MADE_SENSE, madeSense, setMadeSense, "Did the recommendations make sense?")}
+      <div><label htmlFor="fb-missing" className="label !text-[15px]">Was anything important missing? (optional)</label><textarea id="fb-missing" rows={2} maxLength={LIMITS.message} className="field !text-[15px]" value={missing} onChange={(e) => setMissing(e.target.value)} /></div>
+      <div><label htmlFor="fb-confusing" className="label !text-[15px]">Was anything confusing or incorrect? (optional)</label><textarea id="fb-confusing" rows={2} maxLength={LIMITS.message} className="field !text-[15px]" value={confusing} onChange={(e) => setConfusing(e.target.value)} /></div>
       <label className="flex cursor-pointer items-start gap-2.5 text-[15px]"><input type="checkbox" className="mt-1 accent-brand" checked={wantsHelp} onChange={(e) => setWantsHelp(e.target.checked)} />I would like Ageing Navigator to organise some of the next steps.</label>
       {error && <p role="alert" className="text-[14px] font-semibold text-now">{error}</p>}
-      <button className="btn-outline !min-h-[44px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Send feedback</button>
+      <button type="submit" className="btn-outline !min-h-[44px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Send feedback</button>
     </form>
   );
 }

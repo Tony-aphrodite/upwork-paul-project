@@ -3,6 +3,8 @@ import { log } from "./log";
 import { esc } from "./pilot/render";
 import { BRAND } from "./brand";
 import { navigatorEmails } from "./navigators";
+import { db } from "./db";
+import { logEvent } from "./cases";
 
 /**
  * Email. With RESEND_API_KEY set, mail goes through Resend's HTTP API from the client's verified domain. Without it
@@ -34,7 +36,7 @@ async function viaResend(e: Email): Promise<Result> {
 }
 
 export async function sendEmail(e: Email): Promise<boolean> {
-  if (!e.to.length) return false;
+  if (!e.to.length) { log("email", { kind: e.subject.slice(0, 40), ok: false, code: "no_recipients" }); return false; }
   const transport: Transport = g.__anTransport ?? (process.env.RESEND_API_KEY ? viaResend : async (m) => { outbox().push(m); return { ok: true }; });
   const r = await transport(e);
   log("email", { kind: e.subject.slice(0, 40), ok: r.ok, code: r.ok ? undefined : r.error, count: e.to.length });
@@ -67,11 +69,19 @@ export function releaseEmail(texts: Record<string, string>, to: string, link: st
   return { to: [to], subject: texts.email_release_subject, text, html: layout(html) };
 }
 
-/** To every active navigator: a case reference and a link to the case, nothing about the family. */
-export async function notifyNavigators(subject: string, lines: string[], caseId: string) {
-  const link = `${config.appUrl()}/admin/cases/${caseId}`;
-  const to = await navigatorEmails();
-  const text = [...lines, "", `Open the case: ${link}`].join("\n");
-  const html = layout(`${lines.map((l) => `<p>${esc(l)}</p>`).join("")}<p><a href="${esc(link)}">Open the case</a></p>`);
-  return sendEmail({ to, subject, text, html }).catch(() => false);
+/**
+ * To every active navigator: a case reference and a link to the case, nothing about the family. Best effort: it
+ * never fails the request that triggered it (the family's case is already stored). The outcome is recorded on the
+ * case's events, so a notification that did not go out can be found.
+ */
+export async function notifyNavigators(subject: string, lines: string[], caseId: string): Promise<boolean> {
+  let sent = false;
+  try {
+    const link = `${config.appUrl()}/admin/cases/${caseId}`;
+    const text = [...lines, "", `Open the case: ${link}`].join("\n");
+    const html = layout(`${lines.map((l) => `<p>${esc(l)}</p>`).join("")}<p><a href="${esc(link)}">Open the case</a></p>`);
+    sent = await sendEmail({ to: await navigatorEmails(), subject, text, html });
+  } catch { sent = false; }
+  try { await logEvent(await db(), caseId, "system", sent ? "navigators_notified" : "navigators_notify_failed"); } catch { /* the event is a record, not a requirement */ }
+  return sent;
 }

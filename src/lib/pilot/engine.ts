@@ -1,6 +1,6 @@
-import { test } from "../engine/conditions";
-import { list } from "../engine/context";
-import { PRIORITIES, type Condition } from "../schema";
+import { test, type Condition } from "../rules/condition";
+import { list } from "../text";
+import { priorityRank } from "../priority";
 import type { Answers, QuestionDefinition } from "../questionnaire/schema";
 import { questionIndex } from "../questionnaire/logic";
 import type { PilotContent } from "./content";
@@ -8,9 +8,14 @@ import type { PilotPlan } from "./plan";
 
 /**
  * Answers in, a pilot Action Plan out. Pure: no I/O, no clock unless given, no AI. Every sentence comes from the
- * approved content; the family's answers only decide which rows apply and fill the two kinds of placeholder,
- * {{name}} and {{answer.QUESTION_ID}} for choice questions. A row whose placeholder has nothing to fill is left out,
- * so a plan never prints "You mentioned ." or a family's own typing inside a sentence.
+ * approved content; the family's answers only decide which rows apply and fill placeholders.
+ *
+ * Two kinds of wording:
+ * - rows (situation, what matters, actions, information) may use {{name}} and {{answer.QUESTION_ID}} for a choice
+ *   question. A row whose answer placeholder has nothing specific to say is left out, so a plan never prints
+ *   "You mentioned ." and never places a family's own typing inside a sentence;
+ * - fixed texts (introduction, pathway explanations, invitation) may use {{name}} only, which is always filled.
+ *   The content compiler enforces both rules.
  */
 
 export type Person = { firstName: string; preferredName?: string; contactName: string };
@@ -21,14 +26,27 @@ export function tidyName(s: string): string {
   return t === t.toLowerCase() ? t.replace(/(^|[\s'-])([a-z])/g, (_, p: string, c: string) => p + c.toUpperCase()) : t;
 }
 
-const UNSPECIFIC = /^(other|something_else|none|not_sure|unsure|dont_know|not_applicable|i_m_not_sure)/;
+/** Answers that say nothing specific, left out of sentences: "Other", "None", "Not sure" and the standard unsure answers. */
+const NOT_SPECIFIC = new Set(["other", "something_else", "none", "not_sure", "unsure", "dont_know", "not_applicable"]);
 
-/** Option labels for use inside a sentence: specific answers only, first letter lower-cased unless it is an acronym. */
+/**
+ * A label inside a sentence. Its first letter is lower-cased ("Falls" → "falls") unless the label is a name or an
+ * acronym: it starts with capitals ("GP") or has another capitalised word ("Te Whatu Ora", "Live Stronger for Longer").
+ */
+function inSentence(label: string): string {
+  const words = label.split(/\s+/);
+  if (/^[A-Z]{2,}/.test(words[0]) || words.slice(1).some((w) => /^[A-Z]/.test(w))) return label;
+  return label.charAt(0).toLowerCase() + label.slice(1);
+}
+
 function answerPhrase(q: QuestionDefinition | undefined, value: unknown): string {
   if (!q || (q.type !== "single" && q.type !== "multi")) return "";
-  const chosen = (Array.isArray(value) ? value : typeof value === "string" ? [value] : []).filter((v) => !UNSPECIFIC.test(v));
-  const labels = chosen.map((v) => q.options.find((o) => o.value === v && !o.exclusive)?.label).filter((l): l is string => !!l);
-  return list(labels.map((l) => (/^[A-Z]{2,}\b/.test(l) ? l : l.charAt(0).toLowerCase() + l.slice(1))));
+  const chosen = Array.isArray(value) ? value : typeof value === "string" ? [value] : [];
+  const labels = chosen
+    .map((v) => q.options.find((o) => o.value === v))
+    .filter((o): o is NonNullable<typeof o> => !!o && !o.exclusive && !NOT_SPECIFIC.has(o.value))
+    .map((o) => inSentence(o.label));
+  return list(labels);
 }
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -38,8 +56,8 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
   const name = tidyName(person.preferredName || person.firstName);
   const applies = (c: Condition | undefined) => test(c, answers);
 
-  /** Fill placeholders; undefined when one of them is empty, so the row is dropped. */
-  const fill = (s: string): string | undefined => {
+  /** Row wording: undefined when an answer placeholder has nothing specific, so the row is dropped. */
+  const fillRow = (s: string): string | undefined => {
     let empty = false;
     const out = s.replace(/\{\{\s*([^}]*?)\s*\}\}/g, (_, p: string) => {
       const v = p === "name" ? name : p.startsWith("answer.") ? answerPhrase(qs.get(p.slice(7)), answers[p.slice(7)]) : "";
@@ -48,43 +66,47 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
     });
     return empty ? undefined : capitalise(out.trim());
   };
-  const fillAll = (xs: string[]) => xs.map(fill).filter((x): x is string => !!x);
+  const fillRows = (xs: string[]) => xs.map(fillRow).filter((x): x is string => !!x);
+  /** Fixed texts: {{name}} only, always filled. */
+  const fillText = (s: string) => capitalise(s.replace(/\{\{\s*name\s*\}\}/g, name).trim());
 
   const urgentOn = content.settings.urgentWhen ? applies(content.settings.urgentWhen) : false;
   const urgentQ = content.settings.urgentItemsQuestion;
-  const urgentItems = urgentOn && urgentQ ? (qs.get(urgentQ)?.options ?? []).filter((o) => (answers[urgentQ] as string[] | undefined)?.includes(o.value)).map((o) => o.label) : [];
+  const urgentItems = urgentOn && urgentQ
+    ? (qs.get(urgentQ)?.options ?? []).filter((o) => (answers[urgentQ] as string[] | undefined)?.includes(o.value)).map((o) => o.label)
+    : [];
 
-  const seenPathways = new Set<string>();
-  const pathways = content.pathways.filter((p) => applies(p.when) && !seenPathways.has(p.id) && seenPathways.add(p.id))
-    .map((p) => ({ id: p.id, name: p.name, explanation: fill(p.explanation) ?? p.explanation.replace(/\{\{[^}]*\}\}/g, "").trim() }));
+  // Several rows may describe one pathway under different conditions; the first that applies is used.
+  const seen = new Set<string>();
+  const pathways = content.pathways
+    .filter((p) => applies(p.when) && !seen.has(p.id) && !!seen.add(p.id))
+    .map((p) => ({ id: p.id, name: p.name, explanation: fillText(p.explanation), removed: false }));
 
-  const rank = (p: (typeof PRIORITIES)[number]) => PRIORITIES.indexOf(p);
   const actions = content.actions
     .map((a, order) => ({ a, order }))
     .filter(({ a }) => applies(a.when))
-    .map(({ a, order }) => {
-      const title = fill(a.title);
-      if (!title) return undefined;
-      return {
+    .flatMap(({ a, order }) => {
+      const title = fillRow(a.title);
+      if (!title) return [];
+      return [{
         order,
         action: {
           key: a.key, topic: a.topic, priority: a.priority, title,
-          why: fill(a.why) ?? "", nextStep: fill(a.nextStep) ?? "",
-          whoCanHelp: fillAll(a.whoCanHelp), prepare: fillAll(a.prepare), questions: fillAll(a.questions), check: fillAll(a.check),
+          why: fillRow(a.why) ?? "", nextStep: fillRow(a.nextStep) ?? "",
+          whoCanHelp: fillRows(a.whoCanHelp), prepare: fillRows(a.prepare), questions: fillRows(a.questions), check: fillRows(a.check),
           ...(a.sourceId ? { sourceId: a.sourceId } : {}),
           removed: false,
         },
-      };
+      }];
     })
-    .filter((x): x is NonNullable<typeof x> => !!x)
-    .sort((x, y) => rank(x.action.priority) - rank(y.action.priority) || x.order - y.order)
+    .sort((x, y) => priorityRank(x.action.priority) - priorityRank(y.action.priority) || x.order - y.order)
     .map((x) => x.action);
 
-  const information = content.information.flatMap((x, n) => {
+  const information = content.information.flatMap((x) => {
     if (!applies(x.when)) return [];
-    const text = fill(x.text);
+    const text = fillRow(x.text);
     if (!text) return [];
-    return [{ id: `info-${n + 1}`, section: x.section, title: fill(x.title) ?? "", text, ...(x.sourceId ? { sourceId: x.sourceId } : {}), removed: false }];
+    return [{ id: x.id, section: x.section, title: fillRow(x.title) ?? "", text, ...(x.sourceId ? { sourceId: x.sourceId } : {}), removed: false }];
   });
 
   const first = pathways[0]?.id;
@@ -100,15 +122,15 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
     questionnaireVersion: content.questionnaire.version,
     personName: name,
     preparedFor: tidyName(person.contactName),
-    intro: fill(content.texts.plan_intro) ?? content.texts.plan_intro,
+    intro: fillText(content.texts.plan_intro),
     ...(urgentOn ? { urgent: { items: urgentItems, guidance: content.texts.urgent_guidance } } : {}),
-    situation: fillAll(content.summary.filter((s) => s.section === "situation" && applies(s.when)).map((s) => s.text)),
-    matters: fillAll(content.summary.filter((s) => s.section === "matters" && applies(s.when)).map((s) => s.text)),
+    situation: fillRows(content.summary.filter((s) => s.section === "situation" && applies(s.when)).map((s) => s.text)),
+    matters: fillRows(content.summary.filter((s) => s.section === "matters" && applies(s.when)).map((s) => s.text)),
     pathways,
     pathwayNote: content.texts.pathway_none,
     actions,
     information,
-    cta: fill(cta) ?? cta,
+    cta: fillText(cta),
     services: content.services.map((s) => ({ id: s.id, label: s.label, suggested: !!s.pathway && onPath.has(s.pathway) })),
     sources: content.sources.filter((s) => cited.has(s.id)),
     disclaimer: content.texts.disclaimer,
