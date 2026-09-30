@@ -46,6 +46,7 @@ Emails are not sent locally. They are kept in memory, and the server log records
 | `EMAIL_FROM` | e.g. `Ageing Navigator <plans@ageingnavigator.co.nz>`; the domain must be verified in Resend |
 | `EMAIL_REPLY_TO` | Optional: where family replies go |
 | `CRON_SECRET` | 32+ random characters; the daily retention job checks it |
+| `REQUIRE_APPROVED_CONTENT` | `1` on the real production: no submissions and no releases while any content row is still Draft. Leave unset on staging |
 | `RETENTION_MONTHS_AFTER_RELEASE` | Default 12 |
 | `RETENTION_DAYS_UNRELEASED` | Default 60 |
 

@@ -267,6 +267,18 @@ describe("review and release", () => {
   });
 });
 
+describe("draft content in production", () => {
+  it("is refused when REQUIRE_APPROVED_CONTENT is set", async () => {
+    const c = await submitFamily(0);
+    process.env.REQUIRE_APPROVED_CONTENT = "1";
+    try {
+      expect((await submit(req("/api/submit", submission(0)), none)).status).toBe(503);
+      const full = (await getCase(c.id))!;
+      expect((await releaseCase(asNav(`/api/admin/cases/${c.id}/release`, { version: full.version }), ctx({ id: c.id }))).status).toBe(409);
+    } finally { delete process.env.REQUIRE_APPROVED_CONTENT; }
+  });
+});
+
 describe("retention job and export", () => {
   it("runs only with the right secret", async () => {
     delete process.env.CRON_SECRET;

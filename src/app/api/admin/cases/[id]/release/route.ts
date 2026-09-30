@@ -2,7 +2,9 @@ import { z } from "zod";
 import { release } from "@/lib/cases";
 import { hashToken, newToken } from "@/lib/secrets";
 import { emailFamilyLink, familyLink } from "@/lib/release";
-import { ok, parse } from "@/lib/api";
+import { bad, ok, parse } from "@/lib/api";
+import { config } from "@/lib/config";
+import { contentBlocked } from "@/lib/pilot/library";
 import { caseRoute } from "@/lib/route";
 import { log } from "@/lib/log";
 
@@ -13,6 +15,9 @@ export const runtime = "nodejs";
  * emailed. The link is returned once, so the navigator can copy it if the email fails; it is never stored in clear.
  */
 export const POST = caseRoute(async (req, nav, c) => {
+  if (contentBlocked(config.requireApprovedContent()) || (config.requireApprovedContent() && c.workingPlan.contentStatus !== "approved")) {
+    return bad("This plan uses draft content. Import the approved content and regenerate the plan before releasing it.", undefined, 409);
+  }
   const parsed = await parse(req, z.object({ version: z.number().int().positive() }), 4096);
   if ("error" in parsed) return parsed.error;
   const token = newToken();

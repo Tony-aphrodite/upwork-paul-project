@@ -13,6 +13,8 @@ export const config = {
   emailFrom: () => process.env.EMAIL_FROM ?? "Ageing Navigator <plans@example.test>",
   /** Where family replies go, if different from the sender. */
   emailReplyTo: () => process.env.EMAIL_REPLY_TO,
+  /** Set to 1 on the real production: families cannot submit, and plans cannot be released, while content is a draft. */
+  requireApprovedContent: () => process.env.REQUIRE_APPROVED_CONTENT === "1",
 };
 
 export function addMonths(d: Date, months: number): Date {

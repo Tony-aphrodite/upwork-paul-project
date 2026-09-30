@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { Answers } from "@/lib/questionnaire/schema";
 import { checkAll, cleanAnswers, pruneAnswers } from "@/lib/questionnaire/logic";
-import { content } from "@/lib/pilot/library";
+import { content, contentBlocked } from "@/lib/pilot/library";
+import { config } from "@/lib/config";
 import { generatePilotPlan } from "@/lib/pilot/engine";
 import { createCase, logEvent } from "@/lib/cases";
 import { db } from "@/lib/db";
@@ -39,6 +40,7 @@ const Input = z.object({
  * urgent guidance to show straight away. Navigators are told by email, with the reference only.
  */
 export const POST = publicRoute(async (req) => {
+  if (contentBlocked(config.requireApprovedContent())) return bad("The questionnaire is not open yet. Please try again soon.", undefined, 503);
   const parsed = await parse(req, Input);
   if ("error" in parsed) return parsed.error;
   const input = parsed.data;
