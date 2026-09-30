@@ -125,7 +125,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: Te
         )}
         <div className="card p-6 sm:p-8">
           <CheckCircle2 size={30} className="text-ahead" aria-hidden="true" />
-          <h1 className="mt-3 text-[26px]">Thank you</h1>
+          <h1 className="mt-3 text-[26px]">Your answers have been sent</h1>
           <p className="mt-3 text-[16px]">{texts.thankYou}</p>
           <p className="mt-4 text-[14px] text-muted">Your reference is <strong className="font-mono text-ink">{done.reference}</strong>. Please quote it if you contact us.</p>
         </div>
@@ -269,7 +269,7 @@ function Question({ q, value, onChange, issue }: { q: QuestionDefinition; value:
           const blocked = !on && atLimit && !o.exclusive;
           return (
             <label key={o.value} className={clsx(option, on ? "border-brand bg-brand-soft" : "border-line bg-white hover:border-brand/40", blocked ? "cursor-not-allowed opacity-55" : "cursor-pointer")}>
-              <input type="checkbox" checked={on} disabled={blocked} onChange={() => toggle(o.value, o.exclusive)} className="mt-1 accent-brand" />
+              <input type="checkbox" value={o.value} checked={on} disabled={blocked} onChange={() => toggle(o.value, o.exclusive)} className="mt-1 accent-brand" />
               <span>{o.label}</span>
             </label>
           );
@@ -286,7 +286,7 @@ function Question({ q, value, onChange, issue }: { q: QuestionDefinition; value:
                   <div className="mt-2 flex flex-wrap gap-2">
                     {q.options.map((o) => (
                       <label key={o.value} className={clsx("cursor-pointer rounded-lg border px-3 py-1.5 text-[14.5px]", rows[item.id] === o.value ? "border-brand bg-brand-soft" : "border-line")}>
-                        <input type="radio" className="mr-2 accent-brand" name={`${q.id}-${item.id}`} checked={rows[item.id] === o.value} onChange={() => onChange({ ...rows, [item.id]: o.value })} />{o.label}
+                        <input type="radio" className="mr-2 accent-brand" name={`${q.id}-${item.id}`} value={o.value} checked={rows[item.id] === o.value} onChange={() => onChange({ ...rows, [item.id]: o.value })} />{o.label}
                       </label>
                     ))}
                   </div>

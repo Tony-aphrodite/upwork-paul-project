@@ -4,7 +4,7 @@ import { FamilyShell } from "@/components/FamilyShell";
 import { caseForToken } from "@/lib/family-link";
 import { content } from "@/lib/pilot/library";
 import { PLAN_CSS, renderPlanSections } from "@/lib/pilot/render";
-import { fmtDate } from "@/lib/engine/context";
+import { nzLongDate } from "@/lib/format";
 import { BRAND } from "@/lib/brand";
 import { RequestForm } from "./RequestForm";
 import { FeedbackForm } from "./FeedbackForm";
@@ -33,7 +33,7 @@ export default async function PlanPage({ params }: { params: Promise<{ token: st
         {plan.contentStatus === "draft" && <p className="mb-4 rounded-lg bg-soon-soft p-3 text-[13.5px] text-soon"><strong>Test version.</strong> This plan uses draft wording that Ageing Navigator has not yet approved.</p>}
         <p className="eyebrow">{BRAND.planTitle}</p>
         <h1 className="mt-2 text-[clamp(1.7rem,4vw,2.4rem)] leading-tight">For {plan.personName}</h1>
-        <p className="mt-2 text-[14px] text-muted">Prepared for {plan.preparedFor} · {c.releasedAt ? fmtDate(c.releasedAt.toISOString()) : ""} · Reference {c.reference}</p>
+        <p className="mt-2 text-[14px] text-muted">Prepared for {plan.preparedFor} · {c.releasedAt ? nzLongDate(c.releasedAt) : ""} · Reference {c.reference}</p>
         <a href={`/api/p/${token}/pdf`} className="btn-primary mt-5 !min-h-[44px]"><Download size={16} aria-hidden="true" />Download the plan as a PDF</a>
 
         <style>{PLAN_CSS(".anplan")}</style>

@@ -50,6 +50,7 @@ async function openPostgres(url: string): Promise<Db> {
 /** PGlite: "memory" for tests, a directory for local development. Migrations run on open. */
 export async function openPglite(where: string): Promise<Db> {
   const { PGlite } = await import("@electric-sql/pglite");
+  if (where !== "memory") (await import("node:fs")).mkdirSync(where, { recursive: true });
   const pg = where === "memory" ? new PGlite() : new PGlite(where);
   await pg.waitReady;
   type Q = { query: typeof pg.query; exec: typeof pg.exec };

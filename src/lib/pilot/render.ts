@@ -1,6 +1,7 @@
 import { BRAND } from "../brand";
 import { PRIORITY_LABEL } from "../schema";
 import { fmtDate } from "../engine/context";
+import { nzLongDate } from "../format";
 import { citedSources, liveActions, liveInformation, thingsToCheck, type PilotPlan } from "./plan";
 
 /**
@@ -181,7 +182,7 @@ ${PLAN_CSS(".plan")}`;
     <p class="for">For ${esc(plan.personName)}</p>
     <dl>
       <dt>Prepared for</dt><dd>${esc(plan.preparedFor)}</dd>
-      <dt>Date</dt><dd>${esc(fmtDate(opts.issuedOn.toISOString()))}</dd>
+      <dt>Date</dt><dd>${esc(nzLongDate(opts.issuedOn))}</dd>
       <dt>Reference</dt><dd>${esc(opts.reference)}</dd>
     </dl>
     <p class="note">This plan is private to your family. It is information and navigation, not medical, legal or financial advice.</p>

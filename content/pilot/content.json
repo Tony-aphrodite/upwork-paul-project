@@ -4638,24 +4638,24 @@
     }
   ],
   "texts": {
-    "questionnaire_title": "Family Ageing Questionnaire",
-    "questionnaire_intro": "Tell us what's happening, and we'll help you work out what to do next.\n\nThis questionnaire prepares your free personalised Family Ageing Action Plan. Depending on your situation it takes around 10 to 15 minutes, and you will only be shown questions that are relevant to you.\n\nYou don't need to know every answer. “Not sure” is useful information too.\n\nPlease don't include account numbers, passwords, detailed medical records or other highly confidential information.",
     "notice": "Ageing Navigator provides independent ageing-related information and navigation. It does not provide medical diagnoses, legal or financial advice, or formal government needs assessments. If someone is in immediate danger or needs urgent medical attention, contact the appropriate emergency service.",
     "consent": "Ageing Navigator will use your answers to prepare a personalised Family Ageing Action Plan. A navigator checks every plan before it is sent to you. Your answers are stored securely in Australia, seen only by the Ageing Navigator team, and deleted 12 months after your plan is sent, or sooner if you ask. We do not use AI, and we do not share your answers with anyone else without asking you first.",
-    "marketing_consent": "Send me occasional news from Ageing Navigator. This is optional and you can stop at any time.",
     "thank_you": "Thank you. Your answers have reached Ageing Navigator. A navigator will check your personalised Action Plan and email it to you, usually within a few working days.",
     "urgent_guidance": "If anyone is in immediate danger or needs urgent medical help, call 111 now. For health advice at any time, call Healthline on 0800 611 116. Please do not wait for your Action Plan.",
     "plan_intro": "This plan brings together what you told us about {{name}}'s situation and the steps that may help next. Each step is a possible pathway to investigate, not a decision.",
     "disclaimer": "Ageing Navigator provides independent information and navigation. It does not provide medical diagnoses, legal or financial advice, or formal needs assessments, and it does not decide eligibility for any funding or service. Sources were checked on the dates shown.",
     "pathway_none": "Your answers do not point to one pathway yet, which is common. The steps below help whatever you decide, and a navigator can help you think through the options.",
     "cta_default": "Would you like Ageing Navigator to organise these next steps for you?",
-    "cta_stay_home": "Would you like Ageing Navigator to organise your Home Support Setup?",
-    "cta_village": "Would you like Ageing Navigator to help coordinate your Retirement Village Transition?",
-    "cta_residential": "Would you like Ageing Navigator to search for and coordinate Residential Care?",
     "email_release_subject": "Your Family Ageing Action Plan is ready",
     "email_release_body": "Hello,\n\nYour personalised Family Ageing Action Plan has been checked by a navigator and is ready.\n\nOpen your plan: {{link}}\n\nThis link is private to you. It works until {{expires}}. On the plan page you can download it as a PDF, and ask us for help with any of the steps.\n\nAgeing Navigator",
     "request_intro": "Tell us what you would like help with and a navigator will contact you to talk it through. There is no obligation, and we will tell you the cost before anything starts.",
-    "feedback_intro": "Ageing Navigator is being tested with a small number of families. Your answers help us make the plans better for the next family."
+    "marketing_consent": "Send me occasional news from Ageing Navigator. This is optional and you can stop at any time.",
+    "cta_stay_home": "Would you like Ageing Navigator to organise your Home Support Setup?",
+    "cta_village": "Would you like Ageing Navigator to help coordinate your Retirement Village Transition?",
+    "cta_residential": "Would you like Ageing Navigator to search for and coordinate Residential Care?",
+    "feedback_intro": "Ageing Navigator is being tested with a small number of families. Your answers help us make the plans better for the next family.",
+    "questionnaire_title": "Family Ageing Questionnaire",
+    "questionnaire_intro": "Tell us what's happening, and we'll help you work out what to do next.\n\nThis questionnaire prepares your free personalised Family Ageing Action Plan. Depending on your situation it takes around 10 to 15 minutes, and you will only be shown questions that are relevant to you.\n\nYou don't need to know every answer. “Not sure” is useful information too.\n\nPlease don't include account numbers, passwords, detailed medical records or other highly confidential information."
   },
   "services": [
     {

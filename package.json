@@ -8,7 +8,12 @@
     "start": "next start",
     "test": "vitest run",
     "samples": "tsx scripts/render-samples.ts",
-    "test:pdf": "vitest run tests/documents.test.ts"
+    "test:pdf": "vitest run tests/documents.test.ts",
+    "db:migrate": "tsx scripts/migrate.mts",
+    "navigator": "tsx scripts/add-navigator.mts",
+    "content:export": "tsx scripts/content-export.mts",
+    "content:import": "tsx scripts/content-import.mts",
+    "seed:fictional": "tsx scripts/seed-fictional.mts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.8",
