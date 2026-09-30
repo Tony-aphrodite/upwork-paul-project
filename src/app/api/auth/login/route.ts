@@ -1,23 +1,33 @@
 import { NextResponse } from "next/server";
-import { SESSION_COOKIE, SESSION_HOURS, adminPassword, createSession, safeEqual } from "@/lib/auth";
+import { z } from "zod";
+import { SESSION_COOKIE, createSession, sessionCookieOptions } from "@/lib/auth";
+import { checkLogin } from "@/lib/navigators";
+import { clear, hit } from "@/lib/ratelimit";
+import { clientIp, pseudonym } from "@/lib/secrets";
+import { bad, parse } from "@/lib/api";
 import { log } from "@/lib/log";
 
-const attempts = new Map<string, number[]>();
+export const runtime = "nodejs";
 
+const Input = z.object({ email: z.string().trim().max(200), password: z.string().max(200) });
+
+/** Sign in with email and password. Guessing is limited per connection and per account, in the database. */
 export async function POST(req: Request) {
-  const ip = (req.headers.get("x-forwarded-for") ?? "local").split(",")[0].trim();
-  const now = Date.now();
-  const recent = (attempts.get(ip) ?? []).filter((t) => now - t < 10 * 60_000);
-  if (recent.length >= 8) return NextResponse.json({ error: "Too many attempts. Try again in a few minutes." }, { status: 429 });
-  const { password } = (await req.json().catch(() => ({}))) as { password?: string };
-  if (!password || !safeEqual(password, adminPassword())) {
-    attempts.set(ip, [...recent, now]);
+  const parsed = await parse(req, Input, 4096);
+  if ("error" in parsed) return parsed.error;
+  const { email, password } = parsed.data;
+  const ipKey = `login:ip:${pseudonym(clientIp(req))}`;
+  const accountKey = `login:acct:${pseudonym(email.toLowerCase())}`;
+  const allowed = (await hit(ipKey, 20, 900)) && (await hit(accountKey, 8, 900));
+  if (!allowed) return bad("Too many attempts. Try again in 15 minutes.", undefined, 429);
+  const nav = await checkLogin(email, password);
+  if (!nav) {
     log("auth.failed");
-    return NextResponse.json({ error: "That password is not right." }, { status: 401 });
+    return bad("That email and password do not match.", undefined, 401);
   }
-  attempts.delete(ip);
+  await clear(accountKey);
   const res = NextResponse.json({ ok: true });
-  res.cookies.set(SESSION_COOKIE, await createSession(), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", path: "/", maxAge: SESSION_HOURS * 3600 });
+  res.cookies.set(SESSION_COOKIE, await createSession(nav), sessionCookieOptions);
   log("auth.signed_in");
   return res;
 }

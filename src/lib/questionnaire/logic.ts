@@ -70,3 +70,39 @@ export function labelsFor(q: QuestionDefinition, value: unknown): string[] {
   if (value && typeof value === "object") return q.items.map((i) => `${i.label}: ${byValue.get((value as Record<string, string>)[i.id]) ?? "Not answered"}`);
   return [];
 }
+
+export const TEXT_LIMIT = { short: 200, long: 2000 } as const;
+
+/**
+ * Server-side clean-up of submitted answers: unknown questions, options that do not exist, wrong types and
+ * over-long text are dropped. When a multiple-choice answer mixes an exclusive option ("None of these") with others,
+ * the specific answers are kept. Visibility and required answers are checked afterwards by `pruneAnswers` and `checkAll`.
+ */
+export function cleanAnswers(doc: Questionnaire, raw: Record<string, unknown>): Answers {
+  const qs = questionIndex(doc);
+  const out: Answers = {};
+  for (const [id, v] of Object.entries(raw)) {
+    const q = qs.get(id);
+    if (!q) continue;
+    const allowed = new Map(q.options.map((o) => [o.value, o]));
+    if (q.type === "single" && typeof v === "string" && allowed.has(v)) out[id] = v;
+    else if (q.type === "multi" && Array.isArray(v)) {
+      let vs = [...new Set(v.filter((x): x is string => typeof x === "string" && allowed.has(x)))];
+      const specific = vs.filter((x) => !allowed.get(x)!.exclusive);
+      if (specific.length) vs = specific;
+      else if (vs.length > 1) vs = vs.slice(-1);
+      if (vs.length) out[id] = vs;
+    } else if ((q.type === "short" || q.type === "long") && typeof v === "string") {
+      const t = v.trim().slice(0, TEXT_LIMIT[q.type]);
+      if (t) out[id] = t;
+    } else if (q.type === "tri_grid" && v && typeof v === "object" && !Array.isArray(v)) {
+      const rows: Record<string, string> = {};
+      for (const item of q.items) {
+        const x = (v as Record<string, unknown>)[item.id];
+        if (typeof x === "string" && allowed.has(x)) rows[item.id] = x;
+      }
+      if (Object.keys(rows).length) out[id] = rows;
+    }
+  }
+  return out;
+}

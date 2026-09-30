@@ -6,8 +6,8 @@ const body = localFont({ src: [{ path: "../doc/fonts/atkinson-hyperlegible-latin
 const display = localFont({ src: "../doc/fonts/literata-latin-wght-normal.woff2", weight: "300 800", variable: "--ff-display", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Kinfield Action Plans · proof of concept", template: "%s · Kinfield Action Plans" },
-  description: "Proof of concept: a structured Family Action Plan system that generates professional PDF plans and summaries from family profile data.",
+  title: { default: "Ageing Navigator", template: "%s · Ageing Navigator" },
+  description: "A free, personalised Family Ageing Action Plan for families in New Zealand.",
   robots: { index: false, follow: false },
 };
 export const viewport: Viewport = { themeColor: "#1F4E5F" };
