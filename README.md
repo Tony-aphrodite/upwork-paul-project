@@ -1,75 +1,116 @@
-# Kinfield Action Plans: proof of concept
+# Ageing Navigator: pilot
 
-A first version of a **living Family Action Plan system** for an ageing-navigation service: family information in, a structured Action Plan out, and two professional PDFs (the full plan and a 1 to 2 page Professional Summary) generated from that data.
-
-Everything here is fictional: the families, the provider list and the name "Kinfield Navigator". The phone number is a placeholder.
+A family answers a questionnaire and receives a personalised **Family Ageing Action Plan**. A navigator checks and
+edits every plan before it is released. The family then gets a private link to the plan and its PDF, and can ask
+Ageing Navigator for help from there.
 
 ```
-Conditional questionnaire → Family Profile (validated) → Action Plan (structured, versioned) → HTML/CSS template → PDF
+/start: consent, conditional questions, contact
+  → case stored, plan generated from approved content, navigators emailed
+  → /admin: navigator reviews, edits, previews, releases
+  → email with a private link → /p/…: plan, PDF, help request, feedback
 ```
 
-A family fills in the questionnaire at `/questionnaire` (66 questions, five conditional sections, nothing stored on a server),
-gets their plan and both PDFs at the end, and the plan joins the navigator's pilot queue for review before it is sent.
+The earlier proof of concept is kept at the git tag `prototype-2026-09-23`.
 
-## Run it
+## Run it locally
+
+Node 20. No database to install: without `DATABASE_URL` the app uses PGlite, a Postgres that runs in-process, and
+stores its data in `.data/pglite`.
 
 ```bash
 npm install
-npm run dev                                   # http://localhost:3000, demo password: navigator-demo
-CHROME_PATH=/usr/bin/google-chrome npm run dev   # local PDF generation uses an installed Chrome
-npm test                                      # 69 tests (the PDF test runs when CHROME_PATH is set)
-npm run schemas                               # writes schemas/*.schema.json
-CHROME_PATH=... npm run samples               # renders both PDFs for every test case into samples/
+npm run navigator -- --email you@example.test --name "Your name"   # prints a one-time setup link
+npm run dev                                                         # http://localhost:3000, open the setup link
+npm run seed:fictional                                              # submits the fictional families (server running)
+npm test                                                            # CHROME_PATH=/usr/bin/google-chrome adds the PDF tests
 ```
 
-On Vercel, PDFs use `@sparticuz/chromium`. Set `AUTH_SECRET` (and optionally `ADMIN_PASSWORD`).
+PGlite allows one process at a time: stop the dev server before running `navigator` or `db:migrate` against it.
+Emails are not sent locally. They are kept in memory, and the server log records that a message was sent.
 
-## What is where
+## Configuration (production)
+
+| Variable | What it is |
+| --- | --- |
+| `DATABASE_URL` | Postgres connection string. Supabase in Sydney (`ap-southeast-2`), transaction pooler (port 6543) |
+| `AUTH_SECRET` | 32+ random characters; signs navigator sessions |
+| `APP_URL` | Public address, e.g. `https://plan.ageingnavigator.co.nz`; used in emails and links |
+| `RESEND_API_KEY` | Resend API key, from an account on the client's domain |
+| `EMAIL_FROM` | e.g. `Ageing Navigator <plans@ageingnavigator.co.nz>`; the domain must be verified in Resend |
+| `EMAIL_REPLY_TO` | Optional: where family replies go |
+| `CRON_SECRET` | 32+ random characters; the daily retention job checks it |
+| `RETENTION_MONTHS_AFTER_RELEASE` | Default 12 |
+| `RETENTION_DAYS_UNRELEASED` | Default 60 |
+
+On Vercel, `vercel.json` runs the functions in Sydney (`syd1`) and calls `/api/cron/retention` once a day.
+After the first deploy, and after any new migration, run `DATABASE_URL=… npm run db:migrate`.
+
+## Changing the content
+
+Questions, branching, pathways, sentences, actions, information, texts, services and sources all live in
+`content/pilot/content.json`. It is edited through the content spreadsheet, not by hand:
+
+```bash
+npm run content:export -- content.xlsx          # current content, with a "How to use" tab
+npm run content:import -- content.xlsx          # checks everything; lists problems by tab, row and column
+npm run content:import -- content.xlsx --production   # refuses rows still marked Draft
+npm test && deploy
+```
+
+Rows marked Draft make the whole content a draft: the family pages and PDFs then say "Test version".
+Cases keep the plan they were generated with. "Regenerate from answers" on a case rebuilds it with the current content.
+
+**The condition language** (the "Show when" columns) reads like `q8 has falls`, `q19 in completed, receiving`,
+`q21.epoa_property is no` or `q11a answered`, combined with `and`, `or`, `not` and brackets. See `src/lib/pilot/rule-syntax.ts`.
+
+## Navigator accounts
+
+```bash
+npm run navigator -- --email dee@example.test --name "Dee"     # new account, or a new setup link (password reset)
+npm run navigator -- --email dee@example.test --disable        # takes effect at once
+```
+
+The setup link works once, for 48 hours. The navigator chooses their own password (12 characters or more), so no
+password is ever sent to anyone.
+
+## Privacy and security
+
+- **Access.**
+  - Everything under `/admin` and `/api/admin` needs a navigator session (`src/middleware.ts`), and every admin
+    route checks again that the account is active.
+  - The family's pages are reached only through their private link: 32 random bytes, of which only the SHA-256 hash
+    is stored. The link expires with the case and stops working when a new link is issued.
+- **The database.**
+  - It is reached only from the server.
+  - Row-level security is on for every table with no policies, so the hosting provider's public API reads nothing.
+- **Minimal data.**
+  - Contact details are only what delivery needs.
+  - Free text is limited in length and never placed inside plan sentences.
+  - IP addresses are never stored; rate limits key on a keyed hash.
+  - Logs pass an allow-list (`src/lib/log.ts`) and hold no personal data.
+- **Email.** Emails carry links and case references, never health information.
+- **Retention.**
+  - A released case is deleted `RETENTION_MONTHS_AFTER_RELEASE` after release; a case never released is deleted
+    after `RETENTION_DAYS_UNRELEASED`. The daily job does this.
+  - Navigators can delete a case at once; they type its reference to confirm.
+  - The `events` table keeps only anonymous counts.
+- **No AI.** No family information is sent to an AI provider.
+- **Backups.** Daily backups come from the database provider's paid tier. Test a restore before go-live.
+
+## Where things are
 
 | Path | What it is |
 | --- | --- |
-| `src/lib/schema.ts` | The contracts (Zod): Family Profile, Action Plan, Action, Module definition, Provider. Exported as JSON Schema in `schemas/` and at `/api/schemas/{name}` |
-| `src/lib/engine/` | The plan engine: pure functions, no I/O. Conditions, templating, "what you told us", generation, versioning, diffs, transparent provider matching |
-| `content/questionnaire.json` | The family questionnaire as content: sections, questions, options and the conditions that decide which are shown |
-| `src/lib/questionnaire/` | Questionnaire schema, the conditional logic and validation, and the answers → Family Profile mapping |
-| `content/modules.json` | The 18 modules from the brief, as data: when each applies, its priority rules, text and actions |
-| `content/sources.json` | Sources cited in the plan, with review dates |
-| `content/cases.json` | Seven fictional families: the six from the brief plus a long-content stress case |
-| `content/providers.json` | Sample providers for the matching demo (fictional), including accommodation, pets, entry price and when each record was last verified |
-| `src/doc/templates.ts` | The two document templates (HTML/CSS), shared by the browser preview and the server PDF |
-| `src/doc/pdf.ts` | Headless Chromium: HTML in, PDF bytes out, nothing written to disk |
-| `src/app/api/` | Sign-in, generate, validate, documents, schemas, library, and the public questionnaire routes (plan and PDF, stateless) |
-| `src/app/questionnaire/` | The family questionnaire and the plan it produces |
-| `src/app/admin/pilot/` | The 50-plan pilot: review queue, approve or request changes, mark as sent, and what families said |
-| `src/app/admin/repository/` | The repository behind the plans: questions, sources and provider records with their review dates |
-| `src/app/admin/` | The test console: load cases, paste or upload data, edit progress, change the profile, regenerate, preview, download, compare versions, add modules |
-| `src/app/docs/` | Technical documentation for future integration |
-| `samples/` | Rendered PDFs for all seven test cases |
+| `content/pilot/content.json` | The content (compiled from the spreadsheet) |
+| `src/lib/pilot/` | Content schema, spreadsheet compiler, condition language, engine, plan schema, renderer |
+| `src/lib/cases.ts`, `navigators.ts`, `db.ts`, `migrations.ts` | Storage |
+| `src/app/start/` | The family questionnaire |
+| `src/app/p/[token]/` | The family's plan page |
+| `src/app/admin/` | Case list and review screen |
+| `src/app/api/` | Submit, family link routes, admin routes, sign-in, retention |
+| `scripts/` | Content import and export, navigator accounts, migrations, fictional families |
+| `tests/pilot-*.ts` | Content, engine, database, API and renderer tests; `pilot-families.ts` holds the fictional families |
 
-## Design decisions
-
-- **The plan is data; the PDF is a view.** Each action is its own record with a stable key, priority, timing, owner, status, source and notes. Any system can read the plan as JSON; the PDF is regenerated from it at any time.
-- **The questions are content too.** Sections and questions live in `content/questionnaire.json` with the same declarative conditions the modules use, read over the answers. Rewording or adding a question is an edit and a new version; every plan records the questionnaire version it came from, so pilot feedback can be compared across changes.
-- **Nothing is invented in the mapping.** Values worked out from other answers are listed as inferred, and anything the questionnaire never asks is recorded as not asked instead of defaulting to a concern. Every raw answer is kept on the profile, so a profile can be re-derived when the mapping improves.
-- **Urgent concerns are kept apart.** Q18A answers are shown first in the plan, the PDF and the professional summary, with who to contact today, and are never mixed into the ordinary action list.
-- **Modules are content, not code.** Conditions use a small safe vocabulary (`eq`, `in`, `gte`, `truthy`, … combined with `all`, `any`, `not`). A module that does not apply never appears. New modules are added as records, validated by schema, with no rebuild; the admin Modules page demonstrates this.
-- **A living plan.** Regenerating after a profile change passes the previous version to the engine: status, notes and owners carry over by key, actions that no longer apply are kept as "No longer required", and navigator, family or AI actions are never dropped. Every version is immutable and records what changed.
-- **Transparent options.** Where providers are shown, each lists the criteria it matches, does not match, or cannot confirm. There is no hidden ranking or "recommended" label.
-- **Ready for AI, without depending on it.** AI output must match the same schemas. The console shows a model's suggested action being validated, rejected with field paths when wrong, and added with `source: "ai"` when right.
-- **Documents that survive real content.** Paged-media CSS (A4, running footers, "Page X of Y", repeated table headers, no split rows or cards), embedded fonts, and wrapping for long words and URLs. Tests render every case and check page counts and overflow.
-- **Private by default.** Signed session cookie for all admin pages and APIs, rate-limited sign-in, an allow-list logger that cannot write personal data, PDFs streamed with `no-store`, JavaScript disabled in the PDF renderer, and `noindex` everywhere.
-
-## Tests
-
-| Suite | Covers |
-| --- | --- |
-| `tests/engine.test.ts` | Schemas and content integrity (every condition field exists in the profile schema, every cited source exists, no unfilled placeholders), module selection and priority for each test family, versioning and carry-over, provider transparency, adding a module as data |
-| `tests/documents.test.ts` | Escaping, omitted sections, cover details, every action in the table and checklist, the summary's required items; with Chrome: PDFs for every case, summaries within 2 pages, and no element wider than the page |
-| `tests/questionnaire.test.ts` | The questionnaire as valid content, conditional sections appearing and disappearing, pruning hidden answers, "choose up to three" and grid validation, the mapping into a valid profile (including what it infers and what it never asks), the urgent block, and village matching against the family's own criteria |
-| `tests/api.test.ts` | Generate, validate and schema endpoints, input limits, the middleware guard, sign-in and rate limiting, log redaction |
-
-Five core rules (escaping, status carry-over, module conditions, the auth guard, keeping retired actions) were each broken on purpose; the suite failed every time.
-
-## Demo limits
-
-The demo has no database: the console keeps fictional plans in the browser, and the server is stateless. Production adds Postgres (plans, immutable versions, an actions table for reminders), encrypted object storage for PDFs with signed expiring links, and an audit log. See `/docs` for the table design and integration points.
+The prototype's library code (`src/lib/engine`, `src/lib/questionnaire/map.ts`, `src/doc/templates.ts`, providers and
+matching) stays for the full build, with its tests.
