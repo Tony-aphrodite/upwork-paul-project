@@ -35,9 +35,17 @@ async function viaResend(e: Email): Promise<Result> {
   }
 }
 
+/**
+ * Without RESEND_API_KEY: on a local machine (no real database) messages go to the in-memory outbox; anywhere with real
+ * data (Vercel, or a DATABASE_URL) nothing can be sent, and saying so lets the navigator copy the link instead.
+ */
+const unsent: Transport = async () => ({ ok: false, error: "email_not_configured" });
+const local: Transport = async (m) => { outbox().push(m); return { ok: true }; };
+
 export async function sendEmail(e: Email): Promise<boolean> {
   if (!e.to.length) { log("email", { kind: e.subject.slice(0, 40), ok: false, code: "no_recipients" }); return false; }
-  const transport: Transport = g.__anTransport ?? (process.env.RESEND_API_KEY ? viaResend : async (m) => { outbox().push(m); return { ok: true }; });
+  const real = !!process.env.VERCEL || !!process.env.DATABASE_URL;
+  const transport: Transport = g.__anTransport ?? (process.env.RESEND_API_KEY ? viaResend : real ? unsent : local);
   const r = await transport(e);
   log("email", { kind: e.subject.slice(0, 40), ok: r.ok, code: r.ok ? undefined : r.error, count: e.to.length });
   return r.ok;
