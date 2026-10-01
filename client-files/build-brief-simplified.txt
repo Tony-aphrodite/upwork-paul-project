@@ -1,0 +1,1446 @@
+﻿AGEING NAVIGATOR
+
+
+MVP PRODUCT & DEVELOPER BUILD BRIEF
+FOUNDING PILOT — SIMPLIFIED VERSION 1
+September 2026
+
+
+
+
+MVP GOAL
+Build the simplest possible working version of Ageing Navigator that allows an older person or family member to:
+
+
+1. Choose what they need help with.
+2. Answer a short set of relevant questions.
+3. Receive a useful personalised Action Plan based on verified New Zealand information.
+4. Give Ageing Navigator enough information to review the plan and learn from the pilot.
+5. Request human Implementation Support if they want help putting the plan into action.
+
+
+The first version is for approximately 10–20 pilot families.
+
+
+The purpose is to prove that the navigation and Action Plan are useful before investing in a larger platform.
+
+
+
+
+1. PRODUCT CONCEPT
+
+
+Ageing Navigator is an independent New Zealand ageing-navigation service.
+
+
+It helps older people and their families understand:
+• what their situation means;
+• what living and care options may be worth considering;
+• what government support or funding pathways may be relevant;
+• what they should do next;
+• which organisations or services may be able to help; and
+• when formal professional assessment or advice is required.
+
+
+The first version should feel intelligent and personalised without being technically complex.
+
+
+
+
+The MVP is NOT:
+• a chatbot;
+• a comprehensive ageing assessment;
+• a provider marketplace;
+• a CRM;
+• a family portal;
+• a persistent Family Ageing Record;
+• a live vacancy platform;
+• an autonomous AI adviser; or
+• a finished national platform.
+
+
+It is essentially:
+
+
+PATHWAY SELECTION
+→ CONDITIONAL QUESTIONNAIRE
+→ RULES + VERIFIED KNOWLEDGE
+→ PERSONALISED ACTION PLAN
+→ FEEDBACK
+→ OPTIONAL IMPLEMENTATION SUPPORT
+
+
+
+
+2. PURPOSE OF THE FOUNDING PILOT
+
+
+The purpose of Version 1 is learning.
+
+
+We need to establish:
+
+
+• whether families understand the proposition;
+• whether they complete the questionnaire;
+• whether we are asking the right questions;
+• whether the resulting Action Plan is genuinely useful;
+• whether the advice and pathways are accurate;
+• what information is missing from our repository;
+• what families most commonly need help with;
+• whether families request Implementation Support;
+• what implementation tasks actually involve;
+• how much human time different implementation tasks take; and
+• whether organisations are willing to refer families to Ageing Navigator.
+
+
+Revenue optimisation is not the primary purpose of the first 10–20 cases.
+
+
+Implementation may initially be offered free or on a pilot basis in return for feedback.
+
+
+
+
+3. MVP PRODUCT PRINCIPLE
+
+
+KEEP IT SIMPLE.
+
+
+Every feature must help us answer one of two questions:
+
+
+1. Can Ageing Navigator produce a useful personalised Action Plan?
+2. What do families want human help implementing afterwards?
+
+
+If a feature does not help us answer those questions, it probably belongs in Version 2.
+
+
+
+
+4. USER JOURNEY
+
+
+STEP 1 — ARRIVAL
+
+
+The person arrives at the existing Ageing Navigator landing page.
+
+
+They may come from:
+• Home Carers;
+• a retirement village;
+• residential care provider;
+• social worker;
+• hospital;
+• GP;
+• community organisation;
+• Google/search;
+• social media;
+• direct referral.
+
+
+Where practical, a simple referral-source parameter or code should be captured.
+A sophisticated referral-partner management system is NOT required.
+STEP 2 — CHOOSE WHAT THEY NEED HELP WITH
+
+
+The user sees clear pathway/module choices.
+
+
+Example:
+
+
+“What would you like help with?”
+
+
+Possible Version 1 pathways:
+
+
+• Living & Care Options
+• Government Funding & Needs Assessment
+• Staying Safely at Home
+• Coming Home From Hospital
+• Memory & Dementia
+• I’m Not Sure Where to Start
+
+
+These are not separate software products.
+
+
+They are different pathways through the same questionnaire system.
+
+
+
+
+STEP 3 — CONDITIONAL QUESTIONNAIRE
+
+
+The system asks only questions relevant to the selected pathway and previous answers.
+
+
+Questions may use:
+• single choice;
+• multiple choice;
+• Yes / No / Unsure;
+• ranges;
+• dates;
+• short written answers.
+
+
+The form must support conditional branching.
+
+
+Example:
+
+
+Question:
+“Has a formal needs assessment been completed?”
+
+
+If YES:
+Ask when and whether needs have changed.
+
+
+If NO:
+Do not ask assessment-result questions.
+
+
+If UNSURE:
+Record that this needs to be checked and reflect this in the Action Plan.
+
+
+
+
+CORE PRINCIPLE:
+
+
+Every question must earn the right to be asked.
+
+
+If an answer does not materially affect:
+
+
+• the recommended pathway;
+• funding guidance;
+• priority;
+• Action Plan;
+• safety consideration; or
+• implementation recommendation,
+
+
+do not ask it.
+
+
+Financial questions should only be shown when relevant.
+
+
+
+
+STEP 4 — GENERATE PERSONALISED ACTION PLAN
+
+
+After completing the questionnaire, the user receives a personalised Action Plan.
+
+
+The Action Plan should be structured rather than an uncontrolled AI-generated essay.
+
+
+See Section 7 for the required format.
+
+
+
+
+STEP 5 — FEEDBACK
+
+
+Immediately after receiving the plan, ask a very short feedback survey.
+
+
+
+
+STEP 6 — IMPLEMENTATION SUPPORT
+
+
+The Action Plan displays:
+
+
+“Would you like help putting your plan into action?”
+
+
+The family can request human Navigator support.
+
+
+Implementation is handled manually outside the application during the pilot.
+
+
+No case-management platform or payment system is required for Version 1.
+
+
+
+
+5. NAVIGATION PATHWAYS / MODULES
+
+
+The MVP should support different pathways but the underlying technical implementation should remain simple.
+
+
+Recommended pathways:
+
+
+A. LIVING & CARE OPTIONS
+Purpose:
+Help someone understand which living/support pathways may be worth exploring.
+
+
+Potential outcomes could include:
+• remain at home with additional support;
+• explore retirement village living;
+• explore retirement village options with future care;
+• investigate care-suite options;
+• seek a formal needs assessment;
+• explore residential aged care;
+• identify areas requiring further information.
+
+
+The system must not independently determine formal residential-care eligibility or clinical care level where professional assessment is required.
+
+
+
+
+B. GOVERNMENT FUNDING & NEEDS ASSESSMENT
+Purpose:
+Help families understand:
+• whether a needs assessment may be required;
+• how to approach the local assessment organisation;
+• what information to prepare;
+• potentially relevant funded support;
+• Residential Care Subsidy pathways;
+• Residential Care Loan pathways;
+• what remains unknown;
+• who makes the formal decision.
+
+
+
+
+C. STAYING SAFELY AT HOME
+Purpose:
+Explore:
+• current support;
+• home help;
+• personal care;
+• mobility;
+• falls;
+• equipment;
+• meals;
+• transport;
+• companionship;
+• family support;
+• respite;
+• home safety;
+• whether further assessment may be useful.
+
+
+
+
+
+
+
+
+D. COMING HOME FROM HOSPITAL
+Purpose:
+Help families think through:
+• discharge;
+• support at home;
+• mobility;
+• equipment;
+• meals;
+• medication support;
+• transport;
+• family availability;
+• short-term private support;
+• formal assessment;
+• immediate safety concerns.
+
+
+
+
+E. MEMORY & DEMENTIA
+Purpose:
+Help organise the situation and next steps without diagnosing.
+This may include:
+• observed changes;
+• safety;
+• support available;
+• GP involvement;
+• dementia organisations;
+• respite;
+• home support;
+• future living considerations;
+• EPOA considerations.
+
+
+
+
+F. I’M NOT SURE WHERE TO START
+
+
+A short broader questionnaire identifies the main areas that appear to require attention.
+
+
+The resulting Action Plan can cover more than one pathway.
+
+
+The user should NOT have to complete multiple separate questionnaires during the first session.
+
+
+
+
+6. SIMPLE QUESTION & RULE SYSTEM
+
+
+The developer does not need to build a sophisticated SaaS module framework.
+
+
+A simple structured question/rule system is sufficient.
+
+
+Each question should contain fields such as:
+
+
+• Question ID
+• Pathway
+• Question text
+• Answer type
+• Answer options
+• Required / optional
+• Show when / conditional rule
+• Action or rule triggered
+
+
+Example:
+
+
+Question ID:
+FUND_004
+
+
+Pathway:
+Funding & Needs Assessment
+
+
+Question:
+Has a formal needs assessment been completed?
+
+
+Answer:
+Yes / No / Unsure
+
+
+Show when:
+Funding pathway selected OR residential-care pathway triggered
+
+
+Rule:
+If No or Unsure, consider assessment preparation as an Action Plan priority.
+
+
+
+
+QUESTIONS SHOULD BE EDITABLE WITHOUT MAJOR REDEVELOPMENT WHERE PRACTICAL.
+
+
+However, a large custom admin/configuration platform is not required.
+
+
+A simple database, spreadsheet-style admin system or lightweight backend is acceptable.
+
+
+
+
+7. PERSONALISED ACTION PLAN
+
+
+This is the main MVP output.
+
+
+The plan should include:
+
+
+
+
+A. YOUR CURRENT SITUATION
+
+
+A short plain-English summary based only on information supplied by the user.
+
+
+
+
+B. WHAT MATTERS MOST
+
+
+Summarise the person's stated priorities, concerns and immediate goal.
+
+
+
+
+C. PATHWAYS WORTH EXPLORING
+
+
+For example:
+
+
+• staying at home with additional support;
+• retirement village living;
+• care-suite options;
+• needs assessment;
+• residential care;
+• further professional advice.
+
+
+Where more than one option is reasonable, show more than one.
+
+
+Do not present uncertain conclusions as facts.
+
+
+
+
+D. YOUR PRIORITY ACTIONS
+
+
+Each action should explain:
+
+
+• What to do
+• Why it matters
+• What the next step is
+• Who may help
+• What to prepare
+• Questions to ask
+
+
+
+
+E. FUNDING / SUPPORT THAT MAY BE RELEVANT
+
+
+Where applicable, explain potentially relevant funding/support pathways.
+
+
+The plan must clearly distinguish between:
+
+
+• information Ageing Navigator can provide; and
+• formal eligibility decisions made by government or assessment organisations.
+
+
+
+
+F. ORGANISATIONS / SERVICES THAT MAY HELP
+
+
+Where appropriate, include relevant:
+
+
+• government organisations;
+• local services;
+• community organisations;
+• home-care providers;
+• retirement villages;
+• residential-care providers;
+• dementia organisations;
+• professional advisers.
+
+
+
+
+G. THINGS WE STILL NEED TO CHECK
+
+
+If the user has selected Unsure or information is missing, clearly show this.
+
+
+Example:
+
+
+“We still need to confirm whether a formal needs assessment has already been completed.”
+
+
+
+
+H. PROFESSIONAL ASSESSMENT / ADVICE
+
+
+Clearly state where:
+
+
+• clinical assessment;
+• legal advice;
+• financial advice;
+• formal needs assessment; or
+• government eligibility determination
+
+
+is required.
+
+
+
+
+I. IMPLEMENTATION SUPPORT
+
+
+End with:
+
+
+“Would you like help putting your plan into action?”
+
+
+Button:
+
+
+REQUEST NAVIGATOR SUPPORT
+
+
+
+
+ACTION PLAN OUTPUT
+
+
+The Action Plan should:
+
+
+• display clearly on screen;
+• be mobile friendly;
+• be available as a downloadable PDF;
+• use consistent Ageing Navigator branding.
+
+
+
+
+8. USE OF AI
+
+
+AI may be used to:
+
+
+• summarise questionnaire information;
+• convert structured recommendations into natural family-friendly wording;
+• produce the current-situation summary;
+• explain approved information clearly;
+• assist with formatting the Action Plan.
+
+
+AI must NOT independently invent:
+
+
+• government eligibility rules;
+• funding thresholds;
+• clinical conclusions;
+• legal advice;
+• financial advice;
+• provider information;
+• care levels;
+• government processes.
+
+
+Underlying advice must come from:
+
+
+QUESTION ANSWERS
++
+CONFIGURED RULES
++
+VERIFIED KNOWLEDGE REPOSITORY
+
+
+AI is primarily the communication layer, not the source of truth.
+
+
+
+
+9. KNOWLEDGE REPOSITORY — VERSION 1
+
+
+The Action Plan must use a small verified repository.
+
+
+For the pilot, this will initially focus on Tauranga / Bay of Plenty plus relevant national information.
+
+
+Initial topics should include:
+
+
+• Support Net / needs assessment;
+• funded home and community support;
+• Residential Care Subsidy;
+• Residential Care Loan;
+• residential-care funding/cost rules;
+• EPOA process;
+• Tauranga retirement villages;
+• Tauranga care suites;
+• Tauranga residential aged-care providers;
+• Tauranga private home-care providers;
+• dementia support;
+• respite;
+• mobility/equipment;
+• transport;
+• relevant community organisations.
+
+
+
+
+SIMPLE KNOWLEDGE RECORD
+
+
+Each entry should contain:
+
+
+• Topic
+• Region / jurisdiction
+• When it applies
+• Approved family explanation
+• Process / next step
+• Organisation/contact information
+• Official or verified source
+• Last checked
+• Status: Current / Needs Review
+
+
+Manual management of the repository is acceptable for Version 1.
+
+
+Automated source monitoring is NOT required.
+
+
+
+
+10. FAMILY / PILOT RECORD
+
+
+Version 1 does NOT require:
+
+
+• family accounts;
+• login;
+• persistent Family Ageing Record;
+• return-user history;
+• multi-user family access;
+• automatic updating of old information.
+
+
+For each completed questionnaire, Ageing Navigator simply needs an internal record containing:
+
+
+• name/contact information where supplied;
+• questionnaire answers;
+• selected pathway;
+• referral source if available;
+• generated Action Plan;
+• feedback;
+• whether Implementation Support was requested.
+
+
+This can be stored securely in a simple database/admin area.
+
+
+The purpose is for the Ageing Navigator team to review the first 10–20 cases and improve the service.
+
+
+
+
+11. AGEING NAVIGATOR ADMIN VIEW
+
+
+A lightweight admin area is required.
+
+
+For each pilot case we need to see:
+
+
+• family/contact details;
+• selected pathway;
+• questionnaire answers;
+• generated Action Plan;
+• date completed;
+• referral source;
+• family feedback;
+• implementation request.
+
+
+Admin should also be able to:
+
+
+• update common questionnaire content;
+• update repository information;
+• view/export pilot data.
+
+
+A sophisticated dashboard is NOT required.
+
+
+CSV export is sufficient for analysis.
+
+
+
+
+12. FAMILY FEEDBACK
+
+
+After receiving the Action Plan, ask:
+
+
+1. Did this help you understand what to do next?
+
+
+2. Did it identify anything you had not thought about?
+
+
+3. Was anything important missing?
+
+
+4. What would you most like help with now?
+
+
+5. Optional comments.
+
+
+Feedback must be visible to Ageing Navigator and exportable.
+
+
+
+
+13. IMPLEMENTATION SUPPORT
+
+
+The Action Plan should include:
+
+
+“Would you like help putting your plan into action?”
+
+
+The user can select:
+
+
+YES — I WOULD LIKE NAVIGATOR SUPPORT
+
+
+Ask:
+
+
+“What would you most like help with?”
+
+
+Allow multiple selection / open text.
+
+
+Examples may include:
+
+
+• arranging a needs assessment;
+• preparing for an assessment;
+• funding applications;
+• organising EPOA;
+• arranging home support;
+• finding residential care;
+• checking care-home availability;
+• helping with a care transition;
+• contacting organisations;
+• coordinating next steps;
+• other.
+
+
+
+
+PILOT IMPLEMENTATION
+
+
+Implementation will be handled manually by Ageing Navigator.
+
+
+The application does NOT need:
+
+
+• payment processing;
+• Navigator allocation;
+• task management;
+• communication tools;
+• case-management CRM.
+
+
+Ageing Navigator will separately record:
+
+
+• what help was requested;
+• what tasks were completed;
+• organisations contacted;
+• Navigator time spent;
+• barriers encountered;
+• outcome;
+• whether further help was needed.
+
+
+This data will help determine future paid Implementation Services and pricing.
+
+
+
+
+14. REFERRAL SOURCE
+
+
+We want to learn which organisations actually refer families.
+
+
+Version 1 only needs simple referral-source tracking.
+
+
+Options:
+
+
+• URL parameter;
+• simple referral code;
+• dropdown asking “How did you hear about us?”
+
+
+Example:
+
+
+ageingnavigator.com/?ref=VillageA
+
+
+The case should then record:
+
+
+Referral source = Village A
+
+
+A full partner-management dashboard is NOT required.
+
+
+
+
+15. PRIVACY & SECURITY
+
+
+Although Version 1 is simple, privacy remains important.
+
+
+Requirements:
+
+
+• HTTPS;
+• reputable managed hosting/database;
+• secure admin access;
+• collect only information required for navigation;
+• clear privacy/consent wording;
+• do not ask for exact financial information unless genuinely required;
+• ranges should be used where sufficient;
+• no family information visible to other users;
+• personal information not used to train external AI systems;
+• appropriate safeguards around AI API use;
+• secure handling of questionnaire answers and Action Plans.
+
+
+Because there are no persistent user accounts, Version 1 should avoid collecting unnecessary information.
+
+
+
+
+16. SUGGESTED TECHNICAL APPROACH
+
+
+The exact technology stack is open to developer recommendation.
+
+
+Preference is for:
+
+
+• common technologies;
+• fast development;
+• low ongoing cost;
+• easy maintenance;
+• mobile-first experience;
+• ability to expand later.
+
+
+Possible architecture:
+
+
+FRONT END
+Mobile-responsive questionnaire and Action Plan interface.
+
+
+QUESTION DATA
+Simple structured database / configuration.
+
+
+RULE LOGIC
+Conditional questions and Action Plan triggers.
+
+
+KNOWLEDGE REPOSITORY
+Structured approved information.
+
+
+AI API
+Controlled generation of family-friendly wording.
+
+
+ACTION PLAN
+Web output + PDF generation.
+
+
+ADMIN
+Simple secure view of cases, responses, feedback and repository.
+
+
+There is no requirement to build enterprise-level architecture for the pilot.
+
+
+
+
+17. WHAT NOT TO BUILD IN VERSION 1
+
+
+Do NOT build:
+
+
+• Family Ageing Record;
+• family login/accounts;
+• return-user functionality;
+• family dashboard;
+• multi-user permissions;
+• full provider marketplace;
+• live vacancy system;
+• provider portal;
+• provider API;
+• white-labelled widget;
+• provider CRM;
+• Navigator CRM;
+• automated provider contact;
+• automated government applications;
+• subscription/payment system;
+• native mobile apps;
+• sophisticated partner dashboard;
+• automatic follow-up engine;
+• advanced analytics;
+• international versions;
+• autonomous AI agent;
+• every possible ageing pathway.
+
+
+These may be considered after the pilot.
+
+
+
+
+18. DEVELOPER DELIVERABLES
+
+
+The freelancer should deliver:
+
+
+1. Simple technical architecture proposal.
+
+
+2. Mobile-first UX / wireframe for approval.
+
+
+3. Family-facing Ageing Navigator questionnaire.
+
+
+4. Multiple selectable navigation pathways.
+
+
+5. Conditional question logic.
+
+
+6. Simple rule/action logic.
+
+
+7. Knowledge Repository integration.
+
+
+8. Personalised Action Plan generator.
+
+
+9. Controlled AI integration.
+
+
+10. Branded web Action Plan.
+
+
+11. Downloadable PDF Action Plan.
+
+
+12. Simple feedback form.
+
+
+13. Implementation Support request form.
+
+
+14. Simple referral-source tracking.
+
+
+15. Secure admin view of completed cases.
+
+
+16. Ability to export pilot information.
+
+
+17. Basic ability to update questionnaire/repository information.
+
+
+18. Testing and bug fixes.
+
+
+19. Deployment.
+
+
+20. Source code and handover documentation.
+
+
+
+
+19. BUILD MILESTONES
+
+
+MILESTONE 1 — CONFIRM SCOPE
+
+
+Confirm:
+
+
+• questionnaire structure;
+• pathways;
+• rule approach;
+• repository structure;
+• AI use;
+• Action Plan structure;
+• admin requirements;
+• privacy/security.
+
+
+
+
+MILESTONE 2 — UX PROTOTYPE
+
+
+Clickable/mobile prototype showing:
+
+
+Landing page
+→ pathway selection
+→ conditional questions
+→ Action Plan
+→ feedback
+→ Implementation Support request
+
+
+
+
+MILESTONE 3 — FIRST WORKING PATHWAY
+
+
+Build one pathway from start to finish using:
+
+
+• real questions;
+• real rules;
+• real repository information;
+• real Action Plan output.
+
+
+Ageing Navigator reviews before other pathways are added.
+
+
+
+
+MILESTONE 4 — ADD REMAINING PILOT PATHWAYS
+
+
+Load agreed Version 1 pathways using the same questionnaire/rule structure.
+
+
+
+
+MILESTONE 5 — ADMIN + FEEDBACK + IMPLEMENTATION
+
+
+Add:
+
+
+• case review;
+• feedback;
+• implementation request;
+• referral source;
+• export.
+
+
+
+
+MILESTONE 6 — PILOT TESTING
+
+
+Run dummy/test families through the system.
+
+
+Check:
+
+
+• branching;
+• missing information;
+• wrong recommendations;
+• PDF quality;
+• AI wording;
+• mobile experience;
+• admin visibility.
+
+
+
+
+MILESTONE 7 — LAUNCH
+
+
+Deploy for the first 10–20 pilot families.
+
+
+
+
+20. MVP ACCEPTANCE CRITERIA
+
+
+Version 1 is complete when:
+
+
+• A family can open the service on mobile.
+
+
+• They can select the area they need help with.
+
+
+• Only relevant questions are shown.
+
+
+• “Unsure / Need to check” answers are supported.
+
+
+• The questionnaire produces a coherent personalised Action Plan.
+
+
+• Advice is based on configured rules and verified repository information.
+
+
+• AI does not invent eligibility, clinical or financial conclusions.
+
+
+• Relevant organisations/resources can be shown.
+
+
+• The Action Plan clearly identifies priorities and next steps.
+
+
+• The family can download the Action Plan as a PDF.
+
+
+• Ageing Navigator can view the questionnaire answers and generated plan.
+
+
+• The family can provide feedback.
+
+
+• The family can request Implementation Support.
+
+
+• Ageing Navigator can identify how the family was referred where possible.
+
+
+• Pilot information can be exported for analysis.
+
+
+
+
+21. WHAT THE FREELANCER SHOULD INCLUDE IN THEIR PROPOSAL
+
+
+Please include:
+
+
+• examples of similar questionnaire, decision-tree or AI-assisted systems;
+• recommended technology stack;
+• explanation of how conditional questions will work;
+• explanation of how Action Plan rules will work;
+• how verified repository information will feed the Action Plan;
+• how AI generation will be controlled;
+• PDF generation approach;
+• admin approach;
+• privacy/security approach;
+• what content Ageing Navigator needs to provide;
+• proposed development timeline;
+• milestones;
+• fixed-price or milestone cost;
+• ongoing hosting/API costs;
+• source-code ownership;
+• handover arrangements;
+• how Version 2 features could later be added without requiring the MVP to be rebuilt from scratch.
+
+
+
+
+22. AGEING NAVIGATOR WILL SUPPLY
+
+
+Ageing Navigator will provide:
+
+
+• final pathways;
+• questionnaire questions;
+• answer options;
+• branching requirements;
+• rules/recommendation logic;
+• verified NZ information;
+• local Tauranga/BOP repository information;
+• official sources;
+• provider/service information;
+• Action Plan structure;
+• approved wording/templates;
+• feedback questions;
+• privacy wording;
+• branding/design assets.
+
+
+
+
+23. PILOT SUCCESS MEASURES
+
+
+For the first 10–20 families, track:
+
+
+QUESTIONNAIRE
+
+
+• started;
+• completed;
+• where people drop out;
+• questions people struggle to answer.
+
+
+
+
+ACTION PLAN
+
+
+• usefulness;
+• accuracy;
+• missing information;
+• unexpected recommendations;
+• information that needs improving.
+
+
+
+
+IMPLEMENTATION
+
+
+• percentage requesting help;
+• what they request help with;
+• Navigator time required;
+• tasks completed;
+• organisations contacted;
+• barriers;
+• outcome;
+• whether additional help was required.
+
+
+
+
+DISTRIBUTION
+
+
+• referral source;
+• which organisations send real families;
+• whether those organisations would continue recommending Ageing Navigator.
+
+
+
+
+REPOSITORY
+
+
+• information we did not have;
+• incorrect/outdated information discovered;
+• local information required;
+• additional services/providers needed.
+
+
+
+
+24. WHAT HAPPENS AFTER THE PILOT
+
+
+The first 10–20 families should determine Version 2.
+
+
+Potential Version 2 features may include:
+
+
+• Family Ageing Record;
+• user accounts;
+• plan updates;
+• automated follow-ups;
+• email nurture;
+• additional pathways;
+• paid Implementation Services;
+• Navigator contractor workflow;
+• white-labelled provider widgets;
+• API access;
+• provider integrations;
+• wider regional rollout;
+• advanced analytics.
+
+
+These should NOT be built until the pilot demonstrates what families and referring organisations actually need.
+
+
+
+
+25. DEVELOPER SUMMARY
+
+
+We are NOT looking for a developer to build a large aged-care SaaS platform at this stage.
+
+
+We need a simple working product that does one thing very well:
+
+
+A family chooses what they need help with, answers a short intelligent questionnaire and receives a genuinely useful personalised Action Plan based on verified New Zealand information.
+
+
+Ageing Navigator must then be able to review the questionnaire and Action Plan, collect feedback and identify whether the family wants help implementing the recommendations.
+
+
+Different navigation pathways are required, but they can operate through one simple conditional questionnaire and rules system.
+
+
+The first 10–20 families will tell us what should be built next.
+
+
+The priority for Version 1 is:
+
+
+SIMPLE TO BUILD
++
+SIMPLE FOR FAMILIES
++
+ACCURATE ACTION PLANS
++
+USEFUL PILOT DATA
++
+CLEAR IMPLEMENTATION DEMAND
+
+
+Anything beyond that should be treated as Version 2.

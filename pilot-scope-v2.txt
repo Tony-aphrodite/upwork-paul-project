@@ -1,0 +1,165 @@
+﻿Ageing Navigator — Bare Minimum Pilot
+Purpose
+This pilot is designed only to test three things:
+1. Will people complete the questionnaire?
+2. Do they find the personalised Action Plan useful?
+3. Will some people ask Ageing Navigator for help implementing their plan?
+
+
+This is not the final Ageing Navigator platform.
+The pilot should therefore use the simplest possible technical solution.
+Core User Flow
+User starts questionnaire
+↓
+Conditional questions based on their answers
+↓
+System uses our approved rules/content to create a personalised Action Plan
+↓
+Action Plan displayed on screen
+↓
+PDF available to download or receive by email
+↓
+CTA: Would you like help implementing your Action Plan?
+That is the complete pilot.
+Required Features
+1. Conditional Questionnaire
+
+
+The questionnaire should:
+* show questions based on previous answers;
+* allow answers such as Unsure / Don't Know where appropriate;
+* work well on mobile;
+* capture the information required to create the Action Plan.
+The questions and branching can be stored in a simple configuration format.
+We do not need a questionnaire-builder interface.
+2. Simple Rules / Approved Content
+The system should use rules and approved wording/content supplied by Ageing Navigator.
+AI may be used to turn this information into clear personalised wording, but it should not independently create factual eligibility rules, provider information, clinical conclusions or financial advice.
+
+
+There is no knowledge repository required for this pilot.
+3. Personalised Action Plan
+
+
+The plan should contain relevant sections such as:
+* Your current situation
+* What matters most
+* Your likely pathway/options
+* Your priority actions
+* What to do
+* Why it matters
+* Next step
+* Who may be able to help
+* What to prepare
+* Questions to ask
+* Things that still need checking
+
+
+Sections with nothing relevant to say should simply be omitted.
+4. Plan Review
+Before the plan is released, Ageing Navigator should be able to:
+* view the generated plan;
+* edit wording;
+* remove an incorrect or unnecessary action;
+* approve/release the final plan.
+
+
+This can be a very simple internal screen.
+
+
+There is no requirement to track editing patterns or build an optimisation dashboard during the pilot.
+5. PDF
+
+
+The approved Action Plan should be:
+* viewable on screen; and
+* available as a professional PDF.
+
+
+The PDF should use a consistent Ageing Navigator template.
+
+
+We need reliable formatting, but the pilot does not require a sophisticated document-management system.
+6. Implementation Request
+
+
+At the end of the plan:
+Would you like help implementing your Action Plan?
+The user should be able to submit:
+* Name
+* Email/phone
+* What they would like help with
+* Optional comments
+
+
+Actual implementation will be managed manually outside the application.
+Data Storage
+
+
+Store only what is required to:
+* complete the questionnaire;
+* generate the Action Plan;
+* review the plan;
+* deliver the plan;
+* record an implementation request.
+
+
+There is:
+* no Family Account;
+* no Family Portal;
+* no ongoing Family Record;
+* no plan progress tracking;
+* no updated plan history;
+* no CRM.
+
+
+Appropriate privacy, consent and basic security are still required.
+Explicitly Out of Scope
+Do not build during this pilot:
+* Knowledge repository
+* Provider repository
+* Retirement village database
+* Residential care database
+* Provider matching engine
+* Availability matching
+* Provider ranking
+* Family accounts
+* Family portal
+* Ongoing family record
+* Progress tracking
+* Plan regeneration/version history
+* Admin questionnaire editor
+* Knowledge-content editor
+* Edit-learning dashboard
+* Referral partner dashboard
+* Implementation case-management system
+* Advanced analytics
+* CRM
+* Automated follow-ups
+* Payments
+* Subscription system
+* Provider portal
+* API
+* Complex reporting
+
+
+These can be considered only if the pilot validates the product.
+Pilot Acceptance Test
+The first version is successful when we can take several fictional families through:
+Questionnaire → personalised Action Plan → review/edit → final plan → PDF → implementation-support request
+
+
+Once that works reliably, we can start testing it with real families.
+Development Principle
+
+
+Where there is a choice between:
+building infrastructure for the future
+and
+getting the pilot in front of families
+
+
+choose the simplest option that allows us to test the pilot safely and reliably.
+
+
+Future scalability is useful, but should not materially increase the pilot build unless agreed first.

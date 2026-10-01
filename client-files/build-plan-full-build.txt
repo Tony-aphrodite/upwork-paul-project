@@ -1,0 +1,1798 @@
+AGEING NAVIGATOR
+MVP PRODUCT PILOT & DEVELOPER BUILD BRIEF
+Revised to Include Paid Specialist Tools — September 2026
+
+1. PROJECT OVERVIEW
+
+Ageing Navigator is an independent New Zealand ageing-navigation and transition service.
+
+The core premise is:
+
+Something has changed. What should happen next?
+
+The trigger may include:
+
+- dementia diagnosis;
+- stroke;
+- hospital admission or discharge;
+- fall;
+- increasing frailty;
+- mobility problems;
+- difficulty managing the home;
+- loss or illness of a spouse/carer;
+- increasing support needs;
+- considering retirement living;
+- considering residential care;
+- or simply planning ahead.
+
+The user often does not know what support they need or whether their current living
+situation remains appropriate.
+
+Ageing Navigator helps them consider three primary pathways:
+
+1. Stay at Home
+2. Retirement Village
+3. Residential Care
+The core navigation service remains free.
+
+The user receives a personalised Action Plan and, where appropriate, matching with
+relevant services, retirement villages or residential-care facilities.
+
+Ageing Navigator has three commercial layers:
+
+FREE NAVIGATION
+↓
+PAID SPECIALIST DECISION TOOLS
+↓
+PAID TRANSITION IMPLEMENTATION
+
+The user can:
+
+- implement the free Action Plan themselves;
+- purchase a specialist $99 digital tool where deeper financial analysis is useful;
+- or ask Ageing Navigator to coordinate the transition for them as a paid service.
+
+2. PURPOSE OF THE MVP
+
+The MVP should test both the navigation model and the commercial model.
+
+We need to learn:
+
+- whether users complete the questionnaire;
+- whether pathway recommendations make sense;
+- whether the Action Plan is useful;
+- whether provider/village matching is useful;
+- whether users will pay for deeper specialist analysis;
+- whether $99 is an acceptable price;
+- which paid tool generates the strongest demand;
+- whether paid-tool customers subsequently request implementation;
+- what information is missing;
+- which implementation services users request;
+- how much human time implementation requires;
+- whether paid transition services can be delivered profitably;
+- and which distribution sources generate paying customers.
+
+The MVP must remain simple, flexible and inexpensive to modify.
+
+3. PRODUCT ARCHITECTURE
+
+LEVEL 1 — FREE AGEING NAVIGATOR
+
+Helps answer:
+
+What pathway should I explore?
+
+Produces:
+
+- personalised Action Plan;
+- relevant funding/assessment information;
+- support/service options;
+- retirement-village matching;
+- residential-care options;
+- broad cost considerations where appropriate;
+- next steps.
+
+LEVEL 2 — PAID SPECIALIST TOOLS
+
+Two initial tools:
+
+TOOL 1 — VILLAGE & RESIDENTIAL CARE COST COMPARISON
+
+Initial testing price:
+
+NZ$99
+Core question:
+
+What will the options I am considering actually cost me?
+
+TOOL 2 — FUNDING ELIGIBILITY & PREPARATION TOOL
+
+Initial testing price:
+
+NZ$99
+
+Core question:
+
+What government funding or support pathways appear relevant to my circumstances, and
+what should I do next?
+
+LEVEL 3 — PAID IMPLEMENTATION
+
+Three transition services:
+
+1. Home Support Setup
+2. Retirement Village Transition
+3. Residential Care Search & Transition
+
+4. CORE USER FLOW
+
+The main flow should be:
+
+TRIGGER / REASON FOR VISIT
+↓
+CONDITIONAL QUESTIONNAIRE
+↓
+RULES + VERIFIED KNOWLEDGE
+↓
+TRANSITION PATHWAY
+↓
+DEEP PATHWAY QUESTIONS
+↓
+FREE PERSONALISED ACTION PLAN
+↓
+FREE MATCHING WHERE RELEVANT
+↓
+RELEVANT PAID SPECIALIST TOOL OFFER
+↓
+$99 PAYMENT
+↓
+DEEPER SPECIALIST QUESTIONS
+↓
+PAID PERSONALISED REPORT
+↓
+OPTIONAL PAID TRANSITION SUPPORT
+↓
+FEEDBACK / TRACKING
+
+A user does not need to purchase a $99 tool before requesting Transition Support.
+
+5. FIRST SCREEN — WHAT HAS CHANGED?
+
+The questionnaire should initially establish why the user is seeking help.
+
+Possible options:
+- New dementia diagnosis
+- Stroke
+- Hospital admission or discharge
+- Fall
+- Increasing mobility problems
+- Increasing support needs
+- Managing the home is becoming difficult
+- Spouse/carer can no longer provide the same support
+- Considering retirement living
+- Considering residential care
+- Planning ahead
+- I'm not sure what we need
+- Other
+
+The trigger does not automatically determine the final pathway.
+
+6. PATHWAY 1 — STAY AT HOME
+
+The user wants, or may be able, to remain at home with additional support.
+
+Questions may consider:
+- current living arrangement;
+- mobility;
+- personal care;
+- household tasks;
+- meals;
+- shopping;
+- transport;
+- cleaning;
+- gardening;
+- medication support;
+- loneliness/social support;
+- cognition;
+- falls/safety;
+- family support;
+- existing home care;
+- respite;
+- equipment;
+- personal alarms;
+- assessment status;
+- funding concerns;
+- approximate private budget where relevant.
+FREE OUTPUT:
+
+HOME SUPPORT PLAN
+
+This may identify:
+- support needs;
+- priority actions;
+- relevant funding/assessment pathways;
+- suitable local services;
+- provider options;
+- indicative costs where reliable;
+- questions to ask;
+- what the family can organise themselves;
+- next actions.
+
+PAID IMPLEMENTATION:
+HOME SUPPORT SETUP
+Ageing Navigator coordinates the agreed support required to help the person remain at
+home.
+
+7. PATHWAY 2 — RETIREMENT VILLAGE
+
+This should remain one of the most detailed free pathways because village matching may
+become a major acquisition product.
+
+Questions may include:
+- preferred location;
+- proximity to family;
+- broad budget;
+- accommodation type;
+- villa/apartment preference;
+- lifestyle;
+- interests;
+- social preferences;
+- pets;
+- transport;
+- mobility;
+- cognition;
+- current support needs;
+- expected future support needs;
+- serviced living;
+- care suites;
+- higher care onsite;
+- desire to avoid another future move;
+- timeframe;
+- other priorities.
+
+8. FREE RETIREMENT VILLAGE MATCHING
+
+The free product answers:
+Which villages appear to suit me?
+
+The matching should primarily consider:
+
+- location;
+- lifestyle;
+- interests;
+- accommodation preference;
+- pets;
+- proximity to family;
+- mobility;
+- current support;
+- future support;
+- future-care requirements;
+- broad budget suitability.
+
+It should not attempt to provide the detailed financial comparison offered by the paid tool.
+
+The purpose is to reduce a large number of possible villages to a useful shortlist.
+Example:
+VILLAGE A
+
+Why it matched:
+- preferred location;
+- villa option available;
+- relevant lifestyle facilities;
+- future care available onsite.
+
+Something to consider:
+
+- pet restrictions may apply.
+
+Matching should explain WHY each option appears relevant.
+
+The system should not simply provide a directory.
+
+9. PATHWAY 3 — RESIDENTIAL CARE
+
+This pathway is for users where higher levels of care are already required or may need to be
+explored.
+
+Questions may include:
+- formal assessment status;
+- assessed care level where known;
+- dementia/cognitive requirements;
+- hospital/discharge situation;
+- current living arrangement;
+- geographic preference;
+- proximity to family;
+- accommodation preferences;
+- funding position;
+- private-pay position where relevant;
+- Residential Care Subsidy status;
+- Residential Care Loan status;
+- urgency;
+- family priorities.
+
+The system must not independently determine formal residential-care level.
+
+Where a professional assessment is required, the Action Plan must explain this and identify
+the appropriate next step.
+
+10. "I'M NOT SURE" PATHWAY
+
+Users should not need to know whether they belong in:
+
+- Stay at Home;
+- Retirement Village;
+- Residential Care
+
+before starting.
+
+There should be an:
+
+I'M NOT SURE WHAT WE NEED
+
+option.
+
+The questionnaire should ask broader questions and guide the user towards relevant
+pathways.
+
+The system may recommend more than one option.
+
+For example:
+
+Stay at Home now while beginning to explore retirement living for the future.
+
+11. CONDITIONAL QUESTIONNAIRE
+The questionnaire should be dynamic.
+
+Users should only see questions relevant to their circumstances.
+
+Examples:
+
+If dementia is selected:
+→ ask relevant cognition, safety, support and future-planning questions.
+
+If the user has a formal residential-care assessment:
+→ ask assessed care level.
+
+If no assessment has occurred:
+→ do not ask questions that assume an assessment exists.
+
+If retirement living is relevant:
+→ ask detailed matching questions.
+
+Users should be able to answer:
+- Unsure
+- Don't know
+- Not applicable
+
+where appropriate.
+
+The system must not require users to guess information they do not know.
+
+12. QUESTION CONFIGURATION
+
+Questionnaire content should preferably be stored in structured configuration.
+
+Possible fields:
+
+- Question ID
+- Pathway
+- Question text
+- Answer type
+- Answer options
+- Required/optional
+- Show when
+- Rule trigger
+- Notes
+
+A sophisticated questionnaire-builder platform is not required.
+
+The objective is to allow wording and logic to be changed without major redevelopment.
+
+13. DECISION RULES
+
+Recommendations should be rules-led.
+
+AI should not independently determine:
+
+- required clinical care level;
+- formal government eligibility;
+- legal conclusions;
+- financial advice;
+- clinical conclusions.
+
+Examples:
+
+IF user needs household help but is managing personal care
+→ consider Stay at Home support.
+
+IF future care is important
+→ prioritise villages with suitable future-care options.
+
+IF formal residential-care assessment exists
+→ use the assessed care level as a matching requirement.
+IF professional assessment is required
+→ clearly identify this in the Action Plan.
+
+Rules should be editable without substantial redevelopment.
+
+14. VERIFIED KNOWLEDGE REPOSITORY
+
+The repository is a critical component.
+
+Version 1 should initially focus on:
+
+TAURANGA / BAY OF PLENTY
+
+along with relevant national New Zealand information.
+
+The repository may include:
+- needs-assessment information;
+- government funding;
+- Residential Care Subsidy;
+- Residential Care Loan;
+- dementia support;
+- home support;
+- cleaning;
+- gardening;
+- transport;
+- meals;
+- mobility/equipment;
+- personal alarms;
+- retirement villages;
+- residential-care providers;
+- moving/downsizing;
+- legal/EPOA resources;
+- community support;
+- relevant national organisations.
+Important records should include:
+- Record ID
+- Topic
+- Provider/organisation where applicable
+- Region
+- Applies when
+- Approved explanation
+- Services
+- Contact information
+- Website
+- Source
+- Source URL/document
+- Last checked
+- Review date/status
+- Active/inactive
+
+AI is not the source of truth.
+
+15. SOURCE HIERARCHY
+
+Where information changes over time, Ageing Navigator should use a source hierarchy.
+
+Preferred order:
+1. Official government sources
+2. Health NZ / relevant health authorities
+3. Official regional services
+4. Official provider documents
+5. Verified provider websites
+6. Other reliable secondary sources where required
+
+Every important rule or financial figure should remain traceable to its source.
+
+Where information conflicts, it should be flagged for manual review rather than
+automatically resolved by AI.
+16. PROVIDER REPOSITORY — HOME SUPPORT
+
+Potential fields include:
+- provider name;
+- service type;
+- area covered;
+- pricing where available;
+- minimum service;
+- contact information;
+- availability where known;
+- source;
+- date checked.
+
+No national automated provider database is required for the MVP.
+
+Manual research and data entry are acceptable.
+
+17. PROVIDER REPOSITORY — RETIREMENT VILLAGES
+
+The village repository should contain two distinct categories of information:
+
+A. MATCHING INFORMATION
+B. FINANCIAL INFORMATION
+
+MATCHING INFORMATION may include:
+
+- village name;
+- location;
+- accommodation types;
+- villas;
+- apartments;
+- serviced apartments;
+- care suites;
+- pets;
+- lifestyle;
+- facilities;
+- transport;
+- social activities;
+- current support options;
+- rest-home care;
+- hospital care;
+- dementia care;
+- future-care options;
+- key entry information.
+
+FINANCIAL INFORMATION should be structured separately.
+
+Potential fields include:
+
+- entry price / licence price;
+- accommodation/unit type;
+- weekly/monthly village fee;
+- fee increase rules where documented;
+- deferred management fee structure;
+- DMF percentage;
+- DMF accrual period;
+- maximum DMF;
+- capital gain treatment;
+- capital loss treatment;
+- refurbishment/reinstatement obligations;
+- resale-related charges;
+- operator deductions;
+- administration fees;
+- additional service charges;
+- care-suite charging structure;
+- exit/payment timing;
+- other material financial terms.
+
+Each financial field should link back to the relevant source document.
+18. PROVIDER REPOSITORY — RESIDENTIAL CARE
+
+Potential fields include:
+- facility;
+- location;
+- care levels provided;
+- dementia care;
+- hospital-level care;
+- premium accommodation information;
+- standard charges where available;
+- contact information;
+- availability if manually checked;
+- source;
+- date verified.
+
+19. FINANCIAL DOCUMENT REPOSITORY
+
+The paid financial comparison requires a structured source-document layer.
+
+Potential documents may include:
+
+- Occupation Right Agreement information;
+- Disclosure Statements;
+- village financial summaries;
+- provider pricing information;
+- official residential-care policies;
+- government funding documents;
+- Residential Care Subsidy information;
+- Residential Care Loan information;
+- Maximum Contribution information;
+- premium accommodation information;
+- other relevant policy documents.
+The system should ideally work as:
+
+SOURCE DOCUMENT
+↓
+EXTRACTED STRUCTURED FIELDS
+↓
+VERIFIED DATA
+↓
+CALCULATION RULES
+↓
+CUSTOMER REPORT
+
+The original source should remain traceable.
+
+AI may assist with extracting information from documents.
+
+However, financial facts used for calculations must be verified before being treated as
+approved data.
+
+20. FREE MATCHING ENGINE
+
+Matching should initially be rules based.
+
+The objective is not to create a mathematically perfect ranking.
+
+The objective is to produce a useful shortlist and explain why each option may fit.
+
+For example:
+
+VILLAGE A
+
+Why it matched:
+
+- preferred area;
+- preferred accommodation type;
+- pet policy appears suitable;
+- future-care options available.
+
+Something to consider:
+
+- limited transport options.
+
+Commercial relationships must not determine matching or ranking.
+
+Ageing Navigator should not accept payment from providers to rank higher.
+
+21. PAID TOOL 1 — VILLAGE & RESIDENTIAL CARE COST COMPARISON
+
+INITIAL TESTING PRICE:
+
+NZ$99
+
+The price should be configurable without redevelopment.
+
+CORE QUESTION:
+
+What will the options I am considering actually cost me?
+
+This product is deliberately different from the free village-matching tool.
+
+FREE TOOL:
+
+Which villages or care options appear to fit my circumstances?
+
+PAID TOOL:
+
+What are the financial implications of the options I am seriously considering?
+
+The user may select options from the free shortlist or choose other options where sufficient
+verified information exists.
+22. PAID COST COMPARISON — CUSTOMER INFORMATION
+
+Only information genuinely required to produce a meaningful comparison should be
+collected.
+
+Potential inputs may include:
+
+- single/couple;
+- approximate property value;
+- mortgage/debt where relevant;
+- available capital range;
+- savings/assets where relevant;
+- planned retirement-village budget;
+- expected timeframe;
+- whether a partner remains at home;
+- funding situation where relevant;
+- relevant care arrangement;
+- scenario duration.
+
+Financial ranges should be used where exact figures are unnecessary.
+
+23. PAID COST COMPARISON — FINANCIAL CALCULATIONS
+
+Depending on available verified information, the tool may calculate or compare:
+
+- initial capital required;
+- entry price;
+- ongoing village fees;
+- deferred management fee;
+- estimated exit deductions;
+- other documented deductions;
+- capital gain treatment;
+- capital loss treatment;
+- refurbishment/reinstatement costs;
+- resale-related charges;
+- premium accommodation costs;
+- residential-care charges;
+- relevant government contributions;
+- estimated total cost over time;
+- estimated capital returned on exit.
+
+Potential comparison periods:
+
+3 YEARS
+
+5 YEARS
+
+10 YEARS
+
+The tool should only calculate what can be supported by verified information.
+
+Where important information cannot be confirmed, show:
+
+NOT CONFIRMED
+
+rather than inventing an estimate.
+
+24. PAID COST COMPARISON — REPORT
+
+The customer should receive a professional:
+
+PERSONALISED VILLAGE & CARE COST COMPARISON
+
+Potential sections:
+
+A. YOUR SITUATION
+
+Relevant financial and living circumstances.
+B. OPTIONS COMPARED
+
+Selected villages or care options.
+
+C. UPFRONT COSTS
+
+Side-by-side comparison.
+
+D. ONGOING COSTS
+
+Comparable recurring costs.
+
+E. EXIT / DEFERRED FEES
+
+Explain major financial consequences.
+
+F. COST OVER TIME
+
+Where sufficient data exists:
+
+- 3-year scenario;
+- 5-year scenario;
+- 10-year scenario.
+
+G. CARE COST CONSIDERATIONS
+
+Where relevant.
+
+H. IMPORTANT DIFFERENCES
+
+Plain-English explanation of differences between options.
+
+I. INFORMATION STILL TO CONFIRM
+
+Anything not adequately verified.
+J. QUESTIONS TO ASK
+
+Important questions the customer should clarify before making a decision.
+
+K. NEXT STEPS
+
+Including relevant Ageing Navigator Transition Support.
+
+The system must not provide legal, investment or financial advice.
+
+It provides factual comparison, calculations and decision-support information.
+
+25. PAID TOOL 2 — FUNDING ELIGIBILITY & PREPARATION
+
+INITIAL TESTING PRICE:
+
+NZ$99
+
+The price should be configurable.
+
+CORE QUESTION:
+
+What government funding or support may apply to my circumstances, and what should I do
+next?
+
+Potential pathways may include:
+
+- needs-assessment related support;
+- funded home support;
+- Residential Care Subsidy;
+- Residential Care Loan;
+- other verified ageing-related government support.
+
+The scope should only expand where sufficient verified rules and information are available.
+26. FUNDING TOOL — CUSTOMER INFORMATION
+
+Questions may include:
+
+- age;
+- residency status where relevant;
+- relationship status;
+- living arrangement;
+- home ownership;
+- whether a partner remains at home;
+- asset ranges;
+- savings/investment ranges;
+- income ranges;
+- assessment status;
+- current care arrangement;
+- expected pathway.
+
+The questions must follow the actual requirements of the relevant official funding rules.
+
+27. FUNDING TOOL — REPORT
+
+The user receives:
+
+PERSONALISED FUNDING & SUPPORT REPORT
+
+Potential sections:
+
+A. YOUR CIRCUMSTANCES
+
+Plain-English summary.
+
+B. FUNDING PATHWAYS WORTH EXPLORING
+Based on the information supplied and verified rules.
+
+C. WHY THEY MAY BE RELEVANT
+
+Relevant criteria explained in plain English.
+
+D. WHAT STILL NEEDS TO BE CONFIRMED
+
+Unknown or missing information.
+
+E. DOCUMENTS TO PREPARE
+
+Relevant checklist.
+
+F. WHO MAKES THE DECISION
+
+Clearly state the relevant authority.
+
+G. APPLICATION / ASSESSMENT PROCESS
+
+Step-by-step guidance.
+
+H. QUESTIONS TO ASK
+
+Useful preparation.
+
+I. NEXT STEPS
+
+Priority actions.
+
+J. IMPLEMENTATION SUPPORT
+
+Option for Ageing Navigator to coordinate relevant next steps.
+
+The report should use wording such as:
+Based on the information you have provided, this funding pathway appears potentially
+relevant.
+
+It must not state that a customer has been formally approved or definitely qualifies unless
+that decision comes from the authorised organisation.
+
+28. FREE VS PAID BOUNDARY
+
+The distinction must be clear.
+
+FREE AGEING NAVIGATOR
+
+Should provide enough value to be useful on its own.
+
+This may include:
+
+- likely pathway;
+- broad funding pathways;
+- service/village matches;
+- broad cost considerations;
+- priority next steps.
+
+$99 SPECIALIST TOOLS
+
+Provide deeper analysis requiring:
+
+- additional questions;
+- structured financial information;
+- detailed calculations;
+- personalised scenario comparison;
+- deeper funding analysis;
+- preparation information.
+
+The paid product must not simply hide information that should reasonably be part of the
+free Action Plan.
+It should provide materially greater decision-making value.
+
+29. PAYMENT FUNCTIONALITY
+
+Version 1 now requires simple payment functionality for the two specialist tools.
+
+Requirements:
+
+- one-off NZ$99 payment;
+- secure third-party payment gateway;
+- successful payment confirmation;
+- payment linked to case/order ID;
+- access to specialist questionnaire/report after payment;
+- receipt/confirmation;
+- admin visibility of payment status.
+
+Do NOT build:
+
+- subscriptions;
+- wallets;
+- provider payments;
+- payment splitting;
+- complex invoicing.
+
+Paid Transition Services can initially be invoiced and handled manually outside the
+application.
+
+30. FREE ACTION PLAN
+
+The Action Plan remains the main free output.
+
+It should be generated from:
+- questionnaire answers;
+- rules;
+- verified repository data;
+- provider matches;
+- controlled AI summarisation.
+
+Suggested sections:
+
+A. YOUR CURRENT SITUATION
+
+B. WHAT MATTERS MOST
+
+C. YOUR LIKELY PATHWAY
+
+D. YOUR PRIORITY ACTIONS
+
+Each action should ideally include:
+
+- What to do
+- Why it matters
+- Next step
+- Who can help
+- What to prepare
+- Questions to ask
+
+E. FUNDING / ASSESSMENT INFORMATION
+
+F. SUPPORT OR PROVIDER MATCHES
+
+G. THINGS TO CHECK
+
+H. PROFESSIONAL ASSESSMENT / ADVICE
+
+I. RELEVANT SPECIALIST TOOL
+
+J. PAID IMPLEMENTATION OPTION
+31. REPORT FORMAT
+
+The free Action Plan should be:
+
+1. viewable online; and
+2. available as a professional PDF.
+
+Paid specialist reports should also be:
+
+- viewable online;
+- available as professional PDFs;
+- consistently branded;
+- suitable for sharing with family or professional advisers.
+
+The design should remain consistent regardless of the amount of personalised content.
+
+32. AI USE
+
+AI may assist with:
+
+- summarising questionnaire responses;
+- converting structured information into plain English;
+- drafting Action Plan explanations;
+- summarising provider information;
+- source-document extraction assistance;
+- drafting financial comparison explanations;
+- preparing clear next steps;
+- drafting funding explanations.
+
+AI must NOT be the source of truth.
+
+AI must not invent:
+- financial thresholds;
+- funding eligibility;
+- provider pricing;
+- village fees;
+- ORA terms;
+- government processes;
+- care levels;
+- clinical conclusions;
+- legal conclusions;
+- availability.
+
+Important factual information must come from:
+
+RULES
++
+VERIFIED REPOSITORY DATA
++
+APPROVED SOURCE DOCUMENTS
+
+33. EMAIL CAPTURE
+
+Users may need to provide an email address to receive:
+
+- complete Action Plan;
+- PDF;
+- complete village/provider shortlist;
+- paid specialist report;
+- payment receipt.
+
+Suggested fields:
+
+- Name
+- Email
+- Phone optional
+- Consent to receive report
+- Separate marketing-consent checkbox
+
+Email required for report delivery must not automatically enrol someone into marketing.
+
+34. PAID TRANSITION SERVICE 1 — HOME SUPPORT SETUP
+
+Purpose:
+
+Coordinate agreed support so the person can remain at home.
+
+Possible areas include:
+
+- home care;
+- cleaning;
+- gardening;
+- meals;
+- transport;
+- alarms;
+- equipment;
+- other practical services;
+- relevant assessment/funding coordination.
+
+Needs assessment and funding are not separate implementation products.
+
+Where required to establish home support, Ageing Navigator may coordinate:
+
+- assessment enquiries;
+- appointment organisation;
+- preparation;
+- relevant paperwork;
+- follow-up.
+
+Specialist organisations still make formal decisions.
+
+The objective is to sell an outcome rather than hours.
+35. PAID TRANSITION SERVICE 2 — RETIREMENT VILLAGE TRANSITION
+
+The service starts before the customer has necessarily chosen a village.
+
+Potential stages:
+
+STAGE A — MATCH & CHOOSE
+
+Ageing Navigator may coordinate:
+
+- detailed requirements;
+- shortlist;
+- village enquiries;
+- information gathering;
+- appointments;
+- tours;
+- comparison;
+- family questions;
+- future-care considerations;
+- relevant assessment process where required.
+
+STAGE B — MOVE & TRANSITION
+
+Once a village is selected, Ageing Navigator may coordinate:
+
+- village liaison;
+- transition timetable;
+- solicitor/ORA preparation;
+- downsizing;
+- decluttering;
+- movers;
+- storage;
+- cleaning;
+- gardening;
+- property preparation;
+- utilities;
+- address changes;
+- support services;
+- agreed move-day tasks;
+- settling-in support.
+
+Specialist providers perform specialist work.
+
+Ageing Navigator coordinates it.
+
+36. PAID TRANSITION SERVICE 3 — RESIDENTIAL CARE SEARCH & TRANSITION
+
+Purpose:
+
+Coordinate the search and transition into suitable residential care.
+
+Possible tasks include:
+
+- confirming assessment status;
+- confirming assessed care level where available;
+- clarifying family requirements;
+- shortlist creation;
+- contacting facilities;
+- checking availability;
+- obtaining information;
+- arranging discussions/visits;
+- preparing questions;
+- comparing options;
+- funding-process preparation;
+- facility liaison;
+- transition planning;
+- moving coordination;
+- agreed property/home tasks.
+Ageing Navigator does not make the clinical determination of care level.
+
+37. IMPLEMENTATION REQUEST
+
+At the appropriate point, show a CTA relevant to the pathway.
+
+Examples:
+
+Would you like Ageing Navigator to organise your Home Support Setup?
+
+Would you like Ageing Navigator to help coordinate your Retirement Village Transition?
+
+Would you like Ageing Navigator to search for and coordinate Residential Care?
+
+Paid specialist-tool customers should also receive relevant implementation CTAs.
+
+38. CROSS-SELLING
+
+Where genuinely relevant, the system may offer:
+
+FREE NAVIGATOR
+→ VILLAGE & CARE COST COMPARISON
+
+FREE NAVIGATOR
+→ FUNDING TOOL
+
+VILLAGE & CARE COST COMPARISON
+→ FUNDING TOOL
+
+FUNDING TOOL
+→ COST COMPARISON
+
+EITHER PAID TOOL
+→ TRANSITION IMPLEMENTATION
+Cross-selling should only occur where relevant to the person's situation.
+
+39. IMPLEMENTATION TRACKING
+
+The admin system should allow Ageing Navigator to track:
+
+- implementation requested;
+- service type;
+- originating pathway;
+- specialist tool purchased;
+- tasks requested;
+- Navigator assigned manually;
+- total Navigator time;
+- organisations contacted;
+- calls/emails;
+- barriers;
+- outcome;
+- customer feedback;
+- estimated delivery cost;
+- eventual price;
+- gross contribution;
+- notes.
+
+A sophisticated case-management platform is not required initially.
+
+40. PAID TOOL ANALYTICS
+
+For each specialist tool track:
+
+- tool shown;
+- offer viewed;
+- checkout started;
+- payment completed;
+- questionnaire started;
+- questionnaire completed;
+- report generated;
+- abandonment point;
+- refund/support request;
+- other tool purchased;
+- implementation requested;
+- implementation purchased;
+- referral source.
+
+The key questions are:
+
+Does the $99 tool generate profitable direct revenue?
+
+AND:
+
+Does purchasing the $99 tool increase the likelihood of purchasing Transition Support?
+
+41. FEEDBACK
+
+FREE ACTION PLAN FEEDBACK:
+
+- How useful was the plan?
+- Did the recommendations make sense?
+- Was anything important missing?
+- Was anything confusing or incorrect?
+- Would you like Ageing Navigator to organise any next steps?
+
+PAID TOOL FEEDBACK:
+
+- Was the report worth the price?
+- Did it make your decision easier?
+- Was important information missing?
+- Was anything difficult to understand?
+- Did the report change what you planned to do?
+- Would you like Ageing Navigator to help implement the next steps?
+
+Optional free-text feedback should be available.
+
+42. REFERRAL SOURCE TRACKING
+
+Distribution is a major part of the pilot.
+
+The system should capture referral/acquisition source.
+
+Example:
+
+ageingnavigator.co.nz/start?ref=source
+
+Potential sources include:
+
+- Home Carers carer
+- GP clinic
+- financial adviser
+- lawyer
+- retirement village
+- hospital/social worker
+- community organisation
+- cleaning company
+- gardening company
+- flyer/QR code
+- Google organic
+- Google Ads
+- Facebook
+- Home Carers website
+- direct
+- other
+
+The referral source should remain attached to the customer through:
+FREE NAVIGATOR
+→ PAID TOOL
+→ IMPLEMENTATION
+
+This allows Ageing Navigator to calculate revenue by acquisition source.
+
+43. ADMIN REQUIREMENTS
+
+The MVP requires a simple secure admin area.
+
+Admin should be able to:
+
+- view cases;
+- view questionnaire answers;
+- view pathways;
+- view generated Action Plans;
+- view provider matches;
+- manage repository records;
+- manage village financial information;
+- manage funding information;
+- access source references/documents;
+- update verification status;
+- view paid-tool purchases;
+- view payment status;
+- view paid reports;
+- view referral source;
+- view feedback;
+- view implementation requests;
+- update common questionnaire content where practical;
+- export data to CSV.
+
+Do not build a complex CRM.
+
+44. PILOT RECORD
+Internally retain enough information to evaluate each case.
+
+Suggested data:
+
+- Case ID
+- Date
+- Contact details if supplied
+- Trigger
+- Questionnaire answers
+- Pathway
+- Provider matches
+- Free Action Plan
+- Specialist tool offered
+- Tool purchased
+- Payment status
+- Specialist answers
+- Paid report
+- Referral source
+- Feedback
+- Implementation request
+- Implementation outcome
+
+There is no requirement for users to maintain a persistent account in Version 1.
+
+45. PRIVACY AND SECURITY
+
+The product may contain sensitive personal and financial information.
+
+Minimum requirements:
+
+- HTTPS;
+- reputable managed hosting;
+- secure database;
+- secure admin authentication;
+- minimal unnecessary data collection;
+- appropriate consent;
+- no user able to view another user's data;
+- secure AI/API handling;
+- family information not used to train external AI models;
+- financial ranges used instead of exact values where sufficient;
+- data retained only where required for legitimate business purposes.
+
+The developer should identify any additional privacy/security issues before launch.
+
+46. TECHNICAL APPROACH
+
+The MVP should prioritise:
+
+- speed;
+- reliability;
+- low operating cost;
+- maintainability;
+- easy modification;
+- mobile-friendly design;
+- future extensibility.
+
+The application now requires:
+
+- responsive web frontend;
+- conditional questionnaire;
+- structured question configuration;
+- rules engine;
+- verified knowledge repository;
+- provider repository;
+- financial data repository;
+- source-document traceability;
+- controlled AI integration;
+- free matching engine;
+- financial calculation engine;
+- free Action Plan;
+- paid specialist reports;
+- PDF generation;
+- email delivery;
+- one-off payment gateway;
+- feedback;
+- implementation request;
+- referral tracking;
+- simple admin;
+- data export.
+
+47. DO NOT BUILD IN VERSION 1
+
+Do not build unless specifically agreed:
+
+- persistent Family Ageing Record;
+- user accounts;
+- family portal;
+- multi-user family access;
+- native iOS/Android apps;
+- provider portal;
+- provider login;
+- provider dashboard;
+- Navigator workforce platform;
+- automated case allocation;
+- complex CRM;
+- live national vacancy database;
+- automated provider booking;
+- real-time provider integrations;
+- provider marketplace;
+- provider commissions;
+- provider payment system;
+- subscriptions;
+- white-labelled widgets;
+- public API;
+- enterprise functionality;
+- automated government applications;
+- complex analytics dashboard;
+- international functionality;
+- autonomous AI agents;
+- sophisticated machine-learning recommendation systems.
+
+IMPORTANT:
+
+A simple one-off customer payment system IS now required for the two $99 specialist tools.
+
+48. INITIAL GEOGRAPHIC SCOPE
+
+The first pilot should focus primarily on:
+
+TAURANGA / BAY OF PLENTY
+
+National government information may still be included where applicable.
+
+The objective is:
+
+REGIONAL DEPTH BEFORE NATIONAL BREADTH
+
+The repository should contain enough Tauranga information to make real customer plans
+and reports useful.
+
+Dee can support cases remotely by phone and online.
+
+Local attendance can initially be handled in Tauranga where required.
+
+Local attendance should ultimately be treated as an optional paid service rather than
+required for standard delivery wherever possible.
+
+49. PILOT USER MIX
+Where possible, the initial pilot should include a mixture of:
+
+- Stay at Home cases;
+- Retirement Village cases;
+- Residential Care cases;
+- users unsure what they need;
+- people relevant to the Village & Care Cost Comparison;
+- people potentially eligible for funding/support;
+- users likely to request implementation.
+
+Triggers may include:
+
+- dementia;
+- stroke;
+- hospital discharge;
+- falls;
+- mobility changes;
+- increasing support needs;
+- planning ahead.
+
+These are triggers rather than separate products.
+
+50. PILOT METRICS
+
+USER BEHAVIOUR
+
+- Questionnaire started
+- Questionnaire completed
+- Drop-off point
+- Pathway
+- Unknown/unsure answers
+
+ACTION PLAN
+- Usefulness
+- Accuracy
+- Missing information
+- Matching relevance
+
+PAID SPECIALIST TOOLS
+
+- Offer shown
+- Checkout started
+- Purchases
+- Conversion rate
+- Revenue
+- Completion rate
+- Report usefulness
+- Refund rate
+- Implementation conversion
+
+IMPLEMENTATION
+
+- Implementation requested
+- Which package
+- Tasks requested
+- Willingness to pay
+- Navigator time
+- Delivery cost
+- Gross margin
+
+DISTRIBUTION
+
+- Referral/acquisition source
+- Users by source
+- Completed plans by source
+- Paid-tool sales by source
+- Implementation sales by source
+- Revenue by source
+REPOSITORY
+
+- Missing information
+- Outdated information
+- Missing financial documents
+- Rules needing clarification
+- New provider categories required
+
+51. MVP DELIVERABLES
+
+The developer should provide:
+
+1. Mobile-responsive web application
+2. Trigger/entry selection
+3. Three core transition pathways
+4. "I'm not sure" pathway
+5. Conditional questionnaire
+6. Editable question configuration
+7. Basic rules engine
+8. Knowledge repository
+9. Provider repository
+10. Financial/source-document repository
+11. Free Retirement Village matching
+12. Home-support matching
+13. Residential-care matching
+14. Controlled AI integration
+15. Personalised free web Action Plan
+16. Free PDF Action Plan
+17. Village & Residential Care Cost Comparison Tool
+18. Financial calculation engine
+19. Paid cost-comparison report
+20. Paid cost-comparison PDF
+21. Funding Eligibility & Preparation Tool
+22. Paid funding report
+23. Paid funding PDF
+24. One-off payment integration
+25. Email delivery
+26. Feedback system
+27. Implementation request form
+28. Referral-code tracking
+29. Simple admin area
+30. Paid-order/payment tracking
+31. CSV/data export
+32. Deployment
+33. Source-code ownership and handover
+34. Basic technical documentation
+
+52. DEVELOPMENT MILESTONES
+
+MILESTONE 1
+
+Confirm revised scope, data model and commercial user flow.
+
+MILESTONE 2
+
+Clickable UX/prototype.
+
+MILESTONE 3
+
+Conditional questionnaire and rules architecture.
+
+MILESTONE 4
+
+Build the Retirement Village pathway end-to-end first.
+
+This should be the first complete pathway because it supports both:
+
+- free village matching; and
+- the paid financial comparison tool.
+MILESTONE 5
+
+Build provider repository and free village matching.
+
+MILESTONE 6
+
+Build free Action Plan, controlled AI and PDF generation.
+
+MILESTONE 7
+
+Build financial repository and source-document structure.
+
+MILESTONE 8
+
+Build Village & Residential Care Cost Comparison.
+
+MILESTONE 9
+
+Build Funding Eligibility & Preparation Tool.
+
+MILESTONE 10
+
+Add payment gateway.
+
+MILESTONE 11
+
+Add Stay at Home and Residential Care pathways.
+
+MILESTONE 12
+
+Add feedback, referral tracking and implementation requests.
+
+MILESTONE 13
+
+Build basic admin and export.
+MILESTONE 14
+
+Test using dummy families and real policy/provider documents.
+
+MILESTONE 15
+
+Fix issues and launch Tauranga pilot.
+
+53. ACCEPTANCE CRITERIA
+
+The MVP is ready for pilot when:
+
+- it works well on mobile;
+- users can explain what prompted their visit;
+- questions adapt based on answers;
+- users can answer Unsure;
+- users can be guided towards relevant pathways;
+- retirement-village users receive meaningful free matching;
+- Stay at Home users receive relevant support recommendations;
+- Residential Care users receive appropriate options without unauthorised clinical decisions;
+- the free Action Plan is coherent and personalised;
+- factual information comes from rules/repository data;
+- AI is constrained;
+- source documents can be linked to financial data;
+- financial fields can be updated;
+- calculations trace back to approved information;
+- users can securely pay $99;
+- paid reports unlock correctly;
+- financial comparisons show understandable side-by-side information;
+- funding reports explain potentially relevant pathways without claiming formal eligibility;
+- web/PDF reports work consistently;
+- email delivery works;
+- implementation can be requested;
+- referral source persists through the funnel;
+- feedback is captured;
+- admin can review cases, reports and payments;
+- pilot data can be exported.
+
+54. CONTENT SUPPLIED BY AGEING NAVIGATOR
+
+Ageing Navigator will progressively provide:
+
+- questionnaire wording;
+- answer options;
+- branching logic;
+- pathway rules;
+- government information;
+- funding policies;
+- needs-assessment information;
+- provider information;
+- village information;
+- residential-care information;
+- financial policy documents;
+- Occupation Right Agreement/disclosure information where available;
+- financial calculation requirements;
+- Action Plan wording;
+- paid-report wording;
+- implementation-package definitions;
+- feedback questions;
+- brand assets;
+- privacy wording;
+- disclaimer wording.
+
+The developer is responsible for building the system that allows this information to be used
+and updated.
+
+55. VERSION 2 — ONLY IF THE PILOT JUSTIFIES IT
+
+Potential future functionality may include:
+- user accounts;
+- Family Ageing Record;
+- saved comparisons;
+- updated reports over time;
+- automated follow-up;
+- email nurture;
+- provider self-service updates;
+- Navigator workflow system;
+- automated provider enquiries;
+- availability requests;
+- recurring payments/subscriptions;
+- wider regional rollout;
+- white-labelled provider widgets;
+- public/private APIs;
+- CRM integrations;
+- provider analytics;
+- partner dashboards;
+- richer sector insights;
+- increased safe automation.
+
+56. COMMERCIAL FUNNEL
+
+The commercial journey should now be:
+
+FREE NAVIGATION
+
+Help me understand what I should do.
+
+↓
+
+FREE MATCHING
+
+Help me find options that appear to suit me.
+↓
+
+PAID SPECIALIST TOOL — $99
+
+Help me understand what these options will really cost.
+
+AND/OR
+
+Help me understand which government funding/support pathways may apply.
+
+↓
+
+PAID IMPLEMENTATION
+
+Help me organise and coordinate the next step.
+
+57. CORE PRODUCT PRINCIPLE
+
+The free product must provide genuine value.
+
+The paid digital tools must provide materially deeper analysis.
+
+The paid Transition Services must solve the practical problem of:
+
+Who is going to organise all of this?
+
+58. FINAL PRODUCT SUMMARY
+
+Ageing Navigator should not initially become a large aged-care software platform.
+
+The MVP has four jobs:
+
+1. Help families understand what is happening.
+2. Help them identify the most relevant pathway.
+
+3. Give them useful independent information and matching.
+
+4. Test whether they will pay for deeper analysis or for Ageing Navigator to coordinate the
+transition.
+
+The business model is:
+
+FREE NAVIGATION
++
+$99 SPECIALIST DECISION TOOLS
++
+PAID TRANSITION IMPLEMENTATION
+
+The key distinction is:
+
+FREE:
+
+Help me understand my options and find suitable choices.
+
+$99:
+
+Help me understand the financial implications or funding pathways in much greater detail.
+
+PAID IMPLEMENTATION:
+
+Help me make it happen.
+
+The free and paid layers should share the same:
+
+- questionnaire architecture;
+- rules engine;
+- verified repository;
+- provider repository;
+- AI controls;
+- source-document structure;
+- report-generation system.
+
+They should not be built as separate standalone applications.
+
+The first priority should be the Retirement Village pathway because it allows Ageing
+Navigator to test:
+
+- free matching;
+- financial repository data;
+- the first $99 specialist tool;
+- paid digital conversion;
+- and Retirement Village Transition enquiries
+
+from the same underlying pathway.
+
+The Tauranga pilot should then determine what is expanded, changed, automated or
+removed before Ageing Navigator scales nationally.
+

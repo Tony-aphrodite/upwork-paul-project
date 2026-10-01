@@ -1,0 +1,448 @@
+﻿Ageing Navigator
+MVP Product & Developer Build Brief — Founding Pilot | Revised September 2026
+
+
+MVP goal: prove a simple free navigation service that families complete, providers confidently refer to, and that progressively builds a useful Family Ageing Record and Living Action Plan.
+	
+
+1. Product Concept
+Ageing Navigator is an independent New Zealand ageing-navigation service. The MVP should help a family choose the specific issue they need help with today, answer a short set of relevant questions, receive a personalised free Action Plan, and return later to use other navigation modules without starting again.
+The MVP is not a long assessment, a chatbot, a provider marketplace or an autonomous AI adviser. It is a modular decision-navigation platform built around a persistent Family Ageing Record.
+Family Record → Navigation Modules → Living Action Plan → Free Pilot Implementation → Feedback → Updated Record
+	
+
+Similar concept for reference only: CarerCompass. Ageing Navigator should not copy its content or architecture; the key differentiation is the reusable family record, deeper NZ-specific pathway logic, implementation support, provider referral model and learning from outcomes.
+2. Purpose of the Founding Pilot
+The first version is primarily a learning and validation platform. Revenue is not the main objective of the initial pilot. Participating families receive the navigation service and a limited amount of implementation support at no charge in return for feedback.
+* Test whether families will start and complete short navigation modules.
+* Test whether the resulting Action Plan is genuinely useful and identifies relevant next steps.
+* Learn which information families know, do not know, or incorrectly assume.
+* Learn what families actually want help implementing after receiving their plan.
+* Measure how much human time different implementation requests require.
+* Test whether health, community and aged-care organisations will refer families repeatedly.
+* Compare referral channels using unique partner links/QR codes.
+* Learn whether families return to use another module and progressively build their record.
+* Collect structured family and provider feedback to improve the product before monetisation.
+3. Pilot Model
+Element
+	Pilot approach
+	Family navigation
+	Free
+	Personalised Action Plan
+	Free
+	Family record
+	Saved so information can be reused and updated
+	Implementation support
+	Limited complimentary support for pilot families in return for feedback
+	Referral partners
+	Selected organisations invited to refer up to approximately 10 families each
+	Provider endorsement
+	Not required; partners simply offer families the option to use the tool
+	Feedback
+	Built into the product for both families and, where practical, referring professionals
+	Commercial pricing
+	Not required for initial pilot; tested after the service and implementation scope are better understood
+	
+
+4. What the MVP Must Prove
+1. Families understand the proposition and can choose the navigation area that fits their immediate need.
+2. A short adaptive questionnaire can gather enough information to produce a useful personalised Action Plan.
+3. Families are comfortable answering 'Unsure / Need to check' rather than being forced to provide inaccurate information.
+4. Family information can be safely stored, dated and reused in later navigation modules.
+5. Families will return to add information or use another module.
+6. Referral partners will give the service to real families, not merely say the concept sounds useful.
+7. Referral source can be measured accurately.
+8. Families voluntarily request implementation help after seeing their Action Plan.
+9. Implementation requests reveal repeatable tasks, barriers and opportunities for future paid services.
+10. Structured feedback can identify what is useful, missing, confusing or unnecessary.
+5. Core Product Principle: Short, Specific Navigation
+The user should not be asked to complete a comprehensive ageing assessment. The first interaction should begin with the problem the family wants help with. The system asks only the questions needed for that navigation area, plus a very small number of core questions needed for context and safety.
+Every additional question must earn the right to be asked.
+	
+
+* If an answer will not change the Action Plan, priority, pathway, implementation need or future reuse of the record, do not ask it.
+* Sensitive questions, particularly financial questions, should only appear when directly relevant.
+* Where the person completing the form does not know an answer, the system must support uncertainty rather than encourage guessing.
+* A family may complete several small modules over weeks or months; together these create a more robust record.
+6. MVP User Journey
+Step
+	User experience
+	1. Referral / arrival
+	Family arrives directly or through a unique provider referral link/QR code.
+	2. Choose need
+	Large cards ask: 'What do you need help with today?'
+	3. Core context
+	Minimal reusable information: who is completing the form, relationship, older person's age/region/living situation and urgency.
+	4. Short module
+	Only relevant questions are shown. Follow-ups appear conditionally.
+	5. Save record
+	Answers are saved to the Family Ageing Record, including date, source and uncertainty where relevant.
+	6. Generate Action Plan
+	A structured personalised plan identifies priorities, next steps, relevant organisations/resources and things still to check.
+	7. Feedback
+	Family answers a very short usefulness/needs survey.
+	8. Implementation option
+	Family can request complimentary pilot Implementation Support.
+	9. Return later
+	Existing information is reused; another module adds to the same record and updates the Living Action Plan.
+	10. Follow-up
+	Pilot team can follow up on unresolved actions/unknowns and collect outcome feedback.
+	
+
+7. Initial Navigation Modules
+The platform must support modules as reusable configuration, not separate hard-coded forms. The initial pilot should launch with only enough modules to test the model well.
+Recommended module
+	Purpose
+	Government Funding & Needs Assessment
+	Help families understand potentially relevant support, assessment/reassessment pathways, what remains unknown and what to prepare.
+	Coming Home From Hospital
+	Help families organise discharge-related questions, home support, immediate risks and next steps.
+	Staying Safely at Home / Falls
+	Explore practical support, mobility, home safety and who may need to be involved.
+	Memory & Dementia
+	Organise observed concerns and appropriate next conversations without diagnosing.
+	I'm Not Sure Where to Start
+	A short broader screen that directs the family towards one or more relevant modules.
+	
+
+If cost or time requires further reduction, build the engine plus two full modules and the 'Not Sure' routing module first. Additional modules must be addable through the same admin/configuration framework.
+8. Family Ageing Record
+The Family Ageing Record is the centre of the product. The questionnaire and PDF are interfaces to the record, not the product itself.
+Data concept
+	Requirement
+	Family/case
+	A reusable record for the older person/family situation.
+	Information source
+	Who supplied the information, e.g. daughter, spouse, older person.
+	Answer status
+	Known / believed / unsure / needs checking where relevant.
+	Date supplied
+	When the information was recorded.
+	Last confirmed
+	When important information was last reconfirmed.
+	Module source
+	Which navigation module collected the information.
+	Current value
+	Latest usable answer without deleting useful history.
+	Action status
+	Not started / exploring / waiting / arranged / blocked / completed, or equivalent.
+	Referral source
+	Partner/link/QR/campaign that brought the family into the service.
+	
+
+The system should be designed so a returning family is not repeatedly asked the same question. Older or uncertain information can instead be shown for confirmation or update.
+9. Question & Rule Engine
+Question field
+	Example
+	Question ID
+	FUND_004
+	Module
+	Government Funding
+	Question text
+	Has a formal needs assessment been completed?
+	Answer type
+	Yes / No / Unsure
+	Required?
+	Yes
+	Show when
+	Funding module selected
+	Follow-up
+	If Yes, ask approximately when and whether needs have changed
+	Stored field
+	needs_assessment_status
+	Action effect
+	May activate assessment/reassessment preparation
+	Reusable?
+	Yes - available to later modules
+	
+
+* Support single choice, multi-select, Yes/No/Unsure, ranges, dates and short text.
+* Support show/hide branching rules.
+* Support shared questions across modules.
+* Support answer age/freshness so important information can later be reconfirmed.
+* Rules and questions should be editable without code wherever practical.
+10. Living Action Plan
+The Action Plan must be structured and traceable rather than an uncontrolled AI-generated essay.
+* Short current-situation summary based on information supplied by the family.
+* What the family says matters / their immediate goal.
+* Top priorities, using simple priority groupings where useful.
+* For each priority: what to do, why it matters, next step, who may help, what to prepare and questions to ask.
+* Relevant authoritative resources and organisations.
+* A visible section for 'Things we still need to check' where information is uncertain.
+* Clear wording where formal assessment or professional advice is required.
+* Ability to update the plan as new modules are completed or circumstances change.
+* Printable/downloadable PDF output, while the web version remains the living/current plan.
+AI may be used to convert structured information into clear family-friendly language. Underlying recommendations should come from configured rules, pathway logic and verified knowledge wherever possible. AI must not invent eligibility criteria, providers, clinical conclusions, legal advice or financial advice.
+11. Knowledge Repository — MVP
+Field
+	Requirement
+	Knowledge ID
+	Unique ID
+	Topic/pathway
+	e.g. needs assessment, carer support, residential subsidy
+	Jurisdiction
+	New Zealand; regional/local where necessary
+	Applies when
+	Structured applicability conditions
+	Family explanation
+	Plain-English approved content
+	Process/next step
+	What to do and who to contact
+	Official source
+	Authoritative source URL/name
+	Last verified
+	Date
+	Review frequency
+	Manual / monthly / quarterly / annual
+	Status
+	Current / review required / archived
+	
+
+Manual source review is acceptable for MVP. The architecture should allow future automated change detection or review alerts.
+12. Pilot Referral Partner Tracking
+Referral tracking is a core MVP feature because the pilot is testing distribution as well as the family product.
+* Create a Partner record with organisation name, contact and partner type.
+* Generate or support a unique referral URL/code for each partner.
+* Support a unique QR code per partner, either generated by the system or mapped to the referral URL.
+* Record referral partner automatically when a family enters through that link.
+* Allow a manual referral source to be selected if the family arrives another way.
+* Admin dashboard should show target referrals, starts, completed Action Plans, implementation requests and feedback completions by partner.
+* Pilot target should be configurable; initial working target is approximately 10 families per selected referral partner.
+Partner metric
+	Track
+	Referral target
+	e.g. 10
+	Started module
+	Count
+	Completed Action Plan
+	Count and %
+	Requested implementation
+	Count and %
+	Completed feedback
+	Count and %
+	Returned for another module
+	Count and %
+	
+
+13. Built-in Family Feedback
+Feedback should be captured as structured data rather than relying only on phone calls or emails.
+After the Action Plan
+* Did this help you understand what to do next?
+* Did it identify anything you had not thought about?
+* Was anything important missing?
+* What would you most like help with now?
+* Optional free-text feedback.
+After Implementation Support
+* What did you need help getting done?
+* What were you unable or uncomfortable doing yourself?
+* Did the support help you make progress?
+* What was most valuable?
+* What remains unresolved?
+* If this support had not been included in the pilot, would you have considered paying for it? Optional price-range research can be added later.
+14. Complimentary Pilot Implementation Flow
+11. Action Plan displays: 'Would you like help putting your plan into action?'
+12. Explain that limited Implementation Support is currently complimentary for pilot families in return for feedback.
+13. Family selects what they most want help with and provides/confirm contact details.
+14. Admin receives the request and can view the relevant record and Action Plan subject to consent.
+15. Implementation is handled manually outside the application for MVP; a full case-management CRM is not required.
+16. Admin records implementation category, time spent, key barriers, actions/outcomes and whether further support was required.
+17. Family receives a short follow-up feedback request.
+The system should preserve the ability to introduce paid implementation later, but payment processing and commercial package logic are not required for the initial pilot.
+15. Implementation Learning Data
+Field
+	Why it matters
+	Help requested
+	Reveals which actions families most want someone else to handle.
+	Navigator time
+	Helps design future pricing and margins.
+	Tasks completed
+	Identifies repeatable implementation products.
+	External organisations contacted
+	Shows where coordination is required.
+	Barrier type
+	Waiting list, eligibility uncertainty, no capacity, cost, family disagreement, missing documents, etc.
+	Outcome
+	Shows whether support created progress.
+	Further help required
+	Shows where small tasks become extended navigation cases.
+	
+
+16. Admin Requirements
+* Create/edit/archive navigation modules.
+* Create/edit questions, answer options and branching rules.
+* Create/edit action templates and priority rules.
+* Create/edit knowledge entries and source links.
+* View family cases and module status with appropriate permissions.
+* View and manage pilot referral partners.
+* View implementation requests and record basic implementation outcomes/time.
+* View structured family feedback.
+* Dashboard/filter by referral source and module.
+* Export pilot data to CSV.
+* Record content/rule versions so an old plan can be traced to the logic/content used when it was generated.
+17. Professional Preparation Summaries
+Professional Preparation Summaries are an important planned feature, but they are not mandatory for the first MVP release. Provider feedback from the pilot should help determine exactly what each professional wants a family to bring.
+The architecture should therefore retain the ability to generate structured summaries from the Family Ageing Record later. A Needs Assessment Preparation Summary or Hospital Discharge Summary can be added as MVP 1.1 once the relevant providers have validated the fields and format.
+18. Privacy, Security & Trust
+* Secure authentication and HTTPS.
+* Reputable managed database/hosting with role-based access.
+* Collect only information needed for the navigation purpose.
+* Do not require exact financial details where ranges/uncertainty are sufficient.
+* Explicit consent/privacy wording before storing family information.
+* Family controls what is shared externally.
+* Support correction and deletion of account/data.
+* Do not expose one family's data to another user.
+* Separate production and test data.
+* Do not use family data to train external AI models unless explicitly permitted and legally/privacy appropriate.
+* Keep enough audit information to understand when key answers, rules and knowledge sources were recorded or changed.
+Privacy design and New Zealand Privacy Act compliance should be reviewed appropriately before public launch; the developer is not expected to provide legal advice.
+19. Suggested Technical Approach
+* Modern mobile-first responsive web application.
+* Managed authentication and relational/structured database suitable for reusable family records.
+* Server-side rule/API layer for pathway and action logic.
+* Configuration-driven module/question engine rather than hard-coded forms.
+* Controlled AI API use for summarisation/language generation where useful.
+* PDF generation for Action Plans.
+* Admin interface for questions, rules, actions, knowledge, partners and pilot data.
+* Analytics/event tracking with partner/referral attribution.
+* Version control, documented deployment and handover.
+The exact technology stack is open to developer recommendation. Preference is for common, maintainable technologies and managed services rather than unnecessarily complex custom infrastructure.
+20. What NOT to Build in the Initial MVP
+* Full provider marketplace or live vacancy system.
+* Automated booking with providers.
+* Full navigator case-management CRM.
+* Native mobile apps.
+* Complex family multi-user permissions unless essential.
+* Automated government applications.
+* Automatic sending of sensitive information to hospitals/providers.
+* Every possible ageing pathway.
+* International versions.
+* Commercial data products.
+* Advanced autonomous AI agent contacting organisations.
+* Full payment/subscription system for implementation support.
+* Multiple professional preparation summaries before provider validation.
+21. Developer Deliverables
+18. Technical architecture and data-model proposal.
+19. Clickable mobile-first UX/wireframe for approval before full build.
+20. Responsive family-facing MVP.
+21. Reusable module/question/rule engine.
+22. Persistent Family Ageing Record and return-user functionality.
+23. Initial navigation modules loaded from content supplied by Ageing Navigator.
+24. Living Action Plan generator plus PDF output.
+25. Pilot referral-partner tracking with unique referral codes/links.
+26. Built-in family feedback forms.
+27. Complimentary implementation-support request flow.
+28. Simple admin recording of implementation type/time/outcome.
+29. Admin/configuration interface for content, rules, knowledge and partners.
+30. Basic dashboard/analytics and CSV export.
+31. Testing, bug fixes and deployment.
+32. Source code repository, setup/deployment documentation and handover.
+22. Build Milestones
+Milestone
+	Output
+	1. Discovery & architecture
+	Confirm scope, data model, rules approach, pilot analytics, AI use, security and stack.
+	2. UX prototype
+	Mobile-first flow: referral/start, module choice, questions, Action Plan, feedback, implementation request, return visit.
+	3. Core platform
+	Authentication, Family Ageing Record, question engine, branching, admin foundation.
+	4. First end-to-end module
+	One complete module using real rules, knowledge and Action Plan output.
+	5. Referral & feedback layer
+	Partner links/codes, attribution, feedback capture and dashboard fields.
+	6. Additional modules
+	Add agreed modules using the same engine.
+	7. Implementation request flow
+	Free pilot support CTA, request capture and basic admin outcome/time fields.
+	8. Pilot analytics/export
+	Core funnel, partner metrics, return use and CSV export.
+	9. QA & launch
+	Security checks, test cases, mobile QA, deployment and handover.
+	
+
+23. MVP Acceptance Criteria
+* A referred family can enter via a partner link and the referral source is recorded correctly.
+* A new family can complete a navigation module on mobile without assistance.
+* Irrelevant questions are not shown.
+* Unsure/unknown answers are supported and reflected appropriately in the Action Plan.
+* Returning families do not have to re-enter current information.
+* Completing another module adds to the same family record.
+* A completed module produces a coherent structured Action Plan and PDF.
+* Recommendations/actions can be traced to configured rules/content rather than uncontrolled AI invention.
+* Official sources can be attached and maintained by admin.
+* Family feedback is captured and exportable.
+* A family can request complimentary pilot implementation support.
+* Admin can record implementation category, time and outcome.
+* Partner-level starts, completions, implementation requests and feedback can be viewed/exported.
+* Admin can update common questions/content/rules without a code deployment where practical.
+24. What the Freelancer Should Include in Their Proposal
+* Relevant examples of conditional questionnaire, decision-tree, SaaS, health/social-care or AI-assisted applications.
+* Recommended technology stack and why.
+* How modules/questions/rules will be configuration-driven rather than hard-coded.
+* How the persistent family record will work and how older answers will be reused/reconfirmed.
+* How partner referral attribution and QR/link tracking will work.
+* How AI will be constrained so it cannot invent eligibility information or recommendations.
+* Approach to privacy, security and role-based access.
+* What will be editable in the admin area.
+* How the system can later add professional summaries and paid implementation without rebuilding the core.
+* Estimated timeline by milestone.
+* Fixed-price or milestone cost breakdown.
+* What content/rules Ageing Navigator must supply.
+* Post-launch support and handover arrangements.
+25. Content Ageing Navigator Will Supply
+Item
+	Responsibility
+	Final first modules
+	Ageing Navigator
+	Questions and answer options
+	Ageing Navigator, informed by provider interviews
+	Branching/trigger logic
+	Ageing Navigator + developer structure together
+	Action templates
+	Ageing Navigator
+	Verified NZ knowledge entries
+	Ageing Navigator
+	Official sources / last verified
+	Ageing Navigator
+	Action Plan structure and wording
+	Ageing Navigator
+	Pilot feedback questions
+	Ageing Navigator
+	Referral partner list/codes
+	Ageing Navigator / system-generated
+	Privacy/consent wording
+	Ageing Navigator with appropriate review
+	Brand/design assets
+	Ageing Navigator
+	
+
+26. Pilot Success Measures
+Area
+	Initial measure
+	Distribution
+	Number of active pilot referral partners and referrals per partner
+	Acquisition
+	Referral → module start rate
+	Completion
+	Module start → Action Plan completion rate
+	Usefulness
+	Family-reported clarity/usefulness and issues identified
+	Return use
+	Families completing another module or updating information
+	Implementation demand
+	Percentage voluntarily requesting free implementation support
+	Implementation effort
+	Average navigator time and common task categories
+	Outcomes
+	Actions progressed/resolved and common blockers
+	Provider value
+	Whether referring professionals would continue referring families
+	Learning
+	Questions removed/added, pathways changed, knowledge gaps identified
+	
+
+27. Developer Summary
+We are looking for a developer to build a modular family-navigation and learning platform — not simply a chatbot, PDF generator or long web form.
+	
+
+The ideal build makes the family experience very simple: choose what you need help with, answer a short set of relevant questions, receive a useful free Action Plan, request complimentary pilot help if needed, and return later to add another part of the ageing journey.
+Underneath that simple experience, the system must retain structured information, uncertainty, referral source, pathway/action logic and feedback so the pilot can teach Ageing Navigator what families need, which referral channels work, what implementation support is valuable, and what should be built next.
