@@ -6,3 +6,5 @@ tsconfig.tsbuildinfo
 .env
 .data
 .browser-check
+# Spreadsheets are exported and imported by the content scripts; the deliverable lives outside demo/
+*.xlsx
