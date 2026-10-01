@@ -1,0 +1,4 @@
+{
+  "regions": ["syd1"],
+  "crons": [{ "path": "/api/cron/retention", "schedule": "30 14 * * *" }]
+}
