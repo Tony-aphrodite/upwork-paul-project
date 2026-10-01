@@ -1,7 +1,7 @@
 # Ageing Navigator pilot: handoff
 
-Written 2026-09-30 and kept up to date since. **Since 2026-10-01 the whole project lives in this private git
-repository:**
+Written 2026-09-30 and kept up to date since. **Since 2026-10-01 the whole project lives in this git repository
+(public, by the user's decision; never commit secrets or real families' data):**
 - the code (`demo/`, with its history);
 - the notes;
 - the client log;
@@ -229,7 +229,7 @@ himself). Fix these in the rules and templates:
 | `deploy-pilot/` | Staging deployment: `deploy.sh`, the Vercel project link. No secrets: those are in Vercel. |
 | `IMPLEMENTATION-PLAN.md` | How the pilot is built: design decisions, routes, tables, content model, and every line of the 56 hours split into steps with a "done when". Start here before coding. |
 | `WORKLOG.md` | Hours per line, the day plan, and every session logged. |
-| `chatting.md` | The full client conversation, sections 1 to 17: verbatim messages, analysis, what was sent, the Upwork memos. Private: this repository must stay private. |
+| `chatting.md` | The full client conversation, sections 1 to 17: verbatim messages, analysis, what was sent, the Upwork memos. |
 | `pilot-scope-v2.txt` | His "Bare Minimum Pilot" document: the scope basis. |
 | `Proposal.md` | The original Upwork bid (2026-09-22). |
 | `Reply-draft.md` | An early reply draft (history only). |

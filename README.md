@@ -1,7 +1,8 @@
 # Ageing Navigator pilot: working repository
 
-**Private.** This repository holds a client's conversation, his documents and our working notes, as well as the
-code. Never make it public, and never copy its notes into a repository anyone else can see (see `CLAUDE.md`).
+This repository holds the code, our working notes, a client's conversation and his documents. It is public by the
+user's decision (2026-10-01). Because anyone can read it, never commit secrets, `.env` files, database addresses or
+real families' data; see `CLAUDE.md`.
 
 ## What is here
 

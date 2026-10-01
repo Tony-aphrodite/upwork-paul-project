@@ -1,8 +1,8 @@
 # Ageing Navigator pilot (Kinfield prototype), New Zealand
 
 A won Upwork job. The user works on Upwork as **Valdis Licis** and builds the Ageing Navigator pilot for the founder
-of Ageing Navigator, a New Zealand service for families of older people. This private repository holds everything
-needed to carry on:
+of Ageing Navigator, a New Zealand service for families of older people. This repository holds everything needed to
+carry on:
 - the code: `demo/`;
 - the project notes;
 - the client log: `chatting.md`;
@@ -62,9 +62,12 @@ message first (updates, requests) get a section too, marked sent once the user c
 
 - **Never `git push` without the user's explicit approval for that push.** Approval for one push does not cover
   later ones.
-- **This repository must stay private:** it holds the client's conversation, his documents and the working notes.
-  - Never copy `chatting.md`, `client-files/` or the notes into a repository the client or anyone else can see.
-  - If the code has to be handed over, give `demo/` only, for example with `git subtree split --prefix=demo`.
+- **This repository is public.** The user decided this on 2026-10-01, knowing it holds the client's conversation
+  and documents. Because anyone can read it:
+  - **never commit** secrets, `.env` files, database addresses, real families' data, or anything the client marks
+    confidential;
+  - before every commit, check the staged files for tokens, keys and connection strings.
+  - If the code alone has to be handed over, give `demo/` only, for example with `git subtree split --prefix=demo`.
 - **Commits:** only when asked, or when the task clearly includes it. Messages are in English and end with the
   co-author trailer the session provides.
 
