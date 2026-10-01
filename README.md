@@ -31,6 +31,13 @@ TEST_DATABASE_URL=postgres://postgres@127.0.0.1:5432/postgres npm test   # the s
 With `TEST_DATABASE_URL` each test file creates its own database on that server and uses the production driver, so
 the code path that runs on Supabase is tested too. Point it only at a local, disposable server.
 
+**In a real browser:** `npm run check:browser` follows the whole pilot in Chrome at desktop width and at 390 px.
+- **What it does:** submits fictional families, signs in, edits, releases, opens the family page and PDF, sends a
+  request and feedback, and exports CSV.
+- **What it checks:** sideways scrolling and console errors on every page. Screenshots go to `.browser-check/`.
+- **Settings:** `BASE`, `NAV_EMAIL` and `NAV_PASSWORD` (or `SETUP_TOKEN`), and `CHROME_PATH`.
+- **Where to point it:** a local or staging app only, never production with real families.
+
 PGlite allows one process at a time: stop the dev server before running `navigator` or `db:migrate` against it.
 Emails are not sent locally. They are kept in memory, and the server log records that a message was sent.
 
