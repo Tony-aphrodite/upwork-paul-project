@@ -1,0 +1,13 @@
+# Dependencies, builds and local data
+node_modules/
+.next/
+.data/
+.browser-check/
+*.tsbuildinfo
+# Secrets: never committed. Each machine has its own (see README.md).
+.env
+.env.*
+!.env.example
+# Deploy scratch and the old prototype's Vercel link
+deploy-pilot/.export/
+demo/.vercel/
