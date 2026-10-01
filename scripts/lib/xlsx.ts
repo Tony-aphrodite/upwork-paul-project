@@ -1,4 +1,6 @@
+import { writeFileSync } from "node:fs";
 import ExcelJS from "exceljs";
+import JSZip from "jszip";
 import { TABS, UNSURE_LABEL, type Rows } from "../../src/lib/pilot/sheet";
 
 /** Reading and writing the content spreadsheet. The layout (tabs and headers) comes from TABS in sheet.ts. */
@@ -70,8 +72,21 @@ export async function writeWorkbook(rows: Rows, file: string) {
       for (let r = 2; r <= lastRow; r++) ws.getCell(`${col}${r}`).dataValidation = { type: "list", allowBlank: true, formulae: [`"${list.join(",")}"`] };
     });
   }
-  await wb.xlsx.writeFile(file);
+  // The default Office theme names East Asian fonts in their own scripts. Use their English names, so the file
+  // holds only Latin text; Excel resolves either form to the same font.
+  const zip = await JSZip.loadAsync(await wb.xlsx.writeBuffer());
+  const theme = zip.file("xl/theme/theme1.xml");
+  if (theme) zip.file("xl/theme/theme1.xml", (await theme.async("string")).replace(/typeface="[^"]*[^\x00-\x7F][^"]*"/g, (m) => FONT_NAMES[m] ?? 'typeface=""'));
+  writeFileSync(file, await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" }));
 }
+
+/** English names for the theme's non-Latin font names; anything else non-Latin is left to Excel's default. */
+const FONT_NAMES: Record<string, string> = {
+  'typeface="\uB9D1\uC740 \uACE0\uB515"': 'typeface="Malgun Gothic"',
+  'typeface="\uFF2D\uFF33 \uFF30\u30B4\u30B7\u30C3\u30AF"': 'typeface="MS PGothic"',
+  'typeface="\u5B8B\u4F53"': 'typeface="SimSun"',
+  'typeface="\u65B0\u7D30\u660E\u9AD4"': 'typeface="PMingLiU"',
+};
 
 function text(v: ExcelJS.CellValue): string {
   if (v == null) return "";
