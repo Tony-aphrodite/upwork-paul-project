@@ -21,12 +21,21 @@ export const outbox = () => (g.__anOutbox ??= []);
 /** Tests can make sending fail, or capture messages. */
 export function setTransport(t: Transport | undefined) { g.__anTransport = t; }
 
+/** Reserved test domains (RFC 2606 and 6761), used by the fictional families. */
+export function isTestAddress(email: string) {
+  const domain = email.trim().toLowerCase().split("@").pop() ?? "";
+  return /(^|\.)(test|example|invalid|localhost)$/.test(domain) || /(^|\.)example\.(com|net|org)$/.test(domain);
+}
+
+/** Real sending never goes to a test address: it would bounce, and bounces count against the client's domain. */
 async function viaResend(e: Email): Promise<Result> {
+  const to = e.to.filter((a) => !isTestAddress(a));
+  if (!to.length) return { ok: false, error: "test_address" };
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: config.emailFrom(), to: e.to, subject: e.subject, text: e.text, html: e.html, ...(config.emailReplyTo() ? { reply_to: config.emailReplyTo() } : {}) }),
+      body: JSON.stringify({ from: config.emailFrom(), to, subject: e.subject, text: e.text, html: e.html, ...(config.emailReplyTo() ? { reply_to: config.emailReplyTo() } : {}) }),
       signal: AbortSignal.timeout(10_000),
     });
     return res.ok ? { ok: true } : { ok: false, error: `HTTP ${res.status}` };
@@ -46,6 +55,9 @@ const realData = () => !!process.env.VERCEL || !!process.env.DATABASE_URL;
 
 /** False where real data is but no email service is set up yet: the review screen then says so instead of "failed". */
 export const emailReady = () => !!g.__anTransport || !!process.env.RESEND_API_KEY || !realData();
+
+/** True where real email is on and this address is a test one, so nothing is sent to it. */
+export const skipsAddress = (email: string) => !g.__anTransport && !!process.env.RESEND_API_KEY && isTestAddress(email);
 
 export async function sendEmail(e: Email): Promise<boolean> {
   if (!e.to.length) { log("email", { kind: e.subject.slice(0, 40), ok: false, code: "no_recipients" }); return false; }

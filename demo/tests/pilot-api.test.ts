@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { freshTestDb } from "./db-setup";
 import { db } from "../src/lib/db";
-import { emailReady, sendEmail, setTransport, type Email } from "../src/lib/email";
+import { emailReady, isTestAddress, sendEmail, setTransport, skipsAddress, type Email } from "../src/lib/email";
 import { SESSION_COOKIE, createSession } from "../src/lib/auth";
 import { completeSetup, disableNavigator, issueSetupLink } from "../src/lib/navigators";
 import { getCase, listCases } from "../src/lib/cases";
@@ -259,6 +259,27 @@ describe("review and release", () => {
       vi.stubEnv("RESEND_API_KEY", "re_test");
       expect(emailReady()).toBe(true);
     } finally {
+      vi.unstubAllEnvs();
+      setTransport(capture);
+    }
+  });
+
+  it("never sends real email to a test address, and sends to the real ones", async () => {
+    expect(["anna@example.test", "a@b.example", "x@mail.example.com", "y@host.invalid"].every(isTestAddress)).toBe(true);
+    expect(["paul@ageingnavigator.com", "a@test.co.nz", "b@example-care.nz"].some(isTestAddress)).toBe(false);
+    const capture = async (e: Email) => { sent.push(e); return { ok: true as const }; };
+    const fetchMock = vi.fn(async () => new Response("{}", { status: 200 }));
+    setTransport(undefined);
+    vi.stubEnv("RESEND_API_KEY", "re_test");
+    vi.stubGlobal("fetch", fetchMock);
+    try {
+      expect(skipsAddress("anna@example.test")).toBe(true);
+      expect(await sendEmail({ to: ["anna@example.test"], subject: "s", text: "t", html: "h" })).toBe(false);
+      expect(fetchMock).not.toHaveBeenCalled();
+      expect(await sendEmail({ to: ["anna@example.test", "paul@ageingnavigator.com"], subject: "s", text: "t", html: "h" })).toBe(true);
+      expect(JSON.parse(String((fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].body)).to).toEqual(["paul@ageingnavigator.com"]);
+    } finally {
+      vi.unstubAllGlobals();
       vi.unstubAllEnvs();
       setTransport(capture);
     }
