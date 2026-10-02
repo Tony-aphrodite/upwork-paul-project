@@ -19,7 +19,7 @@ const OUT = process.env.OUT ?? ".browser-check";
 const NAV_EMAIL = process.env.NAV_EMAIL ?? "";
 const NAV_PASSWORD = process.env.NAV_PASSWORD ?? "a long enough password";
 const SETUP_TOKEN = process.env.SETUP_TOKEN ?? "";
-if (/ageingnavigator\.co\.nz/.test(BASE)) { console.error("This looks like production. The check submits fictional families: use staging."); process.exit(1); }
+if (/ageingnavigator\.com/.test(BASE)) { console.error("This looks like production. The check submits fictional families: use staging."); process.exit(1); }
 if (!NAV_EMAIL && !SETUP_TOKEN) { console.error("Set NAV_EMAIL and NAV_PASSWORD, or SETUP_TOKEN."); process.exit(1); }
 mkdirSync(OUT, { recursive: true });
 

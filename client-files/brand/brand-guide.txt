@@ -1,0 +1,134 @@
+Ageing Navigator Brand Guide
+Brand identity and everyday usage • Version 1 • 2 October 2026
+
+
+
+
+Purpose
+Use this guide to keep Ageing Navigator consistent across email, the website, Action Plans,
+presentations and partner materials. The identity combines clear guidance with a calm,
+approachable appearance.
+
+Brand role
+Ageing Navigator helps older people and their families understand care and future living
+options, identify practical next steps and access coordination support. The brand must
+work across home support, retirement villages and residential care.
+
+Identity meaning
+The curved path represents different journeys and practical next steps. The directional point
+represents guidance. Deep teal is the main colour; gold provides a restrained accent. The
+name stays prominent so the logo remains readable at everyday sizes.
+
+Name and independence
+Always write Ageing Navigator, using British English spelling. Explain the ownership
+relationship with Home Carers transparently where relevant. Use consistent matching
+criteria; do not imply provider endorsement or preferential treatment.
+Brand colours and typography
+Colour           HEX          RGB             Use
+
+Deep teal        #174A4B      23 74 75        Logo, headings and primary buttons
+
+Warm gold        #C6923A      198 146 58      Small accents and highlights
+
+Soft ivory       #F7F5EF      247 245 239     Warm page backgrounds
+
+Slate            #263746      38 55 70        Body text and contact details
+
+White            #FFFFFF      255 255 255     Backgrounds and reversed artwork
+
+
+Colour balance
+Use white or ivory for most page space, teal for identity and emphasis, and slate for longer
+text. Keep gold occasional. The HEX values are the digital colour specification; generated
+raster artwork may contain slight tonal variation.
+
+Readable combinations
+Teal on white is approximately 9.9:1; slate on white is approximately 12.2:1. Gold on white is
+approximately 2.8:1 and should not be used for small text. For normal website text, aim for at
+least 4.5:1 contrast. Avoid placing teal lettering on a dark background.
+
+Typography
+Use Poppins SemiBold for headings, Poppins Medium for short labels where available, and
+Poppins Regular for body text. Standard documents use 11 pt body text with single line
+spacing. Website body text should generally begin at 18 px and be tested with users.
+
+Use Arial for live email-signature text when Poppins is unavailable. The wordmark is artwork:
+do not retype or substitute its lettering.
+
+Reference
+Contrast guidance: W3C WCAG Contrast Minimum
+https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum
+Logo colourways and sizes
+Primary logo on white
+
+
+
+
+Default for documents, email signatures and light website areas.
+
+Primary logo with transparent background
+
+
+
+
+Use on white or very light backgrounds. Transparent means no background fill; some
+viewers display transparency as black.
+
+Reversed logo on teal
+
+
+
+
+White lettering and symbol with a gold point on a teal background. Use for dark banners,
+presentation sections and branded graphics.
+
+Export          Width           Use
+
+Small           300 px          Simple email insertion
+
+Medium          600 px          Display at 300 px for sharper email rendering
+
+Large           Original        Website, presentations and larger layouts
+                resolution
+Usage and communication
+Spacing and minimum size
+Leave clear space around the complete logo equal to at least half the height of the capital
+A in Ageing. Keep other text, edges and graphics outside this area. For the full logo, use a
+practical minimum display width of 220 px; 260–300 px is preferred in email. Retain its
+aspect ratio.
+
+Email signature
+Recommended file: Ageing_Navigator_white_medium.png. Insert it at 300 px wide,
+preserving proportions. The transparent medium file is suitable on a confirmed light
+background. A white-backed version provides more predictable separation in email clients,
+although dark-mode behaviour still needs testing.
+
+Keep your name, title, phone number and website as live text. Use Arial at 11–12 pt, slate for
+text and teal for links. Suggested order: Paul John McLaren; Founder | Ageing Navigator;
+phone; ageingnavigator.com. Add only confirmed contact details and clickable links. Test
+desktop, mobile and dark mode.
+
+Brand voice
+Write in British English. Be calm, practical, clear and respectful. Speak to older people as
+decision makers. Explain options and the next manageable action. Use personalised,
+organisation and ageing. Avoid fear-based messaging, guaranteed outcomes and
+unsupported authority claims.
+
+Suitable wording: “Understand your options and identify practical next steps.” Keep the free
+Action Plan distinct from coordination and future paid tools. Explain professional
+assessment or advice requirements where relevant.
+
+Keep the identity consistent
+Do not stretch, rotate, recolour or add effects to the logo. Avoid busy photo backgrounds
+and low contrast. Do not attach a small tagline to the email logo. Use the supplied artwork
+rather than recreating it from a screenshot.
+
+Files and future production
+The logo pack contains three colourways in three sizes, all PNG. PNG is suitable for email
+and digital use; transparent PNG preserves an alpha channel. These are raster assets, not
+editable vectors. For signage, embroidery or large-format print, commission a faithful SVG
+master and agree printer-specific CMYK values from this digital palette.
+
+Keep this guide and the logo pack together. Update the version date when colours,
+typography or approved artwork change.
+

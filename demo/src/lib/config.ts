@@ -3,7 +3,7 @@
  * development; production sets the environment variables listed in the handover note.
  */
 export const config = {
-  /** Public address of the app, used in emails, e.g. https://plan.ageingnavigator.co.nz */
+  /** Public address of the app, used in emails, e.g. https://plan.ageingnavigator.com */
   appUrl: () => (process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, ""),
   /** How long a case is kept after its plan is released, then deleted with its link (proposed: 12 months). */
   retentionMonthsAfterRelease: () => Number(process.env.RETENTION_MONTHS_AFTER_RELEASE ?? 12),

@@ -48,9 +48,9 @@ Emails are not sent locally. They are kept in memory, and the server log records
 | `DATABASE_URL` | Postgres connection string. Supabase in Sydney (`ap-southeast-2`), transaction pooler (port 6543) |
 | `DATABASE_CA_CERT` | Optional: Supabase's CA certificate (PEM). With it the database certificate is fully verified; without it the connection is encrypted but not verified |
 | `AUTH_SECRET` | 32+ random characters; signs navigator sessions. The app refuses to start without it wherever real data is |
-| `APP_URL` | Public address, e.g. `https://plan.ageingnavigator.co.nz`; used in emails and links |
+| `APP_URL` | Public address, e.g. `https://plan.ageingnavigator.com`; used in emails and links |
 | `RESEND_API_KEY` | Resend API key, from an account on the client's domain |
-| `EMAIL_FROM` | e.g. `Ageing Navigator <plans@ageingnavigator.co.nz>`; the domain must be verified in Resend |
+| `EMAIL_FROM` | e.g. `Ageing Navigator <plans@ageingnavigator.com>`; the domain must be verified in Resend |
 | `EMAIL_REPLY_TO` | Optional: where family replies go |
 | `CRON_SECRET` | 32+ random characters; the daily retention job checks it |
 | `REQUIRE_APPROVED_CONTENT` | `1` on the real production: no submissions and no releases while any content row is still Draft. Leave unset on staging |

@@ -8,7 +8,7 @@ import { FAMILIES } from "../tests/pilot-families";
 
 const { rest, flags } = args();
 const base = (rest[0] ?? process.env.APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
-if (/ageingnavigator\.co\.nz/.test(base) && !flags.yes) { console.error("This looks like production. Add --yes if you really mean it."); process.exit(1); }
+if (/ageingnavigator\.com/.test(base) && !flags.yes) { console.error("This looks like production. Add --yes if you really mean it."); process.exit(1); }
 for (const f of FAMILIES) {
   const res = await fetch(`${base}/api/submit`, {
     method: "POST", headers: { "Content-Type": "application/json", "x-forwarded-for": `198.51.100.${FAMILIES.indexOf(f) + 1}` },

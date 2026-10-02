@@ -1748,3 +1748,137 @@ Valdis
 - Morning (3 h): `Final checks before sending: content spreadsheet cleaned up, test site set up on Vercel with secure settings and a repeatable deploy step.`
 - Afternoon (3 h): `Sent the content spreadsheet and what is needed to go live (accounts, domain, brand, reviewers); email now shows when it was not sent.`
 
+
+---
+
+### 18. Client to Valdis (received 2026-10-02): his answers, written into a shared Google Doc
+
+He answered the section 15 message point by point, in a Google Doc shared by link
+(the link is not recorded here: anyone with it could read his password). His answers follow our text on each line.
+
+**His document (verbatim, except the password, which is removed here and must never be written down anywhere, and the
+Drive link):**
+
+> 1. The content spreadsheet (attached). Nothing attached
+> It is pre-filled with your questions and my draft wording, all marked Draft. Change what you like and mark each row
+> Approved; the "How to use" tab explains the columns. Real families only ever see approved content. A few points
+> need your decision: ok
+> - Consent wording: it says answers are kept for 12 months after the plan is sent and stored in Australia (Sydney).
+>   Change either if you prefer. This is ok
+> - Questions asked twice: the assessed care level (q19_level and rc2) and home ownership (q6_owns and f2). I suggest
+>   keeping one of each.
+> - Questions that change nothing yet: about 30, for example the finance and village questions. Keep them if you
+>   want to read the answers, or remove them so families share less. Ok once i can see them
+> - Legal statements: please confirm independent legal advice before signing an Occupation Right Agreement, and that
+>   an EPOA can only be made while the person still has capacity. Please also add a source where an action has none.
+>   ok
+>
+> 2. Two accounts in your name, so you own the data and the emails from the start:
+> - Supabase (http://supabase.com): a project in the Sydney region. Invite me as a member at [EMAIL]. The Pro plan
+>   adds daily backups, which I recommend before real families.
+> - Resend (http://resend.com): add your domain and invite me at [EMAIL]. It sends the plan emails from your domain.
+>   Signed up to both using the same details: U: paul@ageingnavigator.com / PW: [REDACTED]
+>
+> 3. Your domain. Let me know the subdomain you would like and who manages your domain's DNS. I'll send the exact
+> records to add. ageingnavigator.com / hostinger.com is the host
+>
+> 4. Your brand. Your logo (SVG or a large PNG), your colours, and any example of how you would like the PDF to look.
+> Click here: [link to his Google Drive folder, not recorded here]
+>
+> 5. Your reviewers. The name and email of each person who will review plans: you, and Dee if Dee will review too.
+> Each gets a private link to set their own password. One email is ok. paul@ageingnavigator.com
+
+#### Analysis
+
+- **The client is Paul (Paul John McLaren, founder),** at paul@ageingnavigator.com. His domain is
+  **ageingnavigator.com**, not the `.co.nz` we had assumed. DNS is at Hostinger.
+- **Two slips on our side caused the main problem:**
+  - Section 15 went out **without the spreadsheet attached**.
+  - It went out **with both `[EMAIL]` placeholders still in it**, so he could not invite us. Instead he wrote his
+    **Supabase and Resend password into a link-shared document**: one password for both services.
+  - Signing in with a client's password is account sharing. We do not do it, and we never take credentials by chat.
+  - The safe course: ask him to change that password at once, invite our email to both services instead, and
+    restrict the document.
+  - The password is not recorded anywhere: this repository is public.
+- **Decisions made:**
+  - **Consent:** the wording is approved as it stands (12 months, Sydney).
+  - **Legal statements:** confirmed. He will add sources ("ok").
+  - **Reviewers:** one account only, for paul@ageingnavigator.com. Dee is not a reviewer for now.
+- **Left open:**
+  - **Duplicate questions:** no answer. We decide and say so: keep q19_level (adding the psychogeriatric level) and
+    q6_owns, and remove rc2 and f2. The residential actions then read q19_level.
+  - **The 30 unused questions:** he wants to see them first ("ok once I can see them"). They stay in until he has
+    seen the test site.
+- **Brand assets** (Drive folder, saved to `client-files/brand/`):
+  - Brand Guide v1, dated 2 October 2026:
+    - **Colours:** Deep teal #174A4B (primary); Warm gold #C6923A (accent only, never small text); Soft ivory
+      #F7F5EF (backgrounds); Slate #263746 (body text).
+    - **Type:** Poppins (SemiBold headings, Regular body). Body text 11 pt in documents and 18 px on the web.
+    - **Voice:** British English; calm and practical; "Understand your options and identify practical next steps".
+    - **Logo:** at least 220 px wide.
+    - **Home Carers:** "explain the ownership relationship with Home Carers transparently where relevant". This is
+      new: Home Carers appears to own or back Ageing Navigator, and it may affect the consent or disclaimer wording
+      later.
+  - **Logos:** PNG in three sizes (transparent large 1983 x 793, transparent medium, on white). No SVG; the large
+    PNG is enough.
+  - **No PDF example.** The brand guide sets the look.
+  - **Not needed:** a "30 Day Mktg strategy" doc in the same folder was not downloaded.
+- **Effect on the plan** (`WORKLOG.md`):
+  - Brand in pages and PDF: day 6 PM (line 5). It brings in Poppins, the logo and the colours, and the 18 px body
+    text on family pages.
+  - Content decisions: day 6 AM (line 3).
+  - Domain and email records for Hostinger: day 7 AM, once Resend has his domain.
+  - Staging still waits for the staging database (the user).
+
+#### Reply (ready to send; attach `deliverables/Ageing-Navigator-content-spreadsheet.xlsx`, replace both [EMAIL])
+
+Hi Paul,
+
+Thank you, that covers almost everything.
+
+First, your password: please change it for Supabase and Resend today. It is in a document anyone with the link can
+open, and it is the same for both services. I won't sign in with your details. Please invite me instead:
+- Supabase: Organization settings, Team, Invite member: [EMAIL]
+- Resend: Settings, Team, Invite: [EMAIL]
+
+It is also worth setting that Google Doc to Restricted.
+
+The spreadsheet did not come through last time, sorry. It is attached now.
+
+Your decisions, as I'll apply them:
+- **Consent wording:** stays as it is (12 months, stored in Sydney).
+- **Questions asked twice:** I'll keep the assessed care level in the assessment section and home ownership in the
+  first section, and remove the other two. A small change if you would rather keep those.
+- **Questions that do not change the plan yet:** they stay in for now. You will see them on the test site and can
+  decide then.
+- **Legal statements:** marked as confirmed. As you go through the sheet, add a source in the Source column for any
+  action that has none.
+
+**Domain:** I'll use plan.ageingnavigator.com. Once Resend is set up, I'll send you the exact records to add in
+Hostinger, with where to click.
+
+**Brand:** thank you for the guide and the logos. I'll use the teal and gold, Poppins and your logo on the pages and
+in the PDF, with the wording in British English.
+
+**Reviewer:** one account for paul@ageingnavigator.com. You will get a private link to set your own password when the
+test site is ready.
+
+Next, I'll send you the test site link to try with fictional families.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - Replace both [EMAIL] with the address to invite. The previous message went out with the placeholders, which is
+    why he sent his password.
+  - Attach the spreadsheet, and check in Upwork that the attachment uploaded before sending.
+- **His password:**
+  - Do not use it.
+  - Do not paste it anywhere, including chats, notes, commits and memos.
+  - It is redacted in this log, and the repository is public.
+  - If the user downloads the Google Doc, keep it out of the repository.
+- **Code to change:** the guards in `scripts/browser-check.mts` and `scripts/seed-fictional.mts`, and the README
+  examples, used `ageingnavigator.co.nz` as the production domain. Updated to `ageingnavigator.com` on 2026-10-02.
+- **Home Carers:** worth one question later, not in this message. Should the plan or consent mention the
+  relationship with Home Carers? The brand guide asks for transparency "where relevant".

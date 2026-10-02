@@ -44,6 +44,16 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-02: the client answered** (`chatting.md` section 18), in a link-shared Google Doc.
+  - **Who he is:** Paul McLaren (paul@ageingnavigator.com). His domain is **ageingnavigator.com**, with DNS at
+    Hostinger. One reviewer only: himself.
+  - **Decided:** the consent wording is approved, and so are the legal statements.
+  - **Brand:** the brand guide and logos are in `client-files/brand/`: teal #174A4B, gold #C6923A, Poppins, British
+    English.
+  - **What went wrong:** our section 15 message reached him without the spreadsheet and with `[EMAIL]` unreplaced.
+    He then put his Supabase and Resend password into the shared doc. **Never use or record it.** The reply in
+    section 18 asks him to change it and to invite us instead; send it with the spreadsheet attached and a real
+    email address.
 - **2026-10-01, evening:**
   - **Client message sent** (`chatting.md` section 15): the content spreadsheet, and the list of what is needed from
     him.
