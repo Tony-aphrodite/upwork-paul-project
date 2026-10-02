@@ -1882,3 +1882,39 @@ Valdis
   examples, used `ageingnavigator.co.nz` as the production domain. Updated to `ageingnavigator.com` on 2026-10-02.
 - **Home Carers:** worth one question later, not in this message. Should the plan or consent mention the
   relationship with Home Carers? The brand guide asks for transparency "where relevant".
+
+#### Revised reply (2026-10-02, after the user's decision)
+
+The user decided the shared password is acceptable for now: the setup uses it, and it is changed once testing is
+finished. The reply no longer asks him to change it or to invite us. It still must not be written anywhere.
+
+Hi Paul,
+
+Thank you, that covers almost everything, and the access you set up is enough for me to get started.
+
+The spreadsheet did not come through last time, sorry. It is attached now.
+
+Your decisions, as I'll apply them:
+- **Consent wording:** stays as it is (12 months, stored in Sydney).
+- **Questions asked twice:** I'll keep the assessed care level in the assessment section and home ownership in the
+  first section, and remove the other two. A small change if you would rather keep those.
+- **Questions that do not change the plan yet:** they stay in for now. You will see them on the test site and can
+  decide then.
+- **Legal statements:** marked as confirmed. As you go through the sheet, add a source in the Source column for any
+  action that has none.
+
+**Domain:** I'll use plan.ageingnavigator.com. Once your domain is added in Resend, I'll send you the exact records
+to add in Hostinger, with where to click.
+
+**Brand:** thank you for the guide and the logos. I'll use the teal and gold, Poppins and your logo on the pages and
+in the PDF, with the wording in British English.
+
+**Reviewer:** one account for paul@ageingnavigator.com. You will get a private link to set your own password when the
+test site is ready.
+
+**Password:** once testing is finished, please change the password you shared. I'll remind you.
+
+Next, I'll set up the database and email on your accounts and send you the test site link to try with fictional
+families.
+
+Valdis
