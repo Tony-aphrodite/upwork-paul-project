@@ -1975,6 +1975,75 @@ Expected for now:
 All the questions are in, including the ones that do not change the plan yet, so you can decide which to keep.
 Wording changes can go straight into the spreadsheet, or in a short list to me.
 
-Next, I'll put your brand on the pages and the PDF, and send you the records to add in Hostinger.
+Next, I'll put your brand on the pages and the PDF. The records to add in Hostinger follow in my next message.
+
+Valdis
+
+### 20. 2026-10-02: Valdis to client: DNS records for email and plan.ageingnavigator.com (ready to send)
+
+Sent with section 19, as its own message.
+
+#### Analysis
+
+- **Resend:** the user added ageingnavigator.com in Paul's Resend account.
+  - **Settings:** region Tokyo (ap-northeast-1), the closest of the four; return path `send`; click and open
+    tracking off; receiving off.
+  - **Tracking off:** click tracking would route the family's private link through a tracking redirect.
+  - **Receiving off:** receiving needs an MX record on the root, which would take Paul's Hostinger mail away.
+- **Vercel:** `plan.ageingnavigator.com` was added to the project `ageing-navigator-pilot`.
+  - **The record:** Vercel asks for `A plan 76.76.21.21`.
+  - **Not used:** its other option, moving the nameservers to Vercel, would take his website and email off
+    Hostinger.
+- **His DNS on 2026-10-02:**
+  - **Where it is:** nameservers at Hostinger (dns-parking.com).
+  - **Mail:** Hostinger (mx1/mx2.hostinger.com), with SPF `include:_spf.mail.hostinger.com` and DMARC `p=none`
+    already in place.
+  - **Conflicts:** none of the four names below exists yet, so nothing is replaced.
+- **The Resend targets were checked:**
+  - `rsend-apne1.forge.rmta.net` has MX `feedback-smtp.ap-northeast-1.amazonses.com` and SPF
+    `include:amazonses.com`;
+  - `send.forge.rmta.net` has its own MX and SPF.
+  - The DKIM value is a public key, so it is safe in this public repository.
+- **Already set on Vercel:**
+  - `EMAIL_FROM` = `Ageing Navigator <plans@ageingnavigator.com>`;
+  - `EMAIL_REPLY_TO` = `paul@ageingnavigator.com`.
+- **When the records are verified:**
+  1. The user creates the Resend API key (sending access) and enters it in Vercel themselves.
+  2. Set `APP_URL` to `https://plan.ageingnavigator.com` and redeploy.
+  3. Test the release, new-submission and help-request emails with real inboxes.
+- **Order:** keep the key out until the domain is verified, or every send fails with "domain not verified".
+
+#### Message (ready to send)
+
+Hi Paul,
+
+Here are the four records to add in Hostinger. They make the plan emails come from your domain and put the site at
+plan.ageingnavigator.com. They do not touch your website or your current email.
+
+In Hostinger: hPanel, Domains, ageingnavigator.com, DNS / Nameservers, DNS records. For each line below, choose the
+Type, fill in the Name and the value, leave the TTL as it is, and click Add Record.
+
+1. Type: TXT
+   Name: resend._domainkey
+   Value: p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQqhl+Nkh4Ks5nzzVuqW/BaF4ejfCiNCRVS3hiJG9npG836PC28TSinj0skmNIr9QEVCuWYjEx7dy1359HjTt8Us4MSxf7+rVId5mpH3SYpIlFTOq+Vfbxq187ycpJEGlbiVD8HEmlXTdn5BV9uVP+qbse8eJx5j1hfuLn1CUI+QIDAQAB
+
+2. Type: CNAME
+   Name: rsend
+   Target: rsend-apne1.forge.rmta.net
+
+3. Type: CNAME
+   Name: send
+   Target: send.forge.rmta.net
+
+4. Type: A
+   Name: plan
+   Points to: 76.76.21.21
+
+Enter each Name exactly as shown; Hostinger adds ".ageingnavigator.com" itself. Please leave your existing records as
+they are, and do not change the nameservers.
+
+Once they are in, I'll check them from here, switch the emails on and move the test site to
+https://plan.ageingnavigator.com. From then on you get an email when a family sends their answers, and families get
+their plan link by email. A one-line note when you have added them helps.
 
 Valdis

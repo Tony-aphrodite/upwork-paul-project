@@ -69,7 +69,7 @@ requirements. They found about 50 issues. The important ones, all fixed and each
 | 5a, 5c, 5d | Done |
 | 5b | Layout done with placeholder branding (`src/lib/brand.ts`). **Waiting:** his logo, colours and any template sample |
 | 6a, 6b | Done. The email is tested through a stand-in transport; real sending needs the Resend key. Until then the review screen says "Email is not set up yet" and shows the link to copy |
-| 6c | **Waiting:** his DNS records (SPF, DKIM, subdomain) |
+| 6c | 2026-10-02: ageingnavigator.com added in his Resend account (Tokyo, tracking off), `plan.ageingnavigator.com` added to the Vercel project, `EMAIL_FROM` and `EMAIL_REPLY_TO` set. **Waiting:** Paul adds the four records (`chatting.md` section 20); then the Resend key (entered by the user), `APP_URL`, redeploy, email test |
 | 7a to 7c | Done |
 | 8a, 8b | Done; the access checklist is in `demo/README.md` |
 | 8c | **Waiting:** a paid database tier for daily backups, then one restore test |
