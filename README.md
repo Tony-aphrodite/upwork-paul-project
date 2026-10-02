@@ -45,8 +45,14 @@ real families' data; see `CLAUDE.md`.
 
 Ask the user for these. Never put them in files that are committed, and never send them by chat:
 - **Vercel:** membership of the team `servi-tec`, to deploy and to manage the environment variables.
-- **Staging database:** the address goes in `demo/.env.local` as `DATABASE_URL=…`. This file is ignored by git.
-- **Later:** the client's Supabase and Resend accounts, by invitation from him.
+- **Staging database:** the client's Supabase project in Sydney.
+  - **Where to find the address:** in Supabase, Connect, then Transaction pooler (port 6543).
+  - **Where it goes:** `demo/.env.local`, as `DATABASE_URL=…`. That file is ignored by git.
+  - **What needs it:** the scripts that work on staging, such as `npm run navigator`.
+- **Email:** the client's Resend account. His domain ageingnavigator.com is added there, in the Tokyo region. The
+  API key is entered in Vercel by the user, never by chat.
+- **Domain:** his DNS is at Hostinger and only he edits it. The records he was asked to add are in `chatting.md`,
+  section 20.
 
 ## Checking and deploying
 
