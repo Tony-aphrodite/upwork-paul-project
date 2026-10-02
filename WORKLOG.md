@@ -105,3 +105,12 @@ tracked time, not a measure of what is built. The code is ahead of the logged ho
 The client was sent the content spreadsheet and the list of what is needed from him on 2026-10-01 (`chatting.md`
 section 15).
 
+**2026-10-02, evening (not yet logged in hours; the user sets the hours when posting the memos).** This is the
+day 5 AM work (line 9, with line 1e):
+- staging live on the client's Supabase project in Sydney;
+- the 404 fixed (the Vercel project had no framework preset);
+- the full browser run passed on staging at desktop and 390 px, with the PDF built in Sydney;
+- seven fictional families submitted;
+- "email not set up" wording on the review screen, with a test;
+- Paul's navigator account created.
+

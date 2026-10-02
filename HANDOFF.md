@@ -44,6 +44,18 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-02, evening: staging is live** at https://ageing-navigator-pilot.vercel.app.
+  - **Database:** the client's Supabase project in Sydney (`ap-southeast-2`), created by the user in Paul's
+    account. The address is only in `demo/.env.local` and in Vercel.
+  - **Checks:** the full browser run passed there.
+  - **Data:** seven fictional families wait for review, and two are released.
+  - **Accounts:** Paul's navigator account exists (setup link valid until 2026-10-04 17:13 UTC). The test account
+    `staging-check@example.test` is disabled; a new setup link re-enables it for checks.
+  - **Email is not connected yet** (no Resend key): releases show the link to copy.
+  - **Next:**
+    - send the section 18 reply, then the section 19 message with Paul's setup link;
+    - add his domain in Resend and send him the Hostinger records;
+    - his brand (day 6).
 - **2026-10-02: the client answered** (`chatting.md` section 18), in a link-shared Google Doc.
   - **Who he is:** Paul McLaren (paul@ageingnavigator.com). His domain is **ageingnavigator.com**, with DNS at
     Hostinger. One reviewer only: himself.
@@ -51,9 +63,9 @@ The bidding workspace it came from is frozen.
   - **Brand:** the brand guide and logos are in `client-files/brand/`: teal #174A4B, gold #C6923A, Poppins, British
     English.
   - **What went wrong:** our section 15 message reached him without the spreadsheet and with `[EMAIL]` unreplaced.
-    He then put his Supabase and Resend password into the shared doc. **Never use or record it.** The reply in
-    section 18 asks him to change it and to invite us instead; send it with the spreadsheet attached and a real
-    email address.
+    He then put his Supabase and Resend password into the shared doc. **Never record it anywhere.** The user
+    decided to use it for the setup and to have Paul change it once testing is finished (revised reply, section
+    18); remind him then. Send that reply with the spreadsheet attached.
 - **2026-10-01, evening:**
   - **Client message sent** (`chatting.md` section 15): the content spreadsheet, and the list of what is needed from
     him.
@@ -239,7 +251,7 @@ himself). Fix these in the rules and templates:
 | `deploy-pilot/` | Staging deployment: `deploy.sh`, the Vercel project link. No secrets: those are in Vercel. |
 | `IMPLEMENTATION-PLAN.md` | How the pilot is built: design decisions, routes, tables, content model, and every line of the 56 hours split into steps with a "done when". Start here before coding. |
 | `WORKLOG.md` | Hours per line, the day plan, and every session logged. |
-| `chatting.md` | The full client conversation, sections 1 to 17: verbatim messages, analysis, what was sent, the Upwork memos. |
+| `chatting.md` | The full client conversation, sections 1 to 19: verbatim messages, analysis, what was sent, the Upwork memos. |
 | `pilot-scope-v2.txt` | His "Bare Minimum Pilot" document: the scope basis. |
 | `Proposal.md` | The original Upwork bid (2026-09-22). |
 | `Reply-draft.md` | An early reply draft (history only). |

@@ -59,28 +59,29 @@ requirements. They found about 50 issues. The important ones, all fixed and each
 | Step | Status |
 | --- | --- |
 | 1b, 1c, 1d | Done |
-| 1e | **Waiting:** Supabase and Resend accounts in the client's name; Vercel environment variables (see README); staging deploy |
+| 1e | Staging done (2026-10-02): https://ageing-navigator-pilot.vercel.app on the client's Supabase project (Sydney, PostgreSQL 17), functions in `syd1`, framework set to Next.js in `vercel.json`. **Waiting:** `RESEND_API_KEY` and `EMAIL_FROM` once his domain is verified in Resend |
 | 2a to 2d | Done. The first screen and the "not sure" route use draft content until his arrives |
 | 2e | Mobile checked at 390 px; focus and Enter handling done. A manual keyboard-only pass is still to do |
-| 3a | Done: `deliverables/Ageing-Navigator-content-spreadsheet.xlsx`, re-exported after the review. **Not yet sent** |
+| 3a | Done: `deliverables/Ageing-Navigator-content-spreadsheet.xlsx`. Section 15 went out without it; the section 18 reply attaches it |
 | 3b, 3c | Done |
 | 3d | **Waiting:** his completed spreadsheet |
 | 4a to 4e | Done |
 | 5a, 5c, 5d | Done |
 | 5b | Layout done with placeholder branding (`src/lib/brand.ts`). **Waiting:** his logo, colours and any template sample |
-| 6a, 6b | Done. The email is tested through a stand-in transport; real sending needs the Resend key |
+| 6a, 6b | Done. The email is tested through a stand-in transport; real sending needs the Resend key. Until then the review screen says "Email is not set up yet" and shows the link to copy |
 | 6c | **Waiting:** his DNS records (SPF, DKIM, subdomain) |
 | 7a to 7c | Done |
 | 8a, 8b | Done; the access checklist is in `demo/README.md` |
 | 8c | **Waiting:** a paid database tier for daily backups, then one restore test |
 | 8d | The facts are in the README privacy section. The client-facing facts sheet is still to write |
-| 9a, 9b | Done: `npm run seed:fictional`, and the local browser run |
-| 9c, 9d | **Waiting:** staging, then his run, then go-live |
+| 9a, 9b | Done: `npm run seed:fictional`, and the browser run, locally and on staging (2026-10-02: no problems at desktop and 390 px; PDF built in Sydney) |
+| 9c, 9d | Staging ready, with seven fictional families waiting for review and two released. Paul's navigator account exists; his setup link goes in the section 19 message. **Waiting:** his run, then go-live |
 | 10 | README written. The client handover note comes at the end |
 | 11 (additions) | Done: new-submission email (urgent marked), referral source, feedback, CSV export |
 
 **Before any real family:**
-- Repeat the browser run on staging against Supabase.
+- Repeat the browser run on staging against Supabase. Done 2026-10-02.
+- Delete the fictional cases and the disabled account `staging-check@example.test` before real families use this database.
 - Set `REQUIRE_APPROVED_CONTENT=1` on production.
 
 ## 1. Where we start

@@ -1918,3 +1918,63 @@ Next, I'll set up the database and email on your accounts and send you the test 
 families.
 
 Valdis
+
+### 19. 2026-10-02: Valdis to client: the test site and his reviewer account (ready to send)
+
+Sent after the section 18 reply, or together with it.
+
+#### Analysis
+
+- **Staging is live** at https://ageing-navigator-pilot.vercel.app.
+  - **Where it runs:** on his Supabase project in Sydney, with the app's functions in Sydney.
+  - **Checks:** the full browser run passed there.
+  - **Data:** seven fictional families wait for review, and two more are released, with a help request and feedback
+    on one of them.
+- **His reviewer account** for paul@ageingnavigator.com exists.
+  - **The setup link** works once, until Monday 5 October, 06:13 New Zealand time (2026-10-04 17:13 UTC).
+  - **Where the link is:** it is given to the user in the chat only, never written here, since this repository is
+    public.
+  - **If it runs out:** `npm run navigator -- --email paul@ageingnavigator.com --name "Paul McLaren"`, with
+    `DATABASE_URL` from `demo/.env.local` and `APP_URL` set to the staging address, issues a new one.
+- **What he will notice, so it is said up front:**
+  - "Test version" on every plan, because the content is still Draft;
+  - no emails yet, so on release the screen shows the family's link to copy;
+  - the default look, because his brand comes next.
+- **The 30 questions that change nothing yet** are all in, as he asked to see them before deciding.
+- **Real families:** none until the content is approved, email works and backups are on. The message asks for
+  made-up details only.
+
+#### Message (ready to send; replace [SETUP LINK] with the link given in the chat)
+
+Hi Paul,
+
+The test site is ready: https://ageing-navigator-pilot.vercel.app
+
+It is a temporary address; it moves to plan.ageingnavigator.com once your domain records are in. The data is stored
+in your Supabase project in Sydney.
+
+Your reviewer account: open this private link and choose your password (12 characters or more). It works once,
+until Monday 5 October, 6 am New Zealand time:
+[SETUP LINK]
+
+What to try:
+1. Fill in the questionnaire as a family would: "Start the questionnaire" on the home page. Please use made-up
+   details only, not a real family, while this is a test.
+2. Sign in and open Cases. Seven fictional families are waiting for review, one of them marked urgent. Two more are
+   already released, so you can see both.
+3. Open a case: change the wording, remove an action, preview the plan and the PDF, then release it.
+4. Open the family's link from the release screen to see their plan, the PDF, the help request and the feedback
+   form.
+
+Expected for now:
+- Plans and PDFs say "Test version", because the content rows are still marked Draft.
+- No emails are sent yet. On release the screen shows the family's link to copy. Emails start once your domain is
+  set up in Resend.
+- The design is still the default one; your logo, colours and Poppins come next.
+
+All the questions are in, including the ones that do not change the plan yet, so you can decide which to keep.
+Wording changes can go straight into the spreadsheet, or in a short list to me.
+
+Next, I'll put your brand on the pages and the PDF, and send you the records to add in Hostinger.
+
+Valdis
