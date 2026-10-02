@@ -42,10 +42,14 @@ async function viaResend(e: Email): Promise<Result> {
 const unsent: Transport = async () => ({ ok: false, error: "email_not_configured" });
 const local: Transport = async (m) => { outbox().push(m); return { ok: true }; };
 
+const realData = () => !!process.env.VERCEL || !!process.env.DATABASE_URL;
+
+/** False where real data is but no email service is set up yet: the review screen then says so instead of "failed". */
+export const emailReady = () => !!g.__anTransport || !!process.env.RESEND_API_KEY || !realData();
+
 export async function sendEmail(e: Email): Promise<boolean> {
   if (!e.to.length) { log("email", { kind: e.subject.slice(0, 40), ok: false, code: "no_recipients" }); return false; }
-  const real = !!process.env.VERCEL || !!process.env.DATABASE_URL;
-  const transport: Transport = g.__anTransport ?? (process.env.RESEND_API_KEY ? viaResend : real ? unsent : local);
+  const transport: Transport = g.__anTransport ?? (process.env.RESEND_API_KEY ? viaResend : realData() ? unsent : local);
   const r = await transport(e);
   log("email", { kind: e.subject.slice(0, 40), ok: r.ok, code: r.ok ? undefined : r.error, count: e.to.length });
   return r.ok;

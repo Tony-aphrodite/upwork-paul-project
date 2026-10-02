@@ -18,6 +18,8 @@ export type CaseView = {
   contact: { name: string; email: string; phone: string }; personName: string; referral: string | null; marketingConsent: boolean;
   releaseEmailStatus: "sent" | "failed" | null; plan: PilotPlan; hasReleased: boolean; releasedDiffers: boolean; note: string;
   answers: AnswerGroup[]; requests: RequestView[]; feedback: Feedback | null; feedbackAt: string | null; serviceLabels: Record<string, string>;
+  /** False until an email service is set up: links are then copied and sent by hand. */
+  emailReady: boolean;
 };
 
 type Reply = { ok: boolean; json: Record<string, unknown> };
@@ -183,12 +185,12 @@ export function CaseEditor({ data }: { data: CaseView }) {
         <p className="mt-4 rounded-lg bg-soon-soft p-3 text-[14px] text-soon">This plan was built with content {data.contentVersion}; the current content is {data.currentContentVersion}. Use &ldquo;Regenerate from answers&rdquo; to rebuild it with the current wording.</p>
       )}
       {hasReleased && data.releaseEmailStatus === "failed" && !released && (
-        <p className="mt-4 rounded-lg bg-now-soft p-3 text-[14px] text-now">The release email could not be sent. Email a new link below, or make one to copy and send it yourself.</p>
+        <p className="mt-4 rounded-lg bg-now-soft p-3 text-[14px] text-now">{data.emailReady ? "The release email could not be sent. Email a new link below, or make one to copy and send it yourself." : "Email is not set up yet, so the family was not emailed. Make a new link below to copy and send it yourself."}</p>
       )}
 
       {released && (
         <div role="status" className="card mt-5 border-ahead p-5">
-          <p className="flex items-center gap-2 text-[16px] font-bold text-ahead"><Check size={18} aria-hidden="true" />{released.emailSent === false ? "Released, but the email failed" : released.emailSent ? `Released and emailed to ${data.contact.email}` : "New link made"}</p>
+          <p className="flex items-center gap-2 text-[16px] font-bold text-ahead"><Check size={18} aria-hidden="true" />{released.emailSent === false ? (data.emailReady ? "Released, but the email failed" : "Released. Email is not set up yet: copy the link and send it yourself") : released.emailSent ? `Released and emailed to ${data.contact.email}` : "New link made"}</p>
           <p className="mt-2 text-[13.5px] text-muted">This link is shown once. It works until {nzDate(released.expires)}; any earlier link has stopped working.</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <code className="max-w-full break-all rounded bg-sand px-2 py-1 text-[12.5px]">{released.link}</code>
@@ -225,7 +227,7 @@ export function CaseEditor({ data }: { data: CaseView }) {
               {saveFirst && <p className="text-[13.5px] text-muted">Save your changes before using these.</p>}
               <div className="flex flex-wrap gap-2">
                 {hasReleased && <a className="btn-outline" href={`/api/admin/cases/${data.id}/pdf?which=released`}><FileDown size={15} aria-hidden="true" />Released PDF</a>}
-                {hasReleased && !closed && <button type="button" className="btn-outline" disabled={!!busy} onClick={() => void newLink(true)}>{busy === "resend" ? <Loader2 size={15} className="animate-spin" aria-hidden="true" /> : <Send size={15} aria-hidden="true" />}Email a new link</button>}
+                {hasReleased && !closed && data.emailReady && <button type="button" className="btn-outline" disabled={!!busy} onClick={() => void newLink(true)}>{busy === "resend" ? <Loader2 size={15} className="animate-spin" aria-hidden="true" /> : <Send size={15} aria-hidden="true" />}Email a new link</button>}
                 {hasReleased && !closed && <button type="button" className="btn-outline" disabled={!!busy} onClick={() => void newLink(false)}><Copy size={15} aria-hidden="true" />New link to copy</button>}
                 <button type="button" className="btn-outline" disabled={!!busy || dirty || closed} title={saveFirst} onClick={() => void regenerate()}><RefreshCw size={15} aria-hidden="true" />Regenerate from answers</button>
                 <button type="button" className="btn-outline" disabled={!!busy || dirty} title={saveFirst} onClick={() => void setClosed(!closed)}>{closed ? <><RotateCcw size={15} aria-hidden="true" />Reopen</> : <><Check size={15} aria-hidden="true" />Close case</>}</button>
@@ -251,7 +253,7 @@ export function CaseEditor({ data }: { data: CaseView }) {
           <a className="btn-outline" href={`/api/admin/cases/${data.id}/pdf`} onClick={(e) => { if (dirty) { e.preventDefault(); setMessage({ kind: "error", text: "Save your changes first, then open the PDF preview." }); } }}><FileDown size={15} aria-hidden="true" /><span className="hidden sm:inline">PDF preview</span><span className="sm:hidden">PDF</span></a>
           {!closed && (confirmRelease ? (
             <span className="flex flex-wrap items-center gap-2 rounded-lg bg-brand-soft px-2 py-1 text-[13.5px]">
-              {hasReleased ? "Release again and send a new link?" : `Release to ${data.contact.email}?`}
+              {hasReleased ? "Release again and send a new link?" : data.emailReady ? `Release to ${data.contact.email}?` : "Release? You will copy the link to send."}
               <button type="button" className="btn-primary !min-h-[32px]" disabled={!!busy} onClick={() => void releaseNow()}>{busy === "release" && <Loader2 size={14} className="animate-spin" aria-hidden="true" />}Yes, release</button>
               <button type="button" className="btn-ghost !min-h-[32px]" onClick={() => setConfirmRelease(false)}>Cancel</button>
             </span>

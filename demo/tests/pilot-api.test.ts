@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { freshTestDb } from "./db-setup";
 import { db } from "../src/lib/db";
-import { setTransport, type Email } from "../src/lib/email";
+import { emailReady, sendEmail, setTransport, type Email } from "../src/lib/email";
 import { SESSION_COOKIE, createSession } from "../src/lib/auth";
 import { completeSetup, disableNavigator, issueSetupLink } from "../src/lib/navigators";
 import { getCase, listCases } from "../src/lib/cases";
@@ -246,6 +246,22 @@ describe("review and release", () => {
     const [r] = await (await db()).query<{ id: string; phone: string | null }>("select id, phone from implementation_requests where case_id = $1", [c.id]);
     expect(r.phone).toBeNull();
     expect((await requestStatus(asNav(`/api/admin/requests/${r.id}`, { status: "contacted" }, "PATCH"), ctx({ id: r.id }))).status).toBe(200);
+  });
+
+  it("says when email is not set up yet, where real data is", async () => {
+    const capture = async (e: Email) => { sent.push(e); return { ok: true as const }; };
+    setTransport(undefined);
+    vi.stubEnv("DATABASE_URL", "postgres://staging.example.test/db");
+    vi.stubEnv("RESEND_API_KEY", "");
+    try {
+      expect(emailReady()).toBe(false);
+      expect(await sendEmail({ to: ["anna@example.test"], subject: "s", text: "t", html: "h" })).toBe(false);
+      vi.stubEnv("RESEND_API_KEY", "re_test");
+      expect(emailReady()).toBe(true);
+    } finally {
+      vi.unstubAllEnvs();
+      setTransport(capture);
+    }
   });
 
   it("closes and reopens with the version, and regenerates from the answers", async () => {

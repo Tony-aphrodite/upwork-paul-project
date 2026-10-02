@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getCase, listRequests, markOpened } from "@/lib/cases";
 import { requireNavigator } from "@/lib/session";
 import { content } from "@/lib/pilot/library";
+import { emailReady } from "@/lib/email";
 import { cleanAnswers, isAnswered, labelsFor, visibleSections } from "@/lib/questionnaire/logic";
 import { CaseEditor, type CaseView } from "./CaseEditor";
 
@@ -38,6 +39,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
     requests: requests.map((r) => ({ ...r, createdAt: r.createdAt.toISOString() })),
     feedback: c.feedback, feedbackAt: c.feedbackAt?.toISOString() ?? null,
     serviceLabels: Object.fromEntries(content.services.map((s) => [s.id, s.label])),
+    emailReady: emailReady(),
   };
   return <CaseEditor data={view} />;
 }
