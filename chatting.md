@@ -2047,3 +2047,99 @@ https://plan.ageingnavigator.com. From then on you get an email when a family se
 their plan link by email. A one-line note when you have added them helps.
 
 Valdis
+
+### 21. Client to Valdis (received 2026-10-06): "can you see why the domain is not working"
+
+> can you see why the domain is not working: https://plan.ageingnavigator.com/
+
+The user was away until 2026-10-12, so this is answered six days late.
+
+#### Analysis
+
+- **Cause: the address has no DNS record.**
+  - The browser cannot find plan.ageingnavigator.com at all ("Could not resolve host"), so it never reaches
+    Vercel.
+  - The fix is on his side: Vercel and the app are ready.
+- **Checked on 2026-10-12**, directly against his Hostinger name server (`aster.dns-parking.com`), so caching is ruled
+  out:
+  - **The records:** none of the four records from section 20 exists (`A plan`,
+    `TXT resend._domainkey`, `CNAME rsend`, `CNAME send`).
+  - **Mistyped names:** none either. A full name typed into the Name field would give
+    `plan.ageingnavigator.com.ageingnavigator.com`, and that does not exist.
+  - **Wildcard:** there is none.
+  - **Last change to his DNS:** the zone's serial is `2026100801`, which suggests a change on 8 October. If he tried
+    to add the records then, they were not saved; Hostinger's own CDN set-up for `www` may also account for it.
+- **The Vercel side is ready:**
+  - `plan.ageingnavigator.com` was added to the project on 2026-10-02 and only waits for `A plan 76.76.21.21`.
+  - The certificate is issued automatically once the record resolves.
+- **His testing, from the staging database (counts and references only):**
+  - **5 October (NZ):** he set his password, opened the fictional case AN-BVS6KC and released it. The release email
+    failed as expected, because email is not connected.
+  - **6 October (NZ):** he sent two questionnaires himself (AN-C7C25Y, AN-9AQ573), both urgent; the names and
+    addresses match his.
+  - **No email reached him.** The new-submission emails failed for the same reason, and neither case has been
+    opened.
+  - **This is the argument for the records:** with a real family, an urgent case would have gone unseen.
+- **Not known yet:**
+  - whether sections 18 and 20 were sent; 19 clearly reached him, since he used the setup link;
+  - whether he sent anything else, such as the spreadsheet or his notes.
+
+  The reply below works either way. It lists the records without saying "again".
+
+#### Reply (ready to send)
+
+Hi Paul,
+
+Sorry for the slow reply.
+
+The address does not work yet because its record is not in your DNS. I checked your Hostinger DNS today, and none of
+the four records below is there. If you added them earlier, they did not save; they should appear in the list on the
+DNS records page.
+
+In Hostinger: hPanel, Domains, ageingnavigator.com, DNS / Nameservers, DNS records. For each line, choose the Type,
+fill in the Name and the value, leave the TTL as it is, and click Add Record.
+
+1. Type: A
+   Name: plan
+   Points to: 76.76.21.21
+
+2. Type: TXT
+   Name: resend._domainkey
+   Value: p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQqhl+Nkh4Ks5nzzVuqW/BaF4ejfCiNCRVS3hiJG9npG836PC28TSinj0skmNIr9QEVCuWYjEx7dy1359HjTt8Us4MSxf7+rVId5mpH3SYpIlFTOq+Vfbxq187ycpJEGlbiVD8HEmlXTdn5BV9uVP+qbse8eJx5j1hfuLn1CUI+QIDAQAB
+
+3. Type: CNAME
+   Name: rsend
+   Target: rsend-apne1.forge.rmta.net
+
+4. Type: CNAME
+   Name: send
+   Target: send.forge.rmta.net
+
+Enter each Name exactly as shown; Hostinger adds ".ageingnavigator.com" itself. Please leave your existing records as
+they are, and do not change the nameservers.
+
+The first record opens plan.ageingnavigator.com, usually within the hour. The other three let the plan emails come
+from your domain. Once they are in, I'll switch the emails on.
+
+Until then, the test site works at https://ageing-navigator-pilot.vercel.app. Your two questionnaires from 6 October
+are waiting in Cases. No email told you about them, because the emails wait for these records. With real families,
+that email is how you hear about an urgent case, so this is the step that matters most now.
+
+If Hostinger refuses any of the records, a screenshot of that page is enough for me to see why.
+
+Valdis
+
+#### Prep notes
+
+- **When he says the records are in:**
+  1. Check them from here: `dig +short A plan.ageingnavigator.com @aster.dns-parking.com`, and the same for the other
+     three.
+  2. In Resend, the user clicks "Verify DNS Records". Then the user creates the API key (sending access) and enters it
+     in Vercel themselves.
+  3. Set `APP_URL` to `https://plan.ageingnavigator.com`, redeploy, and confirm that the site opens on the new address
+     with its certificate.
+  4. Send a release email, a new-submission email and a help-request email to real inboxes.
+- **If Hostinger refuses a record:**
+  - A CNAME cannot share a name with another record. `send` and `rsend` had no records on 2026-10-12.
+  - A pasted TXT value sometimes picks up quotes or a line break. It must be the single `p=…` line.
+- **Ask the user** which of sections 18 to 20 were sent, and mark them SENT.
