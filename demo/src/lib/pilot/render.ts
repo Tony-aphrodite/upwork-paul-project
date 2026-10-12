@@ -121,7 +121,7 @@ ${scope} section { margin: 0 0 1.8em; }
 ${scope} ul { margin: 0 0 .6em; padding-left: 1.2em; list-style: disc; } ${scope} li { margin: 0 0 .25em; }
 ${scope} ol { margin: 0 0 .6em; padding-left: 1.6em; list-style: decimal; }
 ${scope} ul.plain { list-style: none; padding: 0; } ${scope} ul.plain li { padding: .35em 0; border-bottom: 1px solid ${c.line}; }
-${scope} a { color: ${c.brand}; }
+${scope} a { color: ${c.brand}; text-decoration: underline; text-underline-offset: .15em; }
 ${scope} .intro p { font-size: 1.05em; }
 ${scope} .urgent { border: 3px solid ${c.now}; border-radius: 10px; padding: 1em 1.2em; break-inside: avoid; }
 ${scope} .urgent h2 { color: ${c.now}; }

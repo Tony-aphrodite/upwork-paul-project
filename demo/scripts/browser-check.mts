@@ -9,7 +9,8 @@
  * Needs Google Chrome (CHROME_PATH, default /usr/bin/google-chrome) and a running app with a navigator account.
  * Uses the fictional families; never point it at production with real families in it.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
 import { chromium, type Browser, type Page } from "playwright-core";
 import { FAMILIES, type Family } from "../tests/pilot-families";
@@ -33,6 +34,54 @@ async function check(page: Page, name: string) {
   const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
   if (sw > cw + 1) problems.push(`${name}: scrolls sideways (${sw} > ${cw})`);
   await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
+  await accessibility(page, name);
+  await keyboard(page, name);
+}
+
+/** WCAG 2.2 A and AA rules from axe-core, in the page as it stands. Every violation is a problem, whatever its impact. */
+const AXE_SOURCE = readFileSync(createRequire(import.meta.url).resolve("axe-core/axe.min.js"), "utf8");
+async function accessibility(page: Page, name: string) {
+  await page.evaluate(AXE_SOURCE);
+  const violations = await page.evaluate(async () => {
+    const w = window as unknown as { axe: { run: (c: Document, o: object) => Promise<{ violations: { id: string; impact: string; help: string; nodes: { target: string[] }[] }[] }> } };
+    const r = await w.axe.run(document, { resultTypes: ["violations"], runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"] } });
+    return r.violations.map((v) => ({ id: v.id, impact: v.impact, help: v.help, targets: v.nodes.slice(0, 3).map((n) => n.target.join(" ")) }));
+  });
+  for (const v of violations) problems.push(`${name}: accessibility ${v.impact} ${v.id} (${v.help}) at ${v.targets.join(" | ")}`);
+}
+
+/**
+ * Keyboard only: Tab through the page from the top. Every stop must show a visible focus indicator, and focus must never
+ * fall back to the page itself before the last control. Nothing is pressed except Tab, so the page is left as it was.
+ */
+async function keyboard(page: Page, name: string) {
+  // Start from the very top: a throwaway focusable element before everything else, removed once the sweep is done.
+  await page.evaluate(() => {
+    const start = document.createElement("span");
+    start.id = "__kbd-start"; start.tabIndex = -1;
+    document.body.prepend(start); start.focus(); window.scrollTo(0, 0);
+  });
+  const seen = new Set<string>();
+  for (let i = 0; i < 60; i++) {
+    await page.keyboard.press("Tab");
+    const stop = await page.evaluate(() => {
+      const el = document.activeElement as HTMLElement | null;
+      if (!el || el === document.body || el.id === "__kbd-start") return null;
+      const cs = getComputedStyle(el);
+      const ring = (cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) > 0) || cs.boxShadow !== "none";
+      const r = el.getBoundingClientRect();
+      const label = (el.getAttribute("aria-label") || el.textContent || (el as HTMLInputElement).value || el.id || el.tagName).trim().replace(/\s+/g, " ").slice(0, 50);
+      return { key: `${el.tagName}|${el.id}|${label}|${Math.round(r.top + window.scrollY)}|${Math.round(r.left)}`, label: `${el.tagName.toLowerCase()} "${label}"`, ring, visible: r.width > 0 && r.height > 0 };
+    });
+    if (!stop) break;
+    if (seen.has(stop.key)) break;
+    seen.add(stop.key);
+    if (!stop.ring) problems.push(`${name}: keyboard focus not visible on ${stop.label}`);
+    if (!stop.visible) problems.push(`${name}: keyboard focus on a hidden element ${stop.label}`);
+  }
+  if (!seen.size) problems.push(`${name}: nothing can be reached with the keyboard`);
+  if (process.env.VERBOSE) note(`${name}: ${seen.size} keyboard stops`);
+  await page.evaluate(() => { document.getElementById("__kbd-start")?.remove(); (document.activeElement as HTMLElement | null)?.blur(); window.scrollTo(0, 0); });
 }
 
 function watch(page: Page, label: string) {

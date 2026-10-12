@@ -41,7 +41,7 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
       <Box title="C. Likely pathway">
         {livePathways === 0 && <TextArea value={plan.pathwayNote} onChange={(v) => onChange({ ...plan, pathwayNote: v })} rows={3} label="Shown when no pathway applies" />}
         {plan.pathways.map((p, i) => (
-          <div key={`${p.id}-${i}`} className={clsx("rounded-lg border p-3", p.removed ? "border-dashed border-line opacity-70" : "border-line")}>
+          <div key={`${p.id}-${i}`} className={clsx("rounded-lg border p-3", p.removed ? "border-dashed border-muted/50 bg-paper" : "border-line")}>
             <div className="flex items-center justify-between gap-2"><p className="font-semibold">{PATHWAY_LABEL[p.id]}</p><RemoveToggle removed={p.removed} what={p.name} onToggle={() => editPathway(i, { removed: !p.removed })} /></div>
             {p.removed ? <p className="text-[14px] line-through">{p.name}</p> : <>
               <Input value={p.name} onChange={(v) => editPathway(i, { name: v })} label="Heading" />
@@ -54,7 +54,7 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
       <Box title={`D. Priority actions (${plan.actions.length - removed}${removed ? `, ${removed} removed` : ""})`}>
         <p className="-mt-1 text-[13px] text-muted">The family&rsquo;s plan lists actions by priority: Now, then Soon, then Plan ahead.</p>
         {plan.actions.map((a) => (
-          <div key={a.key} className={clsx("rounded-lg border p-3", a.removed ? "border-dashed border-line bg-paper opacity-70" : "border-line bg-white")}>
+          <div key={a.key} className={clsx("rounded-lg border p-3", a.removed ? "border-dashed border-muted/50 bg-paper" : "border-line bg-white")}>
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-[12.5px] text-muted">{a.topic} · <span className="font-mono">{a.key}</span></span>
               <div className="flex items-center gap-2">
@@ -82,7 +82,7 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
       {INFO_SECTIONS.map((section) => plan.information.some((i) => i.section === section) && (
         <Box key={section} title={INFO_TITLE[section]}>
           {plan.information.filter((i) => i.section === section).map((i) => (
-            <div key={i.id} className={clsx("rounded-lg border p-3", i.removed ? "border-dashed border-line opacity-70" : "border-line")}>
+            <div key={i.id} className={clsx("rounded-lg border p-3", i.removed ? "border-dashed border-muted/50 bg-paper" : "border-line")}>
               <div className="flex justify-end"><RemoveToggle removed={i.removed} what={i.title || i.text.slice(0, 40)} onToggle={() => editInfo(i.id, { removed: !i.removed })} /></div>
               {i.removed ? <p className="text-[14px] line-through">{i.title || i.text}</p> : <><Input value={i.title} onChange={(v) => editInfo(i.id, { title: v })} label="Title" /><TextArea value={i.text} onChange={(v) => editInfo(i.id, { text: v })} rows={3} label="Text" /></>}
             </div>
