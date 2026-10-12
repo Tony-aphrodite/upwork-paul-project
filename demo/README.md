@@ -34,11 +34,22 @@ the code path that runs on Supabase is tested too. Point it only at a local, dis
 **In a real browser:** `npm run check:browser` follows the whole pilot in Chrome at desktop width and at 390 px.
 - **What it does:** submits fictional families, signs in, edits, releases, opens the family page and PDF, sends a
   request and feedback, and exports CSV.
-- **What it checks:** sideways scrolling and console errors on every page. Screenshots go to `.browser-check/`.
+- **What it checks on every page:**
+  - sideways scrolling and console errors;
+  - accessibility with axe-core (WCAG 2.0 to 2.2, levels A and AA);
+  - a keyboard sweep: Tab through the page, and every stop must show a visible focus indicator.
+
+  Screenshots go to `.browser-check/`. `VERBOSE=1` prints how many keyboard stops each page has.
 - **Settings:** `BASE`, `NAV_EMAIL` and `NAV_PASSWORD` (or `SETUP_TOKEN`), and `CHROME_PATH`.
 - **Where to point it:** a local or staging app only, never production with real families.
 
 PGlite allows one process at a time: stop the dev server before running `navigator` or `db:migrate` against it.
+
+**Careful with `demo/.env.local`.**
+- **The risk:** it holds the staging `DATABASE_URL`, and `next dev` and `next start` read it on their own, so a plain
+  `npm run dev` works on the client's staging database.
+- **To stay on the local PGlite:** start with an empty value: `DATABASE_URL= npm run dev`.
+- **Scripts run with `tsx`** (`navigator`, `seed:fictional`) do not read it, unless you load it yourself.
 Emails are not sent locally. They are kept in memory, and the server log records that a message was sent.
 
 ## Configuration (production)
@@ -60,6 +71,18 @@ Emails are not sent locally. They are kept in memory, and the server log records
 On Vercel, `vercel.json` runs the functions in Sydney (`syd1`) and calls `/api/cron/retention` once a day.
 Migrations run by themselves the first time the app opens the database (under a lock, so two cold starts cannot
 collide). `DATABASE_URL=… npm run db:migrate` does the same by hand.
+
+## Brand and documents
+
+- **Brand values:** `src/lib/brand.ts` holds the colours, name and confirmed contact details, from the client's Brand
+  Guide v1 (`client-files/brand/`). `tailwind.config.ts`, the PDF and the emails all read it.
+- **The logo:** `src/brand/logo.png` for the pages, `src/doc/brand-inline.ts` for the PDF cover, and
+  `public/brand/logo-email.png` for the emails. All three are cut from his artwork; do not redraw or recolour it.
+- **Fonts:** Poppins (SIL Open Font Licence) in `src/doc/fonts/`. After changing the PDF fonts, run
+  `npm run fonts:inline`.
+- **Client documents:** they are Markdown files in `../deliverables/`.
+  `CHROME_PATH=/usr/bin/google-chrome npm run doc:pdf -- ../deliverables/Navigator-guide.md` writes the branded PDF
+  beside the file.
 
 ## Changing the content
 

@@ -44,6 +44,21 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-12, later: the remaining work that does not need Paul is done.** It is untracked: the user has logged
+  52 hours on Upwork, which completes the tracked time.
+  - **Brand:** his logo, colours and Poppins on the pages, the PDF and the emails.
+  - **Content 2026-10-12.1:** rc2 and f2 removed, and the psychogeriatric level added.
+  - **Accessibility:** axe-core and a keyboard sweep added to `npm run check:browser`, with two fixes.
+  - **Documents:** the navigator guide and the privacy facts sheet, as Markdown and PDF in `deliverables/`.
+  - **Staging** is redeployed with all of it.
+  - **Ready to send:** `chatting.md` section 22, with the spreadsheet and the two PDFs attached.
+  - **Still waiting on Paul:**
+    - his DNS records (section 21);
+    - his completed spreadsheet;
+    - his test notes;
+    - backups.
+  - **Local development:** `demo/.env.local` now holds the staging database address, and `next dev`/`next start`
+    read it. Use `DATABASE_URL= npm run dev` to stay on the local PGlite.
 - **2026-10-12: the user is back** after ten days away; nothing changed in the project meanwhile.
   - **Paul's testing:**
     - On 5 October (NZ) he set his password, and released one fictional case.
@@ -269,7 +284,7 @@ himself). Fix these in the rules and templates:
 | `deploy-pilot/` | Staging deployment: `deploy.sh`, the Vercel project link. No secrets: those are in Vercel. |
 | `IMPLEMENTATION-PLAN.md` | How the pilot is built: design decisions, routes, tables, content model, and every line of the 56 hours split into steps with a "done when". Start here before coding. |
 | `WORKLOG.md` | Hours per line, the day plan, and every session logged. |
-| `chatting.md` | The full client conversation, sections 1 to 20: verbatim messages, analysis, what was sent, the Upwork memos. |
+| `chatting.md` | The full client conversation, sections 1 to 22: verbatim messages, analysis, what was sent, the Upwork memos. |
 | `pilot-scope-v2.txt` | His "Bare Minimum Pilot" document: the scope basis. |
 | `Proposal.md` | The original Upwork bid (2026-09-22). |
 | `Reply-draft.md` | An early reply draft (history only). |

@@ -61,22 +61,22 @@ requirements. They found about 50 issues. The important ones, all fixed and each
 | 1b, 1c, 1d | Done |
 | 1e | Staging done (2026-10-02): https://ageing-navigator-pilot.vercel.app on the client's Supabase project (Sydney, PostgreSQL 17), functions in `syd1`, framework set to Next.js in `vercel.json`. **Waiting:** `RESEND_API_KEY` and `EMAIL_FROM` once his domain is verified in Resend |
 | 2a to 2d | Done. The first screen and the "not sure" route use draft content until his arrives |
-| 2e | Mobile checked at 390 px; focus and Enter handling done. A manual keyboard-only pass is still to do |
+| 2e | Done 2026-10-12. Checked at 390 px and 320 px. The keyboard-only pass covers the skip link, Space for tick boxes, arrow keys for choices, and focus moving to each step's heading. `npm run check:browser` now runs axe-core (WCAG 2.2 A and AA) and a Tab sweep for visible focus on every page; it found two issues, both fixed: plan links underlined, and removed items no longer faded below the contrast minimum |
 | 3a | Done: `deliverables/Ageing-Navigator-content-spreadsheet.xlsx`. Section 15 went out without it; the section 18 reply attaches it |
 | 3b, 3c | Done |
-| 3d | **Waiting:** his completed spreadsheet |
+| 3d | The decisions from section 18 are applied in content 2026-10-12.1: rc2 and f2 removed, the psychogeriatric level added to q19_level, and the residential actions read q19_level. The spreadsheet in `deliverables/` is re-exported. **Waiting:** his completed spreadsheet. If he returns the 2026-10-01 copy, it still has rc2 and f2: drop those rows and keep the two actions' new conditions on import |
 | 4a to 4e | Done |
 | 5a, 5c, 5d | Done |
-| 5b | Layout done with placeholder branding (`src/lib/brand.ts`). **Waiting:** his logo, colours and any template sample |
+| 5b | Done 2026-10-12, from his Brand Guide v1. His logo is in the headers, on the PDF cover and in the emails; the colours come from `src/lib/brand.ts`; Poppins is used on the web and in the PDF (11 pt); family pages use 18 px body text. Staging is redeployed, and the PDF was checked there |
 | 6a, 6b | Done. The email is tested through a stand-in transport; real sending needs the Resend key. Until then the review screen says "Email is not set up yet" and shows the link to copy |
 | 6c | 2026-10-02: ageingnavigator.com added in his Resend account (Tokyo, tracking off), `plan.ageingnavigator.com` added to the Vercel project, `EMAIL_FROM` and `EMAIL_REPLY_TO` set. **Waiting:** Paul adds the four records (`chatting.md` section 20); then the Resend key (entered by the user), `APP_URL`, redeploy, email test |
 | 7a to 7c | Done |
 | 8a, 8b | Done; the access checklist is in `demo/README.md` |
 | 8c | **Waiting:** a paid database tier for daily backups, then one restore test |
-| 8d | The facts are in the README privacy section. The client-facing facts sheet is still to write |
+| 8d | Done 2026-10-12: `deliverables/Privacy-facts.md` and `.pdf`, checked against the code. Not sent yet |
 | 9a, 9b | Done: `npm run seed:fictional`, and the browser run, locally and on staging (2026-10-02: no problems at desktop and 390 px; PDF built in Sydney) |
 | 9c, 9d | Staging ready, with seven fictional families waiting for review and two released. Paul's navigator account exists; his setup link goes in the section 19 message. **Waiting:** his run, then go-live |
-| 10 | README written. The client handover note comes at the end |
+| 10 | README written. `deliverables/Navigator-guide.md` and `.pdf` were written 2026-10-12 and are not sent yet. The client handover note comes at the end |
 | 11 (additions) | Done: new-submission email (urgent marked), referral source, feedback, CSV export |
 
 **Before any real family:**

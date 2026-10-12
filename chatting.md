@@ -2143,3 +2143,53 @@ Valdis
   - A CNAME cannot share a name with another record. `send` and `rsend` had no records on 2026-10-12.
   - A pasted TXT value sometimes picks up quotes or a line break. It must be the single `p=…` line.
 - **Ask the user** which of sections 18 to 20 were sent, and mark them SENT.
+
+### 22. 2026-10-12: Valdis to client: progress while the DNS records are pending (ready to send)
+
+#### Analysis
+
+- **The work done on 2026-10-12, untracked by the user's decision** (the 52 hours are logged on Upwork):
+  - **His brand**, on the pages, the PDF and the emails.
+  - **The content decisions from section 18:** rc2 and f2 removed, and psychogeriatric care added to q19_level.
+  - **Accessibility:** axe-core WCAG 2.2 A and AA tests and a keyboard sweep in the browser check; a keyboard-only run
+    through the questionnaire; a check at 320 px. Two fixes came out of it.
+  - **Two documents**, in `deliverables/`: the navigator guide and the privacy facts sheet.
+- **One decision to state:**
+  - **What changed:** the PDF's help line said "0123456789 or hello@example.test" (placeholders). It now says
+    "email paul@ageingnavigator.com", the only contact detail he has confirmed.
+  - **The message** offers another address or a phone number as a small change.
+- **The spreadsheet he has may be the 2026-10-01 copy** (if section 18 went out with it). The message says to send
+  back whatever copy he has started; on import, drop rc2 and f2 and keep the new conditions
+  (`IMPLEMENTATION-PLAN.md` 3d).
+- **Accessibility claim:** the tests are automated plus a keyboard check. That is not a formal WCAG audit, so the
+  message says "checked against", not "certified".
+
+#### Message (ready to send; attach `deliverables/Ageing-Navigator-content-spreadsheet.xlsx`, `deliverables/Navigator-guide.pdf` and `deliverables/Privacy-facts.pdf`)
+
+Hi Paul,
+
+While the DNS records are pending, I've moved ahead with everything that does not need them. It is all live on the
+test site now:
+
+- **Your brand:** your logo, the teal and gold, and Poppins on every page, in the PDF and in the emails. Family
+  pages use 18 px text, as your guide suggests.
+- **Duplicate questions removed:** the assessed care level is asked once (now including psychogeriatric care), and
+  home ownership once.
+- **Accessibility:** every page is checked against WCAG 2.2 AA with automated tests, and the questionnaire works with
+  a keyboard alone.
+- **Help line in the PDF:** it now tells families to email paul@ageingnavigator.com. A small change if you would like
+  another address or a phone number there.
+
+Attached:
+- **The content spreadsheet**, latest version. If you have already started on an earlier copy, send that one back
+  as it is, and I'll carry your changes across.
+- **Navigator guide:** reviewing, releasing, help requests, urgent cases and deleting a case.
+- **Privacy facts:** how the pilot handles personal information, to help with your privacy statement. It ends with a
+  few points for you to decide, such as naming a privacy officer and turning on backups.
+
+Your two test questionnaires from 6 October are waiting in Cases if you would like to try a release with the new
+look.
+
+Once the four DNS records are in, I'll switch on the emails and move the site to plan.ageingnavigator.com.
+
+Valdis

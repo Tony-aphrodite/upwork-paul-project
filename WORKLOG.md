@@ -25,6 +25,9 @@ the Upwork Time Tracker with a memo.
 Line 11 is built as part of the pilot by the user's decision; `IMPLEMENTATION-PLAN.md` section 8. Paid tools and the
 rest of the full build come after the pilot.
 
+**2026-10-12: the Upwork tracking is complete.** The user has logged 52 hours on Upwork in all. Work from here is
+done by the user's decision, untracked ("do not worry about the time"). It is recorded below without hours.
+
 ## Day plan from day 3 (hours set by the user, 2026-10-01)
 
 Days 1 and 2 (14 hours) are logged and posted. The user set the hours for days 3 to 8: 42 hours, so 56 in all.
@@ -113,4 +116,13 @@ day 5 AM work (line 9, with line 1e):
 - seven fictional families submitted;
 - "email not set up" wording on the review screen, with a test;
 - Paul's navigator account created.
+
+## Untracked work after the 52 hours (user's decision, 2026-10-12)
+
+| Date | Line | What was done |
+| --- | --- | --- |
+| 2026-10-12 | 5b | Brand: his logo, colours and Poppins on the pages, the PDF and the emails; 18 px family pages; icons |
+| 2026-10-12 | 3d | Content 2026-10-12.1: rc2 and f2 removed, psychogeriatric level added, residential actions read q19_level; spreadsheet re-exported |
+| 2026-10-12 | 2e | Accessibility: axe-core and a keyboard sweep in the browser check; two fixes; keyboard-only and 320 px checks |
+| 2026-10-12 | 4, 8d | Navigator guide and privacy facts sheet (`deliverables/`), with `npm run doc:pdf` |
 
