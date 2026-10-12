@@ -50,6 +50,10 @@ The bidding workspace it came from is frozen.
   - **Content 2026-10-12.1:** rc2 and f2 removed, and the psychogeriatric level added.
   - **Accessibility:** axe-core and a keyboard sweep added to `npm run check:browser`, with two fixes.
   - **Documents:** the navigator guide and the privacy facts sheet, as Markdown and PDF in `deliverables/`.
+  - **Security patch:** Next.js 15.5.27, with postcss 8.5.29 forced inside Next through `overrides` in
+    `package.json` (the built CSS is identical). Production `npm audit` reports 0.
+    - **What remains:** findings in dev tools only (vitest 3, tailwind 3, exceljs), which need major upgrades.
+    - **What to do:** revisit when moving to Next 16 for the full build. Remove the override then.
   - **Staging** is redeployed with all of it.
   - **Ready to send:** `chatting.md` section 22, with the spreadsheet and the two PDFs attached.
   - **Still waiting on Paul:**

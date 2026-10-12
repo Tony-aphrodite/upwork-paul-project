@@ -125,4 +125,5 @@ day 5 AM work (line 9, with line 1e):
 | 2026-10-12 | 3d | Content 2026-10-12.1: rc2 and f2 removed, psychogeriatric level added, residential actions read q19_level; spreadsheet re-exported |
 | 2026-10-12 | 2e | Accessibility: axe-core and a keyboard sweep in the browser check; two fixes; keyboard-only and 320 px checks |
 | 2026-10-12 | 4, 8d | Navigator guide and privacy facts sheet (`deliverables/`), with `npm run doc:pdf` |
+| 2026-10-12 | 8 | Security patch: Next.js 15.5.27, postcss 8.5.29 (override inside Next), vitest 3.2.7, tsx 4.23.15; production `npm audit` now 0 |
 
