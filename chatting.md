@@ -2048,7 +2048,7 @@ their plan link by email. A one-line note when you have added them helps.
 
 Valdis
 
-### 21. Client to Valdis (received 2026-10-06): "can you see why the domain is not working"
+### 21. Client to Valdis (received 2026-10-06): "can you see why the domain is not working" (reply SENT 2026-10-12)
 
 > can you see why the domain is not working: https://plan.ageingnavigator.com/
 
@@ -2086,7 +2086,7 @@ The user was away until 2026-10-12, so this is answered six days late.
 
   The reply below works either way. It lists the records without saying "again".
 
-#### Reply (ready to send)
+#### Reply (SENT 2026-10-12)
 
 Hi Paul,
 

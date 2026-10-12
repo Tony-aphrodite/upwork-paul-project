@@ -44,6 +44,20 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-12: the user is back** after ten days away; nothing changed in the project meanwhile.
+  - **Paul's testing:**
+    - On 5 October (NZ) he set his password, and released one fictional case.
+    - On 6 October he sent two urgent test questionnaires (AN-C7C25Y, AN-9AQ573). He got no email for them, and they
+      have not been opened.
+  - **His DNS:** he asked why plan.ageingnavigator.com does not open. None of the four section 20 records is in his
+    DNS. The reply, with the records, was sent on 2026-10-12 (`chatting.md` section 21).
+  - **Not received:** his completed content spreadsheet.
+  - **Unknown:** whether sections 18 and 20 were sent. Section 19 reached him.
+  - **Next, while his records are pending:**
+    - his brand on the pages and the PDF;
+    - the content decisions (remove rc2 and f2; add the psychogeriatric level to q19_level);
+    - the keyboard check;
+    - the navigator guide and the privacy facts sheet.
 - **2026-10-02, evening: staging is live** at https://ageing-navigator-pilot.vercel.app.
   - **Database:** the client's Supabase project in Sydney (`ap-southeast-2`), created by the user in Paul's
     account. The address is only in `demo/.env.local` and in Vercel.
