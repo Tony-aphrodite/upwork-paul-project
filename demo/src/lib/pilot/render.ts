@@ -1,4 +1,5 @@
-import { BRAND } from "../brand";
+import { BRAND, contactLine } from "../brand";
+import { LOGO_PNG_BASE64 } from "../../doc/brand-inline";
 import { PRIORITY_LABEL } from "../priority";
 import { fmtDate } from "../text";
 import { nzLongDate } from "../format";
@@ -93,7 +94,7 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
       ${ul(plan.services.map((s) => s.label))}
       ${opts.mode === "web" && opts.requestHref
         ? `<p><a class="button" href="${esc(opts.requestHref)}">Ask for help with this plan</a></p>`
-        : para(opts.contact ?? `To ask for help, use the link in your email, or contact us on ${BRAND.phone} or ${BRAND.email}.`)}
+        : para(opts.contact ?? `To ask for help, use the link in your email, or ${contactLine()}.`)}
     </section>`);
 
   if (sources.length) parts.push(`
@@ -112,12 +113,13 @@ const c = BRAND.colors;
 /** Shared by the web page (scoped under .anplan) and the PDF. Priority is shown in words as well as colour. */
 export const PLAN_CSS = (scope: string) => `
 ${scope} { color: ${c.ink}; overflow-wrap: anywhere; }
-${scope} h2 { font-family: var(--ff-display, Literata), Georgia, serif; font-weight: 600; color: ${c.brand}; font-size: 1.35em; line-height: 1.2; margin: 0 0 .6em; break-after: avoid; }
-${scope} h3 { font-family: var(--ff-display, Literata), Georgia, serif; font-weight: 600; color: ${c.brand}; font-size: 1.08em; line-height: 1.25; margin: .15em 0 .4em; break-after: avoid; }
+${scope} h2 { font-family: var(--ff-body, Poppins), Arial, sans-serif; font-weight: 600; color: ${c.brand}; font-size: 1.35em; line-height: 1.2; margin: 0 0 .6em; break-after: avoid; }
+${scope} h3 { font-family: var(--ff-body, Poppins), Arial, sans-serif; font-weight: 600; color: ${c.brand}; font-size: 1.08em; line-height: 1.25; margin: .15em 0 .4em; break-after: avoid; }
 ${scope} h4 { font-size: .8em; text-transform: uppercase; letter-spacing: .06em; color: ${c.muted}; margin: 0 0 .3em; }
 ${scope} p { margin: 0 0 .6em; }
 ${scope} section { margin: 0 0 1.8em; }
-${scope} ul { margin: 0 0 .6em; padding-left: 1.2em; } ${scope} li { margin: 0 0 .25em; }
+${scope} ul { margin: 0 0 .6em; padding-left: 1.2em; list-style: disc; } ${scope} li { margin: 0 0 .25em; }
+${scope} ol { margin: 0 0 .6em; padding-left: 1.6em; list-style: decimal; }
 ${scope} ul.plain { list-style: none; padding: 0; } ${scope} ul.plain li { padding: .35em 0; border-bottom: 1px solid ${c.line}; }
 ${scope} a { color: ${c.brand}; }
 ${scope} .intro p { font-size: 1.05em; }
@@ -128,7 +130,7 @@ ${scope} .pathway { background: ${c.brandSoft}; border-radius: 8px; padding: .9e
 ${scope} .action { border-left: 4px solid ${c.line}; padding: .2em 0 .4em 1em; margin: 0 0 1.2em; break-inside: avoid; }
 ${scope} .action.now { border-color: ${c.now}; } ${scope} .action.soon { border-color: ${c.soon}; } ${scope} .action.plan_ahead { border-color: ${c.ahead}; }
 ${scope} .action header { display: flex; gap: .8em; align-items: flex-start; }
-${scope} .num { font-family: var(--ff-display, Literata), Georgia, serif; font-size: 1.5em; line-height: 1; color: ${c.brand}; min-width: 1.2em; }
+${scope} .num { font-weight: 600; font-size: 1.5em; line-height: 1; color: ${c.brand}; min-width: 1.2em; }
 ${scope} .chip { display: inline-block; padding: .1em .6em; border-radius: 99px; font-size: .78em; font-weight: 700; }
 ${scope} .chip.now { background: ${c.nowSoft}; color: ${c.now}; } ${scope} .chip.soon { background: ${c.soonSoft}; color: ${c.soon}; } ${scope} .chip.plan_ahead { background: ${c.aheadSoft}; color: ${c.ahead}; }
 ${scope} .topic { font-size: .82em; color: ${c.muted}; }
@@ -150,13 +152,16 @@ ${scope} .disclaimer { font-size: .85em; color: ${c.muted}; border-top: 1px soli
 
 export type FontSource = { kind: "inline"; files: Record<string, string> } | { kind: "url"; base: string };
 
+/** The Poppins files the PDF embeds (src/doc/fonts; inlined in src/doc/fonts-inline.ts for the server). */
+export const PDF_FONT_FILES = ["poppins-latin-400-normal.woff2", "poppins-latin-400-italic.woff2", "poppins-latin-500-normal.woff2", "poppins-latin-600-normal.woff2"];
+
 function fontFaces(src: FontSource) {
   const url = (f: string) => (src.kind === "url" ? `url('${src.base}/${f}') format('woff2')` : `url(data:font/woff2;base64,${src.files[f]}) format('woff2')`);
   return `
-@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 400; src: ${url("atkinson-hyperlegible-latin-400-normal.woff2")}; }
-@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 700; src: ${url("atkinson-hyperlegible-latin-700-normal.woff2")}; }
-@font-face { font-family: "Atkinson Hyperlegible"; font-weight: 400; font-style: italic; src: ${url("atkinson-hyperlegible-latin-400-italic.woff2")}; }
-@font-face { font-family: "Literata"; font-weight: 300 800; src: ${url("literata-latin-wght-normal.woff2")}; }`;
+@font-face { font-family: "Poppins"; font-weight: 400; src: ${url("poppins-latin-400-normal.woff2")}; }
+@font-face { font-family: "Poppins"; font-weight: 400; font-style: italic; src: ${url("poppins-latin-400-italic.woff2")}; }
+@font-face { font-family: "Poppins"; font-weight: 500; src: ${url("poppins-latin-500-normal.woff2")}; }
+@font-face { font-family: "Poppins"; font-weight: 600 700; src: ${url("poppins-latin-600-normal.woff2")}; }`;
 }
 
 export type DocumentOptions = { fonts: FontSource; issuedOn: Date; reference: string; coverNote: string; watermark?: string };
@@ -166,25 +171,27 @@ export function renderPlanDocument(plan: PilotPlan, opts: DocumentOptions): stri
   const css = `
 ${fontFaces(opts.fonts)}
 @page { size: A4; margin: 18mm 17mm 20mm;
-  @bottom-left { content: "${footer}"; font: 8pt "Atkinson Hyperlegible", sans-serif; color: ${c.muted}; }
-  @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8pt "Atkinson Hyperlegible", sans-serif; color: ${c.muted}; } }
+  @bottom-left { content: "${footer}"; font: 8pt Poppins, Arial, sans-serif; color: ${c.muted}; }
+  @bottom-right { content: "Page " counter(page) " of " counter(pages); font: 8pt Poppins, Arial, sans-serif; color: ${c.muted}; } }
 @page cover { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
 * { box-sizing: border-box; }
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { margin: 0; font: 10.5pt/1.5 "Atkinson Hyperlegible", Arial, sans-serif; --ff-display: Literata; }
-.cover { page: cover; height: 297mm; padding: 26mm 22mm; display: flex; flex-direction: column; background: ${c.sand}; break-after: page; }
-.cover .brand { display: flex; align-items: center; gap: 3mm; font-weight: 700; color: ${c.brand}; font-size: 13pt; }
-.cover h1 { font-family: Literata, Georgia, serif; font-weight: 600; color: ${c.brand}; font-size: 32pt; line-height: 1.15; margin: 60mm 0 0; }
+body { margin: 0; font: 11pt/1.5 Poppins, Arial, sans-serif; --ff-body: Poppins; }
+.cover { page: cover; height: 297mm; padding: 26mm 22mm; display: flex; flex-direction: column; background: ${c.ivory}; break-after: page; }
+.cover .logo { display: block; width: 70mm; height: auto; }
+.cover h1 { font-weight: 600; color: ${c.brand}; font-size: 30pt; line-height: 1.15; margin: 52mm 0 0; }
+.cover .rule { width: 22mm; height: 1.2mm; background: ${c.gold}; border-radius: 1mm; margin-top: 7mm; }
 .cover .for { margin-top: 8mm; font-size: 15pt; }
 .cover dl { margin-top: auto; display: grid; grid-template-columns: 40mm 1fr; gap: 2mm 6mm; font-size: 10.5pt; }
 .cover dt { color: ${c.muted}; } .cover dd { margin: 0; font-weight: 700; }
-.cover .note { margin-top: 8mm; font-size: 9pt; color: ${c.muted}; border-top: 1px solid #D9CFBF; padding-top: 4mm; }
+.cover .note { margin-top: 8mm; font-size: 9pt; color: ${c.muted}; border-top: 1px solid ${c.line}; padding-top: 4mm; }
 .watermark { position: fixed; top: 40%; left: 0; right: 0; text-align: center; font-size: 40pt; color: rgba(162, 59, 44, .13); transform: rotate(-24deg); font-weight: 700; }
 ${PLAN_CSS(".plan")}`;
   const cover = `
   <div class="cover">
-    <div class="brand">${BRAND.logoSvg(40)}<span>${esc(BRAND.name)}</span></div>
+    <img class="logo" src="data:image/png;base64,${LOGO_PNG_BASE64}" alt="${esc(BRAND.name)}">
     <h1>${esc(BRAND.planTitle)}</h1>
+    <div class="rule"></div>
     <p class="for">For ${esc(plan.personName)}</p>
     <dl>
       <dt>Prepared for</dt><dd>${esc(plan.preparedFor)}</dd>

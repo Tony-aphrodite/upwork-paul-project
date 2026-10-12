@@ -60,8 +60,10 @@ describe("the plan renderer", () => {
     plan.intro = "";
     plan.cta = " ";
     const html = doc(plan);
-    expect(html).not.toContain("/p/");
-    expect(html).toContain("use the link in your email");
+    // Embedded images and fonts are base64, where "/p/" can occur by chance: look at everything else.
+    expect(html.replace(/data:[a-z/+-]+;base64,[A-Za-z0-9+/=]+/g, "")).not.toContain("/p/");
+    expect(html).toContain("use the link in your email, or email paul@ageingnavigator.com.");
+    expect(html).not.toContain("0123456789");
     expect(html).not.toMatch(/<p>\s*<\/p>/);
     expect(html).not.toContain('class="intro"');
   });

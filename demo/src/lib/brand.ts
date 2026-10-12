@@ -1,13 +1,39 @@
 /**
- * Brand settings in one place. Placeholders until Ageing Navigator's logo, colours and contact details arrive: then
- * only this file changes, and the web pages, emails and PDF follow. The phone number is the demo placeholder.
+ * Brand settings in one place, from Ageing Navigator's Brand Guide v1 (2 October 2026, `client-files/brand/`):
+ * deep teal for identity and headings, slate for body text, soft ivory backgrounds, warm gold for occasional
+ * accents only (it is too light for small text), Poppins. The web pages (through tailwind.config.ts), the emails and
+ * the PDF all read these values.
+ *
+ * Contact details are only those the client has confirmed: his email address. No phone number has been given.
  */
 export const BRAND = {
   name: "Ageing Navigator",
   planTitle: "Family Ageing Action Plan",
-  email: "hello@example.test",
-  phone: "0123456789",
+  email: "paul@ageingnavigator.com",
+  phone: "",
   site: "ageingnavigator.com",
-  colors: { ink: "#1B2A30", muted: "#4F5F66", line: "#D8DEE0", brand: "#1F4E5F", brandSoft: "#E7EFF1", sand: "#F6F1E8", now: "#A23B2C", nowSoft: "#F8E9E6", soon: "#8A5A10", soonSoft: "#F7EEDC", ahead: "#2D6A55", aheadSoft: "#E5F1EC" },
-  logoSvg: (size = 36) => `<svg viewBox="0 0 40 40" width="${size}" height="${size}" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#1F4E5F"/><path d="M9 30c7 0 6-9 12-9s6-8 10-8" stroke="#F4EBDD" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="31" cy="13" r="3.4" fill="#E0A458"/><circle cx="9" cy="30" r="2.3" fill="#F4EBDD"/></svg>`,
+  colors: {
+    ink: "#263746", // slate: body text
+    muted: "#55636F", // secondary text; 5.7:1 on ivory
+    line: "#DDD9CF",
+    brand: "#174A4B", // deep teal
+    brandDeep: "#0F3536",
+    brandSoft: "#E6EFEE",
+    gold: "#C6923A", // accents only, never small text
+    ivory: "#F7F5EF",
+    sand: "#F6EEDF", // gold tint for information boxes
+    now: "#A23B2C",
+    nowSoft: "#F8E9E6",
+    soon: "#8A5A10",
+    soonSoft: "#F7EEDC",
+    ahead: "#2D6A55",
+    aheadSoft: "#E5F1EC",
+  },
+  font: "Poppins",
 };
+
+/** How the family can reach the service, in words, from the confirmed details only. */
+export function contactLine() {
+  const ways = [BRAND.phone && `call ${BRAND.phone}`, BRAND.email && `email ${BRAND.email}`].filter(Boolean);
+  return ways.length ? ways.join(" or ") : `visit ${BRAND.site}`;
+}

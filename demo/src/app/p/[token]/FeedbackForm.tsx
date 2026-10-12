@@ -16,14 +16,14 @@ export function FeedbackForm({ token, given }: { token: string; given: boolean }
   const [state, setState] = useState<"idle" | "busy" | "sent">(given ? "sent" : "idle");
   const [error, setError] = useState("");
 
-  if (state === "sent") return <p role="status" className="mt-4 flex items-start gap-2 text-[15px] text-ahead"><CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden="true" />Thank you for your feedback.</p>;
+  if (state === "sent") return <p role="status" className="mt-4 flex items-start gap-2 text-[18px] text-ahead"><CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden="true" />Thank you for your feedback.</p>;
 
   const choice = (name: string, items: readonly (readonly [string, string])[], value: string, set: (v: string) => void, legend: string) => (
     <fieldset>
-      <legend className="label !text-[15px]">{legend}</legend>
+      <legend className="label !text-[18px]">{legend}</legend>
       <div className="flex flex-wrap gap-2">
         {items.map(([v, l]) => (
-          <label key={v} className={clsx("cursor-pointer rounded-lg border px-3 py-2 text-[15px]", value === v ? "border-brand bg-brand-soft" : "border-line")}>
+          <label key={v} className={clsx("cursor-pointer rounded-lg border px-3 py-2 text-[18px]", value === v ? "border-brand bg-brand-soft" : "border-line")}>
             <input type="radio" name={name} className="mr-2 accent-brand" checked={value === v} onChange={() => set(v)} />{l}
           </label>
         ))}
@@ -44,11 +44,11 @@ export function FeedbackForm({ token, given }: { token: string; given: boolean }
     <form className="mt-5 space-y-5" onSubmit={(e) => { e.preventDefault(); void send(); }} noValidate>
       {choice("useful", USEFUL, useful, setUseful, "How useful was the plan?")}
       {choice("sense", MADE_SENSE, madeSense, setMadeSense, "Did the recommendations make sense?")}
-      <div><label htmlFor="fb-missing" className="label !text-[15px]">Was anything important missing? (optional)</label><textarea id="fb-missing" rows={2} maxLength={LIMITS.message} className="field !text-[15px]" value={missing} onChange={(e) => setMissing(e.target.value)} /></div>
-      <div><label htmlFor="fb-confusing" className="label !text-[15px]">Was anything confusing or incorrect? (optional)</label><textarea id="fb-confusing" rows={2} maxLength={LIMITS.message} className="field !text-[15px]" value={confusing} onChange={(e) => setConfusing(e.target.value)} /></div>
-      <label className="flex cursor-pointer items-start gap-2.5 text-[15px]"><input type="checkbox" className="mt-1 accent-brand" checked={wantsHelp} onChange={(e) => setWantsHelp(e.target.checked)} />I would like Ageing Navigator to organise some of the next steps.</label>
-      {error && <p role="alert" className="text-[14px] font-semibold text-now">{error}</p>}
-      <button type="submit" className="btn-outline !min-h-[44px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Send feedback</button>
+      <div><label htmlFor="fb-missing" className="label !text-[18px]">Was anything important missing? (optional)</label><textarea id="fb-missing" rows={2} maxLength={LIMITS.message} className="field !text-[18px]" value={missing} onChange={(e) => setMissing(e.target.value)} /></div>
+      <div><label htmlFor="fb-confusing" className="label !text-[18px]">Was anything confusing or incorrect? (optional)</label><textarea id="fb-confusing" rows={2} maxLength={LIMITS.message} className="field !text-[18px]" value={confusing} onChange={(e) => setConfusing(e.target.value)} /></div>
+      <label className="flex cursor-pointer items-start gap-2.5 text-[18px]"><input type="checkbox" className="mt-1 accent-brand" checked={wantsHelp} onChange={(e) => setWantsHelp(e.target.checked)} />I would like Ageing Navigator to organise some of the next steps.</label>
+      {error && <p role="alert" className="text-[16.5px] font-semibold text-now">{error}</p>}
+      <button type="submit" className="btn-outline !min-h-[48px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Send feedback</button>
     </form>
   );
 }

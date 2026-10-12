@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Sign in" };
 
 export default function Login() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-sand px-4">
+    <div className="flex min-h-screen items-center justify-center bg-paper px-4">
       <div className="card w-full max-w-sm p-7">
         <Logo />
         <h1 className="mt-6 text-[22px]">Navigator sign-in</h1>

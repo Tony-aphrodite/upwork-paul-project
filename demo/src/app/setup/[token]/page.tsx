@@ -12,7 +12,7 @@ export default async function Setup({ params }: { params: Promise<{ token: strin
   const { token } = await params;
   const who = /^[A-Za-z0-9_-]{40,60}$/.test(token) ? await setupTokenValid(token) : null;
   return (
-    <div className="flex min-h-screen items-center justify-center bg-sand px-4">
+    <div className="flex min-h-screen items-center justify-center bg-paper px-4">
       <div className="card w-full max-w-sm p-7">
         <Logo />
         {who ? (

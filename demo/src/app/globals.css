@@ -5,7 +5,8 @@
 @layer base {
   body { @apply bg-paper font-body text-[15px] leading-relaxed text-ink antialiased; }
   h1, h2, h3 { @apply font-display font-semibold text-brand; }
-  :focus-visible { outline: 2px solid #E0A458; outline-offset: 2px; border-radius: 4px; }
+  /* Teal, not the brand gold: a focus ring needs 3:1 against the page, and gold reaches only 2.5:1 on ivory. */
+  :focus-visible { outline: 2px solid theme(colors.brand.DEFAULT); outline-offset: 2px; border-radius: 4px; }
 }
 @layer components {
   .wrap { @apply mx-auto w-full max-w-7xl px-4 sm:px-6; }
@@ -20,8 +21,20 @@
   .chip { @apply inline-flex items-center whitespace-nowrap rounded-full px-2 py-0.5 text-[12px] font-bold; }
   .th { @apply px-3 py-2 text-left text-[11.5px] font-bold uppercase tracking-wider text-muted; }
   .td { @apply px-3 py-2.5 align-top; }
-  .code { @apply rounded-lg bg-brand-deep p-4 font-mono text-[12.5px] leading-relaxed text-[#E7EFF1]; }
+  .code { @apply rounded-lg bg-brand-deep p-4 font-mono text-[12.5px] leading-relaxed text-brand-soft; }
 }
 
 /* Screen-reader-only labels are absolutely positioned; without this they escape horizontal scrollers and widen the page on phones. */
 .overflow-x-auto { position: relative; }
+
+/*
+ * The family's pages: the brand guide sets web body text at 18 px. The navigator screens keep their denser 15 px. Shared
+ * controls are enlarged here; page text sizes are set in the family components themselves.
+ */
+.family { font-size: 18px; }
+.family :is(.btn, .btn-primary, .btn-outline, .btn-ghost) { min-height: 48px; padding-left: 1.1rem; padding-right: 1.1rem; font-size: 17px; }
+.family .field { min-height: 48px; font-size: 18px; }
+.family .label { font-size: 16.5px; }
+.family .eyebrow { font-size: 13.5px; }
+.family .chip { font-size: 14px; }
+.family input[type="checkbox"], .family input[type="radio"] { width: 1.15rem; height: 1.15rem; flex-shrink: 0; }

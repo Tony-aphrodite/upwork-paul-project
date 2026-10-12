@@ -71,11 +71,17 @@ export async function sendEmail(e: Email): Promise<boolean> {
 
 const paragraphs = (s: string) => s.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
 
+/**
+ * The shared email frame. Arial, as the brand guide says for email; the logo is the client's white-backed artwork,
+ * shown at 260 px (inside the guide's 260-300 px) from this site, with the name as its alternative text when images
+ * are blocked.
+ */
 function layout(bodyHtml: string) {
   const c = BRAND.colors;
-  return `<!doctype html><html><body style="margin:0;background:${c.sand};font-family:Arial,sans-serif;color:${c.ink}">
+  const logo = `${config.appUrl()}/brand/logo-email.png`;
+  return `<!doctype html><html><body style="margin:0;background:${c.ivory};font-family:Arial,sans-serif;color:${c.ink}">
 <div style="max-width:560px;margin:0 auto;padding:24px"><div style="background:#fff;border-radius:10px;padding:24px;line-height:1.55;font-size:15px">
-<p style="margin:0 0 16px;font-weight:bold;color:${c.brand}">${esc(BRAND.name)}</p>${bodyHtml}</div></div></body></html>`;
+<p style="margin:0 0 18px"><img src="${esc(logo)}" width="260" alt="${esc(BRAND.name)}" style="display:block;width:260px;max-width:100%;height:auto;border:0;color:${c.brand};font-weight:bold;font-size:18px"></p>${bodyHtml}</div></div></body></html>`;
 }
 
 /** The family's email on release. The wording is the client's (Texts: email_release_*), with {{link}} and {{expires}}. */

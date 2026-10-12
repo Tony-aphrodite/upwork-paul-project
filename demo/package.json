@@ -13,7 +13,8 @@
     "content:export": "tsx scripts/content-export.mts",
     "content:import": "tsx scripts/content-import.mts",
     "seed:fictional": "tsx scripts/seed-fictional.mts",
-    "check:browser": "tsx scripts/browser-check.mts"
+    "check:browser": "tsx scripts/browser-check.mts",
+    "fonts:inline": "tsx scripts/fonts-inline.mts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.8",

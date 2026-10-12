@@ -166,7 +166,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
   const shownPercent = step === "contact" ? 100 : percent;
   const bar = (
     <div className="mb-4">
-      <div className="flex items-end justify-between gap-3 text-[13px] text-muted">
+      <div className="flex items-end justify-between gap-3 text-[15px] text-muted">
         <span>{step === "contact" ? "Last step" : <>Section {index + 1} of {sections.length}</>}</span>
         <span>{shownPercent}% done</span>
       </div>
@@ -195,7 +195,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
       {bar}
       <form className="card p-5 sm:p-7" onSubmit={(e) => { e.preventDefault(); next(); }} noValidate>
         <Heading ref={heading}>{current.title}</Heading>
-        {current.intro && <p className="mt-2 rounded-lg bg-sand p-3 text-[14px]">{current.intro}</p>}
+        {current.intro && <p className="mt-2 rounded-lg bg-sand p-3 text-[16.5px]">{current.intro}</p>}
         <div className="mt-6 space-y-8">
           {current.questions.map((q) => <QuestionField key={q.id} q={q} value={answers[q.id]} onChange={(v) => set(q.id, v)} issue={issueFor(q.id)} />)}
         </div>

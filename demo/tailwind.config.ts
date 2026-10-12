@@ -1,11 +1,19 @@
 import type { Config } from "tailwindcss";
+import { BRAND } from "./src/lib/brand";
+
+const c = BRAND.colors;
 export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      colors: { ink: "#1B2A30", muted: "#4F5F66", line: "#D8DEE0", brand: { DEFAULT: "#1F4E5F", deep: "#163A47", soft: "#E7EFF1" }, sand: "#F6F1E8", paper: "#FBFAF7", now: { DEFAULT: "#A23B2C", soft: "#F8E9E6" }, soon: { DEFAULT: "#8A5A10", soft: "#F7EEDC" }, ahead: { DEFAULT: "#2D6A55", soft: "#E5F1EC" }, gold: "#E0A458" },
-      fontFamily: { body: ["var(--ff-body)", "Arial", "sans-serif"], display: ["var(--ff-display)", "Georgia", "serif"], mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"] },
-      boxShadow: { card: "0 1px 2px rgb(27 42 48 / .05), 0 10px 24px -18px rgb(27 42 48 / .35)" },
+      colors: {
+        ink: c.ink, muted: c.muted, line: c.line,
+        brand: { DEFAULT: c.brand, deep: c.brandDeep, soft: c.brandSoft },
+        sand: c.sand, paper: c.ivory, gold: c.gold,
+        now: { DEFAULT: c.now, soft: c.nowSoft }, soon: { DEFAULT: c.soon, soft: c.soonSoft }, ahead: { DEFAULT: c.ahead, soft: c.aheadSoft },
+      },
+      fontFamily: { body: ["var(--ff-body)", "Arial", "sans-serif"], display: ["var(--ff-body)", "Arial", "sans-serif"], mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"] },
+      boxShadow: { card: "0 1px 2px rgb(38 55 70 / .05), 0 10px 24px -18px rgb(38 55 70 / .35)" },
     },
   },
   plugins: [],

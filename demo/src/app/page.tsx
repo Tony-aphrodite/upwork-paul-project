@@ -18,16 +18,16 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
       <section className="max-w-3xl">
         {content.texts.home_eyebrow && <p className="eyebrow">{content.texts.home_eyebrow}</p>}
         <h1 className="mt-3 text-[clamp(1.9rem,4.5vw,3rem)] leading-tight">{content.texts.home_heading}</h1>
-        <p className="mt-5 text-[17px] text-muted">{content.texts.home_intro}</p>
-        <Link href={start} className="btn-primary mt-8 !min-h-[48px] !px-6 !text-[16px]">Start the questionnaire<ArrowRight size={18} aria-hidden="true" /></Link>
-        <p className="mt-3 text-[13.5px] text-muted">Takes about 10 to 15 minutes. You can stop and come back on the same device.</p>
+        <p className="mt-5 text-[20px] text-muted">{content.texts.home_intro}</p>
+        <Link href={start} className="btn-primary mt-8 !min-h-[48px] !px-6 !text-[19px]">Start the questionnaire<ArrowRight size={18} aria-hidden="true" /></Link>
+        <p className="mt-3 text-[16px] text-muted">Takes about 10 to 15 minutes. You can stop and come back on the same device.</p>
       </section>
       <section className="mt-12 grid gap-4 md:grid-cols-3" aria-label="How it works">
         {STEPS.map(([Icon, title, text], i) => (
           <div key={title} className="card p-5">
             <Icon size={22} className="text-brand" aria-hidden="true" />
-            <h2 className="mt-3 text-[17px]"><span className="sr-only">Step {i + 1}: </span>{title}</h2>
-            <p className="mt-1.5 text-[14.5px] text-muted">{text}</p>
+            <h2 className="mt-3 text-[20px]"><span className="sr-only">Step {i + 1}: </span>{title}</h2>
+            <p className="mt-1.5 text-[17px] text-muted">{text}</p>
           </div>
         ))}
       </section>

@@ -13,7 +13,7 @@ export function AdminShell({ name, draft, children }: { name: string; draft: boo
       {draft && <div className="bg-soon-soft text-[13px] text-soon"><div className="wrap py-1.5"><strong>Draft content.</strong> The questions and wording have not all been approved yet; released plans are marked as a test version.</div></div>}
       <header className="border-b border-line bg-white">
         <div className="wrap flex h-16 items-center justify-between gap-3">
-          <Link href="/admin" aria-label="Cases"><Logo /></Link>
+          <Link href="/admin" aria-label="Cases" className="shrink-0 rounded-md"><Logo width={140} /></Link>
           <nav aria-label="Main" className="flex items-center gap-1">
             <Link href="/admin" className="rounded-lg px-2.5 py-2 text-[14px] font-semibold text-brand hover:bg-brand-soft">Cases</Link>
             <a href="/api/admin/export" className="btn-ghost !px-2.5"><Download size={15} aria-hidden="true" /><span className="hidden sm:inline">Export CSV</span><span className="sr-only sm:hidden">Export CSV</span></a>
