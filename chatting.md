@@ -2258,3 +2258,129 @@ Valdis
   `DATABASE_URL` from `.env.local` and `APP_URL=https://ageing-navigator-pilot.vercel.app`. Give the user the link
   in the chat only. Never write it into a file.
 - **When the records are in:** follow the section 20 prep notes, or HANDOFF "Next".
+
+### 24. Client to Valdis (received 2026-10-13): his website, and "What has brought you here?" as the first screen
+
+He sent a screenshot of the "What has brought you here?" section of his site: 12 cards, each with an icon, a title,
+a one-line description and an arrow.
+
+> Hi Valdis,
+>
+> Let's use this email address from now on.
+>
+> Here is the website (frontend) that I have created and plan to use.
+> https://ageingnavigator.com/
+>
+> The first screen (starting screen) for the questionnaire should be 'what has brought you here.
+>
+> So when someone clicks on the 'Start my free ageing navigator' they see this screen and will click on one of the
+> buttons below to start the questionnaire.
+>
+> Does that make sense?
+
+#### Analysis
+
+- **His website** (checked 2026-10-13) is WordPress with Elementor, in Poppins.
+  - **The front page** has, in order:
+    1. "Who are you planning for?": two cards, "I'm planning for myself" and "I'm helping someone else";
+    2. "What has brought you here?": 12 cards;
+    3. several "Get your free personalised Action Plan" buttons.
+  - **Every button and card points to `#start-navigator`,** a placeholder: nothing on his site reaches the pilot yet.
+- **What he asks:**
+  - His "Start" button leads to the questionnaire.
+  - Its first screen is "What has brought you here?" with his 12 cards.
+  - One click on a card chooses the reason and starts the questionnaire.
+  - His wording ("Select the reason that best describes your situation") means **one** reason.
+- **What the pilot does now:**
+  1. Our own landing page at plan.ageingnavigator.com.
+  2. The consent screen.
+  3. Section "What has changed?": the `trigger` question, multiple choice with tick boxes and 13 options.
+  4. Section s1, starting with q1 "How are you completing this questionnaire?".
+- **His 12 reasons against our 13 options:**
+  - **Same reason** (7): dementia, hospital, managing at home, carer struggling, support needs increasing, retirement
+    village, residential care. Planning ahead and not sure also match.
+  - **Merged:** "A fall, stroke or change in mobility" replaces fall, stroke and mobility (3 options become 1).
+  - **New:**
+    - "You need respite or a break from caring";
+    - "You want to organise an EPOA".
+
+    They need rules and wording: we draft them, marked Draft, for his approval.
+  - **Dropped:** "Something else".
+- **What changes in the pilot:**
+  1. **The first screen:** the `trigger` question becomes his 12 cards, matching his site (icon, title,
+     description, arrow; Poppins, brand colours). A card click selects and moves on.
+  2. **Single choice:**
+     - **Rules to update:** 17 rule conditions read `trigger` (`has` becomes `is`, and fall, stroke and mobility
+       merge).
+     - **What a family can no longer do:** choose two reasons at once.
+     - **Why that is acceptable:** the later questions still ask about falls, memory, carers, hospital and so on, so
+       the plan still picks those up. This needs checking rule by rule against the fictional families.
+  3. **Consent stays before anything is sent:**
+     - **The order:** reason card first, then the consent screen (one tick), then the rest.
+     - **Why that is enough:** the answers stay in the browser until the family sends them, so nothing leaves the
+       device before consent.
+  4. **Our landing page becomes redundant:** plan.ageingnavigator.com/ goes straight to the questionnaire, and his
+     site is the front door.
+  5. **Links on his site:**
+     - **What he must do:** change `#start-navigator` to `https://plan.ageingnavigator.com/start`. He edits this in
+       Elementor; we do not ask for WordPress access.
+     - **Better:** one link per card with the reason already chosen (for example `/start?reason=dementia`), so a family
+       does not choose twice. His two "Who are you planning for?" cards can likewise pre-answer q1.
+  6. **Content spreadsheet:** the `trigger` row and the affected rules change; re-export it.
+- **Related gap:**
+  - **The problem:** his site offers "I'm planning for myself", and his FAQ says people can use it for themselves. The
+    questions are written about another person ("they"); q1 already has "for myself", but the wording does not
+    change.
+  - **What to do:** "you" wording is a larger content change. Raise it; suggest after this change.
+- **"Let's use this email address from now on":** the address is the one his message came from (the user knows
+  it). Confirm with the user which address.
+  - **Our messages:** they go to that address.
+  - **Unchanged unless he asks:** his navigator sign-in, `EMAIL_REPLY_TO` and the PDF help line are
+    paul@ageingnavigator.com.
+- **Effort:** about 5 hours.
+  - **What it covers:** the card screen, the content and rule changes with the two new reasons, the consent order,
+    the landing redirect, deep links, tests and browser checks.
+  - **Hours:** the user decided on 2026-10-12 not to track further hours, so the reply does not mention them.
+
+#### Reply (draft; send after the user confirms the plan)
+
+Hi Paul,
+
+Yes, that makes sense, and your site looks great.
+
+Here is how I'll set it up:
+- **First screen:** "What has brought you here?" with your 12 cards, in the same style as your site. One click on a
+  card chooses the reason and starts the questionnaire.
+- **One reason per family**, as your wording says. The later questions still ask about falls, memory, carers and so
+  on, so the plan still picks those up.
+- **Consent:** straight after the card, a short consent step, then the rest of the questions. Nothing is sent
+  before the family agrees.
+- **Two new reasons, respite and EPOA:** I'll draft their wording and actions in the spreadsheet, marked Draft for
+  you to approve.
+- **Your site is the front door:** plan.ageingnavigator.com will go straight to the questionnaire.
+
+On your site:
+- For now, point every "Start" and "Get your free personalised Action Plan" button to
+  https://plan.ageingnavigator.com/start. They currently go to "#start-navigator".
+- Once the new first screen is live, I'll send you one link for each of your 12 cards (and the two "Who are you
+  planning for?" cards). A family who clicks "A dementia diagnosis" on your site will then start with that already
+  chosen.
+
+One thing for later: the questions are written about another person ("they"). For people planning for themselves I
+suggest a "you" version as a next step.
+
+Noted on the email address; I'll write to you here from now on.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:** confirm with the user which email address he means, and that the change goes ahead.
+- **Build order:**
+  1. the `trigger` question as single-choice cards with his 12 options, his wording and his descriptions;
+  2. the rules rewritten, with tests on the fictional families (expected actions per family);
+  3. the consent step after the card;
+  4. `?reason=` and `?for=` deep links;
+  5. our landing page redirects to `/start`;
+  6. re-export the spreadsheet;
+  7. the browser check at desktop, 390 px and 320 px, with axe.
