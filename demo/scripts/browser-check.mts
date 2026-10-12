@@ -117,12 +117,29 @@ async function familyRun(browser: Browser, vp: Viewport, fam: Family) {
   const ctx = await browser.newContext({ viewport: VIEWPORTS[vp] });
   const page = await ctx.newPage();
   watch(page, `family-${vp}`);
-  await page.goto(`${BASE}/?ref=check`);
-  await check(page, `${vp}-01-home`);
-  await page.getByRole("link", { name: "Start the questionnaire" }).click();
-  await page.waitForURL(/\/start\?ref=check/);
-  await page.evaluate(() => localStorage.clear());
-  await page.reload();
+  const reason = String(fam.answers.trigger);
+  if (vp === "desktop") {
+    // The old landing address forwards to the questionnaire, which opens with the reason cards.
+    await page.goto(`${BASE}/?ref=check`);
+    await page.waitForURL(/\/start\?ref=check/);
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.getByRole("heading", { name: "What has brought you here?" }).waitFor();
+    await check(page, `${vp}-01-reasons`);
+    await page.locator(`button[data-value="${reason}"]`).click();
+    await page.getByText("You chose:").waitFor();
+    await page.getByRole("button", { name: "Change" }).click(); // back to the cards, and choose again
+    await page.getByRole("heading", { name: "What has brought you here?" }).waitFor();
+    if ((await page.locator(`button[data-value="${reason}"]`).getAttribute("aria-pressed")) !== "true") problems.push(`${vp}: the chosen card is not marked`);
+    await page.locator(`button[data-value="${reason}"]`).click();
+  } else {
+    // A card on the client's website links straight in with its reason chosen.
+    await page.goto(`${BASE}/start?ref=check`);
+    await page.evaluate(() => localStorage.clear());
+    await page.goto(`${BASE}/start?reason=${reason}&ref=check`);
+    await check(page, `${vp}-01-reasons-link`);
+  }
+  await page.getByText("You chose:").waitFor();
   await page.getByRole("button", { name: "Start" }).click();
   if (!(await page.getByText("Please tick the box to continue.").isVisible())) problems.push(`${vp}: consent not enforced`);
   await check(page, `${vp}-02-intro`);

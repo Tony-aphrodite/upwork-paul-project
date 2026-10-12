@@ -32,6 +32,8 @@ export function StepNav({ onBack, label, busy, last }: { onBack: () => void; lab
 export function IntroStep(props: {
   title: string; intro: string[]; texts: StartTexts; draft: boolean; restored: boolean;
   consent: boolean; marketing: boolean; issue?: string;
+  /** The reason card chosen before this step, with a way back to change it. */
+  reason?: string; onChangeReason?: () => void;
   onConsent: (v: boolean) => void; onMarketing: (v: boolean) => void; onStart: () => void; onReset: () => void;
   headingRef: React.Ref<HTMLHeadingElement>;
 }) {
@@ -41,6 +43,12 @@ export function IntroStep(props: {
       {props.draft && <p className="mb-4 rounded-lg bg-soon-soft p-3 text-[16px] text-soon"><strong>Test version.</strong> The questions and wording are drafts that Ageing Navigator has not yet approved.</p>}
       <p className="eyebrow">Ageing Navigator</p>
       <Heading ref={props.headingRef} className="mt-2 text-[32px] outline-none sm:text-[34px]">{props.title}</Heading>
+      {props.reason && (
+        <p className="mt-3 text-[17px]">
+          You chose: <strong>{props.reason}</strong>
+          {props.onChangeReason && <> · <button type="button" className="font-semibold text-brand underline underline-offset-2" onClick={props.onChangeReason}>Change</button></>}
+        </p>
+      )}
       {props.intro.map((p) => <p key={p} className="mt-3 text-[18px] text-muted">{p}</p>)}
       <div className="mt-6 rounded-lg border border-line bg-sand p-4">
         <p className="text-[17px]">{texts.consent}</p>

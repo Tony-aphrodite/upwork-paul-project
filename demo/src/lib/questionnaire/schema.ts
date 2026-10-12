@@ -13,6 +13,8 @@ export const Option = z.object({
   label: z.string().min(1),
   /** Multi-select only: choosing this option clears the others, as "None of these" or "Not sure" should. */
   exclusive: z.boolean().optional(),
+  /** A short line under the label. When every option of a single-choice question has one, it is shown as cards. */
+  description: z.string().min(1).optional(),
 });
 export type Option = z.infer<typeof Option>;
 

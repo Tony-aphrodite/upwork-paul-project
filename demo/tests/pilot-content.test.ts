@@ -5,7 +5,7 @@ import { parseRule, ruleToText, RuleError } from "../src/lib/pilot/rule-syntax";
 import { compileContent, contentToRows, ContentError, type Rows } from "../src/lib/pilot/sheet";
 import { generatePilotPlan, tidyName } from "../src/lib/pilot/engine";
 import { citedSources, liveActions, thingsToCheck } from "../src/lib/pilot/plan";
-import { checkSection, cleanAnswers, pruneAnswers, questionIndex, visibleSections } from "../src/lib/questionnaire/logic";
+import { cardSection, checkSection, cleanAnswers, isCards, pruneAnswers, questionIndex, visibleSections } from "../src/lib/questionnaire/logic";
 import { Questionnaire } from "../src/lib/questionnaire/schema";
 import { test as holds } from "../src/lib/rules/condition";
 import { list } from "../src/lib/text";
@@ -115,6 +115,27 @@ describe("the content spreadsheet", () => {
     const i = rows.Questions.findIndex((r) => r.ID === "q2");
     rows.Questions[i] = { ...rows.Questions[i], "Show when": "q23 is village" };
     expect(problemsOf(rows).length).toBeGreaterThan(0);
+  });
+
+  it("reads option descriptions after a bar, writes them back, and shows such a question as cards", () => {
+    const rows = rowsOf();
+    const trigger = rows.Questions.find((r) => r.ID === "trigger")!;
+    expect(trigger.Options.split("\n")[0]).toBe("dementia_diagnosis = A dementia diagnosis | Recently diagnosed or concerns about memory changes.");
+    const compiled = compileContent(rows, { version: "x" });
+    const q = compiled.questionnaire.sections[0].questions[0];
+    expect(q.options[0]).toEqual({ value: "dementia_diagnosis", label: "A dementia diagnosis", description: "Recently diagnosed or concerns about memory changes." });
+    expect(isCards(q)).toBe(true);
+    expect(isCards(qs.get("q6")!)).toBe(false);
+    trigger.Options = trigger.Options.replace(" | Recently diagnosed or concerns about memory changes.", "");
+    expect(isCards(compileContent(rows, { version: "x" }).questionnaire.sections[0].questions[0])).toBe(false);
+  });
+
+  it("opens with the reason cards, which links from the client's website can answer in advance", () => {
+    const opening = cardSection(content.questionnaire)!;
+    expect(opening.question.id).toBe("trigger");
+    expect(opening.question.type).toBe("single");
+    expect(opening.question.options.map((o) => o.value)).toEqual(["dementia_diagnosis", "hospital", "fall_stroke_mobility", "managing_home", "carer_change", "support_needs", "respite", "considering_village", "considering_residential", "epoa", "planning_ahead", "not_sure"]);
+    expect(visibleSections(content.questionnaire, {})[0].id).toBe(opening.section.id);
   });
 
   it("adds Unsure answers as exclusive options with standard labels", () => {
@@ -250,6 +271,19 @@ describe("the pilot engine", () => {
     const plan = generatePilotPlan(content, { ...f.answers, q12: ["showering_dressing_or_personal_care", "preparing_meals"] }, f.person, { now: NOW });
     expect(plan.situation.join(" ")).toMatch(/needs help with showering, dressing or personal care; and preparing meals/);
     expect(list(["GP", "Te Whatu Ora"])).toBe("GP and Te Whatu Ora");
+  });
+
+  it("leads the two new reasons to the actions that cover them, and words every reason inside a sentence", () => {
+    const f = FAMILIES[0];
+    const actions = (trigger: string) => generatePilotPlan(content, { ...f.answers, trigger }, f.person, { now: NOW }).actions.map((a) => a.key);
+    expect(actions("respite")).toEqual(expect.arrayContaining(["respite", "carer-support"]));
+    expect(actions("carer_change")).toContain("carer-support");
+    expect(actions("epoa")).toContain("epoa");
+    const reason = (trigger: string) => generatePilotPlan(content, { ...f.answers, trigger }, f.person, { now: NOW }).situation.find((s) => s.startsWith("What brought you here"));
+    expect(reason("epoa")).toBe("What brought you here: you want to organise an EPOA.");
+    expect(reason("considering_village")).toBe("What brought you here: you're considering a retirement village.");
+    expect(reason("fall_stroke_mobility")).toBe("What brought you here: a fall, stroke or change in mobility.");
+    expect(reason("not_sure")).toBeUndefined();
   });
 
   it("tidies names and never uses gendered pronouns of its own", () => {

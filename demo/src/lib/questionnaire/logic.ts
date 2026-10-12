@@ -24,6 +24,20 @@ export function visibleSections(doc: Questionnaire, answers: Answers): VisibleSe
     .filter((s) => s.questions.length > 0);
 }
 
+/** A single-choice question whose every option has a description is shown as cards; choosing one moves on. */
+export const isCards = (q: QuestionDefinition): boolean =>
+  q.type === "single" && q.options.length >= 2 && q.options.every((o) => !!o.description);
+
+/**
+ * The opening card screen: the first section, when it holds one card question that always applies. It is shown before
+ * the consent step, and links from the client's website can answer it in advance (/start?reason=…).
+ */
+export function cardSection(doc: Questionnaire): { section: QuestionnaireSection; question: QuestionDefinition } | undefined {
+  const s = doc.sections[0];
+  const q = s?.questions.length === 1 ? s.questions[0] : undefined;
+  return q && !s.when && !q.when && isCards(q) ? { section: s, question: q } : undefined;
+}
+
 export type Issue = { questionId: string; message: string };
 
 /** Validation a family sees while answering: required questions, "choose up to three", and an email that looks like one. */

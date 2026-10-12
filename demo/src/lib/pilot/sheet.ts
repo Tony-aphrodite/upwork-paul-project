@@ -72,6 +72,16 @@ function pairs(s: string) {
   });
 }
 
+/** Options: "value = Label", or "value = Label | A short description" (shown under the label, and as cards). */
+function optionLines(s: string) {
+  return pairs(s).map((o) => {
+    const bar = o.label.indexOf("|");
+    if (bar < 0) return o;
+    const label = o.label.slice(0, bar).trim(), description = o.label.slice(bar + 1).trim();
+    return description ? { ...o, label, description } : { ...o, label };
+  });
+}
+
 type Numbered = { r: Row; n: number };
 
 export function compileContent(rows: Rows, opts: { version: string }): PilotContent {
@@ -119,7 +129,7 @@ export function compileContent(rows: Rows, opts: { version: string }): PilotCont
       if (!u) add("Questions", n, "Unsure answers", `"${l}" is not one of: ${Object.values(UNSURE_LABEL).join(", ")}.`);
       return u;
     }).filter((u): u is UnsureId => !!u);
-    const declared = pairs(cell(r, "Options"));
+    const declared = optionLines(cell(r, "Options"));
     for (const o of declared) {
       if (!/^[a-z0-9_]+$/.test(o.value)) add("Questions", n, "Options", `"${o.value}" is not a valid option value: use lower-case letters, numbers and underscores before the "=".`);
       else if (KEYWORDS.has(o.value)) add("Questions", n, "Options", `"${o.value}" cannot be an option value, because conditions use that word. Choose another value.`);
@@ -345,7 +355,7 @@ export function contentToRows(c: PilotContent): Rows {
     const declared = x.options.filter((o) => !(x.unsure as string[]).includes(o.value));
     return {
       ID: x.id, Section: s.id, Pathway: x.pathway ?? "", Type: TYPE_LABEL[x.type], Question: x.label, Help: x.help ?? "",
-      Options: declared.map((o) => `${o.value} = ${o.label}`).join("\n"),
+      Options: declared.map((o) => `${o.value} = ${o.label}${o.description ? ` | ${o.description}` : ""}`).join("\n"),
       "Exclusive options": declared.filter((o) => o.exclusive).map((o) => o.value).join(", "),
       "Unsure answers": x.unsure.map((u) => UNSURE_LABEL[u]).join(", "),
       Required: x.optional ? "no" : "yes", "Max choices": x.max ? String(x.max) : "",

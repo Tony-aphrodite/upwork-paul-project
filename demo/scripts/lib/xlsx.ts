@@ -31,6 +31,7 @@ const HOW_TO = [
   ["A sentence whose placeholder has nothing to fill is left out of the plan."],
   [""],
   ["OPTIONS", "one per line, as value = Label. The value is what conditions use: lower-case letters, numbers and underscores."],
+  ["Option descriptions", "value = Label | A short description. When every option of a single-choice question has a description, families see the question as cards, and choosing a card moves on."],
   ["Unsure answers", `add any of: ${Object.values(UNSURE_LABEL).join(", ")}. They are added to the options and cannot be combined with other answers.`],
   ["Exclusive options", "values that cannot be combined with other answers, such as none_of_these."],
   ["Lists", "Who can help, What to prepare, Questions to ask and Things to check take one item per line."],
@@ -59,7 +60,7 @@ export async function writeWorkbook(rows: Rows, file: string) {
     const ws = wb.addWorksheet(tab.name, { views: [{ state: "frozen", ySplit: 1 }] });
     ws.columns = tab.columns.map((c) => ({ header: c, key: c, width: WIDTH[c] ?? 18 }));
     ws.getRow(1).font = { bold: true, color: { argb: "FFFFFFFF" } };
-    ws.getRow(1).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1F4E5F" } };
+    ws.getRow(1).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF174A4B" } };
     for (const r of rows[tab.name] ?? []) ws.addRow(Object.fromEntries(tab.columns.map((c) => [c, r[c] ?? ""])));
     ws.eachRow((row, n) => { if (n > 1) row.alignment = { wrapText: true, vertical: "top" }; });
     // Drop-down lists for the fixed-choice columns, on the existing rows and room for new ones. The limit is fixed

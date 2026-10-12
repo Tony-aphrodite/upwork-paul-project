@@ -1,9 +1,9 @@
 {
-  "version": "2026-10-12.1",
+  "version": "2026-10-13.1",
   "status": "draft",
   "questionnaire": {
     "id": "ageing-navigator",
-    "version": "2026-10-12.1",
+    "version": "2026-10-13.1",
     "title": "Family Ageing Questionnaire",
     "intro": [
       "Tell us what's happening, and we'll help you work out what to do next.",
@@ -15,72 +15,79 @@
     "sections": [
       {
         "id": "change",
-        "title": "What has changed?",
-        "intro": "Most families come to us because something has changed. Choose everything that applies; it helps us show you only the questions that matter.",
+        "title": "What has brought you here?",
+        "intro": "Sometimes something changes suddenly. Other times, you may simply be planning ahead. Select the reason that best describes your situation.",
         "conditional": false,
         "questions": [
           {
             "id": "trigger",
-            "type": "multi",
-            "label": "What has changed, or what is prompting you to look for help?",
-            "help": "Choose everything that applies.",
+            "type": "single",
+            "label": "What has brought you here?",
             "optional": false,
             "options": [
               {
                 "value": "dementia_diagnosis",
-                "label": "A new dementia diagnosis"
-              },
-              {
-                "value": "stroke",
-                "label": "A stroke"
+                "label": "A dementia diagnosis",
+                "description": "Recently diagnosed or concerns about memory changes."
               },
               {
                 "value": "hospital",
-                "label": "A hospital admission or discharge"
+                "label": "A hospital admission or discharge",
+                "description": "Planning the next steps after a hospital stay."
               },
               {
-                "value": "fall",
-                "label": "A fall"
-              },
-              {
-                "value": "mobility",
-                "label": "Increasing mobility problems"
-              },
-              {
-                "value": "support_needs",
-                "label": "Increasing support needs"
+                "value": "fall_stroke_mobility",
+                "label": "A fall, stroke or change in mobility",
+                "description": "Recovering from a fall or noticing changes in mobility."
               },
               {
                 "value": "managing_home",
-                "label": "Managing the home is becoming difficult"
+                "label": "Managing at home is getting harder",
+                "description": "Daily tasks are becoming more difficult."
               },
               {
                 "value": "carer_change",
-                "label": "A spouse or carer can no longer give the same support"
+                "label": "A partner or family carer is struggling",
+                "description": "The person providing support is finding it harder to manage."
+              },
+              {
+                "value": "support_needs",
+                "label": "Support or care needs are increasing",
+                "description": "More help may be needed now or soon."
+              },
+              {
+                "value": "respite",
+                "label": "You need respite or a break from caring",
+                "description": "A family carer needs a break, or temporary care is needed for a short period."
               },
               {
                 "value": "considering_village",
-                "label": "Considering retirement living"
+                "label": "You're considering a retirement village",
+                "description": "Exploring retirement living options."
               },
               {
                 "value": "considering_residential",
-                "label": "Considering residential care"
+                "label": "You're exploring residential care",
+                "description": "Considering a care home because support needs are increasing."
+              },
+              {
+                "value": "epoa",
+                "label": "You want to organise an EPOA",
+                "description": "You want to put an Enduring Power of Attorney in place or understand what needs to happen next."
               },
               {
                 "value": "planning_ahead",
-                "label": "Planning ahead"
+                "label": "You want to plan ahead",
+                "description": "Thinking about the future even if there are no immediate changes."
               },
               {
                 "value": "not_sure",
-                "label": "I'm not sure what we need",
-                "exclusive": true
-              },
-              {
-                "value": "other",
-                "label": "Something else"
+                "label": "I'm simply not sure",
+                "description": "I don’t know where to start."
               }
             ],
             "unsure": [],
+            "notes": "2026-10-13: single choice, as the cards on the client's website (ageingnavigator.com). Was multiple choice with 13 options; fall, stroke and mobility merged; respite and epoa added; other removed.",
             "items": []
           }
         ]
@@ -630,7 +637,7 @@
           "any": [
             {
               "field": "trigger",
-              "op": "includes",
+              "op": "eq",
               "value": "hospital"
             },
             {
@@ -1337,7 +1344,7 @@
           "any": [
             {
               "field": "trigger",
-              "op": "includes",
+              "op": "eq",
               "value": "dementia_diagnosis"
             },
             {
@@ -1985,7 +1992,7 @@
           "any": [
             {
               "field": "trigger",
-              "op": "includes",
+              "op": "eq",
               "value": "considering_village"
             },
             {
@@ -2331,7 +2338,7 @@
           "any": [
             {
               "field": "trigger",
-              "op": "includes",
+              "op": "eq",
               "value": "considering_residential"
             },
             {
@@ -2994,7 +3001,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_village"
           },
           {
@@ -3004,7 +3011,7 @@
           }
         ]
       },
-      "whenText": "q23 in village, serviced, planning_move or trigger has considering_village or q8 has retirement_villages"
+      "whenText": "q23 in village, serviced, planning_move or trigger is considering_village or q8 has retirement_villages"
     },
     {
       "id": "residential",
@@ -3032,7 +3039,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_residential"
           },
           {
@@ -3047,7 +3054,7 @@
           }
         ]
       },
-      "whenText": "q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care"
+      "whenText": "q23 is residential_care or trigger is considering_residential or q8 has residential_care or q6 is residential_care"
     }
   ],
   "summary": [
@@ -3129,7 +3136,7 @@
     {
       "id": "summary-7",
       "section": "situation",
-      "text": "What has changed: {{answer.trigger}}.",
+      "text": "What brought you here: {{answer.trigger}}.",
       "approved": false,
       "when": {
         "field": "trigger",
@@ -3595,12 +3602,12 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
-            "value": "fall"
+            "op": "eq",
+            "value": "fall_stroke_mobility"
           }
         ]
       },
-      "whenText": "q17_falls in one, two_three, more or q17 has falling or q8 has falls or trigger has fall"
+      "whenText": "q17_falls in one, two_three, more or q17 has falling or q8 has falls or trigger is fall_stroke_mobility"
     },
     {
       "key": "personal-alarm",
@@ -3791,12 +3798,12 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "dementia_diagnosis"
           }
         ]
       },
-      "whenText": "m1 in diagnosed, being_assessed or trigger has dementia_diagnosis"
+      "whenText": "m1 in diagnosed, being_assessed or trigger is dementia_diagnosis"
     },
     {
       "key": "driving",
@@ -3867,10 +3874,18 @@
             "field": "q9",
             "op": "includes",
             "value": "an_unpaid_family_carer_is_struggling"
+          },
+          {
+            "field": "trigger",
+            "op": "in",
+            "value": [
+              "carer_change",
+              "respite"
+            ]
           }
         ]
       },
-      "whenText": "q16 in significant, some or q9 has an_unpaid_family_carer_is_struggling"
+      "whenText": "q16 in significant, some or q9 has an_unpaid_family_carer_is_struggling or trigger in carer_change, respite"
     },
     {
       "key": "respite",
@@ -3903,10 +3918,15 @@
             "field": "q8",
             "op": "includes",
             "value": "respite"
+          },
+          {
+            "field": "trigger",
+            "op": "eq",
+            "value": "respite"
           }
         ]
       },
-      "whenText": "q16 is significant or q8 has respite"
+      "whenText": "q16 is significant or q8 has respite or trigger is respite"
     },
     {
       "key": "epoa",
@@ -3947,10 +3967,15 @@
               "no",
               "unsure"
             ]
+          },
+          {
+            "field": "trigger",
+            "op": "eq",
+            "value": "epoa"
           }
         ]
       },
-      "whenText": "q21.epoa_property in no, unsure or q21.epoa_welfare in no, unsure"
+      "whenText": "q21.epoa_property in no, unsure or q21.epoa_welfare in no, unsure or trigger is epoa"
     },
     {
       "key": "will",
@@ -4171,7 +4196,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_village"
           },
           {
@@ -4181,7 +4206,7 @@
           }
         ]
       },
-      "whenText": "q23 in village, serviced, planning_move or trigger has considering_village or q8 has retirement_villages"
+      "whenText": "q23 in village, serviced, planning_move or trigger is considering_village or q8 has retirement_villages"
     },
     {
       "key": "village-legal",
@@ -4213,7 +4238,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_village"
           },
           {
@@ -4223,7 +4248,7 @@
           }
         ]
       },
-      "whenText": "q23 in village, serviced, planning_move or trigger has considering_village or q8 has retirement_villages"
+      "whenText": "q23 in village, serviced, planning_move or trigger is considering_village or q8 has retirement_villages"
     },
     {
       "key": "residential-assessment",
@@ -4256,7 +4281,7 @@
               },
               {
                 "field": "trigger",
-                "op": "includes",
+                "op": "eq",
                 "value": "considering_residential"
               },
               {
@@ -4290,7 +4315,7 @@
           }
         ]
       },
-      "whenText": "(q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care) and (q19_level not answered or q19_level in none, unsure, home_support)"
+      "whenText": "(q23 is residential_care or trigger is considering_residential or q8 has residential_care or q6 is residential_care) and (q19_level not answered or q19_level in none, unsure, home_support)"
     },
     {
       "key": "residential-search",
@@ -4374,7 +4399,7 @@
               },
               {
                 "field": "trigger",
-                "op": "includes",
+                "op": "eq",
                 "value": "considering_residential"
               },
               {
@@ -4417,7 +4442,7 @@
           }
         ]
       },
-      "whenText": "(q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care) and (q20 in very_important, important or rc3 has any government_funding, costs)"
+      "whenText": "(q23 is residential_care or trigger is considering_residential or q8 has residential_care or q6 is residential_care) and (q20 in very_important, important or rc3 has any government_funding, costs)"
     },
     {
       "key": "family-plan",
@@ -4485,12 +4510,12 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "planning_ahead"
           }
         ]
       },
-      "whenText": "q23 in not_discussed, family_differs, unsure, open or trigger has planning_ahead"
+      "whenText": "q23 in not_discussed, family_differs, unsure, open or trigger is planning_ahead"
     }
   ],
   "information": [
@@ -4529,7 +4554,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_residential"
           },
           {
@@ -4544,7 +4569,7 @@
           }
         ]
       },
-      "whenText": "q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care"
+      "whenText": "q23 is residential_care or trigger is considering_residential or q8 has residential_care or q6 is residential_care"
     },
     {
       "id": "info-3",
@@ -4607,7 +4632,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_residential"
           },
           {
@@ -4622,7 +4647,7 @@
           }
         ]
       },
-      "whenText": "q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care"
+      "whenText": "q23 is residential_care or trigger is considering_residential or q8 has residential_care or q6 is residential_care"
     },
     {
       "id": "info-7",
@@ -4644,7 +4669,7 @@
           },
           {
             "field": "trigger",
-            "op": "includes",
+            "op": "eq",
             "value": "considering_village"
           },
           {
@@ -4654,7 +4679,7 @@
           }
         ]
       },
-      "whenText": "q23 in village, serviced, planning_move or trigger has considering_village or q8 has retirement_villages"
+      "whenText": "q23 in village, serviced, planning_move or trigger is considering_village or q8 has retirement_villages"
     },
     {
       "id": "info-8",

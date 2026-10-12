@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Answers, Questionnaire } from "@/lib/questionnaire/schema";
-import { checkSection, cleanAnswers, progress, pruneAnswers, visibleSections, type Issue } from "@/lib/questionnaire/logic";
+import { cardSection, checkSection, cleanAnswers, isAnswered, progress, pruneAnswers, questionIndex, visibleSections, type Issue } from "@/lib/questionnaire/logic";
 import { EMAIL_RE, cleanReferral, isPhone } from "@/lib/validate";
 import { QuestionField } from "./QuestionField";
+import { ReasonCards } from "./ReasonCards";
 import { ContactStep, DoneStep, ErrorNote, Heading, IntroStep, StepNav, type Contact, type ContactIssues, type StartTexts } from "./steps";
 
 const KEY = "an-questionnaire-draft-v2";
@@ -17,13 +18,18 @@ type Done = { reference: string; urgent: boolean; urgentGuidance?: string };
 const CONTACT_FIELD: Record<string, keyof Contact> = { "contact.name": "name", "contact.email": "email", "contact.phone": "phone", "person.firstName": "firstName", "person.preferredName": "preferredName" };
 
 /**
- * The family's questionnaire: consent first, then only the sections that apply, then where to send the plan.
+ * The family's questionnaire. When it opens with a card question ("What has brought you here?", as on the client's
+ * website), the cards come first, then consent, then only the sections that apply, then where to send the plan.
+ * Nothing leaves the browser before consent. Links from the client's website can answer the cards in advance
+ * (/start?reason=dementia_diagnosis) and say the family is planning for themselves (/start?for=self).
+ *
  * Answers (never contact details) are kept in this browser until they are sent, with the section reached, so the
  * questionnaire can be finished in two sittings; a draft from an older questionnaire keeps the answers that still fit.
  * After sending, the family is told the plan will be sent once a navigator has checked it.
  */
 export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: StartTexts; draft: boolean }) {
-  const [step, setStep] = useState<Step>("intro");
+  const cards = useMemo(() => cardSection(doc), [doc]);
+  const [step, setStep] = useState<Step>(() => { const c = cardSection(doc); return c ? { section: c.section.id } : "intro"; });
   const [answers, setAnswers] = useState<Answers>({});
   const [savedSection, setSavedSection] = useState<string | undefined>();
   const [consent, setConsent] = useState(false);
@@ -42,15 +48,26 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
   const moved = useRef(false);
 
   useEffect(() => {
-    const fromUrl = cleanReferral(new URLSearchParams(window.location.search).get("ref"));
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = cleanReferral(params.get("ref"));
+    // Answers a link from the client's website brings in: the reason card, and "planning for myself".
+    const given: Answers = {};
+    const reason = params.get("reason");
+    if (cards && reason && cards.question.options.some((o) => o.value === reason)) given[cards.question.id] = reason;
+    if (params.get("for") === "self" && questionIndex(doc).get("q1")?.options.some((o) => o.value === "self")) given.q1 = "self";
+    let kept: Answers = {};
     try {
       const saved = JSON.parse(localStorage.getItem(KEY) ?? "null") as Draft | null;
-      const kept = saved ? cleanAnswers(doc, saved.answers ?? {}) : {};
-      if (Object.keys(kept).length) { setAnswers(kept); setSavedSection(saved?.sectionId); setRestored(true); }
+      kept = saved ? cleanAnswers(doc, saved.answers ?? {}) : {};
+      if (Object.keys(kept).length) { setSavedSection(saved?.sectionId); setRestored(true); }
       setSubmissionId(saved?.submissionId);
       setReferral(fromUrl ?? saved?.referral);
     } catch { setReferral(fromUrl); }
-  }, [doc]);
+    const all = { ...kept, ...given };
+    if (Object.keys(all).length) setAnswers(all);
+    // With the reason already known (from the link or an earlier visit), the next step is consent.
+    if (cards && isAnswered(all[cards.question.id])) setStep("intro");
+  }, [doc, cards]);
 
   useEffect(() => {
     if (step === "intro" || step === "done") return;
@@ -70,6 +87,8 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
   const index = typeof step === "object" ? sections.findIndex((s) => s.id === step.section) : -1;
   const current = index >= 0 ? sections[index] : undefined;
   const { percent } = progress(doc, answers);
+  /** The card screen is the opening, not a numbered section. */
+  const offset = cards ? 1 : 0;
   const self = answers.q1 === "self";
 
   const focusIssue = (id: string) => {
@@ -88,7 +107,19 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
     const firstGap = sections.find((s) => checkSection(s, answers).length);
     const resume = restored ? sections.find((s) => s.id === savedSection) ?? firstGap : undefined;
     if (restored && !resume) return go("contact");
-    go({ section: (resume ?? sections[0]).id });
+    const opened = cards && isAnswered(answers[cards.question.id]);
+    const first = resume ?? (opened ? sections[1] : sections[0]);
+    go(first ? { section: first.id } : "contact");
+  };
+
+  /** A reason card: record it, then consent (the first time) or straight on to the questions. */
+  const pick = (value: string) => {
+    if (!cards) return;
+    const chosen = { ...answers, [cards.question.id]: value };
+    setAnswers(chosen); setIssues([]);
+    if (!consent) return go("intro");
+    const after = visibleSections(doc, chosen);
+    go(after.length > 1 ? { section: after[1].id } : "contact");
   };
 
   const next = () => {
@@ -157,8 +188,10 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
   if (step === "done" && done) return <DoneStep reference={done.reference} thankYou={texts.thankYou} urgentGuidance={done.urgent ? done.urgentGuidance : undefined} headingRef={heading} />;
 
   if (step === "intro") {
+    const reason = cards ? cards.question.options.find((o) => o.value === answers[cards.question.id])?.label : undefined;
     return (
       <IntroStep title={doc.title} intro={doc.intro} texts={texts} draft={draft} restored={restored} consent={consent} marketing={marketing} issue={contactIssues.consent}
+        reason={reason} onChangeReason={cards ? () => go({ section: cards.section.id }) : undefined}
         onConsent={(v) => { setConsent(v); setContactIssues({}); }} onMarketing={setMarketing} onStart={begin} onReset={reset} headingRef={heading} />
     );
   }
@@ -167,7 +200,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
   const bar = (
     <div className="mb-4">
       <div className="flex items-end justify-between gap-3 text-[15px] text-muted">
-        <span>{step === "contact" ? "Last step" : <>Section {index + 1} of {sections.length}</>}</span>
+        <span>{step === "contact" ? "Last step" : <>Section {index + 1 - offset} of {sections.length - offset}</>}</span>
         <span>{shownPercent}% done</span>
       </div>
       <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-line" role="progressbar" aria-valuenow={shownPercent} aria-valuemin={0} aria-valuemax={100} aria-label="Questionnaire progress">
@@ -189,6 +222,19 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
 
   if (!current) return <p className="text-muted">Loading…</p>;
   const issueFor = (id: string) => issues.find((i) => i.questionId === id)?.message;
+
+  if (cards && current.id === cards.section.id) {
+    const chosen = answers[cards.question.id];
+    return (
+      <div className="mx-auto max-w-6xl">
+        {draft && <p className="mb-5 rounded-lg bg-soon-soft p-3 text-[16px] text-soon"><strong>Test version.</strong> The questions and wording are drafts that Ageing Navigator has not yet approved.</p>}
+        <Heading ref={heading} className="text-[clamp(1.9rem,4.6vw,2.75rem)] font-bold leading-tight outline-none">{current.title}</Heading>
+        {current.intro && <p className="mt-3 max-w-2xl text-[18px] text-muted">{current.intro}</p>}
+        <div className="mt-8"><ReasonCards q={cards.question} value={typeof chosen === "string" ? chosen : undefined} onPick={pick} /></div>
+        <p className="mt-6 text-[15px] text-muted">Your answers stay in this browser until you send them at the end.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-3xl">

@@ -35,6 +35,8 @@ const NOT_SPECIFIC = new Set(["other", "something_else", "none", "not_sure", "un
  */
 function inSentence(label: string): string {
   const words = label.split(/\s+/);
+  // "A", "An", "The" and "You" open a phrase, not a name: "You want to organise an EPOA" → "you want to organise an EPOA".
+  if (/^(A|An|The|You|You're|Your)$/.test(words[0])) return label.charAt(0).toLowerCase() + label.slice(1);
   if (/^[A-Z]{2,}/.test(words[0]) || words.slice(1).some((w) => /^[A-Z]/.test(w))) return label;
   return label.charAt(0).toLowerCase() + label.slice(1);
 }

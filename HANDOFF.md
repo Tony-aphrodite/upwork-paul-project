@@ -44,6 +44,25 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-13: the domain and email are connected, and the questionnaire opens with his reason cards.**
+  - **DNS:** the user added the four records in Hostinger, through the collaborator access Paul gave (his Hostinger
+    account is paul@homecarers.co.nz). https://plan.ageingnavigator.com is live with its certificate, and
+    `APP_URL` points to it.
+    - **Vercel's suggestion:** a project CNAME instead of the A record. It is optional and was not applied.
+  - **Resend:**
+    - **Domain:** ageingnavigator.com is verified (Tokyo). Tracking is off; TLS is left at Opportunistic.
+    - **The key:** `RESEND_API_KEY` is set in Vercel (sensitive) and the site is redeployed with it.
+    - **To do later:** the user kept a key that had been shown in a screenshot. Replace it when Paul's shared
+      password is changed after testing.
+  - **Real email is on.** It has not been tested yet:
+    - **The question:** any test submission emails Paul, the only navigator. Wait for the user's decision on sending
+      test notifications to him.
+    - **The release email:** test it with `delivered@resend.dev`.
+  - **The questionnaire** opens with "What has brought you here?", his 12 cards as on his website (`chatting.md`
+    section 24), then consent.
+    - **Links:** his site links in with `?reason=`, `?for=self` and `?ref=website`. The link list is in the
+      section 24 reply.
+    - **Content** 2026-10-13.1.
 - **2026-10-12, later: the remaining work that does not need Paul is done.** It is untracked: the user has logged
   52 hours on Upwork, which completes the tracked time.
   - **Brand:** his logo, colours and Poppins on the pages, the PDF and the emails.
@@ -288,7 +307,7 @@ himself). Fix these in the rules and templates:
 | `deploy-pilot/` | Staging deployment: `deploy.sh`, the Vercel project link. No secrets: those are in Vercel. |
 | `IMPLEMENTATION-PLAN.md` | How the pilot is built: design decisions, routes, tables, content model, and every line of the 56 hours split into steps with a "done when". Start here before coding. |
 | `WORKLOG.md` | Hours per line, the day plan, and every session logged. |
-| `chatting.md` | The full client conversation, sections 1 to 22: verbatim messages, analysis, what was sent, the Upwork memos. |
+| `chatting.md` | The full client conversation, sections 1 to 24: verbatim messages, analysis, what was sent, the Upwork memos. |
 | `pilot-scope-v2.txt` | His "Bare Minimum Pilot" document: the scope basis. |
 | `Proposal.md` | The original Upwork bid (2026-09-22). |
 | `Reply-draft.md` | An early reply draft (history only). |

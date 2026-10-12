@@ -2342,29 +2342,41 @@ a one-line description and an arrow.
     the landing redirect, deep links, tests and browser checks.
   - **Hours:** the user decided on 2026-10-12 not to track further hours, so the reply does not mention them.
 
-#### Reply (draft; send after the user confirms the plan)
+#### Reply (ready to send once the change is live on the test site; built 2026-10-13)
 
 Hi Paul,
 
-Yes, that makes sense, and your site looks great.
+Yes, that makes sense, and it is done. Your site looks great.
 
-Here is how I'll set it up:
-- **First screen:** "What has brought you here?" with your 12 cards, in the same style as your site. One click on a
-  card chooses the reason and starts the questionnaire.
+The questionnaire now opens with "What has brought you here?" and your 12 cards, in your wording and the same style
+as your site. One click on a card chooses the reason; then comes a short consent step, then the questions. You can try
+it here: https://plan.ageingnavigator.com/start
+
+What changed with it:
 - **One reason per family**, as your wording says. The later questions still ask about falls, memory, carers and so
   on, so the plan still picks those up.
-- **Consent:** straight after the card, a short consent step, then the rest of the questions. Nothing is sent
-  before the family agrees.
-- **Two new reasons, respite and EPOA:** I'll draft their wording and actions in the spreadsheet, marked Draft for
-  you to approve.
-- **Your site is the front door:** plan.ageingnavigator.com will go straight to the questionnaire.
+- **The two new reasons, respite and EPOA,** lead to the respite, carer support and EPOA actions. Their wording is
+  marked Draft in the spreadsheet for you to check.
 
-On your site:
-- For now, point every "Start" and "Get your free personalised Action Plan" button to
-  https://plan.ageingnavigator.com/start. They currently go to "#start-navigator".
-- Once the new first screen is live, I'll send you one link for each of your 12 cards (and the two "Who are you
-  planning for?" cards). A family who clicks "A dementia diagnosis" on your site will then start with that already
-  chosen.
+On your site, please set these links (the link field of each button or card in Elementor):
+- **Every "Start" and "Get your free personalised Action Plan" button:** https://plan.ageingnavigator.com/start?ref=website
+- **Each "What has brought you here?" card**, so the family starts with that reason already chosen:
+  - A dementia diagnosis: https://plan.ageingnavigator.com/start?reason=dementia_diagnosis&ref=website
+  - A hospital admission or discharge: https://plan.ageingnavigator.com/start?reason=hospital&ref=website
+  - A fall, stroke or change in mobility: https://plan.ageingnavigator.com/start?reason=fall_stroke_mobility&ref=website
+  - Managing at home is getting harder: https://plan.ageingnavigator.com/start?reason=managing_home&ref=website
+  - A partner or family carer is struggling: https://plan.ageingnavigator.com/start?reason=carer_change&ref=website
+  - Support or care needs are increasing: https://plan.ageingnavigator.com/start?reason=support_needs&ref=website
+  - You need respite or a break from caring: https://plan.ageingnavigator.com/start?reason=respite&ref=website
+  - You're considering a retirement village: https://plan.ageingnavigator.com/start?reason=considering_village&ref=website
+  - You're exploring residential care: https://plan.ageingnavigator.com/start?reason=considering_residential&ref=website
+  - You want to organise an EPOA: https://plan.ageingnavigator.com/start?reason=epoa&ref=website
+  - You want to plan ahead: https://plan.ageingnavigator.com/start?reason=planning_ahead&ref=website
+  - I'm simply not sure: https://plan.ageingnavigator.com/start?reason=not_sure&ref=website
+- **"I'm planning for myself":** https://plan.ageingnavigator.com/start?for=self&ref=website
+- **"I'm helping someone else":** https://plan.ageingnavigator.com/start?ref=website
+
+The "ref=website" part makes each case show that the family came from your site.
 
 One thing for later: the questions are written about another person ("they"). For people planning for themselves I
 suggest a "you" version as a next step.
@@ -2376,11 +2388,18 @@ Valdis
 #### Prep notes
 
 - **Before sending:** confirm with the user which email address he means, and that the change goes ahead.
-- **Build order:**
-  1. the `trigger` question as single-choice cards with his 12 options, his wording and his descriptions;
-  2. the rules rewritten, with tests on the fictional families (expected actions per family);
-  3. the consent step after the card;
-  4. `?reason=` and `?for=` deep links;
-  5. our landing page redirects to `/start`;
-  6. re-export the spreadsheet;
-  7. the browser check at desktop, 390 px and 320 px, with axe.
+- **Built 2026-10-13** (content 2026-10-13.1), in the order planned:
+  1. **Cards:** the `trigger` question is single choice with his 12 options, his exact wording from his site, and the
+     cards (`src/app/start/ReasonCards.tsx`).
+  2. **Rules:** 20 conditions were rewritten. A respite reason leads to the respite and carer-support actions; an EPOA
+     reason leads to the epoa action. Tests cover both.
+  3. **Consent:** it comes after the card. The consent screen shows "You chose: … · Change".
+  4. **Website links:** `?reason=` and `?for=self`, plus `?ref=`; `/` forwards to `/start`, keeping them. The
+     header logo links to ageingnavigator.com.
+  5. **One fictional family** ("village-planning") now chooses "plan ahead" instead of two reasons. Its plan still has
+     the village and future-wishes actions.
+  6. **Spreadsheet:** re-exported. It compiles back to the same content.
+  7. **Checks:** 97 tests; the browser check passed at desktop and 390 px, both through the cards and through a
+     website link, with axe and the keyboard sweep clean; the card screen was checked at 320 px.
+- **Existing staging cases** were sent with the old multiple-choice reason. The case page lists that answer under
+  "Answers to questions no longer asked". They are test data only.

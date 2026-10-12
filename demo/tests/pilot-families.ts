@@ -14,7 +14,7 @@ export type Family = {
 };
 
 const base: Answers = {
-  trigger: ["fall"],
+  trigger: "fall_stroke_mobility",
   q1: "family_member", q2: "son_daughter", q3: "some", q4: "80_84", q5_town: "Tauranga", q5_region: "Bay of Plenty",
   q6: "alone", q6_owns: "yes",
   q8: ["falls", "safety_at_home"], q9: ["a_fall"], q11: "none",
@@ -41,7 +41,7 @@ export const FAMILIES: Family[] = [
     id: "dementia-carer",
     person: { firstName: "Harold", contactName: "Susan Fictional" }, contact: contact(2),
     answers: {
-      ...base, trigger: ["dementia_diagnosis"], q6: "with_partner", q8: ["memory_or_thinking"], q9: ["memory_or_thinking_has_changed"],
+      ...base, trigger: "dementia_diagnosis", q6: "with_partner", q8: ["memory_or_thinking"], q9: ["memory_or_thinking_has_changed"],
       q16: "significant", q16_carer: "Susan, wife", q17: ["memory_problems"], q17_falls: "none",
       m1: "diagnosed", m2: ["forgetting_appointments_or_tasks", "driving"],
       q21: { will: "yes", epoa_property: "unsure", epoa_welfare: "no", advance_care_plan: "no" }, q23: "stay_home_if_workable", q24: ["none"],
@@ -52,7 +52,7 @@ export const FAMILIES: Family[] = [
     id: "hospital-urgent",
     person: { firstName: "Joan", contactName: "Rewi Fictional" }, contact: contact(3),
     answers: {
-      ...base, trigger: ["hospital"], q6: "in_hospital", q8: ["recent_hospital_admission_or_discharge"], q9: ["hospital_admission_or_emergency_department_visit"],
+      ...base, trigger: "hospital", q6: "in_hospital", q8: ["recent_hospital_admission_or_discharge"], q9: ["hospital_admission_or_emergency_department_visit"],
       h1: "leaving_soon", h2: "within_a_week", h3: ["whether_they_will_be_safe_at_home", "personal_care"],
       q18: "yes", q18a: ["hospital_discharge_without_enough_support"], q23: "unsure",
     },
@@ -62,7 +62,7 @@ export const FAMILIES: Family[] = [
     id: "village-planning",
     person: { firstName: "Colin", contactName: "Colin Fictional" }, contact: contact(4),
     answers: {
-      ...base, ...village, trigger: ["planning_ahead", "considering_village"], q1: "self", q2: undefined as never,
+      ...base, ...village, trigger: "planning_ahead", q1: "self", q2: undefined as never,
       q8: ["planning_ahead_for_ageing", "retirement_villages"], q9: ["nothing_significant_has_changed"], q12: ["they_are_currently_mostly_independent"],
       q13: "same", q15: "yes", q17: ["none_of_these"], q17_falls: "none", q23: "village", q24: ["home_is_too_large_to_manage"],
     },
@@ -72,7 +72,7 @@ export const FAMILIES: Family[] = [
     id: "residential-assessed",
     person: { firstName: "Iris", contactName: "Tom Fictional" }, contact: contact(5),
     answers: {
-      ...base, trigger: ["considering_residential", "support_needs"], q6: "with_family", q8: ["residential_care", "paying_for_care"], q9: ["they_need_more_help_with_everyday_activities"],
+      ...base, trigger: "considering_residential", q6: "with_family", q8: ["residential_care", "paying_for_care"], q9: ["they_need_more_help_with_everyday_activities"],
       q19: "completed", q19_level: "rest_home", q20: "very_important", f1: "widowed", f3: "150k_300k", f4: "cost_matters",
       q23: "residential_care", rc1: "actively_looking", rc3: ["costs", "current_availability"],
     },
@@ -82,7 +82,7 @@ export const FAMILIES: Family[] = [
     id: "not-sure",
     person: { firstName: "Frank", contactName: "Mele Fictional" }, contact: contact(6),
     answers: {
-      ...base, trigger: ["not_sure"], q6: "with_family", q8: ["i_m_not_sure_what_we_should_be_concerned_about"], q9: ["not_sure"],
+      ...base, trigger: "not_sure", q6: "with_family", q8: ["i_m_not_sure_what_we_should_be_concerned_about"], q9: ["not_sure"],
       q17: ["not_sure"], q17_falls: "unsure", q23: "not_discussed", q24: ["not_sure"],
     },
     expect: { pathways: ["stay_home"], actions: ["future-wishes"], notActions: ["falls"] },
@@ -90,7 +90,7 @@ export const FAMILIES: Family[] = [
   {
     id: "two-pathways",
     person: { firstName: "Betty", contactName: "Grace Fictional" }, contact: contact(7),
-    answers: { ...base, ...village, trigger: ["considering_village", "mobility"], q8: ["mobility_or_getting_around", "retirement_villages"], q23: "stay_home_if_workable" },
+    answers: { ...base, ...village, trigger: "considering_village", q8: ["mobility_or_getting_around", "retirement_villages"], q23: "stay_home_if_workable" },
     expect: { pathways: ["stay_home", "village"], actions: ["village-shortlist", "falls"] },
   },
 ];

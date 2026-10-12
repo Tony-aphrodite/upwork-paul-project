@@ -5,7 +5,7 @@ edits every plan before it is released. The family then gets a private link to t
 Ageing Navigator for help from there.
 
 ```
-/start: consent, conditional questions, contact
+ageingnavigator.com (the client's site) → /start: reason cards, consent, conditional questions, contact
   → case stored, plan generated from approved content, navigators emailed
   → /admin: navigator reviews, edits, previews, releases
   → email with a private link → /p/…: plan, PDF, help request, feedback
@@ -102,6 +102,18 @@ Cases keep the plan they were generated with. "Regenerate from answers" on a cas
 **The condition language** (the "Show when" columns) reads like `q8 has falls`, `q19 in completed, receiving`,
 `q21.epoa_property is no` or `q11a answered`, combined with `and`, `or`, `not` and brackets. See `src/lib/pilot/rule-syntax.ts`.
 A condition may only use questions asked earlier (by section order, then question order).
+
+**Option descriptions and cards:**
+- **The form:** an option written as `value = Label | A short description` shows the description under the label.
+- **Cards:** when every option of a single-choice question has a description, families see the question as cards,
+  and choosing one moves on.
+- **The opening screen:** if the first section holds only such a question (`trigger`, "What has brought you here?"),
+  it opens the questionnaire before the consent step. Nothing leaves the browser before consent.
+
+**Links from the client's website** (`/` forwards to `/start`, keeping these):
+- `/start?reason=dementia_diagnosis` answers the cards in advance, and the family starts at consent.
+- `/start?for=self` answers q1 ("for myself").
+- `&ref=website` records where the family came from.
 
 **Placeholders:** rows (situation, what matters, actions, information) may use `{{name}}` and `{{answer.ID}}` for a
 choice question; a row whose answer says nothing specific is left out. Fixed texts (introduction, invitations, pathway
