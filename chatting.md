@@ -2193,3 +2193,68 @@ look.
 Once the four DNS records are in, I'll switch on the emails and move the site to plan.ageingnavigator.com.
 
 Valdis
+
+### 23. Client to Valdis (received 2026-10-12): "the links don't work"
+
+> the links don't work:
+> https://ageing-navigator-pilot.vercel.app/setup/[his setup link from section 19, removed here]
+> https://plan.ageingnavigator.com./
+
+#### Analysis
+
+- **The setup link is not broken; it has been used, and it has expired.**
+  - **How it works:** a setup link works once, for 48 hours. His expired on 2026-10-04 17:13 UTC, and the page now
+    says "This link has expired".
+  - **He did use it.** The staging database (checked 2026-10-12, without reading any family data) shows:
+    - his account has a password, and no link is pending;
+    - he opened a case on 2026-10-04 20:08 UTC and released it at 20:33, which is 5 October in New Zealand.
+  - **What he needs:** the sign-in page, https://ageing-navigator-pilot.vercel.app/login, with his email and the
+    password he chose.
+  - **If he has forgotten the password:** a new setup link is the reset. It ends his old password and his sessions,
+    so send it only if he asks.
+- **plan.ageingnavigator.com:** still no DNS records.
+  - **Checked 2026-10-12** against his Hostinger name server: none of the four records (`A plan`,
+    `TXT resend._domainkey`, `CNAME rsend`, `CNAME send`) exists. The zone serial is still `2026100801`, so
+    nothing has changed since 8 October.
+  - **Reading:** he has either not added them yet, or they did not save. The reply lists them again, compactly, and
+    asks for a screenshot if he believes they are in.
+  - **The trailing dot** in the address he pasted is harmless. It is not the cause.
+- **Our side:**
+  - Today's staging PDF check opened the fictional case AN-YJHJKP with the test account. That case is no longer
+    marked New. It is fictional, and nothing else changed.
+  - The security patch's tsx upgrade broke `npm run db:migrate`. It was found while checking his account and fixed
+    by pinning tsx 4.22.1. It never affected the site.
+
+#### Reply (ready to send)
+
+Hi Paul,
+
+Thanks for telling me. Neither is broken; here is what is happening.
+
+1. **The setup link works only once.** You used it on 5 October to choose your password (I can see you released a
+   plan that day). From now on, sign in here with paul@ageingnavigator.com and that password:
+   https://ageing-navigator-pilot.vercel.app/login
+   If you don't remember the password, tell me and I'll send you a new setup link straight away.
+
+2. **plan.ageingnavigator.com opens once its record is in your DNS.** I checked your Hostinger DNS again just now,
+   and none of the four records is there yet. In hPanel: Domains, ageingnavigator.com, DNS / Nameservers, DNS
+   records, then Add Record for each line (Type, Name, value):
+   - A, plan, 76.76.21.21
+   - TXT, resend._domainkey, p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQqhl+Nkh4Ks5nzzVuqW/BaF4ejfCiNCRVS3hiJG9npG836PC28TSinj0skmNIr9QEVCuWYjEx7dy1359HjTt8Us4MSxf7+rVId5mpH3SYpIlFTOq+Vfbxq187ycpJEGlbiVD8HEmlXTdn5BV9uVP+qbse8eJx5j1hfuLn1CUI+QIDAQAB
+   - CNAME, rsend, rsend-apne1.forge.rmta.net
+   - CNAME, send, send.forge.rmta.net
+
+   If you have already added them and they are not in that list, a screenshot of the DNS records page will show me
+   what happened.
+
+Until then, everything works at the address above.
+
+Valdis
+
+#### Prep notes
+
+- **If he has forgotten his password:**
+  `npm run navigator -- --email paul@ageingnavigator.com --name "Paul McLaren"`, run from `demo/` with
+  `DATABASE_URL` from `.env.local` and `APP_URL=https://ageing-navigator-pilot.vercel.app`. Give the user the link
+  in the chat only. Never write it into a file.
+- **When the records are in:** follow the section 20 prep notes, or HANDOFF "Next".
