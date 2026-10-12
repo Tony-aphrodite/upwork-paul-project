@@ -1,9 +1,9 @@
 {
-  "version": "2026-10-01.1",
+  "version": "2026-10-12.1",
   "status": "draft",
   "questionnaire": {
     "id": "ageing-navigator",
-    "version": "2026-10-01.1",
+    "version": "2026-10-12.1",
     "title": "Family Ageing Questionnaire",
     "intro": [
       "Tell us what's happening, and we'll help you work out what to do next.",
@@ -1553,6 +1553,10 @@
                 "label": "Dementia care"
               },
               {
+                "value": "psychogeriatric",
+                "label": "Psychogeriatric care"
+              },
+              {
                 "value": "none",
                 "label": "No level was identified"
               },
@@ -1668,40 +1672,6 @@
               {
                 "value": "partnered_both_care",
                 "label": "Married or partnered, both have significant care needs"
-              },
-              {
-                "value": "other",
-                "label": "Other"
-              },
-              {
-                "value": "unsure",
-                "label": "Not sure"
-              },
-              {
-                "value": "prefer_not_to_say",
-                "label": "Prefer not to say"
-              }
-            ],
-            "unsure": [],
-            "items": []
-          },
-          {
-            "id": "f2",
-            "type": "single",
-            "label": "Do they own a home, or have an interest in a home?",
-            "optional": false,
-            "options": [
-              {
-                "value": "yes",
-                "label": "Yes"
-              },
-              {
-                "value": "no",
-                "label": "No"
-              },
-              {
-                "value": "village",
-                "label": "They live in a retirement village"
               },
               {
                 "value": "other",
@@ -2420,63 +2390,6 @@
             "unsure": [],
             "pathway": "residential",
             "items": []
-          },
-          {
-            "id": "rc2",
-            "type": "single",
-            "label": "If a formal assessment has identified a level of care, what level was identified?",
-            "optional": false,
-            "options": [
-              {
-                "value": "rest_home",
-                "label": "Rest-home level"
-              },
-              {
-                "value": "hospital",
-                "label": "Hospital level"
-              },
-              {
-                "value": "dementia",
-                "label": "Dementia care"
-              },
-              {
-                "value": "psychogeriatric",
-                "label": "Psychogeriatric care"
-              },
-              {
-                "value": "other",
-                "label": "Another level"
-              },
-              {
-                "value": "none",
-                "label": "No formal level has been identified"
-              },
-              {
-                "value": "unsure",
-                "label": "Not sure"
-              }
-            ],
-            "unsure": [],
-            "pathway": "residential",
-            "items": [],
-            "when": {
-              "any": [
-                {
-                  "field": "q19",
-                  "op": "in",
-                  "value": [
-                    "completed",
-                    "receiving",
-                    "reassessment"
-                  ]
-                },
-                {
-                  "field": "rc1",
-                  "op": "eq",
-                  "value": "assessment_identified"
-                }
-              ]
-            }
           },
           {
             "id": "rc3",
@@ -4361,23 +4274,23 @@
           {
             "any": [
               {
-                "field": "rc2",
+                "field": "q19_level",
                 "op": "falsy"
               },
               {
-                "field": "rc2",
+                "field": "q19_level",
                 "op": "in",
                 "value": [
                   "none",
                   "unsure",
-                  "other"
+                  "home_support"
                 ]
               }
             ]
           }
         ]
       },
-      "whenText": "(q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care) and (rc2 not answered or rc2 in none, unsure, other)"
+      "whenText": "(q23 is residential_care or trigger has considering_residential or q8 has residential_care or q6 is residential_care) and (q19_level not answered or q19_level in none, unsure, home_support)"
     },
     {
       "key": "residential-search",
@@ -4415,7 +4328,7 @@
             ]
           },
           {
-            "field": "rc2",
+            "field": "q19_level",
             "op": "in",
             "value": [
               "rest_home",
@@ -4426,7 +4339,7 @@
           }
         ]
       },
-      "whenText": "rc1 in assessment_identified, actively_looking, urgent and rc2 in rest_home, hospital, dementia, psychogeriatric"
+      "whenText": "rc1 in assessment_identified, actively_looking, urgent and q19_level in rest_home, hospital, dementia, psychogeriatric"
     },
     {
       "key": "residential-funding",

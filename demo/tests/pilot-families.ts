@@ -73,8 +73,8 @@ export const FAMILIES: Family[] = [
     person: { firstName: "Iris", contactName: "Tom Fictional" }, contact: contact(5),
     answers: {
       ...base, trigger: ["considering_residential", "support_needs"], q6: "with_family", q8: ["residential_care", "paying_for_care"], q9: ["they_need_more_help_with_everyday_activities"],
-      q19: "completed", q19_level: "rest_home", q20: "very_important", f1: "widowed", f2: "yes", f3: "150k_300k", f4: "cost_matters",
-      q23: "residential_care", rc1: "actively_looking", rc2: "rest_home", rc3: ["costs", "current_availability"],
+      q19: "completed", q19_level: "rest_home", q20: "very_important", f1: "widowed", f3: "150k_300k", f4: "cost_matters",
+      q23: "residential_care", rc1: "actively_looking", rc3: ["costs", "current_availability"],
     },
     expect: { pathways: ["residential"], actions: ["residential-search", "residential-funding", "funding-pathways"], notActions: ["residential-assessment", "needs-assessment"] },
   },
