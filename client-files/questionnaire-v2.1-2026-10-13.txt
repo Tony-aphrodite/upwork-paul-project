@@ -1,0 +1,837 @@
+Ageing Navigator
+MVP Questionnaire & Branching Logic — Version 2.1
+[UPDATED] Updated 13 October 2026 to align the questionnaire with the website Entry Pathway selector, while retaining the modular Respite, EPOA, paid specialist tools and Coordination model.
+Change highlighting
+[NEW]
+New content added in Version 2.1
+[UPDATED]
+Existing content changed or clarified
+[REMOVED / REPLACED]
+Previous concept replaced or removed
+
+[NEW] Version 2.1 website-entry changes — 13 October 2026
+* [UPDATED] The website “What has brought you here?” cards are now the official Entry Pathway and determine which branch appears first.
+* [REMOVED / REPLACED] The questionnaire no longer repeats the old “What has prompted you to look for help or information now?” question.
+* [UPDATED] Respite, EPOA, Retirement Village and Residential Care direct-entry logic has been clarified so users do not repeat decisions they already made on the website.
+
+Key changes from Version 1
+[UPDATED] The Navigator is now modular. A family may trigger several relevant modules at once rather than being forced into a single Stay at Home / Retirement Village / Residential Care pathway.
+[NEW] Respite screening has been added to the main Navigator, with a route to a dedicated Respite Care module when more detail is needed.
+[NEW] EPOA status is checked for every family because many families do not realise it should be addressed until a crisis. The main Navigator identifies the gap; the detailed EPOA Preparation Pack sits outside the free plan.
+[UPDATED] Basic free matching may still show suitable providers/villages/care homes and explain why they fit. Detailed pricing, financial terms, availability and comparison belong in the paid specialist tools.
+[UPDATED] The paid-tool routes are now: Home Support Provider Comparison, Retirement Village Comparison, Care Home Comparison, Funding Eligibility & Preparation, and EPOA Preparation Pack.
+[UPDATED] “Implementation” has been replaced with “Coordination”. The core paid coordination services are Home Support Search & Coordination, Retirement Village Search & Coordination, Residential Care Search & Coordination, plus smaller Respite and EPOA coordination packages.
+[REMOVED / REPLACED] The old model of treating Stay at Home, Retirement Village and Residential Care as the only three possible pathways has been replaced by a main direction plus additional modules/actions.
+
+1. Purpose
+The questionnaire should help Ageing Navigator understand:
+what has changed;
+the older person's current circumstances;
+what support may be needed;
+what matters most to them;
+[UPDATED] which living/support options are worth exploring;
+[NEW] which additional modules are relevant, including Funding, Respite and EPOA;
+[UPDATED] which providers or retirement villages may appear to match their stated preferences at a basic level;
+what practical actions should appear in their Action Plan.
+[UPDATED] The questionnaire should not diagnose, clinically assess, determine formal care levels, determine funding eligibility, provide legal advice, or tell somebody definitively where they should live.
+The main question Ageing Navigator should help answer is:
+What should we explore or do next?
+Target completion time: approximately 6–10 minutes for most users. Questions should be conditional so people only see what is relevant.
+2. Who Can Complete It
+The questionnaire should work equally well for:
+the older person;
+spouse or partner;
+son/daughter;
+another family member;
+friend;
+volunteer;
+advocate;
+professional/support person.
+Where possible, wording should adapt between “you” and “the person you’re helping”.
+[NEW] 3. Modular Navigation Model
+[NEW] The Main Navigator remains the front door, but the output can activate more than one relevant module. A family does not need to fit one rigid pathway.
+[NEW] Possible modules / directions:
+[NEW] Home Support
+[NEW] Retirement Village
+[NEW] Residential Care
+[NEW] Funding
+[NEW] Respite
+[NEW] EPOA
+[NEW] Example output: “Main direction: Stay at Home with more support. Also address: EPOA and Respite. Future option: Retirement Village.”
+[NEW] A user may also enter directly through a focused Respite or EPOA module. Direct-entry logic is set out in the Appendix.
+[NEW] Website Entry Pathways — first routing layer
+[NEW] The website screen “What has brought you here?” is now the official start of the Navigator. The selected card must be stored as Entry Pathway and used to decide which questions appear first after the common Q1–Q4 questions.
+[NEW] Website Entry Pathways:
+* A dementia diagnosis → start with Memory & Cognition.
+* A hospital admission or discharge → start with Current Living Situation and Formal Support & Assessment.
+* A fall, stroke or change in mobility → start with Mobility & Safety.
+* Managing at home is getting harder → start with Staying at Home / Home Support.
+* A partner or family carer is struggling → start with Current Support / Respite.
+* Support or care needs are increasing → start with Current Support / Assessment / Home Support.
+* You need respite or a break from caring → direct to the focused Respite Care module.
+* You're considering a retirement village → start with Retirement Living.
+* You're exploring residential care → start with Residential Care.
+* You want to organise an EPOA → direct to the focused EPOA Navigation module.
+* You want to plan ahead → use the broader planning route.
+* I'm simply not sure → use the broader Main Navigator route.
+[UPDATED] The Entry Pathway determines where the conversation starts, not the final recommendation. Answers can still activate several modules or a different main direction.
+[UPDATED] Do not repeat the website pathway question inside the questionnaire. Q5 is now used only to identify other issues that may also matter.
+
+[UPDATED] 4. Free Matching vs Paid Specialist Tools
+[UPDATED] The free Action Plan may include a basic shortlist of providers, villages or care homes where reliable data exists. Matching should use transparent non-financial criteria such as location, support needs, lifestyle, interests, pets, accommodation preferences, mobility/accessibility and future-care preferences.
+[UPDATED] Each free option should explain why it matched. The free Navigator should not attempt the full detailed comparison that belongs in the paid specialist tool.
+[NEW] Paid specialist tools:
+Home Support Provider Comparison: Compare services, availability, pricing, minimum hours, location and fit.
+Retirement Village Comparison: Compare fit, entry cost, ongoing fees, DMF/exit costs, future-care options and longer-term cost.
+Care Home Comparison: Compare assessed care-level fit, dementia support, availability, accommodation/premium charges and key differences.
+Funding Eligibility & Preparation: Identify potential public funding/support pathways, documents, decision-maker, process and next steps.
+EPOA Preparation Pack: Prepare key information, proposed attorneys, decisions/questions, official-form information where appropriate, and a lawyer-ready summary.
+MAIN NAVIGATOR QUESTIONNAIRE
+SECTION A — ABOUT YOU
+Q1. Who are you completing this for?
+Single choice
+Myself
+My spouse or partner
+My parent
+Another family member
+A friend
+Someone I support as a volunteer
+Someone I support professionally
+Other
+Action / branching rule: If “Myself”, use “you” where practical. Otherwise use the supplied name or “the person you’re helping”.
+Q2. What name would you like us to use in the Action Plan?
+Short text — optional
+You can leave this blank or use another name such as Mum, Dad or Anonymous if you prefer.
+Q3. Approximately how old is the person?
+Single choice
+Under 65
+65–69
+70–74
+75–79
+80–84
+85–89
+90+
+Unsure
+Prefer not to say
+Q4. Where do they currently live? (make this a drop down menu) use Bay of Plenty (region) for now. When we roll this out, we will add more regions
+Short text
+What region do you live in?
+Action / branching rule: Use this for local guidance and basic matching where relevant.
+
+[UPDATED] SECTION B — ENTRY PATHWAY & WHAT ELSE IS AFFECTING THE SITUATION
+[NEW] Website Entry Pathway
+The user has already selected one option on the website screen “What has brought you here?”. Save this selection as Entry Pathway and do not ask them to choose it again inside the questionnaire.
+[REMOVED / REPLACED] The previous Q5 “What has prompted you to look for help or information now?” is removed because it duplicates the website pathway selection.
+[UPDATED] Q5. Is there anything else affecting the situation at the moment?
+Select all that apply
+* Memory changes or dementia
+* Recent hospital admission or discharge
+* A fall, stroke or change in mobility
+* Managing at home is getting harder
+* A partner or family carer is struggling
+* Support or care needs are increasing
+* Respite / a break from caring may be needed
+* Considering a retirement village
+* Exploring residential care
+* EPOA may need attention
+* Planning ahead
+* Feeling overwhelmed / not sure where to start
+* None of these
+* Other
+Action / branching rule: Use Q5 only to identify additional issues beyond the Entry Pathway. Hide the option that matches the Entry Pathway where practical so the user is not asked to repeat themselves. Selections can activate additional modules. If Entry Pathway = “I'm simply not sure”, show the full list. If Entry Pathway is the focused Respite or EPOA pathway, follow the direct-entry logic in Appendix A instead of forcing the user through unrelated questions.
+Q6. In your own words, what is the main thing you would like help working out?
+Optional text
+A sentence or two is enough. Use this to personalise the opening of the Action Plan.
+
+SECTION C — CURRENT LIVING SITUATION
+Q7. Where does the person currently live?
+Single choice
+Own home
+Renting
+Living with family
+Retirement village — independent living
+Retirement village — serviced/care accommodation
+Residential care/rest home
+Currently in hospital
+Temporary accommodation
+Other
+Unsure
+Q8. How is the current living situation working?
+Single choice
+Managing well at the moment
+Mostly managing, but some extra support may help
+Becoming increasingly difficult
+Significant support is now needed
+We are questioning whether the current arrangement is still suitable
+Unsure
+SECTION D — WHAT IS BECOMING DIFFICULT?
+Q9. Which areas are becoming difficult or causing concern?
+Select all that apply
+Getting around safely
+Stairs or getting in/out of the home
+Showering/bathing
+Dressing
+Toileting
+Preparing meals
+Shopping
+Housework
+Laundry
+Gardening/home maintenance
+Taking medication correctly
+Driving
+Other transport
+Attending appointments
+Memory or confusion
+Feeling lonely or isolated
+Managing paperwork/appointments
+Managing money or bills
+Getting out socially
+Sleeping safely overnight
+Family/carer is struggling to keep providing support
+None of these
+Unsure
+Action / branching rule: Use this question to trigger relevant Action Plan modules and follow-up questions.
+
+SECTION E — MOBILITY & SAFETY
+Q10. Are there any concerns about getting around safely?
+Select all that apply
+[UPDATED] Show when: Entry Pathway = “A fall, stroke or change in mobility”, or falls, mobility, personal-care or safety concerns are identified elsewhere.
+Recent fall/falls
+Unsteady walking
+Uses a walking stick
+Uses a walking frame
+Uses a wheelchair
+Difficulty with stairs
+Difficulty getting in/out of bed or chairs
+Bathroom/shower safety concerns
+Difficulty getting in/out of the house
+Concern about being alone if something happens
+No major concerns
+Unsure
+Action / branching rule: Ageing Navigator does not determine urgency. Where appropriate, suggest discussing the concern with a relevant health professional.
+
+SECTION F — MEMORY & COGNITION
+Q11. Which best describes the situation?
+Single choice
+[UPDATED] Show when: Entry Pathway = “A dementia diagnosis”, or memory, confusion, cognitive concerns or dementia are identified elsewhere.
+Diagnosed dementia
+Mild cognitive impairment or another diagnosed cognitive condition
+Memory changes are being investigated
+Family has noticed changes but there has been no assessment
+Occasional forgetfulness only
+Unsure
+Q12. Are any of these causing concern?
+Select all that apply
+Show when: Q11 branch is active.
+Remembering medication
+Cooking safely
+Getting lost
+Driving
+Managing money
+Remembering appointments
+Being home alone
+Changes in judgement
+Changes in behaviour
+Night-time confusion
+None of these
+Unsure
+Action / branching rule: Provide appropriate next steps and organisations to contact. Do not diagnose or determine severity.
+
+SECTION G — CURRENT SUPPORT
+Q13. Who currently provides regular support?
+Select all that apply
+Spouse/partner
+Adult children/family
+Friends/neighbours
+Privately paid home care
+Government-funded home support
+Community/volunteer organisation
+Retirement village staff
+Residential care staff
+Nobody regularly
+Other
+Unsure
+Q14. Does the current support feel sufficient?
+Single choice
+Yes
+Mostly, but some additional help would be useful
+No, more support is needed
+Current support arrangements are becoming difficult to maintain
+Unsure
+Q15. If a family member or friend provides significant support, how are they coping?
+Single choice
+Show when: Family/friend/spouse support is selected.
+Coping well
+Managing, but it is becoming demanding
+Finding it difficult
+They may not be able to continue providing the same level of support
+There is no main family/friend carer
+Unsure
+Action / branching rule: Answers indicating pressure should trigger the Respite screen and carer-support information.
+
+[NEW] SECTION H — RESPITE SCREEN
+[NEW] Q16. Would a temporary break from caring be helpful?
+Single choice
+[UPDATED] Show when: Q15 indicates carer pressure, Q5 indicates respite, or Q24 selects Respite. If Entry Pathway = “You need respite or a break from caring”, skip Q16 and go directly to Q17 because the respite need has already been established.
+Yes
+Possibly
+No
+Unsure
+Action / branching rule: Yes/Possibly/Unsure can trigger the dedicated Respite Care module in the Action Plan. No skips Q17–Q18.
+
+[NEW] Q17. What type of respite might help?
+Select all that apply
+[UPDATED] Show when: Q16 = Yes/Possibly/Unsure OR Entry Pathway = “You need respite or a break from caring”.
+A few hours during the day
+Regular day respite
+Respite at home
+Overnight respite
+A short stay in a care facility
+A few days or a week away
+Regular/ongoing respite
+Unsure
+[NEW] Q18. When would respite ideally be needed?
+Single choice
+[UPDATED] Show when: Q16 = Yes/Possibly/Unsure OR Entry Pathway = “You need respite or a break from caring”.
+As soon as possible
+Within the next few weeks
+Within the next few months
+Regularly / ongoing
+Just planning ahead
+Unsure
+Action / branching rule: The main Navigator identifies the need only. A detailed Respite module can later collect exact dates, care needs and provider availability.
+
+[UPDATED] SECTION I — FORMAL SUPPORT & ASSESSMENT
+[UPDATED] Q19. Has the person had a formal assessment of their support or care needs?
+Single choice
+Yes
+No
+Assessment has been requested / waiting
+Unsure
+[UPDATED] Q20. If yes, do you know what support or care level was identified?
+Single choice
+Show when: Q19 = Yes.
+Support to remain at home
+Rest-home level care
+Hospital-level care
+Dementia care
+Another outcome
+Assessment happened but I do not know the result
+Unsure
+Action / branching rule: Use the answer as reported information only. Ageing Navigator must not independently determine a formal residential-care level.
+
+[NEW] SECTION J — EPOA CHECK
+[NEW] Q21. Are Enduring Powers of Attorney (EPOAs) currently in place?
+Single choice
+Yes — Property and Personal Care & Welfare
+Yes — but only one type
+Yes — but I am not sure which type
+No
+Unsure
+I do not know what an EPOA is
+Action / branching rule: Ask this of every family. If both EPOAs are not clearly in place, the Action Plan should surface an EPOA action and link to the free EPOA Navigation module / paid EPOA Preparation Pack as appropriate. Do not provide legal advice or determine capacity.
+[NEW] Q22. Do you know where the signed EPOA documents are kept?
+Single choice
+Show when: Q21 indicates an EPOA exists.
+Yes
+No
+Unsure
+Action / branching rule: If No/Unsure, include a practical action to locate the documents or contact the solicitor/provider who prepared them.
+
+[UPDATED] SECTION K — STAYING AT HOME
+[UPDATED] Q23. If suitable support could be arranged, would staying at home be something you would like to explore?
+Single choice
+Show when: The person lives at home, wants to stay home, appears to need additional support, or is unsure about future options.
+Yes, definitely
+Possibly
+Only in the short term
+Probably not
+No
+Unsure
+[UPDATED] Q24. What additional support might make the biggest difference?
+Select all that apply
+Show when: Q23 is relevant.
+Personal care
+Meal preparation
+Housework
+Shopping
+Transport
+Companionship
+Medication reminders
+Overnight support
+Respite for family/carer
+Mobility assistance
+Equipment/home modifications
+Personal alarm
+Gardening/home maintenance
+Other
+Unsure
+Action / branching rule: Selecting Respite should also trigger the Respite screen if not already completed.
+[UPDATED] Q25. How often does it seem that extra support may be needed?
+Single choice
+Show when: Q23 is relevant.
+Occasionally
+A few hours each week
+Most days
+Several times each day
+Overnight
+Continuous/high level of support may be needed
+Unsure
+Action / branching rule: For navigation only; this is not a formal care assessment.
+
+[UPDATED] SECTION L — HOME SUPPORT BASIC MATCHING
+[UPDATED] Q26. Would you like us to show home support providers that may appear to match what you are looking for?
+Single choice
+Show when: Additional support at home is relevant.
+Yes
+Maybe
+No
+Action / branching rule: If No, skip Q27. This is a basic free fit/shortlist, not the paid detailed comparison.
+[UPDATED] Q27. What matters most when choosing home support?
+Select up to 5
+Show when: Q26 = Yes/Maybe.
+Provider operates in my area
+Can provide the support we need
+Flexible visit times
+Consistent carers
+Male carer preference
+Female carer preference
+Dementia experience
+Overnight support available
+Weekend support available
+Help with transport
+Companionship/social support
+Personal care support
+Household support
+Other
+Unsure
+Action / branching rule: Free matching may use location, services and preferences and explain why an option appears suitable. Detailed services, availability, pricing and minimum-hours comparison belongs in the paid Home Support Provider Comparison tool.
+
+SECTION M — RETIREMENT LIVING
+Q28. Would you like to explore retirement village living?
+Single choice
+[UPDATED] Show when: Retirement living is triggered by Q5, planning ahead, current-home difficulty or alternative-living exploration. If Entry Pathway = “You're considering a retirement village”, interest is already established: display Q28 as “When are you thinking about retirement village living?” and omit the Maybe/No options, then continue to Q29–Q37.
+Yes — now
+Yes — possibly within the next year
+Yes — as a future option
+Maybe
+No
+Unsure
+Action / branching rule: If No, skip Q29–Q37.
+Q29. Where would you prefer the retirement village to be?
+Short text / multiple areas permitted
+Examples: Tauranga; Mount Maunganui; Bethlehem; within 20 minutes of my daughter.
+Q30. How important is being close to family or friends?
+Single choice
+Very important
+Somewhat important
+Not particularly important
+No preference
+Unsure
+Q31. What type of accommodation would you consider?
+Select all that apply
+Villa
+Apartment
+Serviced apartment
+Care suite
+Smaller home/unit
+No preference
+Unsure
+Q32. What would matter most in a retirement village?
+Select up to 5
+Social activities/community
+Quiet environment
+Active lifestyle
+Security
+Less home maintenance
+Transport
+Pets allowed
+Gardens/outdoor space
+Clubs/hobbies
+Exercise/fitness facilities
+Easy access to shops/community
+Serviced living available
+Access to additional support
+Care suites
+Residential care onsite
+Dementia care onsite
+Avoiding another future move
+Affordability
+Other
+Unsure
+Q33. Are there particular interests or activities you would like a village to support?
+Optional — select all that apply
+Gardening
+Walking
+Fitness/exercise
+Swimming
+Bowls
+Arts/crafts
+Cards/games
+Music
+Social events
+Men’s groups
+Women’s groups
+Community outings
+Volunteering
+Library/reading
+Other
+No particular preference
+Q34. Are pets important?
+Single choice
+Yes — a pet needs to be able to move with them
+Prefer pet-friendly
+No
+Not applicable
+Unsure
+Q35. Is access to additional care in the future important?
+Single choice
+Very important
+Somewhat important
+Not particularly important
+We have not thought about this
+Unsure
+Q36. Is avoiding another move if care needs increase important?
+Single choice
+Very important
+Somewhat important
+Not important
+Unsure
+Q37. Is affordability likely to be an important factor?
+Single choice
+Yes
+Possibly
+No
+Unsure
+Prefer not to say
+Action / branching rule: Do not ask detailed financial questions here. Route detailed cost comparison to the paid Retirement Village Comparison tool.
+[UPDATED] FREE RETIREMENT VILLAGE MATCH
+[UPDATED] Where reliable data exists, the free Action Plan may provide a basic shortlist based on location, accommodation, pets, lifestyle/interests, accessibility and future-care preferences. Each option should explain why it matched.
+[UPDATED] Do not claim one village is “the best”. Detailed entry price, weekly fees, DMF/exit costs, capital-gain arrangements and longer-term cost belong in the paid Retirement Village Comparison tool.
+
+[UPDATED] SECTION N — RESIDENTIAL CARE
+[UPDATED] Q38. Would you like information about residential care options?
+Single choice
+[UPDATED] Show when: Residential care is triggered by Q5, formal assessment, higher support needs, hospital discharge or an unsuitable current arrangement. If Entry Pathway = “You're exploring residential care”, skip Q38 because interest is already established and continue directly to Q39–Q42.
+Yes — we need to explore this now
+Yes — we may need to explore it soon
+Yes — for future planning
+Maybe
+No
+Unsure
+Action / branching rule: If No, skip Q39–Q42.
+[UPDATED] Q39. What has led you to consider residential care?
+Select all that apply
+Increasing personal care needs
+Increasing mobility needs
+Dementia/cognitive changes
+Family can no longer provide enough support
+Current home no longer feels suitable
+Hospital discharge
+Formal assessment has recommended residential care
+Repeated falls/safety concerns
+Social isolation/loneliness
+Wanting 24-hour support available
+Other
+Unsure
+[UPDATED] Q40. What timeframe are you thinking about?
+Single choice
+Now / currently looking
+Within the next few weeks
+Within the next few months
+Longer-term planning
+Unsure
+
+[UPDATED] SECTION O — RESIDENTIAL CARE BASIC MATCHING
+[UPDATED] Q41. Where would you prefer the care facility to be?
+Short text
+Show when: Residential care is being explored.
+Examples: Tauranga; Mount Maunganui; close to family in Bethlehem; no strong preference.
+[UPDATED] Q42. What matters most when considering a care facility?
+Select up to 5
+Show when: Residential care is being explored.
+Close to family/friends
+Smaller facility
+Larger facility with more amenities
+Dementia support
+Hospital-level care available
+Activities/social opportunities
+Gardens/outdoor areas
+Private room/accommodation
+Cultural/community connection
+Quiet environment
+Other
+Unsure
+Action / branching rule: Formal care-level requirements must come only from a known professional assessment. Free matching may use location, assessed level where known, dementia needs and family preferences. Detailed availability, accommodation/premium charges and comparison belong in the paid Care Home Comparison tool.
+
+[UPDATED] SECTION P — FUNDING
+[UPDATED] Q43. Are you concerned about how support or care may be funded?
+Single choice
+Yes
+Possibly
+No
+Unsure
+[UPDATED] Q44. Do you currently receive any government-funded support?
+Single choice
+Yes
+No
+We have applied / are waiting
+Unsure
+Action / branching rule: Where relevant, the Action Plan should direct the family to the paid Funding Eligibility & Preparation tool. Do not ask detailed assets, savings, income or property-value questions in the Main Navigator.
+
+[UPDATED] SECTION Q — WHAT MATTERS MOST?
+[UPDATED] Q45. What are the most important outcomes for you/the person you are helping?
+Select up to 3
+Stay independent for as long as possible
+Remain at home
+Improve safety
+Get more practical help
+Reduce pressure on family
+Understand government support/funding
+Understand what to do after hospital
+Plan ahead
+Explore retirement living
+Explore residential care
+[NEW] Arrange respite / give the family carer a break
+[NEW] Make sure EPOA arrangements are sorted
+Be closer to family
+Avoid moving more than once
+Maintain social connections
+Understand the options before deciding
+Get help organising everything
+Other
+Unsure
+Action / branching rule: These should heavily influence the “What Matters Most” section of the Action Plan.
+
+[UPDATED] SECTION R — WHAT WOULD YOU LIKE THE PLAN TO ANSWER?
+[UPDATED] Q46. Which questions would you most like your Action Plan to answer?
+Select all that apply
+What support could help at home?
+Which home support options/providers may suit us?
+Who should we contact first?
+Should we explore a formal needs assessment?
+What should we discuss with the GP?
+What funding/support should we investigate?
+Should we consider retirement living?
+Which retirement villages appear to match our preferences?
+What should we look for when comparing villages?
+Should we explore residential care?
+Which care-home options may match our needs/preferences?
+[NEW] Would respite help, and what should we explore?
+[NEW] Do we need to sort out EPOAs?
+How can we reduce pressure on the family/carer?
+What should we do next?
+I am not sure — tell us where to start
+Other
+
+[UPDATED] SECTION S — ANYTHING ELSE?
+[UPDATED] Q47. Is there anything else you think would help us understand the situation?
+Optional text
+Please do not include anything you do not feel comfortable sharing.
+
+[UPDATED] SECTION T — ACTION PLAN DELIVERY
+[UPDATED] Q48. What email address should we use to send the Action Plan?
+Email — required
+We need this to deliver your personalised Action Plan and communicate about your request.
+[UPDATED] Q49. Phone number
+Optional
+Only provide this if you are happy for Ageing Navigator to contact you.
+
+[UPDATED] Q50. How did you hear about Ageing Navigator?
+Single choice
+Retirement village
+Hospital / health professional
+GP / medical practice
+Home-care provider
+Community organisation
+[NEW] Dementia / carer support organisation
+[NEW] Lawyer / legal professional
+Friend/family
+Google/search
+Facebook/social media
+Ageing Navigator article/video
+Other
+Prefer not to say
+Action / branching rule: Where possible, track referral source automatically from links/QR codes.
+[UPDATED] SECTION U — CONSENT
+[UPDATED] Q51. Consent to create the Action Plan
+Required checkbox
+I understand that the information provided will be used to create a personalised Ageing Navigator Action Plan. I understand that the plan provides navigation and planning information and does not replace medical, legal, financial or formal needs-assessment advice.
+[UPDATED] Separate optional marketing consent:
+[UPDATED] I would like to receive useful Ageing Navigator information and updates.
+Keep service consent and marketing consent separate.
+[UPDATED] BRANCHING SUMMARY
+[NEW] Website Entry Pathway is captured before the questionnaire starts. Use the mapping in Section 3 / Appendix A0 to decide which branch appears first. The table below remains the downstream signal-to-module logic, and multiple modules may still be activated.
+
+Situation / signal
+Branch / output
+Living at home / wants home support
+Stay at Home + optional Home Support basic matching
+Falls / mobility concerns
+Mobility & Safety
+Memory / dementia concerns
+Memory & Cognition
+Family carer pressure / respite selected
+Respite screen + route to Respite Care module
+EPOA not clearly in place / unknown
+EPOA action + route to EPOA Navigation / Preparation Pack
+Considering retirement living
+Retirement Village + free basic matching + paid comparison route
+Considering residential care
+Residential Care + free basic matching + paid comparison route
+Funding concern
+Funding action + paid Funding Eligibility & Preparation route
+Formal assessment completed
+Assessment outcome
+Unsure what they need
+Broader navigation questions; multiple modules may be triggered
+
+[UPDATED] Multiple modules can be active at the same time. Example: “Stay at Home now + Respite + EPOA + Funding + Retirement Village planning for later.”
+[UPDATED] FREE ACTION PLAN OUTPUT
+1. Your Current Situation — What has changed and where things currently stand.
+2. What Matters Most — The family’s main priorities.
+3. Your Main Options — Potentially Stay at Home, Retirement Village, Residential Care, or more than one option.
+4. Important Things to Address — Relevant modules such as EPOA, Respite, Funding, Needs Assessment or carer support.
+5. Your Priority Actions — For each relevant action: What to do; Why it matters; Next step; Who can help; What to prepare; Questions to ask.
+6. Basic Provider / Village / Care Home Matches — Where relevant and where reliable data exists. Explain why each option appears to match.
+7. Things to Check — Information that still needs confirmation.
+8. Professional Advice / Assessment — Clear direction where clinical, legal, financial or formal needs-assessment input is required.
+9. Relevant Ageing Navigator Tools — Direct the family to the relevant detailed paid tool or focused free module.
+10. Coordination Option — Ask whether Ageing Navigator should help search, organise, contact, arrange and follow through on agreed next steps.
+[NEW] Relevant tool / module routing
+Trigger
+Next product/module
+Role
+Home support decision
+Home Support Provider Comparison
+Paid specialist tool
+Retirement village decision
+Retirement Village Comparison
+Paid specialist tool
+Residential care decision
+Care Home Comparison
+Paid specialist tool
+Funding concern
+Funding Eligibility & Preparation
+Paid specialist tool
+EPOA gap
+EPOA Navigation → EPOA Preparation Pack
+Free navigation → paid preparation
+Respite need
+Respite Care Module
+Focused free module / access model to test
+
+[UPDATED] COORDINATION QUESTION
+[UPDATED] Replace the previous “implementation” wording with “coordination”. Coordination means Ageing Navigator searches, organises, contacts, compares, arranges and follows through; specialist providers perform the underlying care, legal, financial or clinical work.
+[UPDATED] After the Action Plan has been viewed:
+[UPDATED] C1. Would you like Ageing Navigator to help coordinate any of your next steps?
+Single choice
+Yes, please contact me
+Maybe — I would like to understand what help is available
+No thanks — I will work through it myself
+[UPDATED] C2. What would you like help coordinating?
+Select all that apply
+Show when: C1 = Yes/Maybe.
+Home Support Search & Coordination
+Retirement Village Search & Coordination
+Residential Care Search & Coordination
+[NEW] Finding/organising respite
+[NEW] EPOA preparation and legal-appointment coordination
+I am not sure — I would like to talk to someone
+Other
+Action / branching rule: Keep the coordination enquiry simple. Actual delivery, scope and pricing can be handled manually during the pilot.
+[UPDATED] POST-PLAN PILOT FEEDBACK
+[UPDATED] F1. How useful was your Action Plan?
+1–5 scale
+1 — Not useful
+2
+3
+4
+5 — Extremely useful
+[UPDATED] F2. Did the Action Plan make your next steps clearer?
+Single choice
+Yes, much clearer
+Yes, somewhat clearer
+Not really
+No
+Unsure
+[UPDATED] F3. Were the suggested options/providers useful?
+Single choice
+Show when: Matches were provided.
+Very useful
+Somewhat useful
+Not particularly useful
+Not useful
+I have not looked at them yet
+[NEW] F4. Were the suggested tools/modules relevant to your situation?
+Single choice
+Yes
+Mostly
+Not really
+No
+I have not looked at them yet
+[UPDATED] F5. Was anything important missing, confusing or incorrect?
+Optional text
+[UPDATED] F6. Would you recommend this Action Plan to another family trying to work out what to do next?
+Single choice
+Yes
+Maybe
+No
+[NEW] APPENDIX A — FOCUSED MODULE ENTRY LOGIC
+[UPDATED] The website Entry Pathway can send a family into any relevant first branch. Respite and EPOA remain focused direct-entry modules that can be completed without the entire Main Navigator. All routes should reuse common questions where possible.
+[NEW] A0. Website Entry Pathway — first routing step
+[NEW] The website screen “What has brought you here?” is the first routing step. Save the selected card as the Entry Pathway before Q1 begins.
+[NEW] Routing after Q1–Q4:
+* A dementia diagnosis → Memory & Cognition first.
+* A hospital admission or discharge → Current Living Situation + Formal Support & Assessment first.
+* A fall, stroke or change in mobility → Mobility & Safety first.
+* Managing at home is getting harder → Staying at Home + Home Support first.
+* A partner or family carer is struggling → Current Support + Respite first.
+* Support or care needs are increasing → Current Support + Formal Support & Assessment + Staying at Home/Home Support first.
+* You need respite or a break from caring → Direct Respite Care module (A1).
+* You're considering a retirement village → Retirement Living first.
+* You're exploring residential care → Residential Care first.
+* You want to organise an EPOA → Direct EPOA Navigation module (A2).
+* You want to plan ahead → Broader planning questions, then relevant modules.
+* I'm simply not sure → Broader Main Navigator questions; allow multiple modules to emerge.
+[UPDATED] After the first branch is explored, continue with common checks and any additional modules triggered by the answers. The Entry Pathway does not determine the final Action Plan by itself.
+[UPDATED] Direct Respite and EPOA entry should not force the family through the full Main Navigator unless their answers indicate broader navigation would be helpful.
+
+[NEW] A1. Respite Care Module — minimum questions
+[NEW] Who are you completing this for? (reuse Q1–Q4 where needed)
+[NEW] What type of respite are you looking for?
+[NEW] Where is respite needed?
+[NEW] When is it needed and for how long?
+[NEW] What support/care does the person need during respite?
+[NEW] Are there dementia, mobility, personal-care, medication or overnight-support considerations?
+[NEW] Are you looking for at-home respite, day respite, facility respite, or are you unsure?
+[NEW] Contact details and consent.
+[NEW] Output: suitable respite options where reliable information exists; clearly separate “appears suitable” from “currently available”. Availability should be date-stamped and provider-confirmed/recently verified wherever possible. Offer Respite coordination if the family wants Ageing Navigator to contact providers and progress the arrangement.
+[NEW] A2. EPOA Navigation Module — minimum questions
+[NEW] Are Property and Personal Care & Welfare EPOAs already in place?
+[NEW] If yes, do you know where the signed documents are held?
+[NEW] If not in place, is the person able to participate in making their own decisions? (Do not assess capacity; if uncertain, direct to legal advice.)
+[NEW] Do they already have a lawyer/solicitor they use?
+[NEW] Do they understand the two EPOA types and what still needs to be decided?
+[NEW] Would they like the EPOA Preparation Pack?
+[NEW] Would they like Ageing Navigator to coordinate finding a legal professional, arranging the appointment, gathering documents and following up?
+[NEW] Free output: explain the purpose of EPOA, identify what still needs to be checked/decided, and direct the family to appropriate legal help. Paid EPOA Preparation Pack: gather key information/proposed attorneys/considerations, prepare a lawyer-ready summary and official-form information where appropriate. Ageing Navigator does not give legal advice, determine who should be appointed, certify capacity or witness execution.
+[UPDATED] TARGET LENGTH
+[UPDATED] The website Entry Pathway should reduce repetition by taking the user straight to the most relevant branch. Most users should still complete the Main Navigator within approximately 6–10 minutes through branching.
+[UPDATED] Simple situation: approximately 15–20 questions
+[UPDATED] One main direction plus one additional module: approximately 20–25 questions
+[UPDATED] Complex situation with matching and several modules: approximately 25–30 questions
+If pilot data shows completion taking materially longer, remove or defer questions before adding more.
+[UPDATED] MVP SUCCESS TEST
+[UPDATED] The questionnaire has done its job if Ageing Navigator can use the answers to tell the family:
+[UPDATED] What appears to matter most?
+[UPDATED] What living/support options are worth exploring?
+[NEW] What additional issues should not be overlooked (for example EPOA, Respite or Funding)?
+[UPDATED] What should happen next?
+[UPDATED] Who should they contact?
+[UPDATED] What should they prepare?
+[UPDATED] What still needs checking?
+[UPDATED] Which providers/villages/care homes may appear to fit at a basic level?
+[NEW] Which focused module or paid specialist tool would help next?
+[NEW] Whether they would like Ageing Navigator to coordinate agreed next steps.
+Core outcome: “What should we do next — and would you like us to help coordinate it?”

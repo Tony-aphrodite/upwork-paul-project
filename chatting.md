@@ -2259,7 +2259,7 @@ Valdis
   in the chat only. Never write it into a file.
 - **When the records are in:** follow the section 20 prep notes, or HANDOFF "Next".
 
-### 24. Client to Valdis (received 2026-10-13): his website, and "What has brought you here?" as the first screen
+### 24. Client to Valdis (received 2026-10-13): his website, and "What has brought you here?" as the first screen (reply SENT 2026-10-13)
 
 He sent a screenshot of the "What has brought you here?" section of his site: 12 cards, each with an icon, a title,
 a one-line description and an arrow.
@@ -2342,7 +2342,7 @@ a one-line description and an arrow.
     the landing redirect, deep links, tests and browser checks.
   - **Hours:** the user decided on 2026-10-12 not to track further hours, so the reply does not mention them.
 
-#### Reply (ready to send once the change is live on the test site; built 2026-10-13)
+#### Reply (SENT 2026-10-13, after the change went live)
 
 Hi Paul,
 
@@ -2403,3 +2403,161 @@ Valdis
      website link, with axe and the keyboard sweep clean; the card screen was checked at 320 px.
 - **Existing staging cases** were sent with the old multiple-choice reason. The case page lists that answer under
   "Answers to questions no longer asked". They are test data only.
+
+### 25. Client to Valdis (received 2026-10-13): "MVP Questionnaire & Branching Logic — Version 2.1"
+
+He sent it before reading the section 24 reply. The full text is in `client-files/questionnaire-v2.1-2026-10-13.txt`.
+
+**In short:**
+- The website cards become the official **Entry Pathway**. It is saved before Q1, never asked again, and decides
+  which section comes first after Q1–Q4.
+- The Navigator becomes **modular**: one main direction plus extra modules (Home Support, Village, Residential,
+  Funding, Respite, EPOA).
+- **New:** a respite screen and an EPOA check for every family.
+- "Implementation" becomes **"Coordination"** (C1–C2).
+- **New feedback** questions F1–F6.
+- **Focused Respite and EPOA modules** (Appendix A).
+- **Matching and paid tools:** a basic free matching shortlist "where reliable data exists", and routes to five paid
+  tools.
+- **Questions:** 51 in sections A–U, aiming at 6–10 minutes.
+
+#### Analysis
+
+**1. What already matches** (built and sent on 2026-10-13, section 24):
+- **The Entry Pathway** is saved before the questions (`trigger`) and never asked again. Links from his cards
+  pre-select it.
+- **Separate service and marketing consent; email required; phone optional.**
+- **Referral tracked from links** (`?ref=`), as Q50's rule asks.
+- **Respite and EPOA reasons** already lead to actions.
+- **Priority actions** keep his fields: what to do, why, next step, who can help, prepare, questions.
+- **Things to check** and **Professional advice** sections exist.
+
+**2. Content work: v2.1 is a new questionnaire.**
+- **Size of the change:**
+  - Ours has 59 questions in 17 sections; his has 51 in sections A–U, with new options and new show-when rules.
+  - Every plan rule (28 actions, pathways, 8 information rows, summary) reads our question IDs (q8, q9, q12, q17,
+    q23…), so each must be re-mapped to his.
+  - The fictional families must be re-answered.
+- **The terms in HANDOFF:** content arrives final in our spreadsheet. Content in another form, or later changes, is
+  extra time. This is both.
+
+**3. Code changes v2.1 needs:**
+
+| # | Change | Est. hours |
+| --- | --- | --- |
+| a | Entry Pathway decides which sections come first after Q1–Q4. Today the order is fixed and conditions only show or hide. This needs a per-pathway "first sections" setting and a change to the "asked earlier" rule check | 4 |
+| b | Q5 hides the option that matches the chosen card (option-level conditions) | 1.5 |
+| c | Short route for the Respite and EPOA cards: Q1–Q4, the respite or EPOA questions, contact. Show-when rules can do most of this | 1 |
+| d | Consent at the end (his Section U) instead of before the questions. Nothing is sent before it, so it is equally safe. Takes his new wording | 1 |
+| e | Q2: name optional ("Mum", "Anonymous"), with "the person you're helping" when blank. Today the contact step requires the first name | 2 |
+| f | Plan: new sections "Important things to address" and "Relevant Ageing Navigator tools" (marked coming soon); "Your likely pathway" becomes "Your main options"; on the page, the review screen and the PDF | 3 |
+| g | "Implementation request" becomes "Coordination" with C1 (yes, maybe, no) and C2 (adds respite and EPOA): form, emails, CSV | 2 |
+| h | Feedback F1–F6: 1–5 scale, clearer steps, tools relevant, recommend, free text | 1.5 |
+| i | Q4 region as a drop-down (Bay of Plenty only for now), Q50 "How did you hear" as a question | 0.5 |
+
+**4. Content estimate:**
+
+| Work | Est. hours |
+| --- | --- |
+| His 51 questions with show-when rules into the spreadsheet | 4 |
+| Re-map every plan rule; new or changed actions (EPOA document location, respite type and timing, funding, carer support); families and tests re-answered | 7 |
+| Checks: browser run, spreadsheet export, deploy | 2 |
+
+**5. Total and the second part:**
+- **Part 1 total:** about **30 hours** (28–32).
+- **Part 2, for the full build, not the pilot:**
+  - "you" wording throughout, for people planning for themselves: 8–10 h;
+  - the full Respite and EPOA modules (A1–A2), with respite availability: 8 h or more;
+  - basic matching: it needs a provider, village and care home data set and its upkeep, and the pilot scope excludes
+    matching. 20 h or more;
+  - the paid tools: separate products.
+
+**6. Conflicts with our product rules, stated as decisions in the reply:**
+- **Urgent check:**
+  - v2.1 has no urgent question ("Ageing Navigator does not determine urgency").
+  - Ours (q18) gives families 111 and Healthline guidance at once and sends navigators an "URGENT" email, which is
+    tested.
+  - **Decision:** keep one urgent question. He can remove it.
+- **Consent at the end:**
+  - acceptable, because answers stay in the browser until sent;
+  - his wording drops storage, retention and sharing. The Health Information Privacy Code expects families to be
+    told this;
+  - **decision:** his wording, plus our storage and retention line.
+- **Q6 free text in the plan opening:**
+  - our rule is never to put a family's free text inside a sentence, because families write things they would not
+    want printed;
+  - **decision:** show Q6 to the navigator at the top of the review screen, who writes the opening.
+- **Q26, "show home support providers":**
+  - the pilot has no provider data, so the promise cannot be kept;
+  - **decision:** leave out Q26 during the pilot and keep the preference questions (Q27, Q29–Q37, Q41–Q42) for the
+    navigator and for later matching.
+- **Matching and paid tools:** out of pilot scope (`pilot-scope-v2.txt`, "Explicitly Out of Scope"). The plan
+  names the tools as coming soon.
+
+**7. Time and money: the user decides.**
+- **Hours so far:** the 52 hours are logged and the pilot plan is used up. The work of 2026-10-12 and 2026-10-13
+  was untracked by the user's decision.
+- **Part 1 is new work** of about 30 hours. Per the working rules it is stated in hours. Rate and billing are the
+  user's call; no rate is quoted.
+- **The reply** includes one sentence with the hours. Delete it if the user decides otherwise.
+
+#### Reply (draft; the user decides on the hours sentence)
+
+Hi Paul,
+
+Thanks for version 2.1. Good news first: the website entry part already works the way it describes. The card a
+family clicks is saved as the Entry Pathway and never asked again; the links in my last message do exactly that.
+
+The rest of 2.1 is a new version of the questionnaire, so I suggest we take it in two parts.
+
+**Part 1, for the pilot:**
+- Your 2.1 questions (Q1–Q50) and show-when rules in the content spreadsheet and on the test site, with the plan
+  rules updated to match.
+- The Entry Pathway decides which section comes first after Q1–Q4, as in your mapping, and Q5 hides the option
+  that matches the card already chosen.
+- The Respite screen (Q16–Q18) and the EPOA check (Q21–Q22) for every family. A family entering through the
+  Respite or EPOA card gets a short route: Q1–Q4, those questions, then contact details.
+- The plan gains "Important things to address" (EPOA, respite, funding, assessment, carer support) and "Relevant
+  Ageing Navigator tools" (marked "coming soon" until the tools exist), and "Your main options" replaces the single
+  pathway.
+- "Implementation" becomes "Coordination", with C1–C2, and the feedback becomes F1–F6.
+- The name (Q2) becomes optional, with "the person you're helping" when it is left blank.
+
+**Part 2, with the full build:**
+- Wording that switches between "you" and "the person you're helping" throughout.
+- Basic matching of providers, villages and care homes. It needs reliable provider data first.
+- The full Respite and EPOA modules (Appendix A1–A2) and the paid tools.
+
+**Decisions I'll take, each a small change if you want it different:**
+- **Urgent check:** 2.1 has no question about urgent concerns. I'll keep our one question, so a family in
+  difficulty sees 111 and Healthline straight away and you get an "URGENT" email.
+- **Consent:** at the end, as in 2.1, just before the answers are sent. Nothing leaves the family's device before
+  then. I'll use your wording and add one line on where answers are stored and for how long, which the privacy rules
+  expect.
+- **Q6 (their own words):** shown to you at the top of the review screen, so you can use it in the opening of the
+  plan. It is not printed into the plan automatically.
+- **Q26 (show home support providers):** left out during the pilot, as there is no provider list to show yet. The
+  preference questions (Q27, Q29–Q37, Q41–Q42) stay, so you can see them.
+
+Part 1 is about 30 hours of work, beyond the 56-hour pilot plan.
+
+Once you confirm Part 1, I'll start with your questions in the spreadsheet, then the plan rules, and send you the
+test site to try.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:** the user decides on the hours sentence and on billing. With the 56-hour plan used up, extra
+  hours need the client's agreement on Upwork.
+- **When confirmed, build in this order:**
+  1. questions and rules (content);
+  2. the fictional families re-answered;
+  3. engine changes (a, b, c);
+  4. the plan sections (f);
+  5. consent and name (d, e);
+  6. coordination and feedback (g, h);
+  7. the rest (i);
+  8. tests, the browser check at three widths with axe, deploy.
+- **Staging data:** existing cases use the old questions. Delete them before his acceptance run.
+
