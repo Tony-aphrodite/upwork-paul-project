@@ -2662,7 +2662,7 @@ Two messages, in reply to the section 25 reply.
   - **Turn on backups:** the Supabase Pro plan, paid by him to Supabase.
 - **Hours and billing are the user's call.** The reply states the estimate in hours and quotes no rate.
 
-#### Reply (draft)
+#### Reply (draft, NOT SENT: superseded by the combined reply in section 27)
 
 Hi Paul,
 
@@ -2720,4 +2720,152 @@ Valdis
   - **The wording sentence:** "What brought you here: you want help understanding what to do next." It is not left
     out the way "not sure" was. Check that it reads well.
   - **Icons:** `what_next` gets the compass; `carer_change` keeps the hand-heart icon.
+
+### 27. Client to Valdis (received 2026-10-13): no review before sending, and referral tracking
+
+Both arrived before the section 26 reply was sent. They are answered together with section 26 in one reply.
+
+> Hi Valdis,
+>
+> Just let you know that we don't require the plan to be reviewed by anyone before it is sent.
+>
+> This should make the process much easier.
+>
+> Thanks so much
+
+> Hi Valdis,
+>
+> I am planning to reach out to a number of different organisations to promote this tool and it would be good if we
+> can measure the responses by tracking referrals to their clients/patients, so we know who is best to work with in
+> the future.
+>
+> I'm wondering if there is an easy way to integrate referral tracking into the pilot or if it will be too difficult?
+>
+> Thanks so much
+
+#### Analysis
+
+- **No review before sending reverses a core rule.**
+  - **The old rule:** families never see an unreviewed plan. He chose review-before-release himself in September
+    (section 5 follow-up), and the product rules in `CLAUDE.md` and `HANDOFF.md` rest on it.
+  - **His call:** it is his business decision. It fits the pilot well:
+    - families get their plan at once;
+    - he does less work;
+    - "is the plan useful" is measured on what the engine produces.
+  - **No AI is involved.** Plans are built from his approved wording, so the plan is only as good as that wording.
+    Approving the content becomes the real gate before launch.
+- **How to build it (about 1.5–2 hours), keeping what protects families:**
+  - **On submission,** the plan is released at once: a private link is made, and the release email goes out.
+  - **The thank-you page** links straight to the plan.
+  - **Urgent cases:**
+    - the urgent guidance (111, Healthline) still shows first;
+    - the navigator email still says "URGENT".
+  - **Navigators** still receive an email per new plan. They can open it, edit, and Release again; the old link then
+    stops working. The review screen stays, but it is no longer a gate.
+  - **Wording to change:**
+    - consent ("A navigator checks every plan before it is sent to you");
+    - the release email ("has been checked by a navigator");
+    - the thank-you text and the questionnaire intro;
+    - the navigator guide and the privacy facts sheet;
+    - the product rules in `CLAUDE.md` and `HANDOFF.md`.
+  - **Draft content:** `REQUIRE_APPROVED_CONTENT=1` already refuses submissions while content is draft. On
+    production nothing goes out on unapproved wording.
+- **Referral tracking already works:**
+  - `?ref=` is stored on each case. It shows on the case list and the case page ("via …") and in the CSV export
+    (`referral` column).
+  - **How he uses it:** each organisation gets its own link, for example
+    `https://plan.ageingnavigator.com/start?ref=tauranga-hospital`. It opens the same cards as his site. Allowed
+    characters: lower-case letters, numbers, `-` and `_`, up to 40.
+  - **The catch:** people who go first to ageingnavigator.com and click a card there arrive with `ref=website`, so
+    the organisation is lost. Organisations should share the direct link, or a QR code of it, which we can make.
+  - **Privacy:** report counts per organisation only, never which client used it.
+  - **Optional, about 1 hour:** a small table on the Cases page with submissions, help requests and feedback per
+    referral source.
+  - **Optional, about 0.5 hour:** a "How did you hear about us?" question for people who arrive without a link (Q50
+    in v2.1).
+- **Combined estimate:**
+
+| Work | Hours |
+| --- | --- |
+| 8 cards | 1.5 |
+| Coordination wording and the "first 10 free" line | 1 |
+| Instant plan (no review): release on submit, texts, guide and privacy facts | 2 |
+| Email test | 0.5 |
+| Go-live clean-up and backups | 1.5 |
+| Handover note | 1 |
+| **Total** | **about 7.5, said as "about 8"** |
+| Optional: referral table | 1 |
+| Optional: shorter questionnaire | 1 |
+
+#### Reply (draft; replaces the section 26 draft)
+
+Hi Paul,
+
+Thanks for your messages. Here is a lean plan that covers them all.
+
+The test site already does what the pilot needs to prove: families complete the questionnaire, get a plan and can
+ask for help. So I suggest we keep what is built, set version 2.1 aside until after the pilot, and make only these
+changes:
+
+1. **No review before sending.**
+   - **For families:** as soon as they send their answers, their plan is ready. The thank-you page links straight to
+     it, and the email with their private link goes out at the same time.
+   - **For you:** you still get an email for every new plan, and you can open it, change anything and send an
+     updated version. The old link then stops working.
+   - **Urgent cases:** a family who reports something urgent still sees the 111 and Healthline guidance first, and you
+     get an "URGENT" email.
+2. **Your 8 cards.** I'll fold the merged cards into the existing plan rules and send you the 8 new links for your
+   site. For the merged cards I'll use these descriptions, a small change if you want different ones:
+   - Managing at home is getting harder: "Daily tasks are getting harder, or more help may be needed now or soon."
+   - Caring is becoming too much: "The person providing support is finding it hard to manage, or needs a break."
+   - You want help understanding what to do next: "Planning ahead, or not sure where to start."
+3. **Coordination, not a paid-tools section.** The plan ends with one question: would you like Ageing Navigator to
+   help coordinate everything? It says this is free for the first 10 families.
+4. **Referral tracking already works.**
+   - **The link:** give each organisation its own link, for example:
+     https://plan.ageingnavigator.com/start?ref=tauranga-hospital
+   - **What it does:** it opens the same "What has brought you here?" cards, and every case records the organisation
+     it came from. You see it on each case and in the CSV export. Any short name works (letters, numbers and
+     hyphens).
+   - **One catch:** people who go to ageingnavigator.com first and click a card there count as "website". So give
+     organisations the direct link, or a QR code of it, which I can make for you.
+   - **Optional, about an hour:** a small table on the Cases page with the number of plans and help requests per
+     organisation.
+5. **Launch steps:**
+   - a test of the emails (you'll receive two test notifications);
+   - removing the test cases;
+   - turning on backups;
+   - a short handover note.
+
+That is about 8 hours in total; the table in point 4 is optional.
+
+Before launch, two things need you:
+- **Approve the wording.** With no review step, families receive exactly what is in the spreadsheet, so this
+  matters more now. The quickest way: go through the test site as a family would. If you're happy, reply "approved
+  as it is" and I'll mark it all approved, which removes the "Test version" labels. Anything you want changed can go
+  in the spreadsheet or in a short list.
+- **Backups:** upgrade your Supabase project to the Pro plan (Supabase, your project, Settings, Billing). It adds
+  daily backups.
+
+If you'd also like the questionnaire shorter (about 10–15 minutes now), I can remove the questions that do not
+change the plan, in under an hour.
+
+Once you confirm, I'll start with these changes and send you the new links.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - The user decides on the hours sentence.
+  - Confirm the figure that went out in the section 25 reply; he quoted 35.
+- **When confirmed, the order:**
+  1. no-review release on submit (code, texts, tests, browser check);
+  2. the 8 cards (section 26 notes);
+  3. coordination wording;
+  4. the docs: navigator guide, privacy facts, product rules;
+  5. then go-live.
+- **The product rule changes on his instruction (2026-10-13).** Update `CLAUDE.md` and `HANDOFF.md` to: "Plans are
+  released on submission; a navigator can edit and re-release." Keep: no advice wording, approved content only on
+  production, the urgent guidance.
 
