@@ -2561,3 +2561,163 @@ Valdis
   8. tests, the browser check at three widths with axe, deploy.
 - **Staging data:** existing cases use the old questions. Delete them before his acceptance run.
 
+### 26. Client to Valdis (received 2026-10-13): "35 hours is a lot more than I think we need", and 8 cards
+
+Two messages, in reply to the section 25 reply.
+
+> Hi Gibran,
+>
+> Thanks for outlining this.
+>
+> 35hours is a lot more than I think we need in order to run the pilot.
+>
+> Please note that the pilot is a way to prove that the business is actually feasible so I can't afford to pay for
+> too much work, without knowing that people will actually use it. Note that Part 2 won't be required until we have
+> proved the tool is worth building first.
+>
+> What do you suggest we do with minimum hours to get it to a point we can launch.
+>
+> For example, maybe we can reduce pathways, remove the paid tools section and just ask them if they need help
+> coordinating everything (1st 10 people are free).
+>
+> Let me know your thoughts.
+>
+> Thanks
+
+> I'm going to reduce the cards to 8 only, see below:
+> Dementia diagnosis or memory concerns - Only title change
+> Hospital admission or discharge - No change
+> A fall, stroke or change in mobility - No change
+> Managing at home is getting harder - merged with Support or care needs are increasing
+> Caring is becoming too much - merged with A partner/family carer is struggling + You need respite or a break from
+> caring
+> You're considering a retirement village - No change
+> You're exploring residential care - No change
+> You want help understanding what to do next - merged with You want to plan ahead + I'm simply not sure
+> Hope this makes the pathways easier.
+
+#### Analysis
+
+- **Two oddities to check with the user:**
+  - **The name:** he writes "Hi Gibran", not Valdis. It is probably a slip, or a mix-up with someone else he talks to.
+    It needs no comment in the reply; it is signed Valdis as always.
+  - **The figure:** he quotes "35 hours". The section 25 draft said "about 30 hours". Ask the user what was sent.
+- **What he wants:**
+  - the minimum work to launch the pilot;
+  - the pilot exists to prove that families use it, so he will not pay for much before that;
+  - Part 2 is off the table until then;
+  - his own suggestions: fewer pathways, no paid-tools section, and one simple "would you like help coordinating
+    everything?" ask, free for the first 10 families.
+- **The key point: the pilot already works end to end.**
+  - Built, tested and live at plan.ageingnavigator.com:
+    - his cards;
+    - the questionnaire, with consent, the urgent check and an EPOA check for every family (q21);
+    - the plan;
+    - his review and release;
+    - the family's link and PDF;
+    - the help request;
+    - feedback;
+    - the CSV export.
+  - That answers the pilot's three questions: do families finish, is the plan useful, do some ask for help. So the
+    minimum is to keep what is built, set version 2.1 aside until after the pilot, and make only the changes below.
+- **His 8 cards, mapped onto what exists:**
+
+| His card | Option value | Change |
+| --- | --- | --- |
+| Dementia diagnosis or memory concerns | `dementia_diagnosis` | label only |
+| A hospital admission or discharge | `hospital` | none |
+| A fall, stroke or change in mobility | `fall_stroke_mobility` | none |
+| Managing at home is getting harder | `managing_home` | absorbs `support_needs`; no rule used it |
+| Caring is becoming too much | `carer_change` | absorbs `respite`. The carer-support and respite actions read `carer_change` |
+| You're considering a retirement village | `considering_village` | none |
+| You're exploring residential care | `considering_residential` | none |
+| You want help understanding what to do next | `what_next` (new) | absorbs `planning_ahead` and `not_sure`; the future-wishes action reads it |
+
+- **The EPOA card goes.** Its action stays: q21 already asks every family about EPOAs.
+- **New descriptions needed** for the merged cards; his message gives none. We draft them from the old ones, and he
+  can replace them.
+- **Links:** the links sent in section 24 for the removed cards (`support_needs`, `respite`, `epoa`,
+  `not_sure`, `planning_ahead`) will no longer pre-select anything. The app ignores an unknown reason and shows
+  the cards, so nothing breaks, but he needs the new list of 8.
+- **Paid tools:** we have no such section; nothing to remove.
+- **Coordination:**
+  - rename "help with this plan" or "implementation" to "coordination";
+  - the plan ends with one ask, "Would you like Ageing Navigator to help coordinate everything?", saying it is free
+    for the first 10 families;
+  - the request form stays, with the service list simplified.
+- **Minimum to launch, about 6 hours:**
+
+| Work | Hours |
+| --- | --- |
+| 8 cards: content, rules, families, tests, new link list | 1.5 |
+| Coordination wording and the "first 10 free" line; email subject "Coordination request" | 1 |
+| Email test (notifications to him, the release email to `delivered@resend.dev`) | 0.5 |
+| Go-live: delete test cases and accounts, `REQUIRE_APPROVED_CONTENT=1` once approved, backup and restore check | 1.5 |
+| Handover note | 1 |
+| Optional: drop the questions that change nothing in the plan (about 30), so it takes 6–10 minutes | 1 |
+
+- **Two things only he can do:**
+  - **Approve the content.** The simplest route is to go through the test site as a family. If the wording is fine,
+    he says "approved as it is", and we mark every row Approved, which removes "Test version".
+  - **Turn on backups:** the Supabase Pro plan, paid by him to Supabase.
+- **Hours and billing are the user's call.** The reply states the estimate in hours and quotes no rate.
+
+#### Reply (draft)
+
+Hi Paul,
+
+That makes sense, and I agree: keep it lean until families have shown they use it.
+
+The good news is that the test site already does what the pilot needs to prove. Families complete the
+questionnaire, you check and release their plan, and they can ask for help. So the minimum is to keep what is built,
+set version 2.1 aside until after the pilot, and make only these changes:
+
+1. **Your 8 cards.** I'll fold the merged cards into the existing plan rules and send you the 8 new links for your
+   site. For the merged cards I'll use these descriptions, a small change if you want different ones:
+   - Managing at home is getting harder: "Daily tasks are getting harder, or more help may be needed now or soon."
+   - Caring is becoming too much: "The person providing support is finding it hard to manage, or needs a break."
+   - You want help understanding what to do next: "Planning ahead, or not sure where to start."
+2. **Coordination, not a paid-tools section.** The plan ends with one simple question: would you like Ageing
+   Navigator to help coordinate everything? It says this is free for the first 10 families.
+3. **Launch steps:**
+   - a test of the emails (you'll receive two test notifications);
+   - removing the test cases;
+   - turning on backups;
+   - a short handover note.
+
+That is about 6 hours in total.
+
+Before launch, two things need you:
+- **Approve the wording.** The quickest way: go through the test site as a family would. If you're happy, reply
+  "approved as it is" and I'll mark it all approved, which removes the "Test version" labels. Anything you want
+  changed can go in the spreadsheet or in a short list.
+- **Backups:** upgrade your Supabase project to the Pro plan (Supabase, your project, Settings, Billing). It adds
+  daily backups.
+
+If you would also like the questionnaire shorter (it takes about 10–15 minutes now), I can remove the questions that
+do not change the plan, in under an hour.
+
+Once you confirm, I'll start with the 8 cards and send you the links.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - Confirm what figure went out in the section 25 reply (he quotes 35).
+  - The user decides on the hours sentence.
+- **Implementation notes for the 8 cards:**
+  - **Labels and values:** labels as he wrote them. Hospital keeps "A hospital admission or discharge" ("No change").
+    The new value is `what_next`.
+  - **Rules:**
+    - `respite`: `trigger is respite` becomes `trigger is carer_change`;
+    - `carer-support`: `trigger in carer_change, respite` becomes `trigger is carer_change`;
+    - `epoa`: drop `or trigger is epoa`;
+    - `future-wishes`: `trigger is planning_ahead` becomes `trigger is what_next`.
+  - **Fictional families:**
+    - "not-sure" becomes `what_next`;
+    - "village-planning" becomes `what_next`, and still expects the village and future-wishes actions.
+  - **The wording sentence:** "What brought you here: you want help understanding what to do next." It is not left
+    out the way "not sure" was. Check that it reads well.
+  - **Icons:** `what_next` gets the compass; `carer_change` keeps the hand-heart icon.
+
