@@ -3206,7 +3206,7 @@ Valdis
 - **Hours and billing:** he asks how many hours to add, so the reply gives the estimate. Confirm it once his
   spreadsheet is seen. No rate is quoted.
 
-#### Reply (draft)
+#### Reply (draft, NOT SENT: superseded by the update below)
 
 Hi Paul,
 
@@ -3235,4 +3235,98 @@ Valdis
   - check the names against the 30 "Who can help" names. Unmatched names either get an alias column or a rename in
     the actions;
   - keep phone numbers as given. They are real organisations, not fictional data.
+
+#### Update (2026-10-14): his Repository spreadsheet, found
+
+- **Where it is:** the user gave his Google Drive folder. It is his "Ageing Navigator" folder, subfolder "Repository",
+  Google Sheet "Repository", last changed 2026-10-14.
+  - **Not stored here:** the link and a copy of the sheet. It is his business asset (provider data, prices), and this
+    repository is public. A working copy for the build stays outside the repository.
+- **The sheet's tabs:**
+
+| Tab | Rows | Content |
+| --- | --- | --- |
+| Organisations | 15 | Organisation, category, coverage, website, phone, email, address, current information, referral or access method, what is still needed, repository status, last checked (2026-09-16), source URL |
+| Core Source Library | 14 | Topic, organisation, page, use, source type, URL, status, last checked |
+| Status Guide | 6 | Each repository status and whether it "may be used in the Action Plan" |
+| BOP Care Homes | 38 | Facility, operator, district, locality, address; levels as Yes or blank (rest home, hospital, dementia, psychogeriatric, palliative, respite, day care); premium charges; "current vacancy" (dynamic); certification ("Certified – Ministry of Health list"); source; last checked (2026-10-12) |
+| BOP Retirement Villages | 38 | Village, operator, district, locality, living options, care on site, entry prices, fees, DMF, and so on |
+| BOP Home Care Providers | 25 | Provider, funding and access, coverage, contact, services, pricing status, sources |
+| Provider Info Request, Outreach Email | — | His outreach templates |
+
+- **The Organisations are the contacts he means:**
+  - **The 15 entries:**
+    - Health NZ: Tauranga Hospital, Support Net (NASC), Seniorline, Community Allied Health, Social Work, District
+      Nursing;
+    - Dementia Tauranga;
+    - Alzheimers New Zealand;
+    - Age Concern Tauranga;
+    - Stroke Aotearoa;
+    - Parkinson's New Zealand;
+    - Public Trust;
+    - BoP Regional Council Total Mobility;
+    - Work and Income Residential Subsidy Unit;
+    - Enable New Zealand.
+  - **Linking to plans:** his names do not match our 30 "Who can help" names one to one. "NASC service" is Support
+    Net. "Hospital social worker" is Social Work BoP. "Community transport services" is Total Mobility. So contacts
+    are linked to **action keys**: a contact shows when one of its actions is in the plan. We do the mapping, he can
+    change it, and a few can show on every plan (for example Seniorline).
+  - **His Status Guide:**
+    - **Rule:** "Review due" and "Superseded / do not use" must not be used.
+    - **Low-risk background:** the verification-required statuses allow it, and contact details are low-risk
+      background.
+    - **Decision:** show every contact except "Review due" and "Superseded / do not use".
+  - **Re-import:** an import script reads his Organisations tab directly. He keeps one sheet up to date, and we
+    re-import it when it changes.
+- **Revised estimate for contacts:**
+
+| Work | Hours |
+| --- | --- |
+| Import script for his Organisations tab | 0.5 |
+| Contacts in the content, with the status rule | 1 |
+| Mapping the 15 contacts to action keys | 0.5 |
+| Plan section: page, PDF, review screen | 1 |
+| Tests and browser check | 0.5 |
+| **Total** | **about 3.5** |
+
+- **The care home list (section 29) has its data too.**
+  - **What is there:** his BOP Care Homes tab has the levels of care, district, locality, certification and
+    last-checked date, so no template is needed.
+  - **Estimate:** about 5.5 hours, and about 8 hours together with the contacts.
+  - **Never shown:** "current vacancy" (dynamic) and premium charges.
+- **Villages and home care providers** are also in the sheet, which makes matching after the pilot much cheaper.
+
+#### Reply (draft; replaces the draft above)
+
+Hi Paul,
+
+Found it, thanks: the Repository sheet in your Drive. It is in great shape: 15 organisations with phone, email and
+website, plus the Bay of Plenty care homes, villages and home care providers.
+
+**Useful contacts at the end of each plan: about 3.5 hours.**
+- **One sheet to maintain:** I'll read your Organisations tab straight from the sheet, so you keep it up to date in
+  one place, and I re-import it when you change it.
+- **What each plan lists:** the organisations that fit its actions. For example, Dementia Tauranga and Alzheimers New
+  Zealand when there is a dementia action, Support Net when a needs assessment is suggested, and Public Trust with the
+  EPOA action. Seniorline can show on every plan.
+- **Your Status Guide:** rows marked "Review due" or "Superseded / do not use" are left out.
+- **Where it appears:** on the plan page, in the PDF and on your review screen.
+
+**Care home list:**
+- Your care homes tab already has each home's levels of care, district and certification, so it is about 5.5 hours.
+  Both together are about 8 hours.
+- It would show only the levels each home offers, never vacancies or prices, with a line to check availability and
+  costs with the home.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:** the user decides on the hour figures and billing.
+- **Build (if confirmed):**
+  - export his sheet as xlsx (`/export?format=xlsx` on the sheet ID; the user has the link) to a working copy outside
+    the repository;
+  - an import script maps his Organisations columns into a Contacts tab;
+  - an action-key mapping column;
+  - a plan section after Sources, or before it.
 
