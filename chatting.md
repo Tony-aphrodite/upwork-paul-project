@@ -2721,7 +2721,7 @@ Valdis
     out the way "not sure" was. Check that it reads well.
   - **Icons:** `what_next` gets the compass; `carer_change` keeps the hand-heart icon.
 
-### 27. Client to Valdis (received 2026-10-13): no review before sending, and referral tracking
+### 27. Client to Valdis (received 2026-10-13): no review before sending, and referral tracking (combined reply SENT)
 
 Both arrived before the section 26 reply was sent. They are answered together with section 26 in one reply.
 
@@ -2797,7 +2797,7 @@ Both arrived before the section 26 reply was sent. They are answered together wi
 | Optional: referral table | 1 |
 | Optional: shorter questionnaire | 1 |
 
-#### Reply (draft; replaces the section 26 draft)
+#### Reply (SENT; replaces the section 26 draft)
 
 Hi Paul,
 
@@ -2868,4 +2868,136 @@ Valdis
 - **The product rule changes on his instruction (2026-10-13).** Update `CLAUDE.md` and `HANDOFF.md` to: "Plans are
   released on submission; a navigator can edit and re-release." Keep: no advice wording, approved content only on
   production, the urgent guidance.
+
+### 28. Client to Valdis (received 2026-10-14): care home and village comparison in the free plan; region drop-down
+
+> I think since you started, I have had a few meetings and added some things such as comparing retirement villages or
+> rest homes. It would be great if we could add that into the free plan now, but I'm not sure how long that would take?
+> For example, if someone wants to do a comparison of care/rest homes then they will receive a list of the 3 most
+> suitable options based on their input (needs high level care, etc)
+> We haven't really discussed this
+> It may not be required right now but it would be great to show the results to villages after the pilot so they will
+> be interested in partnering with us.
+> One of the purpose of the pilot is to show organisations the results so they will work with us after the full build.
+> I think for the pilot we could just have a list of care homes if that's a result that comes up?
+> Also please change the location section so it's a drop down menu (with only one region - Bay of Plenty) for now
+
+#### Analysis
+
+- **His reply to section 27** raises no objection to the lean 8-hour plan, so that plan stands. He adds two requests.
+- **1. Care home (and village) matching in the free plan.**
+  - **Scope:** matching was explicitly out of pilot scope (`pilot-scope-v2.txt`: "village and care databases,
+    matching and ranking"). His words show he sees it as optional: "may not be required right now", "for the pilot
+    we could just have a list of care homes".
+  - **What we already have:**
+    - The September prototype (tag `prototype-2026-09-23`) holds a transparent matching function
+      (`matchProviders` in `src/lib/engine/generate.ts`). Every option lists the criteria it meets, misses or cannot
+      confirm, and nothing is ranked for payment.
+    - Its provider data is 13 **fictional** records. The logic can be reused; the data cannot.
+  - **The real cost is data:**
+    - **What it takes:** a reliable list of Bay of Plenty care homes with name, town, levels of care (rest home,
+      hospital, dementia, psychogeriatric), phone and website, plus a source and last-checked date.
+    - **Where it can come from:** the official public list of certified aged-care providers. Confirm the exact source
+      before relying on it. Copying a commercial directory's listings may break its terms.
+    - **Who checks it:** he must check the list once before launch.
+  - **With no review before sending** (section 27), the list goes straight to families, so wrong data (a closed home,
+    a wrong level) reaches them unchecked. The data check matters.
+  - **The pilot version ("list of care homes"):**
+    - **When it shows:** when the residential pathway applies.
+    - **What it shows:** up to 3 homes that offer the care level the family **reports** (q19_level: rest home,
+      hospital, dementia, psychogeriatric) in or near the area they chose, each with "why it appears" (for example
+      "Offers dementia care · in Tauranga").
+    - **The wording:** "listed because it appears to match what you told us; not a recommendation; check availability
+      and costs directly; Ageing Navigator receives no payment for listings". His brand guide says "do not imply
+      provider endorsement or preferential treatment".
+    - **No level, no list:** with no reported level, there is no list, only the existing assessment action. We never
+      decide a care level.
+  - **Estimate for care homes:**
+
+| Work | Hours |
+| --- | --- |
+| Data: compile the Bay of Plenty list from the official source | 2.5 |
+| A "Care homes" tab in the content spreadsheet, compiled and checked like the rest | 1.5 |
+| Matching (reusing the prototype's approach) | 1.5 |
+| Plan section on the page, in the PDF and on the review screen (a navigator can remove a home) | 1.5 |
+| Tests | 1 |
+| **Total** | **about 8** |
+
+  - **Villages:** about 4 more hours, for data (accommodation types, care on site, pets) and matching on area,
+    accommodation and care on site.
+- **"Show the results to villages after the pilot":** this needs **no matching**.
+  - **What the pilot already records:** for every case, which families explore villages or residential care, their
+    preferred areas, accommodation types and what matters to them (village questions rv1–rv7, residential rc1 and
+    rc3). These are in the CSV export.
+  - **What to offer:** an anonymised pilot summary for organisations at the end ("x families explored villages; most
+    wanted Tauranga, villas, care on site"), about 2 hours. That is what persuades villages to partner. It also avoids
+    showing organisations any individual family.
+- **2. Region drop-down:**
+  - **The region:** q5_region is a short text today. It becomes a drop-down with "Bay of Plenty".
+  - **A second option:** single-choice questions need two options, and families from elsewhere should not be stuck,
+    so we add "Somewhere else in New Zealand". The pilot plan's local guidance is for the Bay of Plenty. This is a
+    decision, a small change if he wants only one.
+  - **The town:** with care home matching, the town (q5_town, free text) should also become a drop-down of Bay of
+    Plenty towns plus "Other", because matching needs a clean area.
+  - **Code:** a drop-down display for single-choice questions.
+  - **Estimate:** about 1 hour (about 1.5 with the town list).
+- **Recommendation, given his budget:**
+  - **Now:** the lean plan (about 8 hours) plus the region drop-down (about 1 hour), then launch.
+  - **Care homes:** an optional add-on (about 8 hours), only if he wants it in the pilot.
+  - **Villages:** after the pilot.
+  - **At the end:** offer the pilot summary for organisations.
+
+#### Reply (draft)
+
+Hi Paul,
+
+Thanks, both make sense.
+
+**Region drop-down:**
+- I'll do this with the launch changes, about an hour.
+- It will offer "Bay of Plenty", plus "Somewhere else in New Zealand" so a family from elsewhere is not stuck. A
+  small change if you want Bay of Plenty only.
+
+**Care homes in the free plan:**
+- **Possible, and I can reuse matching logic from the original prototype.** The real work is the data: a reliable
+  list of Bay of Plenty care homes with their levels of care (rest home, hospital, dementia, psychogeriatric).
+- **The list:** I would build it from the official public list of certified providers, and you would check it once
+  before launch.
+- **How it would work:**
+  - When residential care comes up, the plan shows up to 3 homes that offer the level of care the family told us
+    about, in or near the area they chose.
+  - Each one says why it appears, for example "Offers dementia care · in Tauranga". The plan also says it is not a
+    recommendation and that availability and costs should be checked directly.
+  - With no review step, families would receive it straight away, so the data check matters.
+- **Time:** about 8 hours for care homes. Retirement villages would be about 4 more.
+
+**Showing results to villages after the pilot:**
+- This needs no matching.
+- The pilot already records, for every family, whether they explore villages or residential care, their preferred
+  areas, accommodation types and what matters most to them.
+- At the end of the pilot I can turn that into an anonymised summary you can show organisations ("x families explored
+  villages; most wanted Tauranga, villas, care on site"), about 2 hours. No individual family is ever shown.
+
+**My suggestion:**
+- Launch with the lean plan plus the region drop-down (about 9 hours together).
+- Add the care home list only if you want it in the pilot rather than after it.
+- Keep the summary for organisations for the end of the pilot.
+
+I'm starting on the launch changes now.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - The user decides on the hour figures and billing. The 56-hour plan is used up; new hours need his agreement on
+    Upwork.
+  - Check that "I'm starting on the launch changes now" matches what the user wants. If he has not confirmed the
+    8 hours, the user may prefer "Once you confirm, I'll start".
+- **If he wants care homes:**
+  - confirm the official source;
+  - compile the list with a source and a last-checked date per record;
+  - reuse the transparent matching approach of `matchProviders` (prototype tag);
+  - never show availability or price claims;
+  - add the disclaimer line.
 
