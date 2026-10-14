@@ -2869,7 +2869,7 @@ Valdis
   released on submission; a navigator can edit and re-release." Keep: no advice wording, approved content only on
   production, the urgent guidance.
 
-### 28. Client to Valdis (received 2026-10-14): care home and village comparison in the free plan; region drop-down
+### 28. Client to Valdis (received 2026-10-14): care home and village comparison in the free plan; region drop-down (reply SENT)
 
 > I think since you started, I have had a few meetings and added some things such as comparing retirement villages or
 > rest homes. It would be great if we could add that into the free plan now, but I'm not sure how long that would take?
@@ -2947,7 +2947,7 @@ Valdis
   - **Villages:** after the pilot.
   - **At the end:** offer the pilot summary for organisations.
 
-#### Reply (draft)
+#### Reply (SENT)
 
 Hi Paul,
 
@@ -3000,4 +3000,77 @@ Valdis
   - reuse the transparent matching approach of `matchProviders` (prototype tag);
   - never show availability or price claims;
   - add the disclaimer line.
+
+### 29. Client to Valdis (received 2026-10-14): Bay of Plenty only; he will build the care home list
+
+> Bay of Plenty only for now.
+> Care homes - I can build the repository for you. Just let me know the time it would take to build as that will
+> decide whether it's worth adding
+
+#### Analysis
+
+- **Region:**
+  - **What he wants:** a drop-down with "Bay of Plenty" as its only option.
+  - **Code:** our single-choice questions need at least two options. The drop-down display therefore allows a single
+    option, shown pre-selected (about 1 hour, part of the launch changes).
+  - **Later:** new regions are added as options in the spreadsheet.
+- **Care homes: he supplies the data, which removes the data-compiling part** (2.5 of the 8 hours in section 28).
+- **What remains to build:**
+
+| Work | Hours |
+| --- | --- |
+| A "Care homes" tab in the content spreadsheet: his template, compiled and checked on import like every other tab | 1.5 |
+| Matching (reusing the prototype's transparent approach): homes offering the care level the family reports, same town first, then the rest of the region; up to 3, each with "why it appears" | 1.5 |
+| The town as a drop-down of Bay of Plenty towns, so matching has a clean area. The list is taken from his data | 0.5 |
+| The plan section on the page, in the PDF and on the review screen (a home can be removed), with the disclaimer | 1.5 |
+| Tests (fictional homes) and the browser check | 1 |
+| **Total** | **about 6** |
+
+- **The template columns:**
+  - Name;
+  - Town;
+  - Levels of care: rest home, hospital, dementia, psychogeriatric (one or more);
+  - Phone;
+  - Website;
+  - Last checked (date);
+  - Status: Active or Closed. Closed homes are never shown.
+- **Without a reported level:**
+  - **Decision:** list up to 3 homes in their town, showing the levels each offers.
+  - **The existing assessment action** explains that a needs assessment decides the level.
+  - We never decide a level.
+- **Data accuracy is his responsibility**, because the list goes straight to families with no review. The plan says
+  homes are listed because they appear to match, that it is not a recommendation, and that availability and costs
+  should be checked directly.
+
+#### Reply (draft)
+
+Hi Paul,
+
+Thanks.
+
+**Region:** Bay of Plenty only, done with the launch changes.
+
+**Care homes:** with you building the list, the build is about 6 hours:
+- **The template:** a "Care homes" tab in the content spreadsheet for you to fill in: name, town, levels of care (rest
+  home, hospital, dementia, psychogeriatric), phone, website and the date you checked it.
+- **The matching:** up to 3 homes that offer the level of care the family tells us about, in their town first, then
+  elsewhere in the Bay of Plenty. Each one says why it appears.
+- **When the level is not known:** up to 3 homes in their town, with the levels each one offers. The plan's
+  assessment action explains how the level is decided.
+- **In the plan:** the new section on the page, in the PDF and on your review screen, with a line saying the list is
+  not a recommendation and that availability and costs should be checked with the home.
+
+If you decide to add it, I'll send you the template first, so you can fill it in while I build the rest.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:** the user decides on the hour figure and on billing.
+- **Launch changes:** if the section 28 reply went out with "I'm starting on the launch changes now", start them:
+  1. no review before sending;
+  2. 8 cards;
+  3. coordination wording;
+  4. the region drop-down with one option;
+  5. then the email test and go-live.
 
