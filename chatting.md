@@ -3074,3 +3074,90 @@ Valdis
   4. the region drop-down with one option;
   5. then the email test and go-live.
 
+### 30. 2026-10-14: Valdis to client: the launch changes are live (ready to send)
+
+#### Analysis
+
+- **Built, tested and deployed on 2026-10-14** (sections 26–29, the "about 9 hours" launch work):
+  - **No review before sending:** the plan is released on submission, shown on the thank-you page, and emailed.
+    Navigators get "New plan sent" or "URGENT: new plan sent".
+  - **The 8 cards.**
+  - **Coordination** wording, with "free for the first 10 families".
+  - **The region:** a drop-down, Bay of Plenty only.
+  - **Wording:** consent, thank-you text and release email no longer promise a review.
+  - **Documents:** navigator guide and privacy facts version 2; the handover note.
+- **Email test on the live address (fictional case AN-GQB2A5, referral `email-test`):**
+  - **The family email** went to `delivered@resend.dev`, Resend's test inbox (`release_email_sent`).
+  - **Paul received two navigator emails:** "New plan sent AN-GQB2A5" and "Coordination request AN-GQB2A5"
+    (`navigators_notified`, twice).
+  - The rest of the 9 hours is done except the go-live clean-up, which waits for his approval, his backups and the end
+    of his testing.
+- **Go-live script:** `deploy-pilot/go-live.sql`.
+  - **What it does:** deletes all cases, events and rate limits, and the test account.
+  - **Who runs it:** the user, in the Supabase SQL editor, at launch. Destructive statements on hosted databases are the
+    user's to run.
+- **Approved-only mode:**
+  1. He says the wording is approved.
+  2. Mark every row Approved and import with `--production`.
+  3. Set `REQUIRE_APPROVED_CONTENT=1` in Vercel and redeploy.
+  4. The "Test version" labels then disappear.
+- **The section 24 links for the removed cards** (`support_needs`, `respite`, `epoa`, `planning_ahead`,
+  `not_sure`) now show the cards without a pre-selected reason. Nothing breaks, but he should use the 8 links below.
+- **Attachments:** `deliverables/Handover-note.pdf`, `deliverables/Navigator-guide.pdf` (version 2) and
+  `deliverables/Privacy-facts.pdf` (version 2).
+
+#### Message (ready to send; attach the three PDFs)
+
+Hi Paul,
+
+The launch changes are done and live at https://plan.ageingnavigator.com/start:
+- **No review step:** as soon as a family finishes, their plan is on the thank-you page and in their email. You get an
+  email for every new plan, and you can still open it, change it and send an updated version.
+- **Your 8 cards,** with the merged descriptions.
+- **Coordination:** the plan ends by asking whether they would like Ageing Navigator to help coordinate everything,
+  free for the first 10 families.
+- **Region:** a drop-down with Bay of Plenty only.
+
+**Emails:**
+- I tested them on the real address today with a fictional family.
+- You should have received two test emails: "New plan sent AN-GQB2A5" and "Coordination request AN-GQB2A5".
+- If they are not in your inbox, please check your spam folder and mark them as not spam.
+
+**Links for your website.** These replace the ones in my earlier message.
+- Each "What has brought you here?" card:
+  - Dementia diagnosis or memory concerns: https://plan.ageingnavigator.com/start?reason=dementia_diagnosis&ref=website
+  - A hospital admission or discharge: https://plan.ageingnavigator.com/start?reason=hospital&ref=website
+  - A fall, stroke or change in mobility: https://plan.ageingnavigator.com/start?reason=fall_stroke_mobility&ref=website
+  - Managing at home is getting harder: https://plan.ageingnavigator.com/start?reason=managing_home&ref=website
+  - Caring is becoming too much: https://plan.ageingnavigator.com/start?reason=carer_change&ref=website
+  - You're considering a retirement village: https://plan.ageingnavigator.com/start?reason=considering_village&ref=website
+  - You're exploring residential care: https://plan.ageingnavigator.com/start?reason=considering_residential&ref=website
+  - You want help understanding what to do next: https://plan.ageingnavigator.com/start?reason=what_next&ref=website
+- **"I'm planning for myself":** https://plan.ageingnavigator.com/start?for=self&ref=website
+- **Every other button** ("Start", "Get your free personalised Action Plan", "I'm helping someone else"):
+  https://plan.ageingnavigator.com/start?ref=website
+
+Attached: a short handover note, and the updated Navigator guide and privacy facts sheet.
+
+To launch, three things need you:
+1. **Approve the wording.**
+   - Go through the questionnaire as a family would, and reply "approved as it is" or send your changes.
+   - I then switch on approved-only mode, which also removes the "Test version" labels.
+2. **Turn on daily backups:** Supabase, your project, Settings, Billing, Pro plan.
+3. **Tell me when you have finished testing,** and the test cases will be cleared so the pilot starts from zero.
+
+At launch, please also change the password you shared for Supabase and Resend.
+
+Valdis
+
+#### Prep notes
+
+- **Attach:** the three PDFs from `deliverables/`.
+- **After his approval:**
+  1. approve every content row and import with `--production`;
+  2. set `REQUIRE_APPROVED_CONTENT=1` in Vercel and redeploy;
+  3. the user runs `deploy-pilot/go-live.sql`;
+  4. ask him to change the shared password; rotate the Resend key too (HANDOFF).
+- **Status of section 29:** whether that reply (the 6-hour care home estimate) was sent is not recorded. Ask the
+  user.
+

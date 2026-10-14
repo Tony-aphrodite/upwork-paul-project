@@ -126,4 +126,4 @@ day 5 AM work (line 9, with line 1e):
 | 2026-10-12 | 2e | Accessibility: axe-core and a keyboard sweep in the browser check; two fixes; keyboard-only and 320 px checks |
 | 2026-10-12 | 4, 8d | Navigator guide and privacy facts sheet (`deliverables/`), with `npm run doc:pdf` |
 | 2026-10-12 | 8 | Security patch: Next.js 15.5.27, postcss 8.5.29 (override inside Next), vitest 3.2.7, tsx 4.23.15; production `npm audit` now 0 |
-
+| 2026-10-14 | 6, 7, 2, 1 | Launch changes (the "about 9 hours" agreed in sections 27–29): plans sent on submission, 8 cards, coordination wording, region drop-down, live email test, docs and handover note. Hours to be logged by the user |

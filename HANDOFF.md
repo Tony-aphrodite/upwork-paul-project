@@ -44,6 +44,23 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-14: launch changes live** (`chatting.md` sections 26–30):
+  - **What changed:**
+    - plans are sent on submission, with no review;
+    - 8 cards;
+    - coordination wording, free for the first 10 families;
+    - the region as a drop-down, Bay of Plenty only.
+  - **Emails tested on the live address** (case AN-GQB2A5): the family email to `delivered@resend.dev`, and two
+    navigator emails to Paul.
+  - **Content** 2026-10-14.1.
+  - **Documents:** the handover note, and the navigator guide and privacy facts (version 2), in `deliverables/`.
+  - **Waiting on Paul:**
+    - wording approval, then `REQUIRE_APPROVED_CONTENT=1`;
+    - Supabase Pro backups;
+    - the end of his testing, then the user runs `deploy-pilot/go-live.sql`;
+    - a password change at launch.
+  - **Optional, not started:** the care home list (about 6 hours, with his data), section 29.
+  - **Set aside until after the pilot:** questionnaire v2.1 (section 25).
 - **2026-10-13: the domain and email are connected, and the questionnaire opens with his reason cards.**
   - **DNS:** the user added the four records in Hostinger, through the collaborator access Paul gave (his Hostinger
     account is paul@homecarers.co.nz). https://plan.ageingnavigator.com is live with its certificate, and
@@ -308,7 +325,7 @@ himself). Fix these in the rules and templates:
 | `deploy-pilot/` | Staging deployment: `deploy.sh`, the Vercel project link. No secrets: those are in Vercel. |
 | `IMPLEMENTATION-PLAN.md` | How the pilot is built: design decisions, routes, tables, content model, and every line of the 56 hours split into steps with a "done when". Start here before coding. |
 | `WORKLOG.md` | Hours per line, the day plan, and every session logged. |
-| `chatting.md` | The full client conversation, sections 1 to 24: verbatim messages, analysis, what was sent, the Upwork memos. |
+| `chatting.md` | The full client conversation, sections 1 to 30: verbatim messages, analysis, what was sent, the Upwork memos. |
 | `pilot-scope-v2.txt` | His "Bare Minimum Pilot" document: the scope basis. |
 | `Proposal.md` | The original Upwork bid (2026-09-22). |
 | `Reply-draft.md` | An early reply draft (history only). |
