@@ -3161,3 +3161,78 @@ Valdis
 - **Status of section 29:** whether that reply (the 6-hour care home estimate) was sent is not recorded. Ask the
   user.
 
+### 31. Client to Valdis (received 2026-10-14): organisations' contact details at the bottom of the plan
+
+> I want to add the contact details of the organisations so these can be added onto the bottom of the action plan.
+> How many hours should I add for this?
+> Actually they're all there in the spreadsheet in the repository folder
+
+#### Analysis
+
+- **What he wants:** a contacts section at the end of every plan, with the contact details of the organisations.
+- **Which spreadsheet:**
+  - The only spreadsheet in our repository is our content spreadsheet (`deliverables/`). It has no contact details.
+  - His "repository folder" is most likely his Google Drive folder: the one he shared on 2 October for brand
+    files, or the one he uses for the care home list he offered to build (section 29). We do not have it.
+  - Ask him to attach it or share the link.
+- **What exists today:**
+  - Actions name 30 organisations or roles under "Who can help", for example Alzheimers New Zealand, Carers NZ,
+    Age Concern, the NASC service, Eldernet, Healthline, Public Trust and Work and Income. They are names only.
+  - The Sources section lists 19 web pages.
+- **Recommended shape:**
+  - **The data:** a "Contacts" tab in the content spreadsheet, filled from his file: organisation, what they help
+    with, phone, email, website, area, last checked, and "show on every plan" (yes or no).
+  - **What each plan shows:** the contacts of the organisations its own actions name ("Who can help"), plus those
+    marked for every plan (for example Healthline and Ageing Navigator).
+  - **Why:** the list stays relevant and short, and it changes with the plan. A fixed list on every plan is simpler
+    (about 1 hour less) but longer and less useful.
+  - **Where it appears:** on the plan page, in the PDF and on the review screen, where a navigator can remove one
+    before sending an updated plan.
+  - **Region:** for regional services (NASC, district nurses, community transport), his list should hold the Bay of
+    Plenty office.
+- **Estimate: about 3–4 hours.**
+
+| Work | Hours |
+| --- | --- |
+| Contacts tab, compiled and checked like the rest | 1 |
+| Linking contacts to the actions' "Who can help" names | 0.5 |
+| Plan section: page, PDF, review screen | 1 |
+| Tests and browser check | 0.5 |
+| Bringing his spreadsheet into the tab (depends on its size and layout) | 0.5–1 |
+| **Total** | **3.5–4, said as "about 3–4"** |
+
+- **With the care home list** (section 29, about 6 hours): they share the directory tab, the plan-section pattern and
+  the review-screen handling, so both together are about 8 hours instead of about 9.5.
+- **Hours and billing:** he asks how many hours to add, so the reply gives the estimate. Confirm it once his
+  spreadsheet is seen. No rate is quoted.
+
+#### Reply (draft)
+
+Hi Paul,
+
+Good idea. A "Useful contacts" section at the end of each plan would take about 3–4 hours:
+- **The data:** your organisations go into the content spreadsheet as a new Contacts tab: name, what they help with,
+  phone, email, website and area. They are checked like the rest of the content.
+- **What each plan lists:** the organisations its own actions mention (for example Alzheimers New Zealand or Carers NZ
+  when those actions appear), plus any you mark to show on every plan, such as Healthline or Ageing Navigator. That
+  keeps the list short and relevant to each family.
+- **Where it appears:** on the plan page and in the PDF. You can remove a contact on the review screen before sending
+  an updated plan.
+
+If you also go ahead with the care home list, the two share most of the work: about 8 hours together instead of
+about 9.5.
+
+I can't see the spreadsheet in what you've shared with me so far. Please attach it here or send me the link, and I'll
+confirm the hours once I've seen how many organisations it holds.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:** the user decides on the hour figures and billing.
+- **When the spreadsheet arrives:**
+  - map its columns to the Contacts tab;
+  - check the names against the 30 "Who can help" names. Unmatched names either get an alias column or a rename in
+    the actions;
+  - keep phone numbers as given. They are real organisations, not fictional data.
+
