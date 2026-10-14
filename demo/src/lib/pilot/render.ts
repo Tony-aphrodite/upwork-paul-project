@@ -89,11 +89,11 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
 
   parts.push(`
     <section class="support">
-      <h2>Help from ${esc(BRAND.name)}</h2>
+      <h2>Help coordinating your next steps</h2>
       ${para(plan.cta)}
       ${ul(plan.services.map((s) => s.label))}
       ${opts.mode === "web" && opts.requestHref
-        ? `<p><a class="button" href="${esc(opts.requestHref)}">Ask for help with this plan</a></p>`
+        ? `<p><a class="button" href="${esc(opts.requestHref)}">Ask us to help coordinate</a></p>`
         : para(opts.contact ?? `To ask for help, use the link in your email, or ${contactLine()}.`)}
     </section>`);
 

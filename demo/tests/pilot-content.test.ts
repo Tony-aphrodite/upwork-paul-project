@@ -120,10 +120,10 @@ describe("the content spreadsheet", () => {
   it("reads option descriptions after a bar, writes them back, and shows such a question as cards", () => {
     const rows = rowsOf();
     const trigger = rows.Questions.find((r) => r.ID === "trigger")!;
-    expect(trigger.Options.split("\n")[0]).toBe("dementia_diagnosis = A dementia diagnosis | Recently diagnosed or concerns about memory changes.");
+    expect(trigger.Options.split("\n")[0]).toBe("dementia_diagnosis = Dementia diagnosis or memory concerns | Recently diagnosed or concerns about memory changes.");
     const compiled = compileContent(rows, { version: "x" });
     const q = compiled.questionnaire.sections[0].questions[0];
-    expect(q.options[0]).toEqual({ value: "dementia_diagnosis", label: "A dementia diagnosis", description: "Recently diagnosed or concerns about memory changes." });
+    expect(q.options[0]).toEqual({ value: "dementia_diagnosis", label: "Dementia diagnosis or memory concerns", description: "Recently diagnosed or concerns about memory changes." });
     expect(isCards(q)).toBe(true);
     expect(isCards(qs.get("q6")!)).toBe(false);
     trigger.Options = trigger.Options.replace(" | Recently diagnosed or concerns about memory changes.", "");
@@ -134,7 +134,7 @@ describe("the content spreadsheet", () => {
     const opening = cardSection(content.questionnaire)!;
     expect(opening.question.id).toBe("trigger");
     expect(opening.question.type).toBe("single");
-    expect(opening.question.options.map((o) => o.value)).toEqual(["dementia_diagnosis", "hospital", "fall_stroke_mobility", "managing_home", "carer_change", "support_needs", "respite", "considering_village", "considering_residential", "epoa", "planning_ahead", "not_sure"]);
+    expect(opening.question.options.map((o) => o.value)).toEqual(["dementia_diagnosis", "hospital", "fall_stroke_mobility", "managing_home", "carer_change", "considering_village", "considering_residential", "what_next"]);
     expect(visibleSections(content.questionnaire, {})[0].id).toBe(opening.section.id);
   });
 
@@ -273,17 +273,24 @@ describe("the pilot engine", () => {
     expect(list(["GP", "Te Whatu Ora"])).toBe("GP and Te Whatu Ora");
   });
 
-  it("leads the two new reasons to the actions that cover them, and words every reason inside a sentence", () => {
+  it("leads the merged cards to the actions that cover them, and words every reason inside a sentence", () => {
     const f = FAMILIES[0];
     const actions = (trigger: string) => generatePilotPlan(content, { ...f.answers, trigger }, f.person, { now: NOW }).actions.map((a) => a.key);
-    expect(actions("respite")).toEqual(expect.arrayContaining(["respite", "carer-support"]));
-    expect(actions("carer_change")).toContain("carer-support");
-    expect(actions("epoa")).toContain("epoa");
+    expect(actions("carer_change")).toEqual(expect.arrayContaining(["respite", "carer-support"]));
+    expect(actions("what_next")).toContain("future-wishes");
     const reason = (trigger: string) => generatePilotPlan(content, { ...f.answers, trigger }, f.person, { now: NOW }).situation.find((s) => s.startsWith("What brought you here"));
-    expect(reason("epoa")).toBe("What brought you here: you want to organise an EPOA.");
+    expect(reason("carer_change")).toBe("What brought you here: caring is becoming too much.");
     expect(reason("considering_village")).toBe("What brought you here: you're considering a retirement village.");
-    expect(reason("fall_stroke_mobility")).toBe("What brought you here: a fall, stroke or change in mobility.");
-    expect(reason("not_sure")).toBeUndefined();
+    expect(reason("what_next")).toBe("What brought you here: you want help understanding what to do next.");
+    expect(reason("dementia_diagnosis")).toBe("What brought you here: dementia diagnosis or memory concerns.");
+  });
+
+  it("keeps the region as a drop-down with Bay of Plenty only, written back as Drop-down", () => {
+    const q = qs.get("q5_region")!;
+    expect(q.display).toBe("dropdown");
+    expect(q.options).toEqual([{ value: "bay_of_plenty", label: "Bay of Plenty" }]);
+    expect(rowsOf().Questions.find((r) => r.ID === "q5_region")!.Type).toBe("Drop-down");
+    expect(isCards(q)).toBe(false);
   });
 
   it("tidies names and never uses gendered pronouns of its own", () => {

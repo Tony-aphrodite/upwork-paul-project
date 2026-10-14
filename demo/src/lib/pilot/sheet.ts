@@ -33,6 +33,7 @@ export const TABS = {
 type TabKey = keyof typeof TABS;
 
 const TYPE_LABEL: Record<QuestionDefinition["type"], string> = { single: "Single choice", multi: "Multiple choice", short: "Short text", long: "Long text", tri_grid: "Grid" };
+export const DROPDOWN_LABEL = "Drop-down";
 export const UNSURE_LABEL = { unsure: "Unsure", dont_know: "Don't know", not_applicable: "Not applicable" } as const;
 type UnsureId = keyof typeof UNSURE_LABEL;
 const PRIORITY_TEXT: Record<Priority, string> = { now: "Now", soon: "Soon", plan_ahead: "Plan ahead" };
@@ -119,10 +120,12 @@ export function compileContent(rows: Rows, opts: { version: string }): PilotCont
   type Draft = { n: number; section: string; whenText: string; q: Record<string, unknown> };
   const drafts: Draft[] = tab("questions").map(({ r, n }) => {
     const id = cell(r, "ID");
-    const type = typeByLabel.get(norm(cell(r, "Type")));
+    // "Drop-down" is a single-choice question shown as a drop-down list; it may have a single option.
+    const dropdown = norm(cell(r, "Type")) === norm(DROPDOWN_LABEL);
+    const type = dropdown ? "single" : typeByLabel.get(norm(cell(r, "Type")));
     const section = cell(r, "Section");
     if (!/^[a-z0-9_]+$/.test(id) || KEYWORDS.has(id)) add("Questions", n, "ID", `"${id}" is not a valid ID: use lower-case letters, numbers and underscores, and not a word such as "and" or "in".`);
-    if (!type) add("Questions", n, "Type", `"${cell(r, "Type")}" is not a type. Use: ${Object.values(TYPE_LABEL).join(", ")}.`);
+    if (!type) add("Questions", n, "Type", `"${cell(r, "Type")}" is not a type. Use: ${[...Object.values(TYPE_LABEL), DROPDOWN_LABEL].join(", ")}.`);
     if (!sectionIds.has(section)) add("Questions", n, "Section", `"${section}" is not in the Sections tab.`);
     const unsure = list(cell(r, "Unsure answers")).map((l) => {
       const u = unsureByLabel.get(norm(l));
@@ -156,6 +159,7 @@ export function compileContent(rows: Rows, opts: { version: string }): PilotCont
         id, type, label: cell(r, "Question"), help: cell(r, "Help") || undefined, optional: required === "no",
         options, unsure, items: pairs(cell(r, "Rows")).map((p) => ({ id: p.value, label: p.label })),
         ...(max !== undefined && Number.isInteger(max) ? { max } : {}),
+        ...(dropdown ? { display: "dropdown" as const } : {}),
         ...(pathway ? { pathway } : {}),
         ...(notes ? { notes } : {}),
       },
@@ -354,7 +358,7 @@ export function contentToRows(c: PilotContent): Rows {
   rows[TABS.questions.name] = q.sections.flatMap((s) => s.questions.map((x) => {
     const declared = x.options.filter((o) => !(x.unsure as string[]).includes(o.value));
     return {
-      ID: x.id, Section: s.id, Pathway: x.pathway ?? "", Type: TYPE_LABEL[x.type], Question: x.label, Help: x.help ?? "",
+      ID: x.id, Section: s.id, Pathway: x.pathway ?? "", Type: x.display === "dropdown" ? DROPDOWN_LABEL : TYPE_LABEL[x.type], Question: x.label, Help: x.help ?? "",
       Options: declared.map((o) => `${o.value} = ${o.label}${o.description ? ` | ${o.description}` : ""}`).join("\n"),
       "Exclusive options": declared.filter((o) => o.exclusive).map((o) => o.value).join(", "),
       "Unsure answers": x.unsure.map((u) => UNSURE_LABEL[u]).join(", "),

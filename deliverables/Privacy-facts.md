@@ -1,6 +1,6 @@
 # Privacy facts for your privacy statement
 
-Ageing Navigator pilot · Version 1 · 12 October 2026
+Ageing Navigator pilot · Version 2 · 14 October 2026
 
 **What this is:** the facts of how the pilot handles personal information. Use it to write your privacy statement,
 to answer families' questions, and to brief anyone who reviews the service.
@@ -19,7 +19,7 @@ privacy adviser, can confirm what your statement needs.
 - when they agreed to the consent wording, and whether they opted in to news.
 
 **Later, if the family uses their plan page:**
-- a help request: the services they want help with, how and when to contact them, and an optional note;
+- a coordination request: the services they want help with, how and when to contact them, and an optional note;
 - feedback on the plan.
 
 **Not collected:**
@@ -32,20 +32,22 @@ privacy adviser, can confirm what your statement needs.
 ## Why it is used
 
 - to build the family's plan from your approved wording;
-- for a navigator to review and release it;
+- to send it to the family as soon as they finish (there is no review step before sending; a navigator can still
+  check it and send an updated version);
 - to send the family their private link;
-- to respond to their help request;
+- to respond to their coordination request;
 - to evaluate the pilot, through an export without names, contact details or free text;
 - to send news, only if they opted in.
 
 ## The consent families agree to
 
-Shown before the first question, with a tick box that must be ticked:
+Shown after the family chooses what has brought them here and before the first question, with a tick box that must
+be ticked:
 
-> Ageing Navigator will use your answers to prepare a personalised Family Ageing Action Plan. A navigator checks every
-> plan before it is sent to you. Your answers are stored securely in Australia, seen only by the Ageing Navigator
-> team, and deleted 12 months after your plan is sent, or sooner if you ask. We do not use AI, and we do not share
-> your answers with anyone else without asking you first.
+> Ageing Navigator will use your answers to prepare a personalised Family Ageing Action Plan, which you receive as
+> soon as you finish. Your answers are stored securely in Australia, seen only by the Ageing Navigator team, and
+> deleted 12 months after your plan is sent, or sooner if you ask. We do not use AI, and we do not share your answers
+> with anyone else without asking you first.
 >
 > I agree, and I have the older person's agreement or am acting in their interests.
 

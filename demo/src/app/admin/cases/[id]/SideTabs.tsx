@@ -27,7 +27,7 @@ export function RequestsTab(props: { requests: RequestView[]; feedback: Feedback
   return (
     <div className="space-y-5">
       <section className="card p-5">
-        <h2 className="text-[17px]">Implementation requests</h2>
+        <h2 className="text-[17px]">Coordination requests</h2>
         {props.requests.length === 0 ? <p className="mt-2 text-muted">None yet.</p> : props.requests.map((r) => (
           <div key={r.id} className="mt-4 border-t border-line pt-4 first:mt-2 first:border-0 first:pt-0">
             <p className="text-[13px] text-muted">{nzDateTime(r.createdAt)}</p>

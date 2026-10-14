@@ -29,6 +29,8 @@ export type CaseRecord = {
 export type CaseSummary = {
   id: string; reference: string; status: CaseStatus; submittedAt: Date; releasedAt: Date | null; urgent: boolean;
   pathways: string[]; referral: string | null; contactName: string; personName: string; openRequests: number; hasFeedback: boolean;
+  /** A navigator has opened it at least once. */
+  opened: boolean;
 };
 
 export type ImplementationRequest = {
@@ -160,15 +162,15 @@ export const LIST_FILTERS: Record<ListFilter, CaseStatus[] | null> = { open: ["s
 export async function listCases(filter: ListFilter, d?: Db): Promise<CaseSummary[]> {
   const statuses = LIST_FILTERS[filter];
   const rows = await (await use(d)).query(
-    `select c.id, c.reference, c.status, c.submitted_at, c.released_at, c.urgent, c.pathways, c.referral, c.contact_name,
+    `select c.id, c.reference, c.status, c.submitted_at, c.released_at, c.urgent, c.pathways, c.referral, c.contact_name, c.reviewed_at is not null as opened,
        coalesce(c.person_preferred_name, c.person_first_name) as person_name, c.feedback is not null as has_feedback,
        (select count(*)::int from implementation_requests r where r.case_id = c.id and r.status = 'new') as open_requests
      from cases c where ($1::text is null or c.status = any(string_to_array($1::text, ',')))
-     order by ${filter === "open" ? "c.urgent desc, " : ""}c.submitted_at desc limit 500`, [statuses ? statuses.join(",") : null]);
+     order by (c.urgent and c.reviewed_at is null and c.status <> 'closed') desc, c.submitted_at desc limit 500`, [statuses ? statuses.join(",") : null]);
   return rows.map((r) => ({
     id: String(r.id), reference: String(r.reference), status: r.status as CaseStatus, submittedAt: date(r.submitted_at)!, releasedAt: date(r.released_at),
     urgent: !!r.urgent, pathways: fromJson<string[]>(r.pathways, "pathways"), referral: (r.referral as string) ?? null, contactName: String(r.contact_name),
-    personName: String(r.person_name), openRequests: Number(r.open_requests), hasFeedback: !!r.has_feedback,
+    personName: String(r.person_name), openRequests: Number(r.open_requests), hasFeedback: !!r.has_feedback, opened: !!r.opened,
   }));
 }
 
@@ -186,11 +188,16 @@ export async function getCase(id: string, d?: Db): Promise<CaseRecord | null> {
 }
 
 /** First look by a navigator moves a new case into review. */
+/**
+ * The first time a navigator opens a case it stops being "New". Plans now go to families on submission, so this also
+ * applies to released cases; only a case that was never released moves on to "In review".
+ */
 export async function markOpened(id: string, navigatorId: string, d?: Db) {
   await (await use(d)).tx(async (t) => {
     const rows = await t.query(
-      `update cases set status = 'in_review', reviewed_at = now(), reviewed_by = $2, updated_at = now(), ${keepWhileWorking(3)}
-       where id = $1 and status = 'submitted' returning id`, [id, navigatorId, config.retentionDaysUnreleased()]);
+      `update cases set reviewed_at = now(), reviewed_by = $2, updated_at = now(),
+         status = case when status = 'submitted' then 'in_review' else status end, ${keepWhileWorking(3)}
+       where id = $1 and reviewed_at is null returning id`, [id, navigatorId, config.retentionDaysUnreleased()]);
     if (rows.length) await logEvent(t, id, navigatorId, "opened");
   });
 }
@@ -233,7 +240,8 @@ async function newLink(t: Db, id: string, tokenHash: string, expires: Date) {
  * Release: freeze the working plan as what the family sees, replace any earlier link, and keep the case until
  * `retainUntil`. The caller creates the token and sends the email.
  */
-export async function release(id: string, version: number, tokenHash: string, navigatorId: string, now = new Date(), d?: Db): Promise<{ version: number; retainUntil: Date }> {
+/** Release the working plan to the family: by a navigator, or by the system when the family submits (navigatorId null). */
+export async function release(id: string, version: number, tokenHash: string, navigatorId: string | null, now = new Date(), d?: Db): Promise<{ version: number; retainUntil: Date }> {
   const retainUntil = addMonths(now, config.retentionMonthsAfterRelease());
   return (await use(d)).tx(async (t) => {
     const [r] = await t.query<{ version: number }>(
@@ -243,7 +251,7 @@ export async function release(id: string, version: number, tokenHash: string, na
       [id, version, now.toISOString(), navigatorId, retainUntil.toISOString()]);
     if (!r) throw new Conflict("This case was changed by someone else, or it is closed. Reload and try again.");
     await newLink(t, id, tokenHash, retainUntil);
-    await logEvent(t, id, navigatorId, "released");
+    await logEvent(t, id, navigatorId ?? "system", "released");
     return { version: Number(r.version), retainUntil };
   });
 }

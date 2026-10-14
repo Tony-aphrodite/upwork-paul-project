@@ -1,14 +1,13 @@
 "use client";
 
 import clsx from "clsx";
-import { ArrowRight, Brain, Building2, CalendarDays, CircleHelp, Coffee, Compass, FileSignature, HandHeart, Hospital, Hotel, House, PersonStanding, TrendingUp, type LucideIcon } from "lucide-react";
+import { ArrowRight, Brain, Building2, Compass, HandHeart, Hospital, Hotel, House, PersonStanding, type LucideIcon } from "lucide-react";
 import type { QuestionDefinition } from "@/lib/questionnaire/schema";
 
 /** An icon for each reason on the client's website. Presentation only: any other option gets the compass. */
 const ICONS: Record<string, LucideIcon> = {
   dementia_diagnosis: Brain, hospital: Hospital, fall_stroke_mobility: PersonStanding, managing_home: House,
-  carer_change: HandHeart, support_needs: TrendingUp, respite: Coffee, considering_village: Building2,
-  considering_residential: Hotel, epoa: FileSignature, planning_ahead: CalendarDays, not_sure: CircleHelp,
+  carer_change: HandHeart, considering_village: Building2, considering_residential: Hotel, what_next: Compass,
 };
 
 /**

@@ -1,14 +1,16 @@
 # Ageing Navigator: pilot
 
-A family answers a questionnaire and receives a personalised **Family Ageing Action Plan**. A navigator checks and
-edits every plan before it is released. The family then gets a private link to the plan and its PDF, and can ask
-Ageing Navigator for help from there.
+A family answers a questionnaire and receives a personalised **Family Ageing Action Plan** at once. It is built from
+the client's approved wording and sent the moment they finish, with no review step (the client's decision,
+2026-10-13). The plan is linked from the thank-you page and emailed as a private link. A navigator is emailed, and can
+edit the plan and send an updated version. From the plan the family can ask Ageing Navigator to help coordinate their
+next steps.
 
 ```
 ageingnavigator.com (the client's site) → /start: reason cards, consent, conditional questions, contact
-  → case stored, plan generated from approved content, navigators emailed
-  → /admin: navigator reviews, edits, previews, releases
-  → email with a private link → /p/…: plan, PDF, help request, feedback
+  → case stored, plan generated from approved content and released at once
+  → thank-you page and email with a private link → /p/…: plan, PDF, coordination request, feedback
+  → navigators emailed; /admin: read, edit, preview, Release again (a new link replaces the old)
 ```
 
 The earlier proof of concept is kept at the git tag `prototype-2026-09-23`: its provider matching, repository and

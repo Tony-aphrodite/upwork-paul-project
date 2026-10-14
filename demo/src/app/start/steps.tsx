@@ -106,7 +106,8 @@ export function ContactStep(props: {
   );
 }
 
-export function DoneStep({ reference, thankYou, urgentGuidance, headingRef }: { reference: string; thankYou: string; urgentGuidance?: string; headingRef: React.Ref<HTMLHeadingElement> }) {
+/** After sending: the plan is ready at once (no review step), so the page links straight to it; the email has the same link. */
+export function DoneStep({ reference, thankYou, link, urgentGuidance, headingRef }: { reference: string; thankYou: string; link?: string; urgentGuidance?: string; headingRef: React.Ref<HTMLHeadingElement> }) {
   return (
     <div className="mx-auto max-w-2xl space-y-5">
       {urgentGuidance && (
@@ -117,8 +118,9 @@ export function DoneStep({ reference, thankYou, urgentGuidance, headingRef }: { 
       )}
       <div className="card p-6 sm:p-8">
         <CheckCircle2 size={30} className="text-ahead" aria-hidden="true" />
-        <Heading ref={headingRef} className="mt-3 text-[29px] outline-none">Your answers have been sent</Heading>
+        <Heading ref={headingRef} className="mt-3 text-[29px] outline-none">{link ? "Your plan is ready" : "Your answers have been sent"}</Heading>
         <p className="mt-3 text-[19px]">{thankYou}</p>
+        {link && <a href={link} className="btn-primary mt-5 !min-h-[48px] !px-5 !text-[18px]">Open your plan<ArrowRight size={16} aria-hidden="true" /></a>}
         <p className="mt-4 text-[16.5px] text-muted">Your reference is <strong className="font-mono text-ink">{reference}</strong>. Please quote it if you contact us.</p>
       </div>
     </div>

@@ -26,7 +26,7 @@ export function visibleSections(doc: Questionnaire, answers: Answers): VisibleSe
 
 /** A single-choice question whose every option has a description is shown as cards; choosing one moves on. */
 export const isCards = (q: QuestionDefinition): boolean =>
-  q.type === "single" && q.options.length >= 2 && q.options.every((o) => !!o.description);
+  q.type === "single" && !q.display && q.options.length >= 2 && q.options.every((o) => !!o.description);
 
 /**
  * The opening card screen: the first section, when it holds one card question that always applies. It is shown before

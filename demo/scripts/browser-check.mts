@@ -103,6 +103,7 @@ async function fillSection(page: Page, answers: Family["answers"]) {
       if (typeof v === "string") {
         const radio = field.locator(`input[type=radio][value="${v}"]`);
         if (await radio.count()) await radio.check();
+        else if (await field.locator("select").count()) await field.locator("select").selectOption(v);
         else await field.locator("input, textarea").first().fill(v);
       } else if (Array.isArray(v)) {
         for (const x of v) await field.locator(`input[type=checkbox][value="${x}"]`).check();
@@ -179,11 +180,18 @@ async function familyRun(browser: Browser, vp: Viewport, fam: Family) {
   }
   await check(page, `${vp}-04-contact`);
   await page.getByRole("button", { name: "Send my answers" }).click();
-  await page.getByRole("heading", { name: "Your answers have been sent" }).waitFor({ timeout: 20000 });
+  // No review step: the plan is ready at once, and the thank-you page links straight to it.
+  await page.getByRole("heading", { name: "Your plan is ready" }).waitFor({ timeout: 20000 });
+  const planHref = await page.getByRole("link", { name: "Open your plan" }).getAttribute("href");
+  if (!planHref || !/\/p\/[A-Za-z0-9_-]{43}$/.test(planHref)) problems.push(`${vp}: no plan link on the thank-you page`);
   const ref = (await page.locator("strong.font-mono").innerText()).trim();
   const urgentShown = await page.getByText("Something may need urgent attention").isVisible();
   note(`${vp}: ${sections} sections, submitted ${ref}${urgentShown ? " (urgent)" : ""}`);
   await check(page, `${vp}-05-thanks`);
+  if (planHref) { // the family can open their plan straight from the thank-you page
+    await page.getByRole("link", { name: "Open your plan" }).click();
+    await page.getByRole("heading", { name: /^For / }).waitFor();
+  }
   await ctx.close();
   return { ref, urgentShown };
 }
@@ -236,7 +244,7 @@ try {
   const preview = await nav.request.get(caseUrl.replace("/admin/cases/", "/api/admin/cases/") + "/pdf");
   if (preview.status() !== 200 || (await preview.body()).subarray(0, 4).toString() !== "%PDF") problems.push(`preview PDF failed (${preview.status()})`);
 
-  await nav.getByRole("button", { name: "Approve and release" }).click();
+  await nav.getByRole("button", { name: "Release again" }).click(); // already sent on submission; this sends the edited version
   await nav.getByRole("button", { name: "Yes, release" }).click();
   await nav.getByText("This link is shown once").waitFor({ timeout: 20000 });
   const link = (await nav.locator("code").first().innerText()).trim();
@@ -267,7 +275,7 @@ try {
         if (execFileSync("pdftotext", [`${OUT}/family.pdf`, "-"]).toString().includes("/p/")) problems.push("the family PDF contains the private link");
       } catch { note("pdftotext not installed: PDF text not checked"); }
       await fp.fill("#rq-phone", "0123456789");
-      await fp.getByRole("button", { name: "Ask Ageing Navigator for help" }).click();
+      await fp.getByRole("button", { name: "Ask us to help coordinate" }).click();
       await fp.getByRole("status").first().waitFor();
       await fp.getByLabel("Very useful").check();
       await fp.getByLabel("Partly").check();
@@ -283,7 +291,7 @@ try {
 
   await nav.reload();
   await nav.getByRole("tab", { name: /Requests and feedback/ }).click();
-  if (!(await nav.getByText("Home Support Setup").first().isVisible())) problems.push("the request is not shown to the navigator");
+  if (!(await nav.getByText("Home support: search and coordination").first().isVisible())) problems.push("the request is not shown to the navigator");
   await check(nav, "desktop-15-requests");
   const csv = await nav.request.get(`${BASE}/api/admin/export`);
   const csvText = await csv.text();

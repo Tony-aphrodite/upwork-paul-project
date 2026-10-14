@@ -5,14 +5,17 @@ import { counts, listCases, STATUS_LABEL, type ListFilter } from "@/lib/cases";
 import { PATHWAY_LABEL, nzDateTime } from "@/lib/format";
 import { requireNavigator } from "@/lib/session";
 
-const TABS: [ListFilter, string][] = [["open", "To review"], ["released", "Released"], ["closed", "Closed"], ["all", "All"]];
+const TABS: [ListFilter, string][] = [["all", "All"], ["released", "Released"], ["open", "Not released"], ["closed", "Closed"]];
 const STATUS_CLS = { submitted: "bg-now-soft text-now", in_review: "bg-soon-soft text-soon", released: "bg-ahead-soft text-ahead", closed: "bg-line/60 text-muted" } as const;
 
-/** The case list. It shows who and what stage, not health details; urgent cases come first in "To review". */
+/**
+ * The case list. It shows who and what stage, not health details. Plans go to families on submission, so the list
+ * shows everything by default; urgent cases nobody has opened yet come first, and unopened cases are marked New.
+ */
 export default async function Cases({ searchParams }: { searchParams: Promise<{ show?: string }> }) {
   await requireNavigator();
-  const show = ((await searchParams).show ?? "open") as ListFilter;
-  const filter: ListFilter = TABS.some(([k]) => k === show) ? show : "open";
+  const show = ((await searchParams).show ?? "all") as ListFilter;
+  const filter: ListFilter = TABS.some(([k]) => k === show) ? show : "all";
   const [rows, n] = await Promise.all([listCases(filter), counts()]);
   return (
     <div>
@@ -36,8 +39,9 @@ export default async function Cases({ searchParams }: { searchParams: Promise<{ 
                   <p className="flex flex-wrap items-center gap-2">
                     <span className="font-mono text-[14px] font-bold text-ink">{c.reference}</span>
                     <span className={clsx("chip", STATUS_CLS[c.status])}>{STATUS_LABEL[c.status]}</span>
+                    {!c.opened && c.status !== "closed" && <span className="chip bg-gold/15 text-ink">New</span>}
                     {c.urgent && <span className="chip bg-now text-white"><AlertTriangle size={12} className="mr-1" aria-hidden="true" />Urgent</span>}
-                    {c.openRequests > 0 && <span className="chip bg-brand text-white"><PhoneCall size={12} className="mr-1" aria-hidden="true" />Help requested</span>}
+                    {c.openRequests > 0 && <span className="chip bg-brand text-white"><PhoneCall size={12} className="mr-1" aria-hidden="true" />Coordination requested</span>}
                     {c.hasFeedback && <span className="chip bg-brand-soft text-brand"><MessageSquare size={12} className="mr-1" aria-hidden="true" />Feedback</span>}
                   </p>
                   <p className="mt-1 truncate text-[15px] font-semibold text-brand">{c.personName} <span className="font-normal text-muted">· for {c.contactName}</span></p>

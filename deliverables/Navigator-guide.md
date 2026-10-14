@@ -1,21 +1,22 @@
 # Navigator guide
 
-Ageing Navigator pilot · Version 1 · 12 October 2026
+Ageing Navigator pilot · Version 2 · 14 October 2026
 
-This guide is for the people who review and release Family Ageing Action Plans. It covers signing in, reviewing,
-releasing, help requests, urgent cases and deleting a case.
+This guide is for the navigators of Ageing Navigator. It covers signing in, reading and changing plans, sending an
+updated plan, coordination requests, urgent cases and deleting a case.
 
 ## How the pilot works
 
-1. A family answers the questionnaire. They agree to the consent wording first, and see only the questions that
+1. A family chooses what has brought them here, agrees to the consent wording, and answers only the questions that
    apply to them.
-2. Their plan is built straight away from your approved wording. The family does **not** see it yet. You get an email
-   with the case reference.
-3. You read the plan, change any wording, remove anything that does not fit, and release it.
-4. The family gets an email with a private link to their plan. From there they can download it as a PDF, ask you for
-   help, and say whether it was useful.
+2. Their plan is built straight away from your approved wording and sent to them at once. The thank-you page links
+   to it, and they get an email with the same private link.
+3. You get an email with the case reference for every new plan.
+4. From their plan page they can download it as a PDF, ask Ageing Navigator to help coordinate their next steps, and
+   say whether the plan was useful.
 
-A family never sees a plan that a navigator has not released.
+There is no review step before a plan is sent (your decision of 13 October 2026). You can still open any plan, change
+it and send the family an updated version; see "Sending an updated plan".
 
 ## Signing in
 
@@ -37,23 +38,23 @@ After signing in you see **Cases**:
 
 | Tab | What it shows |
 | --- | --- |
-| To review | Cases waiting for you. Urgent cases are listed first. |
-| Released | Plans already sent to the family. |
+| All | Everything, newest first. Urgent cases nobody has opened yet are listed first. |
+| Released | Plans sent to the family. |
+| Not released | Cases from before plans were sent automatically. |
 | Closed | Cases you have filed away. |
-| All | Everything. |
 
 **Labels on a case:**
-- **New:** not opened yet.
+- **New:** no navigator has opened it yet.
 - **Urgent:** the family reported something that may need urgent attention; see "Urgent cases" below.
-- **Help requested:** the family has asked for help and it is still open.
+- **Coordination requested:** the family has asked for help coordinating, and the request is still open.
 
 **Emails you receive:**
-- **When a family sends their answers:** "New questionnaire AN-XXXXXX", or "URGENT: new questionnaire AN-XXXXXX".
-- **When a family asks for help:** "Implementation request AN-XXXXXX".
+- **When a family completes the questionnaire:** "New plan sent AN-XXXXXX", or "URGENT: new plan sent AN-XXXXXX".
+- **When a family asks for coordination:** "Coordination request AN-XXXXXX".
 
 These emails carry only the reference, never the family's answers. Sign in to read the case.
 
-## Reviewing a plan
+## Reading and changing a plan
 
 Open a case from the list. The top shows:
 - the reference and the status;
@@ -89,17 +90,16 @@ The case has three tabs:
 care levels, clinical conclusions or financial advice. Those come from assessors and professional advisers, and the
 plan says so.
 
-## Releasing a plan
+## Sending an updated plan
 
-1. Press **Approve and release**, then **Yes, release**.
-2. The plan as it stands becomes the family's plan, and the family is emailed a private link.
-3. The link is also shown on screen once. Use **Copy link** if you want to send it yourself, for example by text.
+Every plan is sent to the family as soon as they finish. To send a corrected or improved version:
+1. Change it and press **Save changes**.
+2. Press **Release again**, then **Yes, release**.
+3. The family is emailed a new private link, and the old link stops working. The new link is also shown on screen
+   once; use **Copy link** if you want to send it yourself, for example by text.
 
 **If the screen says the email was not sent,** copy the link from the screen and send it yourself, or use
-**Email a new link** later. Until email is switched on for your domain, every release works this way.
-
-**To change a plan after release:** edit it, save, and press **Release again**. The family is sent a new link, and
-the old link stops working.
+**Email a new link** later.
 
 **New link to copy** makes a fresh link without changing the plan, for example when a family has lost their email.
 The old link stops working.
@@ -107,17 +107,17 @@ The old link stops working.
 **What the family sees:**
 - their plan;
 - a button to download the PDF;
-- a form to ask for help;
+- a form to ask Ageing Navigator to help coordinate their next steps (free for the first 10 families);
 - a short feedback form.
 
 The PDF carries no link, so a forwarded PDF opens nothing. While any content row is still marked Draft, plans and
 PDFs say "Test version".
 
-## Help requests and feedback
+## Coordination requests and feedback
 
-- **When a family asks for help:**
+- **When a family asks for coordination:**
   - you receive an email;
-  - the case shows **Help requested**;
+  - the case shows **Coordination requested**;
   - the **Requests and feedback** tab shows the services they chose, how and when to contact them, and anything they
     added.
 - **Request status:** **New**, then **Contacted**, then **Closed**. Keep it up to date: the counts feed the pilot's

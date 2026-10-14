@@ -24,6 +24,8 @@ export const QuestionDefinition = z.object({
   label: z.string().min(1),
   help: z.string().optional(),
   format: z.enum(["email"]).optional(),
+  /** Single choice shown as a drop-down list (spreadsheet type "Drop-down"). A drop-down may have one option, pre-selected. */
+  display: z.enum(["dropdown"]).optional(),
   optional: z.boolean().default(false),
   /** Multi-select only: the most options a family may choose, as Q32 ("choose up to three") requires. */
   max: z.number().int().positive().optional(),
@@ -41,7 +43,9 @@ export const QuestionDefinition = z.object({
   items: z.array(z.object({ id: z.string().regex(/^[a-z0-9_]+$/), label: z.string() })).default([]),
   when: Condition.optional().describe("Evaluated against the answers given so far"),
 }).superRefine((q, ctx) => {
-  if ((q.type === "single" || q.type === "multi" || q.type === "tri_grid") && q.options.length < 2) ctx.addIssue({ code: "custom", message: `${q.id}: ${q.type} questions need at least two options`, path: ["options"] });
+  const fewest = q.display === "dropdown" ? 1 : 2;
+  if ((q.type === "single" || q.type === "multi" || q.type === "tri_grid") && q.options.length < fewest) ctx.addIssue({ code: "custom", message: `${q.id}: ${q.type} questions need at least ${fewest === 1 ? "one option" : "two options"}`, path: ["options"] });
+  if (q.display && q.type !== "single") ctx.addIssue({ code: "custom", message: `${q.id}: only single-choice questions can be a drop-down`, path: ["display"] });
   if (q.type === "tri_grid" && q.items.length < 1) ctx.addIssue({ code: "custom", message: `${q.id}: a grid needs at least one row`, path: ["items"] });
   if (q.max !== undefined && q.type !== "multi") ctx.addIssue({ code: "custom", message: `${q.id}: max only applies to multi-select questions`, path: ["max"] });
   const values = q.options.map((o) => o.value);

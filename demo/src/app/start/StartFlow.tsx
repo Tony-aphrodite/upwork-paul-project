@@ -12,7 +12,7 @@ const KEY = "an-questionnaire-draft-v2";
 const EMPTY: Contact = { name: "", email: "", phone: "", firstName: "", preferredName: "" };
 type Step = "intro" | { section: string } | "contact" | "done";
 type Draft = { answers: Answers; sectionId?: string; referral?: string; submissionId?: string };
-type Done = { reference: string; urgent: boolean; urgentGuidance?: string };
+type Done = { reference: string; urgent: boolean; urgentGuidance?: string; link?: string };
 
 /** Server error paths such as "contact.email" mapped to the contact form's fields. */
 const CONTACT_FIELD: Record<string, keyof Contact> = { "contact.name": "name", "contact.email": "email", "contact.phone": "phone", "person.firstName": "firstName", "person.preferredName": "preferredName" };
@@ -25,7 +25,7 @@ const CONTACT_FIELD: Record<string, keyof Contact> = { "contact.name": "name", "
  *
  * Answers (never contact details) are kept in this browser until they are sent, with the section reached, so the
  * questionnaire can be finished in two sittings; a draft from an older questionnaire keeps the answers that still fit.
- * After sending, the family is told the plan will be sent once a navigator has checked it.
+ * After sending, the plan is ready at once: the thank-you page links to it, and the same private link is emailed.
  */
 export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: StartTexts; draft: boolean }) {
   const cards = useMemo(() => cardSection(doc), [doc]);
@@ -185,7 +185,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
     } finally { setBusy(false); }
   }
 
-  if (step === "done" && done) return <DoneStep reference={done.reference} thankYou={texts.thankYou} urgentGuidance={done.urgent ? done.urgentGuidance : undefined} headingRef={heading} />;
+  if (step === "done" && done) return <DoneStep reference={done.reference} thankYou={texts.thankYou} link={done.link} urgentGuidance={done.urgent ? done.urgentGuidance : undefined} headingRef={heading} />;
 
   if (step === "intro") {
     const reason = cards ? cards.question.options.find((o) => o.value === answers[cards.question.id])?.label : undefined;

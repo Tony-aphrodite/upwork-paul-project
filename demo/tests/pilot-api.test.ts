@@ -60,7 +60,7 @@ beforeAll(async () => {
 });
 
 describe("submitting the questionnaire", () => {
-  it("stores the case, tells the navigators, and returns no plan", async () => {
+  it("stores the case, releases the plan at once with a private link, emails the family and tells the navigators", async () => {
     sent.length = 0;
     const res = await submit(req("/api/submit", submission(0)), none);
     expect(res.status).toBe(201);
@@ -68,15 +68,25 @@ describe("submitting the questionnaire", () => {
     expect(body.reference).toMatch(/^AN-/);
     expect(body).not.toHaveProperty("plan");
     expect(body.urgent).toBe(false);
+    expect(body.link).toMatch(/\/p\/[A-Za-z0-9_-]{43}$/);
     const c = (await listCases("all")).find((x) => x.reference === body.reference)!;
+    expect(c.status).toBe("released");
+    expect(c.opened).toBe(false);
     const full = (await getCase(c.id))!;
     expect(full.referral).toBe("gp-clinic");
     expect(full.contactPhone).toBe("0123456789");
     expect(full.workingPlan.personName).toBe("Peggy");
-    expect(sent).toHaveLength(1);
-    expect(sent[0].to).toEqual(["dee@example.test"]);
-    expect(sent[0].subject).toBe(`New questionnaire ${body.reference}`);
-    expect(sent[0].text).not.toMatch(/Peggy|Anna|falls/i);
+    expect(full.releasedPlan).toEqual(full.workingPlan);
+    expect(full.releaseEmailStatus).toBe("sent");
+    const linked = (await caseForToken(body.link.split("/p/")[1]))!;
+    expect(linked.reference).toBe(body.reference);
+    expect(sent).toHaveLength(2);
+    expect(sent[0].to).toEqual([FAMILIES[0].contact.email]);
+    expect(sent[0].text).toContain(body.link);
+    expect(sent[0].text).not.toMatch(/Peggy|falls/i);
+    expect(sent[1].to).toEqual(["dee@example.test"]);
+    expect(sent[1].subject).toBe(`New plan sent ${body.reference}`);
+    expect(sent[1].text).not.toMatch(/Peggy|Anna|falls/i);
   });
 
   it("returns the urgent guidance straight away and marks the case urgent", async () => {
@@ -84,16 +94,19 @@ describe("submitting the questionnaire", () => {
     const body = await (await submit(req("/api/submit", submission(2)), none)).json();
     expect(body.urgent).toBe(true);
     expect(body.urgentGuidance).toMatch(/111/);
-    expect(sent[0].subject).toMatch(/^URGENT/);
+    expect(body.link).toBeTruthy();
+    expect(sent.map((e) => e.subject)).toContain(`URGENT: new plan sent ${body.reference}`);
   });
 
-  it("makes one case, and one email, when the same submission arrives twice", async () => {
+  it("makes one case, and sends its emails once, when the same submission arrives twice", async () => {
     sent.length = 0;
     const id = "retry-0000-0000-0000-000000000001";
     const a = await (await submit(req("/api/submit", submission(1, { submissionId: id })), none)).json();
     const b = await (await submit(req("/api/submit", submission(1, { submissionId: id })), none)).json();
     expect(b.reference).toBe(a.reference);
-    expect(sent).toHaveLength(1);
+    expect(a.link).toBeTruthy();
+    expect(b.link).toBeUndefined(); // the link exists once; the email already has it
+    expect(sent).toHaveLength(2);
   });
 
   it("refuses missing answers with the question IDs, a missing consent and a bad email", async () => {
@@ -235,7 +248,7 @@ describe("review and release", () => {
     sent.length = 0;
     const help = await requestHelp(req(`/api/p/${fresh}/request`, { services: ["home_support_setup", "made-up"], contactMethod: "email", phone: "not checked for email" }), ctx({ token: fresh }));
     expect(help.status).toBe(201);
-    expect(sent[0].subject).toBe(`Implementation request ${c.reference}`);
+    expect(sent[0].subject).toBe(`Coordination request ${c.reference}`);
     expect((await requestHelp(req(`/api/p/${fresh}/request`, { services: [], contactMethod: "phone", phone: "12" }), ctx({ token: fresh }))).status).toBe(422);
     expect((await feedback(req(`/api/p/${fresh}/feedback`, { useful: "very", madeSense: "partly", missing: "Costs", wantsHelp: true }), ctx({ token: fresh }))).status).toBe(200);
     expect((await requestHelp(req(`/api/p/${token}/request`, { services: [], contactMethod: "email" }), ctx({ token }))).status).toBe(404);

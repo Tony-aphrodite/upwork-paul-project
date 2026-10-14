@@ -24,6 +24,6 @@ export const POST = familyRoute(async (req, c) => {
   const known = new Set(c.releasedPlan.services.map((s) => s.id));
   const { contactMethod, phone, bestTime, message } = parsed.data;
   await addRequest(c.id, { services: parsed.data.services.filter((s) => known.has(s)), contactMethod, phone: contactMethod === "phone" ? phone : null, bestTime, message });
-  await notifyNavigators(`Implementation request ${c.reference}`, [`A family has asked Ageing Navigator for help with their plan. Reference ${c.reference}.`], c.id);
+  await notifyNavigators(`Coordination request ${c.reference}`, [`A family would like Ageing Navigator to help coordinate their next steps. Reference ${c.reference}.`], c.id);
   return ok({ ok: true }, 201);
 });

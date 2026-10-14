@@ -4,11 +4,12 @@ import { checkAll, cleanAnswers, pruneAnswers } from "@/lib/questionnaire/logic"
 import { content, contentBlocked } from "@/lib/pilot/library";
 import { config } from "@/lib/config";
 import { generatePilotPlan } from "@/lib/pilot/engine";
-import { createCase, logEvent } from "@/lib/cases";
+import { createCase, logEvent, release } from "@/lib/cases";
+import { emailFamilyLink, familyLink } from "@/lib/release";
 import { db } from "@/lib/db";
 import { notifyNavigators } from "@/lib/email";
 import { hit } from "@/lib/ratelimit";
-import { clientIp, pseudonym } from "@/lib/secrets";
+import { clientIp, hashToken, newToken, pseudonym } from "@/lib/secrets";
 import { bad, ok, parse } from "@/lib/api";
 import { publicRoute } from "@/lib/route";
 import { log } from "@/lib/log";
@@ -35,9 +36,10 @@ const Input = z.object({
 });
 
 /**
- * The family submits their answers. The case is stored with its generated plan, which a navigator checks before
- * anything is sent: the response carries no plan, only the reference and, when urgent answers were given, the
- * urgent guidance to show straight away. Navigators are told by email, with the reference only.
+ * The family submits their answers. The case is stored with its generated plan, which is released at once (the client
+ * decided on 2026-10-13 that plans need no review before they are sent): the family gets a private link on the
+ * thank-you page and by email. Navigators are told by email, with the reference only, and can still open the plan,
+ * change it and release it again. Urgent answers bring the urgent guidance first and an "URGENT" email.
  */
 export const POST = publicRoute(async (req) => {
   if (contentBlocked(config.requireApprovedContent())) return bad("The questionnaire is not open yet. Please try again soon.", undefined, 503);
@@ -67,13 +69,22 @@ export const POST = publicRoute(async (req) => {
     referral: cleanReferral(input.referral), urgent, pathways: plan.pathways.map((p) => p.id), plan,
     questionnaireVersion: content.questionnaire.version, contentVersion: content.version,
   });
+  // A retried submission finds its case but no link: the link exists only once, in the first response and the email.
+  let link: string | undefined;
   if (created) {
+    const token = newToken();
+    const { retainUntil } = await release(id, 1, hashToken(token), null);
+    await emailFamilyLink({ id, contactEmail: input.contact.email }, token, retainUntil);
+    link = familyLink(token);
     log("case.submitted", { reference, urgent });
     await notifyNavigators(
-      urgent ? `URGENT: new questionnaire ${reference}` : `New questionnaire ${reference}`,
-      [urgent ? `A family has submitted the questionnaire and reported something that may need urgent attention. Reference ${reference}.` : `A family has submitted the questionnaire. Reference ${reference}.`],
+      urgent ? `URGENT: new plan sent ${reference}` : `New plan sent ${reference}`,
+      [urgent
+        ? `A family has completed the questionnaire and reported something that may need urgent attention. Their plan has been sent to them. Reference ${reference}.`
+        : `A family has completed the questionnaire, and their plan has been sent to them. Reference ${reference}.`,
+        "You can open the case to read the plan, change anything and send an updated version."],
       id,
     );
   }
-  return ok({ reference, urgent, ...(urgent ? { urgentGuidance: content.texts.urgent_guidance } : {}) }, 201);
+  return ok({ reference, urgent, ...(link ? { link } : {}), ...(urgent ? { urgentGuidance: content.texts.urgent_guidance } : {}) }, 201);
 });

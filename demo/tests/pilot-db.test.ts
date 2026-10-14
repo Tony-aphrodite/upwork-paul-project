@@ -180,6 +180,21 @@ describe("cases", () => {
     expect(events.every((e) => e.case_id === null)).toBe(true);
   });
 
+  it("can be released by the system on submission, and stop being New once a navigator opens them", async () => {
+    const { id } = await cases.createCase(newCaseInput(0));
+    const { retainUntil } = await cases.release(id, 1, hashToken(newToken()), null);
+    const listed = (await cases.listCases("all")).find((c) => c.id === id)!;
+    expect(listed.status).toBe("released");
+    expect(listed.opened).toBe(false);
+    const [ev] = await (await db()).query<{ actor: string }>("select actor from events where case_id = $1 and type = 'released'", [id]);
+    expect(ev.actor).toBe("system");
+    await cases.markOpened(id, navId);
+    const after = (await cases.getCase(id))!;
+    expect(after.status).toBe("released");
+    expect(after.retainUntil.toISOString()).toBe(retainUntil.toISOString());
+    expect((await cases.listCases("all")).find((c) => c.id === id)!.opened).toBe(true);
+  });
+
   it("put urgent cases first in the open list", async () => {
     await cases.createCase(newCaseInput(2)); // the hospital family is urgent
     const open = await cases.listCases("open");

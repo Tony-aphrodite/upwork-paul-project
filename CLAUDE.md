@@ -92,7 +92,10 @@ message first (updates, requests) get a section too, marked sent once the user c
 
 - **Scope** is the ten-line plan in `HANDOFF.md`, plus the four additions in `IMPLEMENTATION-PLAN.md` section 8.
   Paid tools, payments, matching and repositories come after the pilot.
-- **Families never see an unreviewed plan.** A navigator releases every plan.
+- **Plans are sent on submission** (the client's decision, 2026-10-13, `chatting.md` section 27). There is no
+  review step: the family gets the plan at once. Navigators are emailed, and can edit and release an updated version.
+  The gate is the content instead: production runs with `REQUIRE_APPROVED_CONTENT=1`, so only approved wording is
+  ever sent. Urgent answers still bring the 111 and Healthline guidance first and an "URGENT" email.
 - **Data handling:**
   - no personal data in logs;
   - navigator-only access;

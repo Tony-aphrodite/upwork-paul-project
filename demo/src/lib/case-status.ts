@@ -4,7 +4,7 @@
  */
 export const CASE_STATUSES = ["submitted", "in_review", "released", "closed"] as const;
 export type CaseStatus = (typeof CASE_STATUSES)[number];
-export const STATUS_LABEL: Record<CaseStatus, string> = { submitted: "New", in_review: "In review", released: "Released", closed: "Closed" };
+export const STATUS_LABEL: Record<CaseStatus, string> = { submitted: "Not released", in_review: "In review", released: "Released", closed: "Closed" };
 
 export const REQUEST_STATUSES = ["new", "contacted", "closed"] as const;
 export type RequestStatus = (typeof REQUEST_STATUSES)[number];

@@ -40,7 +40,7 @@ export default async function PlanPage({ params }: { params: Promise<{ token: st
         <div className="anplan mt-8 text-[18px]" dangerouslySetInnerHTML={{ __html: renderPlanSections(plan, { mode: "web", requestHref: "#help" }) }} />
 
         <section id="help" className="card mt-10 scroll-mt-6 p-5 sm:p-7">
-          <h2 className="text-[25px]">Ask for help with this plan</h2>
+          <h2 className="text-[25px]">Help coordinating your next steps</h2>
           <p className="mt-2 text-[18px]">{plan.cta}</p>
           <p className="mt-2 text-[16.5px] text-muted">{content.texts.request_intro}</p>
           <RequestForm token={token} services={plan.services} doneText={content.texts.request_done} />

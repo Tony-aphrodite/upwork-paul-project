@@ -62,7 +62,7 @@ export function RequestForm({ token, services, doneText }: { token: string; serv
       <div><label htmlFor="rq-time" className="label !text-[18px]">Best time to reach you (optional)</label><input id="rq-time" className="field max-w-md !text-[18px]" maxLength={LIMITS.bestTime} value={bestTime} onChange={(e) => setBestTime(e.target.value)} /></div>
       <div><label htmlFor="rq-msg" className="label !text-[18px]">Anything we should know first? (optional)</label><textarea id="rq-msg" rows={3} maxLength={LIMITS.message} className="field !text-[18px]" value={message} onChange={(e) => setMessage(e.target.value)} /></div>
       {error && <p role="alert" className="text-[16.5px] font-semibold text-now">{error}</p>}
-      <button type="submit" className="btn-primary !min-h-[48px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Ask Ageing Navigator for help</button>
+      <button type="submit" className="btn-primary !min-h-[48px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Ask us to help coordinate</button>
     </form>
   );
 }

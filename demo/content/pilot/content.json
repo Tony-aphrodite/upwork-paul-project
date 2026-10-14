@@ -1,9 +1,9 @@
 {
-  "version": "2026-10-13.1",
+  "version": "2026-10-14.1",
   "status": "draft",
   "questionnaire": {
     "id": "ageing-navigator",
-    "version": "2026-10-13.1",
+    "version": "2026-10-14.1",
     "title": "Family Ageing Questionnaire",
     "intro": [
       "Tell us what's happening, and we'll help you work out what to do next.",
@@ -27,7 +27,7 @@
             "options": [
               {
                 "value": "dementia_diagnosis",
-                "label": "A dementia diagnosis",
+                "label": "Dementia diagnosis or memory concerns",
                 "description": "Recently diagnosed or concerns about memory changes."
               },
               {
@@ -43,22 +43,12 @@
               {
                 "value": "managing_home",
                 "label": "Managing at home is getting harder",
-                "description": "Daily tasks are becoming more difficult."
+                "description": "Daily tasks are getting harder, or more help may be needed now or soon."
               },
               {
                 "value": "carer_change",
-                "label": "A partner or family carer is struggling",
-                "description": "The person providing support is finding it harder to manage."
-              },
-              {
-                "value": "support_needs",
-                "label": "Support or care needs are increasing",
-                "description": "More help may be needed now or soon."
-              },
-              {
-                "value": "respite",
-                "label": "You need respite or a break from caring",
-                "description": "A family carer needs a break, or temporary care is needed for a short period."
+                "label": "Caring is becoming too much",
+                "description": "The person providing support is finding it hard to manage, or needs a break."
               },
               {
                 "value": "considering_village",
@@ -71,23 +61,13 @@
                 "description": "Considering a care home because support needs are increasing."
               },
               {
-                "value": "epoa",
-                "label": "You want to organise an EPOA",
-                "description": "You want to put an Enduring Power of Attorney in place or understand what needs to happen next."
-              },
-              {
-                "value": "planning_ahead",
-                "label": "You want to plan ahead",
-                "description": "Thinking about the future even if there are no immediate changes."
-              },
-              {
-                "value": "not_sure",
-                "label": "I'm simply not sure",
-                "description": "I don’t know where to start."
+                "value": "what_next",
+                "label": "You want help understanding what to do next",
+                "description": "Planning ahead, or not sure where to start."
               }
             ],
             "unsure": [],
-            "notes": "2026-10-13: single choice, as the cards on the client's website (ageingnavigator.com). Was multiple choice with 13 options; fall, stroke and mobility merged; respite and epoa added; other removed.",
+            "notes": "2026-10-13: single choice, as the cards on the client's website (ageingnavigator.com). Was multiple choice with 13 options; fall, stroke and mobility merged; respite and epoa added; other removed. 2026-10-13: 8 cards (support needs merged into managing at home; respite into caring; planning ahead and not sure into what_next; EPOA card removed).",
             "items": []
           }
         ]
@@ -276,11 +256,17 @@
           },
           {
             "id": "q5_region",
-            "type": "short",
+            "type": "single",
             "label": "Which region?",
-            "help": "For example Canterbury, Wellington or Nelson.",
+            "help": "The pilot covers the Bay of Plenty for now.",
+            "display": "dropdown",
             "optional": false,
-            "options": [],
+            "options": [
+              {
+                "value": "bay_of_plenty",
+                "label": "Bay of Plenty"
+              }
+            ],
             "unsure": [],
             "items": []
           },
@@ -3877,15 +3863,12 @@
           },
           {
             "field": "trigger",
-            "op": "in",
-            "value": [
-              "carer_change",
-              "respite"
-            ]
+            "op": "eq",
+            "value": "carer_change"
           }
         ]
       },
-      "whenText": "q16 in significant, some or q9 has an_unpaid_family_carer_is_struggling or trigger in carer_change, respite"
+      "whenText": "q16 in significant, some or q9 has an_unpaid_family_carer_is_struggling or trigger is carer_change"
     },
     {
       "key": "respite",
@@ -3922,11 +3905,11 @@
           {
             "field": "trigger",
             "op": "eq",
-            "value": "respite"
+            "value": "carer_change"
           }
         ]
       },
-      "whenText": "q16 is significant or q8 has respite or trigger is respite"
+      "whenText": "q16 is significant or q8 has respite or trigger is carer_change"
     },
     {
       "key": "epoa",
@@ -3967,15 +3950,10 @@
               "no",
               "unsure"
             ]
-          },
-          {
-            "field": "trigger",
-            "op": "eq",
-            "value": "epoa"
           }
         ]
       },
-      "whenText": "q21.epoa_property in no, unsure or q21.epoa_welfare in no, unsure or trigger is epoa"
+      "whenText": "q21.epoa_property in no, unsure or q21.epoa_welfare in no, unsure"
     },
     {
       "key": "will",
@@ -4511,11 +4489,11 @@
           {
             "field": "trigger",
             "op": "eq",
-            "value": "planning_ahead"
+            "value": "what_next"
           }
         ]
       },
-      "whenText": "q23 in not_discussed, family_differs, unsure, open or trigger is planning_ahead"
+      "whenText": "q23 in not_discussed, family_differs, unsure, open or trigger is what_next"
     }
   ],
   "information": [
@@ -4710,24 +4688,24 @@
     "home_heading": "Something has changed. What should happen next?",
     "home_intro": "A fall, a diagnosis, a hospital stay, or simply planning ahead. Answer a few questions about the situation and we will prepare a free, personalised Family Ageing Action Plan: the pathways worth exploring, what to do first, who can help, and what to ask.",
     "notice": "Ageing Navigator provides independent ageing-related information and navigation. It does not provide medical diagnoses, legal or financial advice, or formal government needs assessments. If someone is in immediate danger or needs urgent medical attention, contact the appropriate emergency service.",
-    "consent": "Ageing Navigator will use your answers to prepare a personalised Family Ageing Action Plan. A navigator checks every plan before it is sent to you. Your answers are stored securely in Australia, seen only by the Ageing Navigator team, and deleted 12 months after your plan is sent, or sooner if you ask. We do not use AI, and we do not share your answers with anyone else without asking you first.",
+    "consent": "Ageing Navigator will use your answers to prepare a personalised Family Ageing Action Plan, which you receive as soon as you finish. Your answers are stored securely in Australia, seen only by the Ageing Navigator team, and deleted 12 months after your plan is sent, or sooner if you ask. We do not use AI, and we do not share your answers with anyone else without asking you first.",
     "consent_checkbox": "I agree, and I have the older person's agreement or am acting in their interests.",
-    "thank_you": "Thank you. Your answers have reached Ageing Navigator. A navigator will check your personalised Action Plan and email it to you, usually within a few working days.",
+    "thank_you": "Thank you. Your personalised Family Ageing Action Plan is ready. We have also emailed you a private link to it, so you can come back to it at any time.",
     "urgent_guidance": "If anyone is in immediate danger or needs urgent medical help, call 111 now. For health advice at any time, call Healthline on 0800 611 116. Please do not wait for your Action Plan.",
     "plan_intro": "This plan brings together what you told us about {{name}}'s situation and the steps that may help next. Each step is a possible pathway to investigate, not a decision.",
     "plan_cover_note": "This plan is private to your family. It is information and navigation, not medical, legal or financial advice.",
     "disclaimer": "Ageing Navigator provides independent information and navigation. It does not provide medical diagnoses, legal or financial advice, or formal needs assessments, and it does not decide eligibility for any funding or service. Sources were checked on the dates shown.",
     "pathway_none": "Your answers do not point to one pathway yet, which is common. The steps below help whatever you decide, and a navigator can help you think through the options.",
-    "cta_default": "Would you like Ageing Navigator to organise these next steps for you?",
+    "cta_default": "Would you like Ageing Navigator to help coordinate everything? For the first 10 families, this is free.",
     "email_release_subject": "Your Family Ageing Action Plan is ready",
-    "email_release_body": "Hello,\n\nYour personalised Family Ageing Action Plan has been checked by a navigator and is ready.\n\nOpen your plan: {{link}}\n\nThis link is private to you. It works until {{expires}}. On the plan page you can download it as a PDF, and ask us for help with any of the steps.\n\nAgeing Navigator",
-    "request_intro": "Tell us what you would like help with and a navigator will contact you to talk it through. There is no obligation, and we will tell you the cost before anything starts.",
+    "email_release_body": "Hello,\n\nYour personalised Family Ageing Action Plan is ready.\n\nOpen your plan: {{link}}\n\nThis link is private to you. It works until {{expires}}. On the plan page you can download it as a PDF, and ask us to help coordinate any of the steps.\n\nAgeing Navigator",
+    "request_intro": "Tell us what you would like help with, and a navigator will contact you to talk it through. There is no obligation.",
     "request_done": "Thank you. A navigator will contact you to talk it through.",
     "home_eyebrow": "Free for families in the Bay of Plenty",
     "marketing_consent": "Send me occasional news from Ageing Navigator. This is optional and you can stop at any time.",
-    "cta_stay_home": "Would you like Ageing Navigator to organise your Home Support Setup?",
-    "cta_village": "Would you like Ageing Navigator to help coordinate your Retirement Village Transition?",
-    "cta_residential": "Would you like Ageing Navigator to search for and coordinate Residential Care?",
+    "cta_stay_home": "Would you like Ageing Navigator to help coordinate support at home? For the first 10 families, this is free.",
+    "cta_village": "Would you like Ageing Navigator to help coordinate a move to a retirement village? For the first 10 families, this is free.",
+    "cta_residential": "Would you like Ageing Navigator to help coordinate finding residential care? For the first 10 families, this is free.",
     "feedback_intro": "Ageing Navigator is being tested with a small number of families. Your answers help us make the plans better for the next family.",
     "questionnaire_title": "Family Ageing Questionnaire",
     "questionnaire_intro": "Tell us what's happening, and we'll help you work out what to do next.\n\nThis questionnaire prepares your free personalised Family Ageing Action Plan. Depending on your situation it takes around 10 to 15 minutes, and you will only be shown questions that are relevant to you.\n\nYou don't need to know every answer. “Not sure” is useful information too.\n\nPlease don't include account numbers, passwords, detailed medical records or other highly confidential information.",
@@ -4736,17 +4714,17 @@
   "services": [
     {
       "id": "home_support_setup",
-      "label": "Home Support Setup",
+      "label": "Home support: search and coordination",
       "pathway": "stay_home"
     },
     {
       "id": "village_transition",
-      "label": "Retirement Village Transition",
+      "label": "Retirement village: search and coordination",
       "pathway": "village"
     },
     {
       "id": "residential_transition",
-      "label": "Residential Care Search and Transition",
+      "label": "Residential care: search and coordination",
       "pathway": "residential"
     },
     {

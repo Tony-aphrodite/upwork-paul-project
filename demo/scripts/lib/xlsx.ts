@@ -41,7 +41,7 @@ const HOW_TO = [
 
 const WIDTH: Record<string, number> = { Question: 48, Options: 44, Text: 70, Explanation: 60, "What to do": 40, "Why it matters": 44, "Next step": 44, "Who can help": 28, "What to prepare": 32, "Questions to ask": 40, "Things to check": 36, "Show when": 44, Intro: 50, Title: 30, Help: 36, URL: 40, Value: 40, Label: 36, Notes: 30 };
 const LISTS: Record<string, string[]> = {
-  Type: ["Single choice", "Multiple choice", "Short text", "Long text", "Grid"],
+  Type: ["Single choice", "Drop-down", "Multiple choice", "Short text", "Long text", "Grid"],
   Priority: ["Now", "Soon", "Plan ahead"],
   Status: ["Draft", "Approved"],
   Required: ["yes", "no"],

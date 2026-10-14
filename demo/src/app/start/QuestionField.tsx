@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import clsx from "clsx";
 import type { Answers, QuestionDefinition } from "@/lib/questionnaire/schema";
 import { isAnswered, TEXT_LIMIT } from "@/lib/questionnaire/logic";
@@ -19,6 +20,9 @@ export function QuestionField({ q, value, onChange, issue }: { q: QuestionDefini
     onChange([...selected.filter((x) => !exclusives.has(x)), v]);
   };
   const option = "flex items-start gap-2.5 rounded-lg border p-3 text-[18px] leading-snug";
+  // A drop-down with a single option (the pilot's one region) is answered for the family.
+  const only = q.display === "dropdown" && q.options.length === 1 ? q.options[0].value : undefined;
+  useEffect(() => { if (only && value !== only) onChange(only); }, [only, value, onChange]);
 
   return (
     <fieldset id={`q-${q.id}`} className="min-w-0 scroll-mt-24" aria-describedby={describedBy} aria-invalid={issue ? true : undefined}>
@@ -26,8 +30,14 @@ export function QuestionField({ q, value, onChange, issue }: { q: QuestionDefini
       {q.help && <p id={`help-${q.id}`} className="mt-1 text-[16px] text-muted">{q.help}</p>}
       {issue && <p id={`err-${q.id}`} role="alert" className="mt-1.5 text-[16px] font-semibold text-now">{issue}</p>}
 
-      <div className={clsx("mt-3", (q.type === "single" || q.type === "multi") && "grid gap-2 sm:grid-cols-2")}>
-        {q.type === "single" && q.options.map((o) => (
+      <div className={clsx("mt-3", ((q.type === "single" && !q.display) || q.type === "multi") && "grid gap-2 sm:grid-cols-2")}>
+        {q.display === "dropdown" && (
+          <select className="field max-w-md !text-[18px]" value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label}>
+            {q.options.length > 1 && <option value="">Choose…</option>}
+            {q.options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        )}
+        {q.type === "single" && !q.display && q.options.map((o) => (
           <label key={o.value} className={clsx(option, "cursor-pointer", value === o.value ? "border-brand bg-brand-soft" : "border-line bg-white hover:border-brand/40")}>
             <input type="radio" name={q.id} value={o.value} checked={value === o.value} onChange={() => onChange(o.value)} className="mt-1 accent-brand" />
             <span>{o.label}</span>

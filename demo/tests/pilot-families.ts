@@ -15,7 +15,7 @@ export type Family = {
 
 const base: Answers = {
   trigger: "fall_stroke_mobility",
-  q1: "family_member", q2: "son_daughter", q3: "some", q4: "80_84", q5_town: "Tauranga", q5_region: "Bay of Plenty",
+  q1: "family_member", q2: "son_daughter", q3: "some", q4: "80_84", q5_town: "Tauranga", q5_region: "bay_of_plenty",
   q6: "alone", q6_owns: "yes",
   q8: ["falls", "safety_at_home"], q9: ["a_fall"], q11: "none",
   q12: ["housework", "shopping"], q13: "noticeably_more", q14: ["help_from_family"], q15: "probably_not", q16: "no",
@@ -62,7 +62,7 @@ export const FAMILIES: Family[] = [
     id: "village-planning",
     person: { firstName: "Colin", contactName: "Colin Fictional" }, contact: contact(4),
     answers: {
-      ...base, ...village, trigger: "planning_ahead", q1: "self", q2: undefined as never,
+      ...base, ...village, trigger: "what_next", q1: "self", q2: undefined as never,
       q8: ["planning_ahead_for_ageing", "retirement_villages"], q9: ["nothing_significant_has_changed"], q12: ["they_are_currently_mostly_independent"],
       q13: "same", q15: "yes", q17: ["none_of_these"], q17_falls: "none", q23: "village", q24: ["home_is_too_large_to_manage"],
     },
@@ -82,7 +82,7 @@ export const FAMILIES: Family[] = [
     id: "not-sure",
     person: { firstName: "Frank", contactName: "Mele Fictional" }, contact: contact(6),
     answers: {
-      ...base, trigger: "not_sure", q6: "with_family", q8: ["i_m_not_sure_what_we_should_be_concerned_about"], q9: ["not_sure"],
+      ...base, trigger: "what_next", q6: "with_family", q8: ["i_m_not_sure_what_we_should_be_concerned_about"], q9: ["not_sure"],
       q17: ["not_sure"], q17_falls: "unsure", q23: "not_discussed", q24: ["not_sure"],
     },
     expect: { pathways: ["stay_home"], actions: ["future-wishes"], notActions: ["falls"] },

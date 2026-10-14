@@ -90,7 +90,7 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
         </Box>
       ))}
 
-      <Box title="J. Help from Ageing Navigator"><TextArea value={plan.cta} onChange={(v) => onChange({ ...plan, cta: v })} rows={2} label="Invitation" /></Box>
+      <Box title="J. Coordination"><TextArea value={plan.cta} onChange={(v) => onChange({ ...plan, cta: v })} rows={2} label="Invitation" /></Box>
       <Box title="Internal note (never shown to the family)"><TextArea value={note} onChange={onNote} rows={3} label="Note" /></Box>
     </div>
   );

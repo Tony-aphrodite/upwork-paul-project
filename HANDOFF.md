@@ -179,9 +179,10 @@ sent"):
 - **Content:** his questions, branching, rules and approved wording arrive final, in a spreadsheet we send him. One
   round of wording changes is included, during the fictional-family run. Content that arrives in another form, or
   later changes, is extra time. Say so when it happens.
-- **Review before release:** the family finishes and is told their plan will be sent once it has been checked. He
-  reviews, edits and releases it. The family then receives a private link to the plan and the PDF. Families never
-  see an unreviewed plan.
+- **Review before release (September)**, then **replaced on 2026-10-13** at his request (`chatting.md` section 27):
+  - **Now:** plans are sent the moment a family finishes, on the thank-you page and by email. There is no review
+    step.
+  - **Still possible:** he can edit a plan and send an updated version.
 - **No AI in the 52 hours.** He was told his approved wording with the family's details filled in, plus his edits,
   gives the same plan and keeps health data away from an AI provider. AI wording is **about 8 more hours** once the
   first families have been through. He has since shown interest in OpenAI drafting (sections 6 to 8, for a Google
