@@ -3074,7 +3074,7 @@ Valdis
   4. the region drop-down with one option;
   5. then the email test and go-live.
 
-### 30. 2026-10-14: Valdis to client: the launch changes are live (ready to send)
+### 30. 2026-10-14: Valdis to client: the launch changes are live (NOT SENT: superseded by section 32)
 
 #### Analysis
 
@@ -3329,4 +3329,75 @@ Valdis
   - an import script maps his Organisations columns into a Contacts tab;
   - an action-key mapping column;
   - a plan section after Sources, or before it.
+
+### 32. 2026-10-14: Valdis to client: today's update (ready to send; combines sections 30 and 31)
+
+The user asked for one message on the day's work. It replaces the unsent section 30 message and the section 31
+reply. It is written as plain text, because Upwork messages do not render markdown.
+
+#### Message (ready to send; attach Handover-note.pdf, Navigator-guide.pdf and Privacy-facts.pdf from `deliverables/`)
+
+Hi Paul,
+
+Here is today's update. The launch changes are done and live at https://plan.ageingnavigator.com/start
+
+What changed:
+- No review step: as soon as a family finishes, their plan is on the thank-you page and in their email. You get an
+  email for every new plan, and you can still open it, change it and send an updated version.
+- Your 8 cards, with the merged descriptions.
+- Coordination: the plan ends by asking whether they would like Ageing Navigator to help coordinate everything,
+  free for the first 10 families.
+- Region: a drop-down with Bay of Plenty only.
+
+Emails:
+- I tested them on the real address today with a fictional family.
+- You should have received two test emails: "New plan sent AN-GQB2A5" and "Coordination request AN-GQB2A5".
+- If they are not in your inbox, please check your spam folder and mark them as not spam.
+
+Links for your website (these replace the ones in my earlier message):
+- Each "What has brought you here?" card:
+  - Dementia diagnosis or memory concerns: https://plan.ageingnavigator.com/start?reason=dementia_diagnosis&ref=website
+  - A hospital admission or discharge: https://plan.ageingnavigator.com/start?reason=hospital&ref=website
+  - A fall, stroke or change in mobility: https://plan.ageingnavigator.com/start?reason=fall_stroke_mobility&ref=website
+  - Managing at home is getting harder: https://plan.ageingnavigator.com/start?reason=managing_home&ref=website
+  - Caring is becoming too much: https://plan.ageingnavigator.com/start?reason=carer_change&ref=website
+  - You're considering a retirement village: https://plan.ageingnavigator.com/start?reason=considering_village&ref=website
+  - You're exploring residential care: https://plan.ageingnavigator.com/start?reason=considering_residential&ref=website
+  - You want help understanding what to do next: https://plan.ageingnavigator.com/start?reason=what_next&ref=website
+- "I'm planning for myself": https://plan.ageingnavigator.com/start?for=self&ref=website
+- Every other button ("Start", "Get your free personalised Action Plan", "I'm helping someone else"):
+  https://plan.ageingnavigator.com/start?ref=website
+
+Attached: a short handover note, and the updated Navigator guide and privacy facts sheet.
+
+Your contacts question. I found the Repository sheet in your Drive, and it is in great shape: 15 organisations with
+phone, email and website, plus the Bay of Plenty care homes, villages and home care providers.
+- Useful contacts at the end of each plan: about 3.5 hours.
+  - I'd read your Organisations tab straight from the sheet, so you keep one sheet up to date.
+  - Each plan lists the organisations that fit its actions. For example, Dementia Tauranga and Alzheimers New Zealand
+    with a dementia action, Support Net when a needs assessment is suggested, and Public Trust with the EPOA action.
+    Seniorline can show on every plan.
+  - Rows your Status Guide marks "Review due" or "Superseded" are left out.
+- Care home list:
+  - About 5.5 hours, as your sheet already has each home's levels of care, district and certification.
+  - Both together are about 8 hours.
+  - It would show only the levels each home offers, never vacancies or prices.
+
+To launch, three things need you:
+1. Approve the wording.
+   - Go through the questionnaire as a family would, and reply "approved as it is" or send your changes.
+   - I then switch on approved-only mode, which also removes the "Test version" labels.
+2. Turn on daily backups: Supabase, your project, Settings, Billing, Pro plan.
+3. Tell me when you have finished testing, and the test cases will be cleared so the pilot starts from zero.
+
+At launch, please also change the password you shared for Supabase and Resend.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - Attach the three PDFs.
+  - The user decides on the hour figures (3.5, 5.5, 8) and billing.
+- **Superseded:** section 30's message and section 31's reply; do not send them as well.
 
