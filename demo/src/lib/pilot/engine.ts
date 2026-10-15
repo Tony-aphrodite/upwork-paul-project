@@ -6,6 +6,7 @@ import { questionIndex } from "../questionnaire/logic";
 import type { PilotContent } from "./content";
 import type { PilotPlan } from "./plan";
 import { checkedOnText, matchCareHomes, type CareHomes } from "./care-homes";
+import { pickContacts, type Contacts } from "./contacts";
 
 /**
  * Answers in, a pilot Action Plan out. Pure: no I/O, no clock unless given, no AI. Every sentence comes from the
@@ -54,8 +55,11 @@ function answerPhrase(q: QuestionDefinition | undefined, value: unknown): string
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-/** `careHomes` is the client's care home list; without it (or off the residential pathway) the plan lists none. */
-export function generatePilotPlan(content: PilotContent, answers: Answers, person: Person, opts: { now?: Date; careHomes?: CareHomes } = {}): PilotPlan {
+/**
+ * `careHomes` is the client's care home list; without it (or off the residential pathway) the plan lists none.
+ * `contacts` is his list of organisations; without it the plan has no useful contacts.
+ */
+export function generatePilotPlan(content: PilotContent, answers: Answers, person: Person, opts: { now?: Date; careHomes?: CareHomes; contacts?: Contacts } = {}): PilotPlan {
   const qs = questionIndex(content.questionnaire);
   const name = tidyName(person.preferredName || person.firstName);
   const applies = (c: Condition | undefined) => test(c, answers);
@@ -124,6 +128,9 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
   const careIntro = [care.homes.length && !care.level ? content.texts.care_homes_no_level : "", care.homes.length ? content.texts.care_homes_intro : ""]
     .filter((x): x is string => !!x?.trim()).join(" ");
 
+  // Useful contacts: the organisations that go with the plan's actions, plus those shown on every plan.
+  const contacts = opts.contacts ? pickContacts(opts.contacts, actions.map((a) => a.key), answers) : [];
+
   return {
     schema: "pilot-plan/1",
     generatedAt: (opts.now ?? new Date()).toISOString(),
@@ -146,6 +153,9 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
     careHomes: care.homes,
     careHomesIntro: careIntro,
     careHomesSource: care.homes.length && opts.careHomes ? `These homes come from ${opts.careHomes.source}, checked on ${checkedOnText(opts.careHomes.checkedOn)}.` : "",
+    contacts,
+    contactsIntro: contacts.length ? (content.texts.contacts_intro ?? "").trim() : "",
+    contactsSource: contacts.length && opts.contacts ? `These details come from ${opts.contacts.source}, checked on ${checkedOnText(opts.contacts.checkedOn)}.` : "",
     disclaimer: content.texts.disclaimer,
   };
 }

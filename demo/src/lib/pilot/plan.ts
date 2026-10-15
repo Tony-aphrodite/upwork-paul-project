@@ -49,6 +49,13 @@ export const PlanCareHome = z.object({
 });
 export type PlanCareHome = z.infer<typeof PlanCareHome>;
 
+/** A useful contact from the client's list of organisations; see contacts.ts. `actions` empty: shown on every plan. */
+export const PlanContact = z.object({
+  id: z.string().max(80), name: text(200), phone: text(200).default(""), email: text(200).default(""), website: text(500).default(""),
+  actions: z.array(z.string().max(80)).max(30).default([]), removed: z.boolean().default(false),
+});
+export type PlanContact = z.infer<typeof PlanContact>;
+
 export const PilotPlan = z.object({
   schema: z.literal("pilot-plan/1"),
   generatedAt: z.string(),
@@ -71,6 +78,10 @@ export const PilotPlan = z.object({
   careHomes: z.array(PlanCareHome).max(10).default([]),
   careHomesIntro: text().default(""),
   careHomesSource: text(500).default(""),
+  /** Plans made before the contacts section have none, like care homes. */
+  contacts: z.array(PlanContact).max(30).default([]),
+  contactsIntro: text().default(""),
+  contactsSource: text(500).default(""),
   sources: z.array(ContentSource).max(100),
   disclaimer: text(),
 });
@@ -81,6 +92,11 @@ export const liveActions = (p: PilotPlan) =>
   p.actions.filter((a) => !a.removed).map((a, i) => ({ a, i })).sort((x, y) => priorityRank(x.a.priority) - priorityRank(y.a.priority) || x.i - y.i).map((x) => x.a);
 export const livePathways = (p: PilotPlan) => p.pathways.filter((x) => !x.removed);
 export const liveCareHomes = (p: PilotPlan) => (p.careHomes ?? []).filter((x) => !x.removed);
+/** Contacts still on the plan: not removed, and either on every plan or going with an action still on it. */
+export const liveContacts = (p: PilotPlan) => {
+  const live = new Set(liveActions(p).map((a) => a.key));
+  return (p.contacts ?? []).filter((c) => !c.removed && (!c.actions.length || c.actions.some((k) => live.has(k))));
+};
 export const liveInformation = (p: PilotPlan, section?: PlanInfo["section"]) => p.information.filter((i) => !i.removed && (!section || i.section === section));
 
 /** Section G: every action's "things to check", then the information written for that section. */

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Answers } from "@/lib/questionnaire/schema";
 import { checkAll, cleanAnswers, pruneAnswers } from "@/lib/questionnaire/logic";
-import { careHomes, content, contentBlocked } from "@/lib/pilot/library";
+import { careHomes, contacts, content, contentBlocked } from "@/lib/pilot/library";
 import { config } from "@/lib/config";
 import { generatePilotPlan } from "@/lib/pilot/engine";
 import { createCase, logEvent, release } from "@/lib/cases";
@@ -62,7 +62,7 @@ export const POST = publicRoute(async (req) => {
   if (!(await hit(`submit:${pseudonym(clientIp(req))}`, 10, 3600))) return bad("Too many questionnaires from this connection. Please try again in an hour.", undefined, 429);
 
   const person = { firstName: input.person.firstName, preferredName: input.person.preferredName || undefined, contactName: input.contact.name };
-  const plan = generatePilotPlan(content, answers, person, { careHomes });
+  const plan = generatePilotPlan(content, answers, person, { careHomes, contacts });
   const urgent = !!plan.urgent;
   const { id, reference, created } = await createCase({
     submissionId: input.submissionId, answers, contact: input.contact, person, consentAt: new Date(), marketingConsent: input.marketingConsent,

@@ -94,6 +94,33 @@ On the residential pathway the plan lists up to 3 care homes from the client's o
     favoured.
 - **On the plan:** it says the list is not a recommendation. A navigator can remove a home on the review screen.
 
+## Useful contacts
+
+Every plan ends with the organisations that go with its actions, before the Sources.
+- **The data:** his Repository sheet, tab "Organisations", with its "Status Guide" tab.
+- **To update the list:**
+  1. download the sheet as Excel;
+  2. run `npm run contacts:import -- Repository.xlsx`;
+  3. run the tests, then deploy.
+- **What is imported:** name, phone, email, website, and the areas each serves. It goes into
+  `content/pilot/contacts.json`. His research notes, referral notes and "what we still need" are never imported.
+- **Left out:** rows whose status the Status Guide marks "No" ("Review due", "Superseded / do not use").
+- **Which plans show a contact** (`src/lib/pilot/contacts.ts`):
+  - **Actions:** a contact goes with action keys. It shows when one of them is on the plan, and goes when a navigator
+    removes them.
+    - **The defaults** are in `scripts/contacts-import.mts`.
+    - **His own column:** a "Show with actions" column in his tab overrides them, with action keys, "every plan" or
+      "none".
+  - **Area:** the "Region / Coverage" column.
+    - "National" means everywhere.
+    - "Bay of Plenty" means Health NZ's Bay of Plenty district (Tauranga, Western Bay of Plenty, Whakatāne, Kawerau,
+      Ōpōtiki). Rotorua is in Lakes, so it must be named.
+    - A family in an area the pilot does not know sees the national ones only.
+- **On the plan:**
+  - phone numbers are tap-to-call links on the web page;
+  - each contact says which actions it is for;
+  - the section states the date the list was checked.
+
 ## Brand and documents
 
 - **Brand values:** `src/lib/brand.ts` holds the colours, name and confirmed contact details, from the client's Brand

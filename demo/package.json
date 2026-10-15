@@ -16,7 +16,8 @@
     "check:browser": "tsx scripts/browser-check.mts",
     "fonts:inline": "tsx scripts/fonts-inline.mts",
     "doc:pdf": "tsx scripts/doc-pdf.mts",
-    "care-homes:import": "tsx scripts/care-homes-import.mts"
+    "care-homes:import": "tsx scripts/care-homes-import.mts",
+    "contacts:import": "tsx scripts/contacts-import.mts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.8",

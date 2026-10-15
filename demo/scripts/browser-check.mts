@@ -265,6 +265,7 @@ try {
     await fp.goto(link);
     await fp.getByRole("heading", { name: /^For / }).waitFor();
     if (!(await fp.locator(".anplan").innerText()).includes(edited)) problems.push(`${vp}: the family page lacks the released edit`);
+    if (!(await fp.getByRole("heading", { name: "Useful contacts" }).isVisible())) problems.push(`${vp}: the family page has no useful contacts`);
     await check(fp, `${vp}-20-plan`);
     if (vp === "desktop") {
       const pdf = await fp.request.get(link.replace("/p/", "/api/p/") + "/pdf");
@@ -272,7 +273,9 @@ try {
       if (pdf.status() !== 200 || body.subarray(0, 4).toString() !== "%PDF") problems.push(`family PDF failed (${pdf.status()})`);
       writeFileSync(`${OUT}/family.pdf`, body);
       try {
-        if (execFileSync("pdftotext", [`${OUT}/family.pdf`, "-"]).toString().includes("/p/")) problems.push("the family PDF contains the private link");
+        const pdfText = execFileSync("pdftotext", [`${OUT}/family.pdf`, "-"]).toString();
+        if (pdfText.includes("/p/")) problems.push("the family PDF contains the private link");
+        if (!pdfText.includes("Useful contacts")) problems.push("the family PDF has no useful contacts");
       } catch { note("pdftotext not installed: PDF text not checked"); }
       await fp.fill("#rq-phone", "0123456789");
       await fp.getByRole("button", { name: "Ask us to help coordinate" }).click();

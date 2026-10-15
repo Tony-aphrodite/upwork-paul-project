@@ -1,6 +1,6 @@
 # Handover note
 
-Ageing Navigator pilot · Version 2 · 15 October 2026
+Ageing Navigator pilot · Version 3 · 15 October 2026
 
 This note sums up what the pilot is, where everything lives, how to run it day to day, and what is left before the
 first real family. The Navigator guide explains the screens; the Privacy facts sheet explains how information is
@@ -14,9 +14,10 @@ handled.
    emailed to them as a private link. There is no review step.
 3. You are emailed for every new plan, and for urgent answers with "URGENT" in the subject. You can open any plan,
    change it and send an updated version.
-4. From their plan, the family can download a PDF, ask Ageing Navigator to help coordinate their next steps (free for
+4. Each plan ends with useful contacts from your list of organisations: the ones that go with its actions.
+5. From their plan, the family can download a PDF, ask Ageing Navigator to help coordinate their next steps (free for
    the first 10 families), and say whether the plan was useful.
-5. You export the results as a spreadsheet (CSV) for the pilot evaluation.
+6. You export the results as a spreadsheet (CSV) for the pilot evaluation.
 
 ## Where everything lives
 
@@ -46,8 +47,8 @@ with that reason already chosen.
 
 - **Read the new-plan emails:** open urgent cases first. They are listed first until opened.
 - **Coordination requests:** mark them Contacted, then Closed. The counts feed the pilot results.
-- **Updating the care home list:** edit the "BOP Care Homes" tab of your Repository sheet and ask Valdis to re-import
-  it. It takes a few minutes.
+- **Updating the care home list or the useful contacts:** edit the "BOP Care Homes" or "Organisations" tab of your
+  Repository sheet and ask Valdis to re-import it. It takes a few minutes.
 - **Changing wording:**
   1. edit the content spreadsheet and send it to Valdis;
   2. it is checked and imported;
@@ -77,6 +78,12 @@ with that reason already chosen.
   - Villages and home care providers are not matched yet.
   - Your list's "Website / Contact" column is empty, so the plan shows each home's address. Filling in a phone number
     or website lets the plan show it.
+- **Useful contacts:** the 15 organisations in your Organisations tab.
+  - Stroke Aotearoa and Parkinson's New Zealand are not shown yet, because no question asks about stroke or
+    Parkinson's.
+  - Rotorua families see only the national organisations. "Bay of Plenty" in the coverage column is read as Health
+    NZ's Bay of Plenty district, which does not include Rotorua. Add "Rotorua" to an organisation's coverage when it
+    serves Rotorua too.
 - **"They" wording:** the questions speak about another person. A "you" version for people planning for themselves is
   for the full build.
 - **Questionnaire version 2.1** (modules, respite and EPOA modules, paid tools) is set aside until after the pilot.

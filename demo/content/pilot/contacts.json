@@ -1,0 +1,235 @@
+{
+  "source": "Ageing Navigator's list of organisations",
+  "checkedOn": "2026-09-16",
+  "contacts": [
+    {
+      "id": "health-nz-tauranga-hospital-allied-health-neuro-early-suppor",
+      "name": "Health NZ – Tauranga Hospital / Allied Health / Neuro Early Supported Discharge",
+      "phone": "07 579 8000",
+      "email": "BP-Contact.Us@TeWhatuOra.govt.nz",
+      "website": "https://www.healthnz.govt.nz/hospitals-services/hospitals/bay-of-plenty/tauranga-hospital",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty",
+        "whakatane",
+        "kawerau",
+        "opotiki"
+      ],
+      "actions": [
+        "hospital-discharge",
+        "after-discharge"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "health-nz-support-net-bay-of-plenty",
+      "name": "Health NZ – Support Net Bay of Plenty",
+      "phone": "0800 262 477; Tauranga 07 571 0093",
+      "email": "BP-SupportNet@TeWhatuOra.govt.nz",
+      "website": "https://www.healthnz.govt.nz/hospitals-services/hospitals/bay-of-plenty/support-net-disability-services-bay-of-plenty",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty",
+        "whakatane",
+        "kawerau",
+        "opotiki"
+      ],
+      "actions": [
+        "needs-assessment",
+        "assessment-follow-up",
+        "support-review",
+        "more-help-at-home",
+        "personal-alarm",
+        "respite",
+        "funding-pathways",
+        "residential-assessment"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "health-nz-seniorline",
+      "name": "Health NZ – Seniorline",
+      "phone": "0800 725 463",
+      "email": "seniorline@adhb.govt.nz",
+      "website": "https://www.healthnz.govt.nz/hospitals-services/services-support/older-people/seniorline",
+      "areas": [],
+      "actions": [],
+      "everyPlan": true
+    },
+    {
+      "id": "dementia-tauranga-wbop",
+      "name": "Dementia Tauranga / WBOP",
+      "phone": "07 577 6344",
+      "email": "",
+      "website": "https://dementia.nz/tauranga/",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty"
+      ],
+      "actions": [
+        "memory-gp",
+        "dementia-support"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "alzheimers-new-zealand",
+      "name": "Alzheimers New Zealand",
+      "phone": "04 387 8264",
+      "email": "admin@alzheimers.org.nz",
+      "website": "https://alzheimers.org.nz/",
+      "areas": [],
+      "actions": [
+        "memory-gp",
+        "dementia-support"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "age-concern-tauranga",
+      "name": "Age Concern Tauranga",
+      "phone": "07 578 2631",
+      "email": "info@ageconcerntauranga.org.nz",
+      "website": "https://www.ageconcerntauranga.org.nz/",
+      "areas": [
+        "tauranga"
+      ],
+      "actions": [
+        "social-connection",
+        "falls",
+        "driving",
+        "transport"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "stroke-aotearoa-new-zealand",
+      "name": "Stroke Aotearoa New Zealand",
+      "phone": "0800 STROKE (0800 78 76 53); General 0800 459 954",
+      "email": "help@stroke.org.nz; strokenz@stroke.org.nz",
+      "website": "https://www.stroke.org.nz/",
+      "areas": [],
+      "actions": [],
+      "everyPlan": false
+    },
+    {
+      "id": "parkinson-s-new-zealand",
+      "name": "Parkinson's New Zealand",
+      "phone": "0800 473 4636",
+      "email": "info@parkinsons.org.nz",
+      "website": "https://www.parkinsons.org.nz/",
+      "areas": [],
+      "actions": [],
+      "everyPlan": false
+    },
+    {
+      "id": "public-trust",
+      "name": "Public Trust",
+      "phone": "0800 371 471",
+      "email": "",
+      "website": "https://www.publictrust.co.nz/products-and-services/enduring-power-of-attorney/",
+      "areas": [],
+      "actions": [
+        "epoa",
+        "will"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "bay-of-plenty-regional-council-total-mobility",
+      "name": "Bay of Plenty Regional Council – Total Mobility",
+      "phone": "0800 884 880",
+      "email": "tm.admin@boprc.govt.nz",
+      "website": "https://www.boprc.govt.nz/living-in-the-bay/getting-around/accessible-transport/",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty",
+        "whakatane",
+        "kawerau",
+        "opotiki"
+      ],
+      "actions": [
+        "transport"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "work-and-income-residential-subsidy-unit",
+      "name": "Work and Income – Residential Subsidy Unit",
+      "phone": "0800 999 727",
+      "email": "msd_rcs@msd.govt.nz",
+      "website": "https://www.workandincome.govt.nz/products/a-z-benefits/residential-care-subsidy.html",
+      "areas": [],
+      "actions": [
+        "residential-funding"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "enable-new-zealand",
+      "name": "Enable New Zealand",
+      "phone": "0800 362 253",
+      "email": "enable@enable.co.nz",
+      "website": "https://www.enable.co.nz/",
+      "areas": [],
+      "actions": [
+        "home-safety"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "health-nz-community-allied-health-tauranga",
+      "name": "Health NZ – Community Allied Health Tauranga",
+      "phone": "07 579 8690",
+      "email": "CAHTga.Admin@bopdhb.govt.nz",
+      "website": "https://www.healthnz.govt.nz/hospitals-services/hospitals/bay-of-plenty/speech-language-therapy-bay-of-plenty",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty",
+        "whakatane",
+        "kawerau",
+        "opotiki"
+      ],
+      "actions": [
+        "after-discharge"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "health-nz-social-work-bay-of-plenty",
+      "name": "Health NZ – Social Work Bay of Plenty",
+      "phone": "07 579 8460; patient enquiries 07 579 8000",
+      "email": "",
+      "website": "https://www.healthnz.govt.nz/hospitals-services/hospitals/bay-of-plenty/social-work-bay-of-plenty",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty",
+        "whakatane",
+        "kawerau",
+        "opotiki"
+      ],
+      "actions": [
+        "hospital-discharge"
+      ],
+      "everyPlan": false
+    },
+    {
+      "id": "health-nz-district-nursing-bay-of-plenty",
+      "name": "Health NZ – District Nursing Bay of Plenty",
+      "phone": "Tauranga 07 579 8000; Whakatāne 07 306 0706",
+      "email": "",
+      "website": "https://www.healthnz.govt.nz/hospitals-services/hospitals/bay-of-plenty/district-nursing-bay-of-plenty",
+      "areas": [
+        "tauranga",
+        "western_bay_of_plenty",
+        "whakatane",
+        "kawerau",
+        "opotiki"
+      ],
+      "actions": [
+        "after-discharge"
+      ],
+      "everyPlan": false
+    }
+  ]
+}

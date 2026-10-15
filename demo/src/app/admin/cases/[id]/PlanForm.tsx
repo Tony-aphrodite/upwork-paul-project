@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { Undo2, X } from "lucide-react";
 import { PRIORITIES, PRIORITY_LABEL } from "@/lib/priority";
-import type { PilotPlan, PlanAction, PlanCareHome, PlanInfo, PlanPathway } from "@/lib/pilot/plan";
+import type { PilotPlan, PlanAction, PlanCareHome, PlanContact, PlanInfo, PlanPathway } from "@/lib/pilot/plan";
 import { INFO_SECTIONS } from "@/lib/pilot/content";
 import { PATHWAY_LABEL } from "@/lib/format";
 import { Box, Input, Lines, TextArea } from "./fields";
@@ -25,6 +25,9 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
   const editPathway = (i: number, patch: Partial<PlanPathway>) => onChange({ ...plan, pathways: plan.pathways.map((p, n) => (n === i ? { ...p, ...patch } : p)) });
   const homes = plan.careHomes ?? [];
   const editHome = (id: string, patch: Partial<PlanCareHome>) => onChange({ ...plan, careHomes: homes.map((h) => (h.id === id ? { ...h, ...patch } : h)) });
+  const contacts = plan.contacts ?? [];
+  const editContact = (id: string, patch: Partial<PlanContact>) => onChange({ ...plan, contacts: contacts.map((c) => (c.id === id ? { ...c, ...patch } : c)) });
+  const liveKeys = new Set(plan.actions.filter((a) => !a.removed).map((a) => a.key));
   const removed = plan.actions.filter((a) => a.removed).length;
   const livePathways = plan.pathways.filter((p) => !p.removed).length;
 
@@ -110,6 +113,29 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
           ))}
         </Box>
       ))}
+
+      {contacts.length > 0 && (
+        <Box title="I. Useful contacts">
+          <TextArea value={plan.contactsIntro ?? ""} onChange={(v) => onChange({ ...plan, contactsIntro: v })} rows={2} label="Introduction" />
+          {contacts.map((c) => {
+            const hidden = !c.removed && c.actions.length > 0 && !c.actions.some((k) => liveKeys.has(k));
+            return (
+              <div key={c.id} className={clsx("rounded-lg border p-3", c.removed || hidden ? "border-dashed border-muted/50 bg-paper" : "border-line")}>
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className={clsx("min-w-0", c.removed && "line-through")}>
+                    <p className="font-semibold">{c.name}</p>
+                    <p className="text-[13.5px] text-muted">{[c.phone, c.email].filter(Boolean).join(" · ")}</p>
+                    <p className="text-[13.5px] text-muted">{c.actions.length ? <>With: <span className="font-mono">{c.actions.join(", ")}</span></> : "On every plan"}</p>
+                    {hidden && <p className="text-[13.5px] text-muted">Not shown: its actions are removed.</p>}
+                  </div>
+                  <RemoveToggle removed={c.removed} what={c.name} onToggle={() => editContact(c.id, { removed: !c.removed })} />
+                </div>
+              </div>
+            );
+          })}
+          <p className="text-[13px] text-muted">From your list of organisations. A contact shows while one of its actions is on the plan.</p>
+        </Box>
+      )}
 
       <Box title="J. Coordination"><TextArea value={plan.cta} onChange={(v) => onChange({ ...plan, cta: v })} rows={2} label="Invitation" /></Box>
       <Box title="Internal note (never shown to the family)"><TextArea value={note} onChange={onNote} rows={3} label="Note" /></Box>

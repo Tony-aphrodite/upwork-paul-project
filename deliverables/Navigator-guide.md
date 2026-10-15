@@ -1,6 +1,6 @@
 # Navigator guide
 
-Ageing Navigator pilot · Version 3 · 15 October 2026
+Ageing Navigator pilot · Version 4 · 15 October 2026
 
 This guide is for the navigators of Ageing Navigator. It covers signing in, reading and changing plans, sending an
 updated plan, coordination requests, urgent cases and deleting a case.
@@ -93,6 +93,23 @@ The case has three tabs:
 - **On the review screen:** you can remove a home (section F) and edit the short introduction.
 - **What is never shown:** prices and vacancies.
 - **Updating the list:** edit your Repository sheet and ask Valdis to re-import it.
+
+**Useful contacts:**
+- **Where they appear:** at the end of every plan, before the Sources.
+- **Which organisations:** the ones from your list that go with the plan's actions. For example:
+  - Support Net with a needs assessment;
+  - Dementia Tauranga and Alzheimers New Zealand with a dementia action;
+  - Public Trust with the EPOA or will action.
+
+  Seniorline is on every plan.
+- **Local organisations** (for example Age Concern Tauranga) show only to families in the areas they serve.
+- **On the review screen (section I):**
+  - you can remove a contact and edit the short introduction;
+  - removing an action also takes away the contacts that only go with it.
+- **Updating the list:** edit the "Organisations" tab of your Repository sheet and ask Valdis to re-import it.
+  - Rows marked "Review due" or "Superseded / do not use" are left out.
+  - To choose which plans show an organisation, add a "Show with actions" column, with action keys from the Actions
+    tab of the content spreadsheet, or "every plan".
 
 **Keep to the service's wording.** Plans describe possible pathways to investigate. Do not add eligibility decisions,
 care levels, clinical conclusions or financial advice. Those come from assessors and professional advisers, and the

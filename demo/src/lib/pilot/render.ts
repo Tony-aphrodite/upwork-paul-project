@@ -1,9 +1,9 @@
 import { BRAND, contactLine } from "../brand";
 import { LOGO_PNG_BASE64 } from "../../doc/brand-inline";
 import { PRIORITY_LABEL } from "../priority";
-import { fmtDate } from "../text";
+import { fmtDate, list } from "../text";
 import { nzLongDate } from "../format";
-import { citedSources, liveActions, liveCareHomes, liveInformation, livePathways, thingsToCheck, type PilotPlan } from "./plan";
+import { citedSources, liveActions, liveCareHomes, liveContacts, liveInformation, livePathways, thingsToCheck, type PilotPlan } from "./plan";
 
 /**
  * One renderer for the family's page, the navigator's preview and the PDF. Pure string building, all text escaped,
@@ -19,6 +19,25 @@ const ul = (xs: string[], cls = "") => (xs.length ? `<ul${cls ? ` class="${cls}"
 const para = (s: string, cls = "") => (s.trim() ? `<p${cls ? ` class="${cls}"` : ""}>${esc(s)}</p>` : "");
 /** Text inside a CSS string (the PDF footer): HTML entities are not decoded there, so escape for CSS instead. */
 const cssString = (s: string) => s.replace(/[\\"]/g, (c) => `\\${c}`).replace(/[\r\n]+/g, " ").replace(/</g, "\\3C ");
+/** A New Zealand phone number inside a contact's phone text ("0800 262 477; Tauranga 07 571 0093"). */
+const PHONE = /\b0\d{1,4}(?:[ -]?\d{2,4}){1,3}\b/g;
+/** Phone text with each number as a tap-to-call link on the web page; plain text in the PDF. */
+function phoneHtml(s: string, web: boolean): string {
+  if (!web) return esc(s);
+  let out = "", last = 0;
+  for (const m of s.matchAll(PHONE)) {
+    const digits = m[0].replace(/\D/g, "");
+    if (digits.length < 8) continue; // "0800" before a word ("0800 STROKE") is not a number on its own
+    out += `${esc(s.slice(last, m.index))}<a href="tel:${digits}">${esc(m[0])}</a>`;
+    last = m.index + m[0].length;
+  }
+  return out + esc(s.slice(last));
+}
+/** A web address as people read it: no "https://", no "www.", no closing slash; a long one by its site name only. */
+function shortUrl(u: string): string {
+  const s = u.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "");
+  return s.length <= 40 ? s : s.split("/")[0];
+}
 
 export type SectionOptions = {
   /** On the web page: where the family asks for help (the form's anchor). The PDF carries no link. */
@@ -113,6 +132,27 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
       ${opts.mode === "web" && opts.requestHref
         ? `<p><a class="button" href="${esc(opts.requestHref)}">Ask us to help coordinate</a></p>`
         : para(opts.contact ?? `To ask for help, use the link in your email, or ${contactLine()}.`)}
+    </section>`);
+
+  // Useful contacts: each goes with actions still on the plan (numbered as above), or is on every plan.
+  const actionNo = new Map(actions.map((a, n) => [a.key, n + 1]));
+  const contacts = liveContacts(plan)
+    .map((c) => ({ c, nums: c.actions.map((k) => actionNo.get(k)).filter((n): n is number => !!n).sort((x, y) => x - y) }))
+    .sort((x, y) => (x.nums[0] ?? 999) - (y.nums[0] ?? 999));
+  if (contacts.length) parts.push(`
+    <section class="contacts">
+      <h2>Useful contacts</h2>
+      ${para(plan.contactsIntro)}
+      <ul class="homes">${contacts.map(({ c, nums }) => `
+        <li>
+          <h3>${esc(c.name)}</h3>
+          ${when(c.phone, () => `<p>Phone: ${phoneHtml(c.phone, opts.mode === "web")}</p>`)}
+          ${when(c.email, () => `<p>Email: ${c.email.split(/\s*;\s*/).filter(Boolean).map((e) => `<a href="mailto:${esc(e)}">${esc(e)}</a>`).join("; ")}</p>`)}
+          ${when(c.website, () => `<p>Website: <a href="${esc(c.website)}">${esc(shortUrl(c.website))}</a></p>`)}
+          ${when(nums.length, () => `<p class="why">For action${nums.length > 1 ? "s" : ""} ${list(nums.map(String))} above.</p>`)}
+        </li>`).join("")}
+      </ul>
+      ${when(plan.contactsSource, () => `<p class="meta">${esc(plan.contactsSource)}</p>`)}
     </section>`);
 
   if (sources.length) parts.push(`
