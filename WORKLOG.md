@@ -134,4 +134,5 @@ day 5 AM work (line 9, with line 1e):
 | 2026-10-15 | 8 | Privacy policy draft and page (section 39, about 1–1.5 h): /privacy, consent and footer links, tests, review PDF, docs |
 
 The rows from 2026-10-14 on are the **20 extra hours** agreed with Paul after the 52 (the user confirmed it on
-2026-10-15). All of it is done; the user logs and bills the hours.
+2026-10-15). All of it is done. It is not logged in the Upwork Time Tracker and needs no memos (the user's
+decision, 2026-10-15).

@@ -55,7 +55,8 @@ The bidding workspace it came from is frozen.
   | His three notes: links, opening page text, bigger text | about 2.5–3 h | 34, 38 |
   | Privacy policy draft and page | about 1–1.5 h | 39 |
 
-  - **Billing:** hours are logged and billed by the user.
+  - **No time logging:** these 20 hours are not logged in the Upwork Time Tracker, so no memos are needed (the
+    user's decision, 2026-10-15).
   - **What is left waits on Paul:**
     - wording approval, then approved-only mode;
     - the privacy policy's approval: privacy officer, and the Home Carers sentence;
