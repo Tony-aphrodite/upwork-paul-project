@@ -5,6 +5,7 @@ import type { Answers, QuestionDefinition } from "../questionnaire/schema";
 import { questionIndex } from "../questionnaire/logic";
 import type { PilotContent } from "./content";
 import type { PilotPlan } from "./plan";
+import { checkedOnText, matchCareHomes, type CareHomes } from "./care-homes";
 
 /**
  * Answers in, a pilot Action Plan out. Pure: no I/O, no clock unless given, no AI. Every sentence comes from the
@@ -53,7 +54,8 @@ function answerPhrase(q: QuestionDefinition | undefined, value: unknown): string
 
 const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-export function generatePilotPlan(content: PilotContent, answers: Answers, person: Person, opts: { now?: Date } = {}): PilotPlan {
+/** `careHomes` is the client's care home list; without it (or off the residential pathway) the plan lists none. */
+export function generatePilotPlan(content: PilotContent, answers: Answers, person: Person, opts: { now?: Date; careHomes?: CareHomes } = {}): PilotPlan {
   const qs = questionIndex(content.questionnaire);
   const name = tidyName(person.preferredName || person.firstName);
   const applies = (c: Condition | undefined) => test(c, answers);
@@ -116,6 +118,12 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
   const onPath = new Set(pathways.map((p) => p.id));
   const cited = new Set([...actions, ...information].map((x) => x.sourceId).filter(Boolean));
 
+  // Care homes that may suit: only on the residential pathway, from the client's list; the seed varies the choice
+  // between equally suitable homes from family to family.
+  const care = opts.careHomes && onPath.has("residential") ? matchCareHomes(opts.careHomes, answers, JSON.stringify(answers)) : { homes: [] };
+  const careIntro = [care.homes.length && !care.level ? content.texts.care_homes_no_level : "", care.homes.length ? content.texts.care_homes_intro : ""]
+    .filter((x): x is string => !!x?.trim()).join(" ");
+
   return {
     schema: "pilot-plan/1",
     generatedAt: (opts.now ?? new Date()).toISOString(),
@@ -135,6 +143,9 @@ export function generatePilotPlan(content: PilotContent, answers: Answers, perso
     cta: fillText(cta),
     services: content.services.map((s) => ({ id: s.id, label: s.label, suggested: !!s.pathway && onPath.has(s.pathway) })),
     sources: content.sources.filter((s) => cited.has(s.id)),
+    careHomes: care.homes,
+    careHomesIntro: careIntro,
+    careHomesSource: care.homes.length && opts.careHomes ? `These homes come from ${opts.careHomes.source}, checked on ${checkedOnText(opts.careHomes.checkedOn)}.` : "",
     disclaimer: content.texts.disclaimer,
   };
 }

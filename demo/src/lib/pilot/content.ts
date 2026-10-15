@@ -56,7 +56,7 @@ export const TEXT_KEYS = {
     "plan_intro", "plan_cover_note", "disclaimer", "pathway_none", "cta_default",
     "email_release_subject", "email_release_body", "request_intro", "request_done",
   ],
-  optional: ["home_eyebrow", "marketing_consent", "cta_stay_home", "cta_village", "cta_residential", "feedback_intro", "questionnaire_title", "questionnaire_intro", "contact_intro"],
+  optional: ["home_eyebrow", "marketing_consent", "cta_stay_home", "cta_village", "cta_residential", "feedback_intro", "questionnaire_title", "questionnaire_intro", "contact_intro", "care_homes_intro", "care_homes_no_level"],
 } as const;
 
 export const PilotContent = z.object({

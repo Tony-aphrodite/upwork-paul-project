@@ -44,6 +44,15 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-15: care homes that may suit** (`chatting.md` section 33):
+  - **What:** on the residential pathway the plan lists up to 3 care homes. They offer the reported level, in or near
+    the person's area, chosen fairly.
+  - **The data:** his Repository sheet, imported with `npm run care-homes:import` into
+    `content/pilot/care-homes.json`. 38 certified homes; prices and vacancies are never kept.
+  - **The town question** (q5_town) is now a drop-down of Bay of Plenty areas.
+  - **Content** 2026-10-15.1.
+  - **His sheet's contact column is empty;** filling it shows the contact on plans.
+  - **Not started:** the contacts section (about 3.5 hours).
 - **2026-10-14: launch changes live** (`chatting.md` sections 26–30):
   - **What changed:**
     - plans are sent on submission, with no review;

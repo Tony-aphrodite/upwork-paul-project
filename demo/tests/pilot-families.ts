@@ -15,7 +15,7 @@ export type Family = {
 
 const base: Answers = {
   trigger: "fall_stroke_mobility",
-  q1: "family_member", q2: "son_daughter", q3: "some", q4: "80_84", q5_town: "Tauranga", q5_region: "bay_of_plenty",
+  q1: "family_member", q2: "son_daughter", q3: "some", q4: "80_84", q5_town: "tauranga", q5_region: "bay_of_plenty",
   q6: "alone", q6_owns: "yes",
   q8: ["falls", "safety_at_home"], q9: ["a_fall"], q11: "none",
   q12: ["housework", "shopping"], q13: "noticeably_more", q14: ["help_from_family"], q15: "probably_not", q16: "no",

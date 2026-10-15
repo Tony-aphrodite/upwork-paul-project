@@ -3401,3 +3401,71 @@ Valdis
   - The user decides on the hour figures (3.5, 5.5, 8) and billing.
 - **Superseded:** section 30's message and section 31's reply; do not send them as well.
 
+### 33. 2026-10-15: Valdis to client: the care home list is live (ready to send)
+
+The user asked for the care home list to be built (section 29's estimate, "about 5.5 hours" once his data was found
+in section 31). It was built ahead of his reply to section 32.
+
+#### Analysis
+
+- **Built:**
+  - **The data:** `npm run care-homes:import` reads his Repository sheet (tab "BOP Care Homes"). It keeps
+    certified homes and public facts only (name, operator, place, levels, respite, village on site, contact).
+    Prices, vacancies and his verification notes are never imported. 38 homes: Tauranga 24, Western Bay of Plenty 8,
+    Whakatāne 4, Kawerau 1, Ōpōtiki 1.
+  - **The matching** (`src/lib/pilot/care-homes.ts`):
+    - **When:** on the residential pathway only.
+    - **Level:** the level the family reports (q19_level), or, when unknown, any home with the levels shown.
+    - **Area:** same area first, then neighbouring areas, never further; at most 3.
+    - **Fairness:** a choice that varies by family, seeded from the answers, so no home is favoured.
+    - **Why it appears:** shown on each home.
+  - **In the plan:** a section after the priority actions, on the page, in the PDF and on the review screen (section
+    F, remove and restore). The intro texts `care_homes_intro` and `care_homes_no_level` are in the spreadsheet.
+    The source line comes from the list.
+  - **The town question** (q5_town) is a drop-down of Bay of Plenty areas. The region comes first. Content
+    2026-10-15.1.
+- **Checked:**
+  - 105 tests, 6 of them new;
+  - the full browser check;
+  - a residential family's plan at 1280 and 390 px: axe clean, no sideways scrolling, PDF built.
+- **Gaps in his data:**
+  - "Website / Contact" is empty for all 38, so plans show addresses;
+  - there are no Rotorua homes;
+  - no home has psychogeriatric care marked.
+- **The public repository:** the imported list is public facts (the Ministry of Health certified list, addresses and
+  levels). His full sheet, with prices and notes, is not stored.
+
+#### Message (ready to send)
+
+Hi Paul,
+
+The care home list is done and live.
+
+How it works:
+- When residential care comes up in a plan, the plan now lists up to 3 care homes from your Repository sheet.
+- They offer the level of care the family told us about from an assessment, in or near the area where the person
+  lives. If no level is known, the plan shows the levels each home offers and explains that a needs assessment
+  decides the level.
+- Each home says why it appears, for example "Offers rest home care, the level you told us about; in Tauranga, where
+  they live". When more than three homes fit, the choice varies from family to family, so no home is favoured.
+- The plan says the list is not a recommendation, and that availability and costs should be checked with each home.
+  Prices and vacancies are never shown.
+- You can remove a home on the review screen and send an updated plan.
+
+To match by area, the town question is now a drop-down of Bay of Plenty areas: Tauranga, Western Bay of Plenty,
+Whakatāne, Kawerau, Ōpōtiki, Rotorua, or somewhere else.
+
+Two things in your sheet:
+- The "Website / Contact" column is empty for all 38 homes, so the plan shows each home's address. If you add a phone
+  number or website, the plan will show it.
+- There are no Rotorua homes yet, so a family in Rotorua gets no list.
+
+To update the list at any time, edit the "BOP Care Homes" tab and let me know; re-importing takes a few minutes.
+
+Valdis
+
+#### Prep notes
+
+- **Billing:** the user decides how the hours are logged; the estimate given was about 5.5 hours.
+- **The contacts section** (about 3.5 hours) is not started. It waits for his reply to section 32.
+

@@ -1,9 +1,9 @@
 {
-  "version": "2026-10-14.1",
+  "version": "2026-10-15.1",
   "status": "draft",
   "questionnaire": {
     "id": "ageing-navigator",
-    "version": "2026-10-14.1",
+    "version": "2026-10-15.1",
     "title": "Family Ageing Questionnaire",
     "intro": [
       "Tell us what's happening, and we'll help you work out what to do next.",
@@ -245,16 +245,6 @@
             "items": []
           },
           {
-            "id": "q5_town",
-            "type": "short",
-            "label": "Which town or city do they live in?",
-            "help": "Town or city and region only.",
-            "optional": false,
-            "options": [],
-            "unsure": [],
-            "items": []
-          },
-          {
             "id": "q5_region",
             "type": "single",
             "label": "Which region?",
@@ -268,6 +258,46 @@
               }
             ],
             "unsure": [],
+            "items": []
+          },
+          {
+            "id": "q5_town",
+            "type": "single",
+            "label": "Which part of the Bay of Plenty do they live in?",
+            "display": "dropdown",
+            "optional": false,
+            "options": [
+              {
+                "value": "tauranga",
+                "label": "Tauranga (including Mount Maunganui, Pāpāmoa and Bethlehem)"
+              },
+              {
+                "value": "western_bay_of_plenty",
+                "label": "Western Bay of Plenty (including Te Puke, Katikati and Ōmokoroa)"
+              },
+              {
+                "value": "whakatane",
+                "label": "Whakatāne (including Ōhope)"
+              },
+              {
+                "value": "kawerau",
+                "label": "Kawerau"
+              },
+              {
+                "value": "opotiki",
+                "label": "Ōpōtiki"
+              },
+              {
+                "value": "rotorua",
+                "label": "Rotorua"
+              },
+              {
+                "value": "somewhere_else",
+                "label": "Somewhere else"
+              }
+            ],
+            "unsure": [],
+            "notes": "2026-10-15: a drop-down of Bay of Plenty areas (was a free-text town), so care homes can be matched by area.",
             "items": []
           },
           {
@@ -4709,7 +4739,9 @@
     "feedback_intro": "Ageing Navigator is being tested with a small number of families. Your answers help us make the plans better for the next family.",
     "questionnaire_title": "Family Ageing Questionnaire",
     "questionnaire_intro": "Tell us what's happening, and we'll help you work out what to do next.\n\nThis questionnaire prepares your free personalised Family Ageing Action Plan. Depending on your situation it takes around 10 to 15 minutes, and you will only be shown questions that are relevant to you.\n\nYou don't need to know every answer. “Not sure” is useful information too.\n\nPlease don't include account numbers, passwords, detailed medical records or other highly confidential information.",
-    "contact_intro": "We only use these details to send the plan and to contact you about it."
+    "contact_intro": "We only use these details to send the plan and to contact you about it.",
+    "care_homes_intro": "These homes appear to match what you told us. This is not a recommendation, and Ageing Navigator receives no payment for listings. Please check availability, costs and suitability directly with each home.",
+    "care_homes_no_level": "A needs assessment decides which level of care is needed, so the levels each home offers are shown."
   },
   "services": [
     {

@@ -3,7 +3,7 @@ import { LOGO_PNG_BASE64 } from "../../doc/brand-inline";
 import { PRIORITY_LABEL } from "../priority";
 import { fmtDate } from "../text";
 import { nzLongDate } from "../format";
-import { citedSources, liveActions, liveInformation, livePathways, thingsToCheck, type PilotPlan } from "./plan";
+import { citedSources, liveActions, liveCareHomes, liveInformation, livePathways, thingsToCheck, type PilotPlan } from "./plan";
 
 /**
  * One renderer for the family's page, the navigator's preview and the PDF. Pure string building, all text escaped,
@@ -74,6 +74,24 @@ export function renderPlanSections(plan: PilotPlan, opts: SectionOptions): strin
         </article>`).join("")}
     </section>`);
 
+  // Care homes that may suit (residential pathway only): what each offers and why it appears; never prices or vacancies.
+  const homes = liveCareHomes(plan);
+  if (homes.length) parts.push(`
+    <section class="carehomes">
+      <h2>Care homes that may suit</h2>
+      ${para(plan.careHomesIntro)}
+      <ul class="homes">${homes.map((h) => `
+        <li>
+          <h3>${esc(h.name)}</h3>
+          ${when(h.place || h.address, () => `<p class="meta">${esc(h.address || h.place)}</p>`)}
+          <p>${esc([...h.levels, ...(h.respite ? ["Respite stays"] : []), ...(h.villageOnSite ? ["Retirement village on site"] : [])].join(" · "))}</p>
+          ${when(h.why.length, () => `<p class="why">Why it appears: ${esc(h.why.map((w, i) => (i ? w.charAt(0).toLowerCase() + w.slice(1) : w)).join("; "))}.</p>`)}
+          ${when(h.contact, () => `<p>${esc(h.contact)}</p>`)}
+        </li>`).join("")}
+      </ul>
+      ${when(plan.careHomesSource, () => `<p class="meta">${esc(plan.careHomesSource)}</p>`)}
+    </section>`);
+
   const funding = info("funding");
   if (funding) parts.push(`<section><h2>Funding and assessment information</h2>${funding}</section>`);
 
@@ -141,6 +159,10 @@ ${scope} .info { background: ${c.sand}; border-radius: 6px; padding: .7em .9em; 
 ${scope} .todo { list-style: none; padding: 0; } ${scope} .todo li { display: grid; grid-template-columns: 1.4em 1fr; gap: .2em; margin-bottom: .45em; break-inside: avoid; }
 ${scope} .tick { width: .9em; height: .9em; border: 1.5px solid ${c.brand}; border-radius: 3px; margin-top: .2em; }
 ${scope} .meta, ${scope} .ref { color: ${c.muted}; font-size: .85em; }
+${scope} ul.homes { list-style: none; padding: 0; display: grid; gap: .6em; }
+${scope} ul.homes li { border: 1px solid ${c.line}; border-left: 4px solid ${c.brand}; border-radius: 8px; padding: .7em .9em; margin: 0; break-inside: avoid; }
+${scope} ul.homes h3 { margin: 0 0 .15em; } ${scope} ul.homes p { margin: 0 0 .25em; }
+${scope} .why { font-size: .9em; color: ${c.muted}; }
 ${scope} .support { background: ${c.brandSoft}; border-radius: 10px; padding: 1em 1.2em; break-inside: avoid; }
 ${scope} .button { display: inline-block; background: ${c.brand}; color: #fff; text-decoration: none; font-weight: 700; padding: .6em 1.1em; border-radius: 8px; }
 ${scope} .sources li { font-size: .88em; }

@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { Undo2, X } from "lucide-react";
 import { PRIORITIES, PRIORITY_LABEL } from "@/lib/priority";
-import type { PilotPlan, PlanAction, PlanInfo, PlanPathway } from "@/lib/pilot/plan";
+import type { PilotPlan, PlanAction, PlanCareHome, PlanInfo, PlanPathway } from "@/lib/pilot/plan";
 import { INFO_SECTIONS } from "@/lib/pilot/content";
 import { PATHWAY_LABEL } from "@/lib/format";
 import { Box, Input, Lines, TextArea } from "./fields";
@@ -23,6 +23,8 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
   const editAction = (key: string, patch: Partial<PlanAction>) => onChange({ ...plan, actions: plan.actions.map((a) => (a.key === key ? { ...a, ...patch } : a)) });
   const editInfo = (id: string, patch: Partial<PlanInfo>) => onChange({ ...plan, information: plan.information.map((i) => (i.id === id ? { ...i, ...patch } : i)) });
   const editPathway = (i: number, patch: Partial<PlanPathway>) => onChange({ ...plan, pathways: plan.pathways.map((p, n) => (n === i ? { ...p, ...patch } : p)) });
+  const homes = plan.careHomes ?? [];
+  const editHome = (id: string, patch: Partial<PlanCareHome>) => onChange({ ...plan, careHomes: homes.map((h) => (h.id === id ? { ...h, ...patch } : h)) });
   const removed = plan.actions.filter((a) => a.removed).length;
   const livePathways = plan.pathways.filter((p) => !p.removed).length;
 
@@ -78,6 +80,25 @@ export function PlanForm({ plan, onChange, note, onNote, releasedNote }: { plan:
           </div>
         ))}
       </Box>
+
+      {homes.length > 0 && (
+        <Box title="F. Care homes that may suit">
+          <TextArea value={plan.careHomesIntro ?? ""} onChange={(v) => onChange({ ...plan, careHomesIntro: v })} rows={3} label="Introduction" />
+          {homes.map((h) => (
+            <div key={h.id} className={clsx("rounded-lg border p-3", h.removed ? "border-dashed border-muted/50 bg-paper" : "border-line")}>
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div className={clsx("min-w-0", h.removed && "line-through")}>
+                  <p className="font-semibold">{h.name}</p>
+                  <p className="text-[13.5px] text-muted">{h.address || h.place} · {h.levels.join(", ")}</p>
+                  <p className="text-[13.5px] text-muted">Why it appears: {h.why.join("; ")}</p>
+                </div>
+                <RemoveToggle removed={h.removed} what={h.name} onToggle={() => editHome(h.id, { removed: !h.removed })} />
+              </div>
+            </div>
+          ))}
+          <p className="text-[13px] text-muted">From your care home list. Prices and vacancies are never shown.</p>
+        </Box>
+      )}
 
       {INFO_SECTIONS.map((section) => plan.information.some((i) => i.section === section) && (
         <Box key={section} title={INFO_TITLE[section]}>

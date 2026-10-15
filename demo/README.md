@@ -74,6 +74,26 @@ On Vercel, `vercel.json` runs the functions in Sydney (`syd1`) and calls `/api/c
 Migrations run by themselves the first time the app opens the database (under a lock, so two cold starts cannot
 collide). `DATABASE_URL=… npm run db:migrate` does the same by hand.
 
+## Care homes that may suit
+
+On the residential pathway the plan lists up to 3 care homes from the client's own list.
+- **The data:** his Repository sheet, tab "BOP Care Homes". It holds Ministry of Health certified homes, with the care
+  each offers.
+- **To update the list:**
+  1. download the sheet as Excel;
+  2. run `npm run care-homes:import -- Repository.xlsx`;
+  3. run the tests, then deploy.
+- **What is imported:** only public facts (name, operator, place, levels of care, respite, village on site,
+  contact). It goes into `content/pilot/care-homes.json`.
+- **What never is:** prices, vacancies and his verification notes are neither imported nor shown.
+- **Matching** (`src/lib/pilot/care-homes.ts`):
+  - **Level:** the level the family reports from an assessment (q19_level). Without one, homes are listed with the
+    levels each offers.
+  - **Area:** the area they live in (q5_town drop-down) first, then neighbouring areas, never further.
+  - **Fairness:** when more homes fit than are shown, the choice varies from family to family, so no home is
+    favoured.
+- **On the plan:** it says the list is not a recommendation. A navigator can remove a home on the review screen.
+
 ## Brand and documents
 
 - **Brand values:** `src/lib/brand.ts` holds the colours, name and confirmed contact details, from the client's Brand

@@ -1,0 +1,581 @@
+{
+  "source": "the Ministry of Health's list of certified providers, with the care each home offers from its own website",
+  "checkedOn": "2026-10-12",
+  "homes": [
+    {
+      "id": "accadia-manor-rest-home",
+      "name": "Accadia Manor Rest Home",
+      "operator": "Bupa",
+      "area": "tauranga",
+      "locality": "Tauranga South",
+      "address": "101 Edgecumbe Road, Tauranga South",
+      "levels": [
+        "rest_home"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "alden-oakland",
+      "name": "Alden Oakland",
+      "operator": "Alden",
+      "area": "tauranga",
+      "locality": "Tauranga South",
+      "address": "108 Thirteenth Avenue, Tauranga",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "althorp",
+      "name": "Althorp",
+      "operator": "Radius Care",
+      "area": "tauranga",
+      "locality": "Pyes Pa",
+      "address": "9 Grantston Drive, Pyes Pa",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "athenree-life",
+      "name": "Athenree Life",
+      "operator": "Athenree Life",
+      "area": "western_bay_of_plenty",
+      "locality": "Athenree",
+      "address": "11 Marina Way, Athenree",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "bay-sands-village",
+      "name": "Bay Sands Village",
+      "operator": "Metlifecare",
+      "area": "tauranga",
+      "locality": "Mount Maunganui",
+      "address": "33 Gloucester Road, Mount Maunganui",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "bayview",
+      "name": "Bayview",
+      "operator": "Oceania",
+      "area": "tauranga",
+      "locality": "Judea",
+      "address": "163 Waihi Road, Judea",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": false,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "bethlehem-shores-living-well-ltd",
+      "name": "Bethlehem Shores Living Well Ltd",
+      "operator": "Arvida",
+      "area": "tauranga",
+      "locality": "Bethlehem",
+      "address": "141 Bethlehem Road, Bethlehem",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "bethlehem-views",
+      "name": "Bethlehem Views",
+      "operator": "Arvida",
+      "area": "tauranga",
+      "locality": "Bethlehem",
+      "address": "186 Cambridge Road, Bethlehem",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": false,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "bob-owens-retirement-village",
+      "name": "Bob Owens Retirement Village",
+      "operator": "Ryman Healthcare",
+      "area": "tauranga",
+      "locality": "Bethlehem",
+      "address": "112 Carmichael Road, Bethlehem",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "carter-house",
+      "name": "Carter House",
+      "operator": "Heritage Lifecare",
+      "area": "western_bay_of_plenty",
+      "locality": "Te Puke",
+      "address": "69 Moehau Street, Te Puke",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "cedar-manor-rest-home-hospital",
+      "name": "Cedar Manor Rest Home & Hospital",
+      "operator": "Bupa",
+      "area": "tauranga",
+      "locality": "Avenues",
+      "address": "30 Sixth Avenue, Tauranga",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "cht-acacia",
+      "name": "CHT Acacia",
+      "operator": "CHT Healthcare Trust",
+      "area": "western_bay_of_plenty",
+      "locality": "Omokoroa",
+      "address": "134 Hamurana Road, Omokoroa",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "cht-bernadette",
+      "name": "CHT Bernadette",
+      "operator": "CHT Healthcare Trust",
+      "area": "tauranga",
+      "locality": "Mount Maunganui",
+      "address": "25 Taupo Avenue, Mount Maunganui",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "cht-glynavon",
+      "name": "CHT Glynavon",
+      "operator": "CHT Healthcare Trust",
+      "area": "western_bay_of_plenty",
+      "locality": "Te Puke",
+      "address": "50 Boucher Avenue, Te Puke",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "copper-crest-living-well-limited",
+      "name": "Copper Crest Living Well Limited",
+      "operator": "Arvida",
+      "area": "tauranga",
+      "locality": "Pyes Pa",
+      "address": "52 Condor Drive, Pyes Pa",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "devonport-palms",
+      "name": "Devonport Palms",
+      "operator": "",
+      "area": "tauranga",
+      "locality": "Tauranga",
+      "address": "194 Devonport Road, Tauranga",
+      "levels": [
+        "rest_home"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "elmswood-care-home",
+      "name": "Elmswood Care Home",
+      "operator": "",
+      "area": "tauranga",
+      "locality": "Judea",
+      "address": "154 Waihi Road, Judea",
+      "levels": [
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "fraser-manor-rest-home",
+      "name": "Fraser Manor Rest Home",
+      "operator": "",
+      "area": "tauranga",
+      "locality": "Avenues",
+      "address": "122 Fraser Street, Tauranga",
+      "levels": [
+        "rest_home"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "golden-pond-private-hospital",
+      "name": "Golden Pond Private Hospital",
+      "operator": "Golden Pond Lifecare",
+      "area": "whakatane",
+      "locality": "Whakatane",
+      "address": "47 Bracken Street, Whakatane",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "hodgson-house",
+      "name": "Hodgson House",
+      "operator": "Heritage Lifecare",
+      "area": "tauranga",
+      "locality": "Tauranga South",
+      "address": "51 Botanical Road, Tauranga South",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "killarney-rest-home",
+      "name": "Killarney Rest Home",
+      "operator": "",
+      "area": "tauranga",
+      "locality": "Tauranga Central",
+      "address": "138 Edgecumbe Road, Tauranga",
+      "levels": [
+        "rest_home",
+        "dementia"
+      ],
+      "respite": false,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "makoha-tauranga",
+      "name": "Makoha Tauranga",
+      "operator": "Makoha",
+      "area": "tauranga",
+      "locality": "Matua",
+      "address": "228C Levers Road, Matua",
+      "levels": [
+        "rest_home"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "malyon-house",
+      "name": "Malyon House",
+      "operator": "",
+      "area": "tauranga",
+      "locality": "Mount Maunganui",
+      "address": "4 Heath Street, Mount Maunganui",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "mary-shapley-rest-home-hospital",
+      "name": "Mary Shapley Rest Home & Hospital",
+      "operator": "Bupa",
+      "area": "whakatane",
+      "locality": "Whakatane",
+      "address": "4 Spence Lane, Whakatane",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "metlifecare-bayswater",
+      "name": "Metlifecare Bayswater",
+      "operator": "Metlifecare",
+      "area": "tauranga",
+      "locality": "Mount Maunganui",
+      "address": "60 Maranui Street, Mount Maunganui",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": false,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "metlifecare-papamoa-beach-village-ltd",
+      "name": "Metlifecare Papamoa Beach Village Ltd",
+      "operator": "Metlifecare",
+      "area": "tauranga",
+      "locality": "Papamoa Beach",
+      "address": "2 Te Okuroa Drive, Papamoa Beach",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "metlifecare-the-avenues-ltd",
+      "name": "Metlifecare The Avenues Ltd",
+      "operator": "Metlifecare",
+      "area": "tauranga",
+      "locality": "Tauranga Central",
+      "address": "10 Tenth Avenue, Tauranga",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "mountain-view-home-hospital",
+      "name": "Mountain View Home & Hospital",
+      "operator": "Mountain View Retirement Village",
+      "area": "kawerau",
+      "locality": "Kawerau",
+      "address": "192-202 River Road, Kawerau",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "ohope-beach-care",
+      "name": "Ohope Beach Care",
+      "operator": "",
+      "area": "whakatane",
+      "locality": "Ohope",
+      "address": "4 Harbour Road, Ohope",
+      "levels": [
+        "rest_home",
+        "dementia"
+      ],
+      "respite": false,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "pacific-coast-village-care-centre-te-manaaki",
+      "name": "Pacific Coast Village Care Centre Te Manaaki",
+      "operator": "Generus Living",
+      "area": "tauranga",
+      "locality": "Papamoa",
+      "address": "210 Maranui Street, Papamoa",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "radius-lexham-park",
+      "name": "Radius Lexham Park",
+      "operator": "Radius Care",
+      "area": "western_bay_of_plenty",
+      "locality": "Katikati",
+      "address": "3 Binnie Road, Katikati",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "radius-matua",
+      "name": "Radius Matua",
+      "operator": "Radius Care",
+      "area": "tauranga",
+      "locality": "Matua",
+      "address": "124 Levers Road, Matua",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "sheaffs-resthome",
+      "name": "Sheaffs Resthome",
+      "operator": "",
+      "area": "whakatane",
+      "locality": "Whakatane",
+      "address": "17 Landing Road, Whakatane",
+      "levels": [
+        "rest_home"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "summerset-by-the-dunes",
+      "name": "Summerset by the Dunes",
+      "operator": "Summerset",
+      "area": "tauranga",
+      "locality": "Papamoa Beach",
+      "address": "35 Manawa Road, Papamoa Beach",
+      "levels": [
+        "rest_home",
+        "hospital",
+        "dementia"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "summerset-by-the-sea",
+      "name": "Summerset by the Sea",
+      "operator": "Summerset",
+      "area": "western_bay_of_plenty",
+      "locality": "Katikati",
+      "address": "181 Park Road, Katikati",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "te-puke-country-lodge",
+      "name": "Te Puke Country Lodge",
+      "operator": "Bupa",
+      "area": "western_bay_of_plenty",
+      "locality": "Te Puke",
+      "address": "1 Number One Road, Te Puke",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": true,
+      "contact": ""
+    },
+    {
+      "id": "the-lodge",
+      "name": "The Lodge",
+      "operator": "",
+      "area": "western_bay_of_plenty",
+      "locality": "Pyes Pa",
+      "address": "714 Pyes Pa Road, Pyes Pa",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    },
+    {
+      "id": "thornton-park-retirement-lodge",
+      "name": "Thornton Park Retirement Lodge",
+      "operator": "",
+      "area": "opotiki",
+      "locality": "Opotiki",
+      "address": "137 State Highway 35, Opotiki",
+      "levels": [
+        "rest_home",
+        "hospital"
+      ],
+      "respite": true,
+      "villageOnSite": false,
+      "contact": ""
+    }
+  ]
+}

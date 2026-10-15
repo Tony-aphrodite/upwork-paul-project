@@ -1,6 +1,6 @@
 # Navigator guide
 
-Ageing Navigator pilot · Version 2 · 14 October 2026
+Ageing Navigator pilot · Version 3 · 15 October 2026
 
 This guide is for the navigators of Ageing Navigator. It covers signing in, reading and changing plans, sending an
 updated plan, coordination requests, urgent cases and deleting a case.
@@ -85,6 +85,14 @@ The case has three tabs:
   content has been updated.
 - **What you lose:** your edits to the plan you are working on.
 - **What stays:** a plan already released to the family does not change.
+
+**Care homes that may suit:**
+- **When they appear:** when residential care comes up, the plan lists up to 3 care homes from your care home list.
+- **How they are chosen:** they offer the level of care the family reported, in or near the area where the person
+  lives.
+- **On the review screen:** you can remove a home (section F) and edit the short introduction.
+- **What is never shown:** prices and vacancies.
+- **Updating the list:** edit your Repository sheet and ask Valdis to re-import it.
 
 **Keep to the service's wording.** Plans describe possible pathways to investigate. Do not add eligibility decisions,
 care levels, clinical conclusions or financial advice. Those come from assessors and professional advisers, and the

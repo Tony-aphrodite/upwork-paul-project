@@ -1,6 +1,6 @@
 # Handover note
 
-Ageing Navigator pilot · Version 1 · 14 October 2026
+Ageing Navigator pilot · Version 2 · 15 October 2026
 
 This note sums up what the pilot is, where everything lives, how to run it day to day, and what is left before the
 first real family. The Navigator guide explains the screens; the Privacy facts sheet explains how information is
@@ -46,6 +46,8 @@ with that reason already chosen.
 
 - **Read the new-plan emails:** open urgent cases first. They are listed first until opened.
 - **Coordination requests:** mark them Contacted, then Closed. The counts feed the pilot results.
+- **Updating the care home list:** edit the "BOP Care Homes" tab of your Repository sheet and ask Valdis to re-import
+  it. It takes a few minutes.
 - **Changing wording:**
   1. edit the content spreadsheet and send it to Valdis;
   2. it is checked and imported;
@@ -70,8 +72,11 @@ with that reason already chosen.
 ## Known limits of the pilot
 
 - **One region:** Bay of Plenty only.
-- **No matching:** there are no provider, village or care home lists. A care home list is an optional addition, built
-  from a list you supply.
+- **Care homes only:** when residential care comes up, the plan lists up to 3 care homes from your Repository sheet
+  (added 15 October).
+  - Villages and home care providers are not matched yet.
+  - Your list's "Website / Contact" column is empty, so the plan shows each home's address. Filling in a phone number
+    or website lets the plan show it.
 - **"They" wording:** the questions speak about another person. A "you" version for people planning for themselves is
   for the full build.
 - **Questionnaire version 2.1** (modules, respite and EPOA modules, paid tools) is set aside until after the pilot.

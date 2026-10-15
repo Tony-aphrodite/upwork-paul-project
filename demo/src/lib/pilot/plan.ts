@@ -41,6 +41,14 @@ export type PlanInfo = z.infer<typeof PlanInfo>;
 export const PlanPathway = z.object({ id: PathwayId, name: text(200), explanation: text(), removed: z.boolean().default(false) });
 export type PlanPathway = z.infer<typeof PlanPathway>;
 
+/** A care home that may suit (residential pathway), from the client's list; see care-homes.ts. */
+export const PlanCareHome = z.object({
+  id: z.string().max(80), name: text(200), place: text(200).default(""), address: text(300).default(""),
+  levels: items.default([]), respite: z.boolean().default(false), villageOnSite: z.boolean().default(false),
+  contact: text(300).default(""), why: items.default([]), removed: z.boolean().default(false),
+});
+export type PlanCareHome = z.infer<typeof PlanCareHome>;
+
 export const PilotPlan = z.object({
   schema: z.literal("pilot-plan/1"),
   generatedAt: z.string(),
@@ -59,6 +67,10 @@ export const PilotPlan = z.object({
   information: z.array(PlanInfo).max(150),
   cta: text(),
   services: z.array(z.object({ id: z.string().max(80), label: text(200), suggested: z.boolean() })).max(20),
+  /** Plans made before the care home list have none; the defaults keep them valid. */
+  careHomes: z.array(PlanCareHome).max(10).default([]),
+  careHomesIntro: text().default(""),
+  careHomesSource: text(500).default(""),
   sources: z.array(ContentSource).max(100),
   disclaimer: text(),
 });
@@ -68,6 +80,7 @@ export type PilotPlan = z.infer<typeof PilotPlan>;
 export const liveActions = (p: PilotPlan) =>
   p.actions.filter((a) => !a.removed).map((a, i) => ({ a, i })).sort((x, y) => priorityRank(x.a.priority) - priorityRank(y.a.priority) || x.i - y.i).map((x) => x.a);
 export const livePathways = (p: PilotPlan) => p.pathways.filter((x) => !x.removed);
+export const liveCareHomes = (p: PilotPlan) => (p.careHomes ?? []).filter((x) => !x.removed);
 export const liveInformation = (p: PilotPlan, section?: PlanInfo["section"]) => p.information.filter((i) => !i.removed && (!section || i.section === section));
 
 /** Section G: every action's "things to check", then the information written for that section. */
