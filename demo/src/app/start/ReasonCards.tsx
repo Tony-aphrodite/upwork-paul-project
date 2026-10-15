@@ -33,8 +33,8 @@ export function ReasonCards({ q, value, onPick }: { q: QuestionDefinition; value
                     <ArrowRight size={16} aria-hidden="true" />
                   </span>
                 </span>
-                <span className="mt-4 text-[18px] font-semibold leading-snug text-ink">{o.label}</span>
-                {o.description && <span className="mt-1.5 text-[16px] leading-snug text-muted">{o.description}</span>}
+                <span className="mt-4 text-[20px] font-semibold leading-snug text-ink">{o.label}</span>
+                {o.description && <span className="mt-1.5 text-[18px] leading-snug text-muted">{o.description}</span>}
               </button>
             </li>
           );

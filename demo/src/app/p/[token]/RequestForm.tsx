@@ -17,7 +17,7 @@ export function RequestForm({ token, services, doneText }: { token: string; serv
   const [state, setState] = useState<"idle" | "busy" | "sent">("idle");
   const [error, setError] = useState("");
 
-  if (state === "sent") return <p role="status" className="mt-5 flex items-start gap-2 rounded-lg bg-ahead-soft p-4 text-[18px] text-ahead"><CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden="true" />{doneText}</p>;
+  if (state === "sent") return <p role="status" className="mt-5 flex items-start gap-2 rounded-lg bg-ahead-soft p-4 text-[20px] text-ahead"><CheckCircle2 size={18} className="mt-0.5 shrink-0" aria-hidden="true" />{doneText}</p>;
 
   const send = async () => {
     setError("");
@@ -36,12 +36,12 @@ export function RequestForm({ token, services, doneText }: { token: string; serv
   return (
     <form className="mt-5 space-y-5" onSubmit={(e) => { e.preventDefault(); void send(); }} noValidate>
       <fieldset>
-        <legend className="label !text-[18px]">What would you like help with?</legend>
+        <legend className="label !text-[20px]">What would you like help with?</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {services.map((s) => {
             const on = chosen.includes(s.id);
             return (
-              <label key={s.id} className={clsx("flex cursor-pointer items-start gap-2.5 rounded-lg border p-3 text-[18px]", on ? "border-brand bg-brand-soft" : "border-line bg-white")}>
+              <label key={s.id} className={clsx("flex cursor-pointer items-start gap-2.5 rounded-lg border p-3 text-[20px]", on ? "border-brand bg-brand-soft" : "border-line bg-white")}>
                 <input type="checkbox" className="mt-1 accent-brand" checked={on} onChange={() => setChosen(on ? chosen.filter((x) => x !== s.id) : [...chosen, s.id])} />{s.label}
               </label>
             );
@@ -49,20 +49,20 @@ export function RequestForm({ token, services, doneText }: { token: string; serv
         </div>
       </fieldset>
       <fieldset>
-        <legend className="label !text-[18px]">How should we contact you?</legend>
+        <legend className="label !text-[20px]">How should we contact you?</legend>
         <div className="flex flex-wrap gap-2">
           {(["phone", "email"] as const).map((m) => (
-            <label key={m} className={clsx("cursor-pointer rounded-lg border px-3 py-2 text-[18px]", method === m ? "border-brand bg-brand-soft" : "border-line")}>
+            <label key={m} className={clsx("cursor-pointer rounded-lg border px-3 py-2 text-[20px]", method === m ? "border-brand bg-brand-soft" : "border-line")}>
               <input type="radio" name="method" className="mr-2 accent-brand" checked={method === m} onChange={() => setMethod(m)} />{m === "phone" ? "Phone" : "Email (the address this plan was sent to)"}
             </label>
           ))}
         </div>
       </fieldset>
-      {method === "phone" && <div><label htmlFor="rq-phone" className="label !text-[18px]">Phone number</label><input id="rq-phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={LIMITS.phone} className="field max-w-xs !text-[18px]" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>}
-      <div><label htmlFor="rq-time" className="label !text-[18px]">Best time to reach you (optional)</label><input id="rq-time" className="field max-w-md !text-[18px]" maxLength={LIMITS.bestTime} value={bestTime} onChange={(e) => setBestTime(e.target.value)} /></div>
-      <div><label htmlFor="rq-msg" className="label !text-[18px]">Anything we should know first? (optional)</label><textarea id="rq-msg" rows={3} maxLength={LIMITS.message} className="field !text-[18px]" value={message} onChange={(e) => setMessage(e.target.value)} /></div>
-      {error && <p role="alert" className="text-[16.5px] font-semibold text-now">{error}</p>}
-      <button type="submit" className="btn-primary !min-h-[48px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Ask us to help coordinate</button>
+      {method === "phone" && <div><label htmlFor="rq-phone" className="label !text-[20px]">Phone number</label><input id="rq-phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={LIMITS.phone} className="field max-w-xs !text-[20px]" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>}
+      <div><label htmlFor="rq-time" className="label !text-[20px]">Best time to reach you (optional)</label><input id="rq-time" className="field max-w-md !text-[20px]" maxLength={LIMITS.bestTime} value={bestTime} onChange={(e) => setBestTime(e.target.value)} /></div>
+      <div><label htmlFor="rq-msg" className="label !text-[20px]">Anything we should know first? (optional)</label><textarea id="rq-msg" rows={3} maxLength={LIMITS.message} className="field !text-[20px]" value={message} onChange={(e) => setMessage(e.target.value)} /></div>
+      {error && <p role="alert" className="text-[18px] font-semibold text-now">{error}</p>}
+      <button type="submit" className="btn-primary !min-h-[52px] !px-5" disabled={state === "busy"}>{state === "busy" && <Loader2 size={16} className="animate-spin" aria-hidden="true" />}Ask us to help coordinate</button>
     </form>
   );
 }

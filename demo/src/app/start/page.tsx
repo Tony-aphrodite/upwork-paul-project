@@ -11,7 +11,7 @@ export default function StartPage() {
     <FamilyShell>
       <StartFlow
         doc={content.questionnaire}
-        texts={{ consent: t.consent, consentCheckbox: t.consent_checkbox, marketing: t.marketing_consent ?? "", thankYou: t.thank_you, contactIntro: t.contact_intro ?? "" }}
+        texts={{ consent: t.consent, consentCheckbox: t.consent_checkbox, marketing: t.marketing_consent ?? "", thankYou: t.thank_you, contactIntro: t.contact_intro ?? "", privacyUrl: t.privacy_policy_url ?? "" }}
         draft={content.status === "draft"}
       />
     </FamilyShell>

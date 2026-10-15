@@ -6,9 +6,14 @@ import { cardSection, checkSection, cleanAnswers, isAnswered, progress, pruneAns
 import { EMAIL_RE, cleanReferral, isPhone } from "@/lib/validate";
 import { QuestionField } from "./QuestionField";
 import { ReasonCards } from "./ReasonCards";
-import { ContactStep, DoneStep, ErrorNote, Heading, IntroStep, StepNav, type Contact, type ContactIssues, type StartTexts } from "./steps";
+import { ContactStep, DoneStep, ErrorNote, Heading, IntroStep, StepNav, TEST_VERSION, type Contact, type ContactIssues, type StartTexts } from "./steps";
 
 const KEY = "an-questionnaire-draft-v2";
+/**
+ * Older card links still in use on the client's website (from the 12-card version, 2026-10-13) and what they mean
+ * now, so a link never silently loses its card.
+ */
+const REASON_ALIASES: Record<string, string> = { respite: "carer_change", planning_ahead: "what_next", not_sure: "what_next", support_needs: "managing_home" };
 const EMPTY: Contact = { name: "", email: "", phone: "", firstName: "", preferredName: "" };
 type Step = "intro" | { section: string } | "contact" | "done";
 type Draft = { answers: Answers; sectionId?: string; referral?: string; submissionId?: string };
@@ -52,7 +57,8 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
     const fromUrl = cleanReferral(params.get("ref"));
     // Answers a link from the client's website brings in: the reason card, and "planning for myself".
     const given: Answers = {};
-    const reason = params.get("reason");
+    const asked = params.get("reason");
+    const reason = asked ? REASON_ALIASES[asked] ?? asked : asked;
     if (cards && reason && cards.question.options.some((o) => o.value === reason)) given[cards.question.id] = reason;
     if (params.get("for") === "self" && questionIndex(doc).get("q1")?.options.some((o) => o.value === "self")) given.q1 = "self";
     let kept: Answers = {};
@@ -199,7 +205,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
   const shownPercent = step === "contact" ? 100 : percent;
   const bar = (
     <div className="mb-4">
-      <div className="flex items-end justify-between gap-3 text-[15px] text-muted">
+      <div className="flex items-end justify-between gap-3 text-[18px] text-muted">
         <span>{step === "contact" ? "Last step" : <>Section {index + 1 - offset} of {sections.length - offset}</>}</span>
         <span>{shownPercent}% done</span>
       </div>
@@ -227,11 +233,10 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
     const chosen = answers[cards.question.id];
     return (
       <div className="mx-auto max-w-6xl">
-        {draft && <p className="mb-5 rounded-lg bg-soon-soft p-3 text-[16px] text-soon"><strong>Test version.</strong> The questions and wording are drafts that Ageing Navigator has not yet approved.</p>}
-        <Heading ref={heading} className="text-[clamp(1.9rem,4.6vw,2.75rem)] font-bold leading-tight outline-none">{current.title}</Heading>
-        {current.intro && <p className="mt-3 max-w-2xl text-[18px] text-muted">{current.intro}</p>}
+        {draft && <p className="mb-5 rounded-lg bg-soon-soft p-3 text-[20px] text-soon"><strong>Test version.</strong> {TEST_VERSION}</p>}
+        <Heading ref={heading} className="text-[clamp(2.1rem,5vw,3.1rem)] font-bold leading-tight outline-none">{current.title}</Heading>
+        {current.intro && <p className="mt-3 max-w-2xl text-[20px] text-muted">{current.intro}</p>}
         <div className="mt-8"><ReasonCards q={cards.question} value={typeof chosen === "string" ? chosen : undefined} onPick={pick} /></div>
-        <p className="mt-6 text-[15px] text-muted">Your answers stay in this browser until you send them at the end.</p>
       </div>
     );
   }
@@ -241,7 +246,7 @@ export function StartFlow({ doc, texts, draft }: { doc: Questionnaire; texts: St
       {bar}
       <form className="card p-5 sm:p-7" onSubmit={(e) => { e.preventDefault(); next(); }} noValidate>
         <Heading ref={heading}>{current.title}</Heading>
-        {current.intro && <p className="mt-2 rounded-lg bg-sand p-3 text-[16.5px]">{current.intro}</p>}
+        {current.intro && <p className="mt-2 rounded-lg bg-sand p-3 text-[18px]">{current.intro}</p>}
         <div className="mt-6 space-y-8">
           {current.questions.map((q) => <QuestionField key={q.id} q={q} value={answers[q.id]} onChange={(v) => set(q.id, v)} issue={issueFor(q.id)} />)}
         </div>

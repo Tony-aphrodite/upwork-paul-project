@@ -3401,7 +3401,7 @@ Valdis
   - The user decides on the hour figures (3.5, 5.5, 8) and billing.
 - **Superseded:** section 30's message and section 31's reply; do not send them as well.
 
-### 33. 2026-10-15: Valdis to client: the care home list is live (ready to send)
+### 33. 2026-10-15: Valdis to client: the care home list is live (NOT SENT: merged into section 35)
 
 The user asked for the care home list to be built (section 29's estimate, "about 5.5 hours" once his data was found
 in section 31). It was built ahead of his reply to section 32.
@@ -3469,7 +3469,7 @@ Valdis
 - **Billing:** the user decides how the hours are logged; the estimate given was about 5.5 hours.
 - **The contacts section** (about 3.5 hours) is not started. It waits for his reply to section 32.
 
-### 34. Client to Valdis (received 2026-10-15): three Google Docs comments (links, opening page text, bigger text)
+### 34. Client to Valdis (received 2026-10-15): three Google Docs comments (links, opening page text, bigger text) (done 2026-10-15; reply in section 35)
 
 They came before the section 33 message was sent, as Google Docs comments assigned to the user's Google account. The
 comments as they arrived, with the email notification text left out:
@@ -3591,4 +3591,70 @@ Valdis
   4. remove the card-screen small print;
   5. tests, browser check at three widths with axe, deploy;
   6. then send the section 33 message.
+
+### 35. 2026-10-15: Valdis to client: his three notes done, and the care home list (ready to send)
+
+#### Analysis
+
+- **Done on 2026-10-15** (section 34's plan):
+  - **Old card links** (`respite`, `planning_ahead`, `not_sure`, `support_needs`) are accepted as aliases. His live
+    site's two older links now pre-select "Caring is becoming too much" and "You want help understanding what to do
+    next". Checked at 320 and 390 px.
+  - **The opening page** uses his text word for word. The test banner is "Questions and wording are still being
+    tested."; a "Before you start" heading is added; the eyebrow is removed; the line under Start is "Your answers are
+    saved in this browser until you submit them.".
+  - **Privacy Policy:** the text `privacy_policy_url` (empty) adds "Read our Privacy Policy." with the link once he
+    sends the address.
+  - **Content** 2026-10-15.2.
+  - **Bigger text on family pages:**
+    - body 20 px; question titles 22 px; card titles 20 px and descriptions 18 px; headings larger; controls 52 px
+      high;
+    - nothing under 16 px on the start pages (checked);
+    - the card-screen small print is removed.
+  - **Checks:** 105 tests and the full browser check (axe, keyboard, desktop and 390 px) are clean, and nothing
+    scrolls sideways at 320 px.
+- **The message also carries** the care home list (section 33, not sent).
+
+#### Message (ready to send)
+
+Hi Paul,
+
+All three of your notes are done and live, and the care home list is ready too.
+
+1. Links: you're right, 8 is correct.
+   - The ninth link was for "I'm planning for myself", and your page no longer has that section.
+   - The two older links on your site (…reason=respite and …reason=planning_ahead) now work as they are, so nothing
+     needs changing there.
+   - Four buttons on your page still point to "#start-navigator". They should use https://plan.ageingnavigator.com/start?ref=website
+2. Opening page: it now uses your wording, word for word. Please send me the address of your privacy policy page,
+   and I'll add "Read our Privacy Policy" with the link.
+3. Bigger text: the text on all the family pages is much larger (body text 20 px, with larger headings and cards),
+   and the small print under the buttons is gone.
+
+Care home list:
+- When residential care comes up in a plan, it now lists up to 3 care homes from your Repository sheet.
+- They offer the level of care the family told us about from an assessment, in or near the area where the person
+  lives. If no level is known, the plan shows the levels each home offers and explains that a needs assessment
+  decides the level.
+- Each home says why it appears. When more than three fit, the choice varies from family to family, so no home is
+  favoured.
+- The plan says the list is not a recommendation, and that availability and costs should be checked with each home.
+  Prices and vacancies are never shown.
+- You can remove a home on the review screen and send an updated plan.
+- To match by area, the town question is now a drop-down of Bay of Plenty areas.
+
+Two things in your sheet:
+- The "Website / Contact" column is empty for all 38 homes, so plans show each home's address. Add a phone number or
+  website and the plan will show it.
+- There are no Rotorua homes yet.
+
+When you change the sheet, let me know; re-importing takes a few minutes.
+
+Valdis
+
+#### Prep notes
+
+- **When he sends the privacy policy address:** set `privacy_policy_url` in the content spreadsheet (Texts tab),
+  import, and deploy.
+- **Billing** for sections 33 and 34: the user decides.
 

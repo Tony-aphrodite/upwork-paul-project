@@ -28,13 +28,14 @@
 .overflow-x-auto { position: relative; }
 
 /*
- * The family's pages: the brand guide sets web body text at 18 px. The navigator screens keep their denser 15 px. Shared
+ * The family's pages: large, plain text (the client asked for it larger, like myagedcare.gov.au; the brand guide's
+ * minimum is 18 px), body 20 px and nothing under 18 px. The navigator screens keep their denser 15 px. Shared
  * controls are enlarged here; page text sizes are set in the family components themselves.
  */
-.family { font-size: 18px; }
-.family :is(.btn, .btn-primary, .btn-outline, .btn-ghost) { min-height: 48px; padding-left: 1.1rem; padding-right: 1.1rem; font-size: 17px; }
-.family .field { min-height: 48px; font-size: 18px; }
-.family .label { font-size: 16.5px; }
-.family .eyebrow { font-size: 13.5px; }
-.family .chip { font-size: 14px; }
-.family input[type="checkbox"], .family input[type="radio"] { width: 1.15rem; height: 1.15rem; flex-shrink: 0; }
+.family { font-size: 20px; }
+.family :is(.btn, .btn-primary, .btn-outline, .btn-ghost) { min-height: 52px; padding-left: 1.2rem; padding-right: 1.2rem; font-size: 19px; }
+.family .field { min-height: 52px; font-size: 20px; }
+.family .label { font-size: 19px; }
+.family .eyebrow { font-size: 16px; }
+.family .chip { font-size: 16px; }
+.family input[type="checkbox"], .family input[type="radio"] { width: 1.3rem; height: 1.3rem; flex-shrink: 0; }

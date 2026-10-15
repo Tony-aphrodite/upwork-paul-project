@@ -12,7 +12,7 @@ export function FamilyShell({ children }: { children: React.ReactNode }) {
       </header>
       <main id="main" className="wrap flex-1 py-8 sm:py-10">{children}</main>
       <footer className="border-t border-line bg-white">
-        <p className="wrap py-6 text-[15px] text-muted">{content.texts.notice}</p>
+        <p className="wrap py-6 text-[18px] text-muted">{content.texts.notice}</p>
       </footer>
     </div>
   );

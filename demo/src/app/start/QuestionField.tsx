@@ -19,20 +19,20 @@ export function QuestionField({ q, value, onChange, issue }: { q: QuestionDefini
     const exclusives = new Set(q.options.filter((o) => o.exclusive).map((o) => o.value));
     onChange([...selected.filter((x) => !exclusives.has(x)), v]);
   };
-  const option = "flex items-start gap-2.5 rounded-lg border p-3 text-[18px] leading-snug";
+  const option = "flex items-start gap-2.5 rounded-lg border p-3 text-[20px] leading-snug";
   // A drop-down with a single option (the pilot's one region) is answered for the family.
   const only = q.display === "dropdown" && q.options.length === 1 ? q.options[0].value : undefined;
   useEffect(() => { if (only && value !== only) onChange(only); }, [only, value, onChange]);
 
   return (
     <fieldset id={`q-${q.id}`} className="min-w-0 scroll-mt-24" aria-describedby={describedBy} aria-invalid={issue ? true : undefined}>
-      <legend className="text-[19.5px] font-semibold text-ink">{q.label}{q.optional && <span className="ml-2 text-[15px] font-normal text-muted">Optional</span>}</legend>
-      {q.help && <p id={`help-${q.id}`} className="mt-1 text-[16px] text-muted">{q.help}</p>}
-      {issue && <p id={`err-${q.id}`} role="alert" className="mt-1.5 text-[16px] font-semibold text-now">{issue}</p>}
+      <legend className="text-[22px] font-semibold text-ink">{q.label}{q.optional && <span className="ml-2 text-[18px] font-normal text-muted">Optional</span>}</legend>
+      {q.help && <p id={`help-${q.id}`} className="mt-1 text-[18px] text-muted">{q.help}</p>}
+      {issue && <p id={`err-${q.id}`} role="alert" className="mt-1.5 text-[18px] font-semibold text-now">{issue}</p>}
 
       <div className={clsx("mt-3", ((q.type === "single" && !q.display) || q.type === "multi") && "grid gap-2 sm:grid-cols-2")}>
         {q.display === "dropdown" && (
-          <select className="field max-w-md !text-[18px]" value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label}>
+          <select className="field max-w-md !text-[20px]" value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label}>
             {q.options.length > 1 && <option value="">Choose…</option>}
             {q.options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
@@ -53,18 +53,18 @@ export function QuestionField({ q, value, onChange, issue }: { q: QuestionDefini
             </label>
           );
         })}
-        {q.type === "short" && <input className="field max-w-md !text-[18px]" maxLength={TEXT_LIMIT.short} value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label} />}
-        {q.type === "long" && <textarea className="field !text-[18px]" rows={4} maxLength={TEXT_LIMIT.long} value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label} />}
+        {q.type === "short" && <input className="field max-w-md !text-[20px]" maxLength={TEXT_LIMIT.short} value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label} />}
+        {q.type === "long" && <textarea className="field !text-[20px]" rows={4} maxLength={TEXT_LIMIT.long} value={typeof value === "string" ? value : ""} onChange={(e) => onChange(e.target.value)} aria-label={q.label} />}
         {q.type === "tri_grid" && (
           <div className="space-y-3">
             {q.items.map((item) => {
               const rows = (value && typeof value === "object" && !Array.isArray(value) ? value : {}) as Record<string, string>;
               return (
                 <div key={item.id} role="radiogroup" aria-label={item.label} className="rounded-lg border border-line bg-white p-3">
-                  <p className="text-[18px] font-semibold">{item.label}</p>
+                  <p className="text-[20px] font-semibold">{item.label}</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {q.options.map((o) => (
-                      <label key={o.value} className={clsx("cursor-pointer rounded-lg border px-3 py-1.5 text-[17px]", rows[item.id] === o.value ? "border-brand bg-brand-soft" : "border-line")}>
+                      <label key={o.value} className={clsx("cursor-pointer rounded-lg border px-3 py-1.5 text-[19px]", rows[item.id] === o.value ? "border-brand bg-brand-soft" : "border-line")}>
                         <input type="radio" className="mr-2 accent-brand" name={`${q.id}-${item.id}`} value={o.value} checked={rows[item.id] === o.value} onChange={() => onChange({ ...rows, [item.id]: o.value })} />{o.label}
                       </label>
                     ))}
@@ -75,7 +75,7 @@ export function QuestionField({ q, value, onChange, issue }: { q: QuestionDefini
           </div>
         )}
       </div>
-      {q.max !== undefined && <p className="mt-1.5 text-[15px] text-muted" aria-live="polite">{selected.length} of {q.max} chosen</p>}
+      {q.max !== undefined && <p className="mt-1.5 text-[18px] text-muted" aria-live="polite">{selected.length} of {q.max} chosen</p>}
       {q.type === "multi" && !q.optional && !isAnswered(value) && <span className="sr-only">Select at least one option</span>}
     </fieldset>
   );
