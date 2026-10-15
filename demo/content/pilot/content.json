@@ -1,9 +1,9 @@
 {
-  "version": "2026-10-15.3",
+  "version": "2026-10-15.4",
   "status": "draft",
   "questionnaire": {
     "id": "ageing-navigator",
-    "version": "2026-10-15.3",
+    "version": "2026-10-15.4",
     "title": "Family Ageing Questionnaire",
     "intro": [
       "Tell us what’s happening and we’ll help you work out what to do next with a free personalised Family Ageing Action Plan.",
@@ -4741,6 +4741,7 @@
     "contact_intro": "We only use these details to send the plan and to contact you about it.",
     "care_homes_intro": "These homes appear to match what you told us. This is not a recommendation, and Ageing Navigator receives no payment for listings. Please check availability, costs and suitability directly with each home.",
     "care_homes_no_level": "A needs assessment decides which level of care is needed, so the levels each home offers are shown.",
+    "privacy_policy_url": "/privacy",
     "contacts_intro": "These organisations may be able to help with the actions in your plan. Services and contact details can change, so please check with each organisation directly."
   },
   "services": [

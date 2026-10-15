@@ -1,6 +1,6 @@
 # Privacy facts for your privacy statement
 
-Ageing Navigator pilot · Version 2 · 14 October 2026
+Ageing Navigator pilot · Version 3 · 15 October 2026
 
 **What this is:** the facts of how the pilot handles personal information. Use it to write your privacy statement,
 to answer families' questions, and to brief anyone who reviews the service.
@@ -44,14 +44,14 @@ privacy adviser, can confirm what your statement needs.
 Shown after the family chooses what has brought them here and before the first question, with a tick box that must
 be ticked:
 
-> Ageing Navigator will use your answers to prepare a personalised Family Ageing Action Plan, which you receive as
-> soon as you finish. Your answers are stored securely in Australia, seen only by the Ageing Navigator team, and
-> deleted 12 months after your plan is sent, or sooner if you ask. We do not use AI, and we do not share your answers
-> with anyone else without asking you first.
+> Your information is stored securely in Australia, kept for up to 12 months, and won't be shared with other
+> organisations without your permission. Read our Privacy Policy.
 >
 > I agree, and I have the older person's agreement or am acting in their interests.
 
-The news opt-in is a separate, optional tick box.
+This is your wording of 15 October. "Read our Privacy Policy" links to the policy at
+https://plan.ageingnavigator.com/privacy, which says the rest: what is collected, why, who sees it, the services used,
+no AI, and how to ask for access, correction or deletion. The news opt-in is a separate, optional tick box.
 
 ## Where the information is held, and which services process it
 
@@ -138,7 +138,9 @@ The news opt-in is a separate, optional tick box.
 ## Points for you to decide or do
 
 1. **Privacy officer:** every agency must have one under the Privacy Act. Name yours in the statement.
-2. **Privacy statement:** publish it on ageingnavigator.com. A link to it can be added next to the consent wording.
+2. **Privacy policy:** a draft written from these facts is live at https://plan.ageingnavigator.com/privacy, marked
+   "Draft" until you approve it. The consent wording and the footer of every family page link to it. To publish it on
+   ageingnavigator.com instead, copy the text there and send Valdis the address.
 3. **Backups:** turn on Supabase Pro before the first real family.
 4. **Accounts:**
    - change the shared password for Supabase and Resend once testing ends;

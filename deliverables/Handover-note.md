@@ -24,6 +24,7 @@ handled.
 | What | Where | Owner |
 | --- | --- | --- |
 | The questionnaire | https://plan.ageingnavigator.com/start | — |
+| The privacy policy | https://plan.ageingnavigator.com/privacy (draft for your approval) | you approve, Valdis updates |
 | Your sign-in | https://plan.ageingnavigator.com/login (paul@ageingnavigator.com) | you |
 | Database | Supabase, project in Sydney | your account |
 | Email sending | Resend, domain ageingnavigator.com (verified) | your account |
@@ -64,6 +65,7 @@ with that reason already chosen.
 | DNS records and email domain | you, with Valdis | done 13 October |
 | Emails tested on the real address | Valdis | done 14 October |
 | Approve the wording ("approved as it is", or changes in the spreadsheet) | you | waiting |
+| Approve the privacy policy, and confirm the privacy officer and how to describe Ageing Navigator's relationship with Home Carers | you | waiting |
 | Turn on approved-only mode, so only approved wording can ever be sent | Valdis | after your approval |
 | Daily backups: upgrade the Supabase project to Pro | you | waiting |
 | Remove the test cases and the test account | Valdis or you, with the prepared script | at launch |

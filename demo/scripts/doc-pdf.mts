@@ -1,7 +1,8 @@
 /*
  * A client document in Markdown → a branded PDF next to it (logo, Poppins, the brand colours).
- *   CHROME_PATH=/usr/bin/google-chrome npm run doc:pdf -- ../deliverables/Navigator-guide.md
- * The first heading is the title; the line under it (version and date) is shown beneath the title.
+ *   CHROME_PATH=/usr/bin/google-chrome npm run doc:pdf -- ../deliverables/Navigator-guide.md [out.pdf]
+ * The first heading is the title; the line under it (version and date) is shown beneath the title. A file with front
+ * matter (the privacy policy: updated, status) gets that line from it instead, and the front matter is not printed.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { marked } from "marked";
@@ -9,10 +10,16 @@ import { htmlToPdf, closeBrowser } from "../src/doc/pdf";
 import { INLINE_FONTS } from "../src/doc/fonts-inline";
 import { LOGO_PNG_BASE64 } from "../src/doc/brand-inline";
 import { BRAND } from "../src/lib/brand";
+import { fmtDate } from "../src/lib/text";
 
 const file = process.argv[2];
 if (!file?.endsWith(".md")) { console.error("Give the .md file."); process.exit(1); }
-const md = readFileSync(file, "utf8");
+const raw = readFileSync(file, "utf8");
+const fm = /^---\n([\s\S]*?)\n---\n+/.exec(raw);
+const field = (k: string) => (fm ? new RegExp(`^${k}:\\s*(.+)$`, "m").exec(fm[1])?.[1].trim() ?? "" : "");
+const md = fm
+  ? raw.slice(fm[0].length).replace(/^(# .+)\n/m, `$1\n\n${BRAND.name} · Last updated ${fmtDate(field("updated"))}${field("status") === "draft" ? " · Draft for approval" : ""}\n`)
+  : raw;
 const title = /^# (.+)$/m.exec(md)?.[1] ?? "Document";
 const body = await marked.parse(md.replace(/^(# .+)\n+([^\n]+)\n/m, (_m, heading, meta) => `${heading}\n\n<p class="meta">${meta}</p>\n`), { gfm: true });
 const c = BRAND.colors;
@@ -40,7 +47,7 @@ td { padding: 2mm 2.5mm; border-bottom: 0.3mm solid ${c.line}; vertical-align: t
 tr { break-inside: avoid; }
 </style></head><body><img class="logo" src="data:image/png;base64,${LOGO_PNG_BASE64}" alt="${BRAND.name}">${body}</body></html>`;
 const pdf = await htmlToPdf(html);
-const out = file.replace(/\.md$/, ".pdf");
+const out = process.argv[3] ?? file.replace(/\.md$/, ".pdf");
 writeFileSync(out, pdf);
 await closeBrowser();
 console.log(`Wrote ${out}`);

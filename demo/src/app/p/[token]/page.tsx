@@ -5,7 +5,7 @@ import { caseForToken } from "@/lib/family-link";
 import { content } from "@/lib/pilot/library";
 import { PLAN_CSS, renderPlanSections } from "@/lib/pilot/render";
 import { nzLongDate } from "@/lib/format";
-import { BRAND } from "@/lib/brand";
+import { BRAND, contactLine } from "@/lib/brand";
 import { RequestForm } from "./RequestForm";
 import { FeedbackForm } from "./FeedbackForm";
 
@@ -21,7 +21,7 @@ export default async function PlanPage({ params }: { params: Promise<{ token: st
       <FamilyShell>
         <div className="card mx-auto max-w-xl p-6 sm:p-8">
           <h1 className="text-[30px]">This link is not valid any more</h1>
-          <p className="mt-3 text-muted">Plan links stop working when a newer link has been sent, or when the plan has been deleted. If you need your plan again, contact {BRAND.name} on {BRAND.phone} or {BRAND.email}.</p>
+          <p className="mt-3 text-muted">Plan links stop working when a newer link has been sent, or when the plan has been deleted. If you need your plan again, {contactLine()}.</p>
         </div>
       </FamilyShell>
     );

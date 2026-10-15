@@ -121,6 +121,21 @@ Every plan ends with the organisations that go with its actions, before the Sour
   - each contact says which actions it is for;
   - the section states the date the list was checked.
 
+## Privacy policy
+
+The page https://plan.ageingnavigator.com/privacy shows `content/pilot/privacy-policy.md`.
+- **The file:**
+  - **Front matter:** `updated` (YYYY-MM-DD) and `status` (`draft` or `approved`). While it is `draft`, the page says
+    the policy is waiting for approval.
+  - **Then:** a "# " title and Markdown.
+- **Where it is linked:** the consent text ("Read our Privacy Policy.", from the content text `privacy_policy_url`,
+  now `/privacy`) and the footer of every family page.
+- **The page is static:** it is rendered at build time (`src/lib/pilot/privacy.ts`, with `marked`).
+- **The client's review copy:** `npm run doc:pdf -- content/pilot/privacy-policy.md ../deliverables/Privacy-policy-draft.pdf`.
+- **When the wording changes:** change the file and `updated`. Set `status: approved` once he approves it, then run
+  the tests and deploy. `tests/privacy.test.ts` checks the policy against the app's real settings (retention, email,
+  storage).
+
 ## Brand and documents
 
 - **Brand values:** `src/lib/brand.ts` holds the colours, name and confirmed contact details, from the client's Brand

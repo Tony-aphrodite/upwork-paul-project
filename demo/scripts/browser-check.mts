@@ -144,6 +144,16 @@ async function familyRun(browser: Browser, vp: Viewport, fam: Family) {
   await page.getByRole("button", { name: "Start" }).click();
   if (!(await page.getByText("Please tick the box to continue.").isVisible())) problems.push(`${vp}: consent not enforced`);
   await check(page, `${vp}-02-intro`);
+  if ((await page.getByRole("link", { name: "Read our Privacy Policy." }).getAttribute("href")) !== "/privacy") problems.push(`${vp}: no privacy policy link in the consent`);
+  if ((await page.getByRole("contentinfo").getByRole("link", { name: "Privacy Policy" }).getAttribute("href")) !== "/privacy") problems.push(`${vp}: no privacy policy link in the footer`);
+  if (vp === "desktop") { // the policy itself, in its own tab as the consent link opens it
+    const pp = await page.context().newPage();
+    watch(pp, "privacy-desktop");
+    await pp.goto(`${BASE}/privacy`);
+    await pp.getByRole("heading", { name: "Privacy Policy", level: 1 }).waitFor();
+    await check(pp, `${vp}-02b-privacy`);
+    await pp.close();
+  }
   await page.locator("input[type=checkbox]").first().check();
   await page.getByRole("button", { name: "Start" }).click();
   let sections = 0;
@@ -262,6 +272,11 @@ try {
     const fctx = await browser.newContext({ viewport: VIEWPORTS[vp] });
     const fp = await fctx.newPage();
     watch(fp, `plan-${vp}`);
+    if (vp === "mobile") {
+      await fp.goto(`${BASE}/privacy`);
+      await fp.getByRole("heading", { name: "Privacy Policy", level: 1 }).waitFor();
+      await check(fp, `${vp}-22-privacy`);
+    }
     await fp.goto(link);
     await fp.getByRole("heading", { name: /^For / }).waitFor();
     if (!(await fp.locator(".anplan").innerText()).includes(edited)) problems.push(`${vp}: the family page lacks the released edit`);

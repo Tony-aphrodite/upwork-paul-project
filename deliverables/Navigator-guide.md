@@ -206,4 +206,5 @@ It still describes families' situations, so store it securely and do not email i
 | You cannot sign in | Ask Valdis for a new setup link. |
 | The family did not get the email | Ask them to check their spam folder, or use New link to copy and send it yourself. |
 | The family's link does not work | It may have been replaced or expired. Make a new link and send it. |
+| A family asks how their information is handled | Point them to the privacy policy: https://plan.ageingnavigator.com/privacy |
 | Anything else | Message Valdis with the case reference. Never send a family's details or answers by message. |

@@ -2,7 +2,10 @@ import { Logo } from "./ui";
 import { content } from "@/lib/pilot/library";
 import { BRAND } from "@/lib/brand";
 
-/** Header and footer for the family's pages. The footer states what the service is not (the client's notice), on every page. */
+/**
+ * Header and footer for the family's pages. The footer states what the service is not (the client's notice), and
+ * links to the privacy policy, on every page.
+ */
 export function FamilyShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="family flex min-h-screen flex-col bg-paper">
@@ -12,7 +15,10 @@ export function FamilyShell({ children }: { children: React.ReactNode }) {
       </header>
       <main id="main" className="wrap flex-1 py-8 sm:py-10">{children}</main>
       <footer className="border-t border-line bg-white">
-        <p className="wrap py-6 text-[18px] text-muted">{content.texts.notice}</p>
+        <div className="wrap py-6 text-[18px] text-muted">
+          <p>{content.texts.notice}</p>
+          <p className="mt-2"><a href="/privacy" className="font-semibold text-brand underline underline-offset-2">Privacy Policy</a></p>
+        </div>
       </footer>
     </div>
   );
