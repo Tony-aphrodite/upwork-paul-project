@@ -3469,3 +3469,126 @@ Valdis
 - **Billing:** the user decides how the hours are logged; the estimate given was about 5.5 hours.
 - **The contacts section** (about 3.5 hours) is not started. It waits for his reply to section 32.
 
+### 34. Client to Valdis (received 2026-10-15): three Google Docs comments (links, opening page text, bigger text)
+
+They came before the section 33 message was sent, as Google Docs comments assigned to the user's Google account. The
+comments as they arrived, with the email notification text left out:
+
+> **Landing Page Brief, 2:13 AM UTC.** It lists his 8 card links, each ticked:
+> Dementia diagnosis or memory concerns …?reason=dementia_diagnosis&ref=website ✅ A hospital admission or discharge:
+> …?reason=hospital&ref=website ✅ A fall, stroke or change in mobility: …?reason=fall_stroke_mobility&ref=website ✅
+> Managing at home is getting harder: …?reason=managing_home&ref=website ✅ Caring is becoming too much
+> …?reason=respite&ref=website ✅ You're considering a retirement village: …?reason=considering_village&ref=website ✅
+> You're exploring residential care: …?reason=considering_residential&ref=website ✅ You want help understanding what
+> to do next: …?reason=planning_ahead&ref=website ✅
+> "can you please update"
+
+> **Action Plan notes, 2:40 AM UTC.** His text for the opening page:
+> Test version — Questions and wording are still being tested.
+> Family Ageing Questionnaire
+> You chose: Dementia diagnosis or memory concerns · Change
+> Tell us what's happening and we'll help you work out what to do next with a free personalised Family Ageing Action
+> Plan.
+> It usually takes around 10 minutes, and you'll only see questions relevant to your situation. It's fine to choose
+> "Not sure".
+> Please don't include passwords, account numbers or detailed medical records.
+> Before you start
+> Your information is stored securely in Australia, kept for up to 12 months, and won't be shared with other
+> organisations without your permission. Read our Privacy Policy.
+> ☐ I agree, and I have the older person's agreement or am acting in their interests.
+> ☐ Send me occasional Ageing Navigator news. Optional.
+> Start →
+> Your answers are saved in this browser until you submit them.
+> "Please adjust the opening page to match this text so it's more succinct"
+
+> **Landing Page Brief, 3:28 AM UTC.** It quotes our link list (the 8 cards, "I'm planning for myself", and every
+> other button). The doc also says: "Please make all the text much bigger so it looks more like
+> https://www.myagedcare.gov.au/" and "Please remove the text under the CTA - it's too small to [read]".
+> "please confirm as there are 9 links but there should only be 8"
+
+#### Analysis
+
+- **His live site, checked 2026-10-15:**
+  - **The 8 card links are set,** but two use old values from the 12-card version:
+    - "Caring is becoming too much" goes to `reason=respite`;
+    - "You want help understanding what to do next" goes to `reason=planning_ahead`.
+  - **What those two do:** the app ignores an unknown reason, so they open the cards with nothing chosen. Nothing
+    breaks, but the shortcut is lost.
+  - **Other buttons:** 5 use `?ref=website`, and 4 still point to `#start-navigator`.
+  - **"Who are you planning for?"** is gone from his page.
+  - **There is no privacy policy page or link** on his site.
+- **1. Links: "can you please update", and "9 links but there should only be 8".**
+  - **He is right: 8.** The ninth was for "I'm planning for myself", in the "Who are you planning for?" section his
+    page no longer has. He can drop it.
+  - **Fix on our side (about 0.25 h):** accept the old values as aliases, so his current links work without him
+    changing anything:
+    - `respite` becomes `carer_change`;
+    - `planning_ahead` and `not_sure` become `what_next`;
+    - `support_needs` becomes `managing_home`.
+  - **He also gets the right values for the two cards,** and the 4 `#start-navigator` buttons need the general link.
+- **2. The opening page text, word for word (about 0.75 h):**
+  - **The test banner** becomes "Test version. Questions and wording are still being tested."
+  - **The intro** becomes his two paragraphs plus the line about passwords.
+  - **New:** a "Before you start" heading.
+  - **The consent text** becomes his: "Your information is stored securely in Australia, kept for up to 12 months, and
+    won't be shared with other organisations without your permission. Read our Privacy Policy."
+  - **News opt-in:** "Send me occasional Ageing Navigator news. Optional."
+  - **Under Start:** "Your answers are saved in this browser until you submit them."
+  - **The Privacy Policy link needs his page address,** and his site has no privacy page yet. Decision: leave out
+    "Read our Privacy Policy." until he sends the address. The privacy facts sheet (sent) is the material for that
+    page.
+  - **His consent wording drops** "We do not use AI", "seen only by the Ageing Navigator team" and "you receive it as
+    soon as you finish". That is his call. His privacy policy should then cover them: Health Information Privacy Code
+    rule 3, telling people about use and sharing.
+- **3. "Make all the text much bigger, more like myagedcare.gov.au" (about 1–1.5 h):**
+  - **Which pages:** the comment is assigned to us, so we take it as our questionnaire and plan pages. His landing page
+    is in his own WordPress.
+  - **Today:** family pages use 18 px body text, 16 px card descriptions, 17 px consent and 15 px small print.
+  - **Proposal:**
+    - body 20 px; question titles 22 px; card titles 21 px and descriptions 18 px; headings larger;
+    - no text under 18 px on family pages;
+    - checked at desktop, 390 px and 320 px, with axe.
+  - myagedcare.gov.au blocks automated browsers, so its exact sizes were not measured. The aim is its look: large,
+    plain and spacious.
+- **4. "Remove the text under the CTA - it's too small":**
+  - **The card screen:** remove "Your answers stay in this browser until you send them at the end."
+  - **The opening page:** his own text keeps one line under Start, so keep it, at the new normal size, not as small
+    print.
+- **Estimate: about 2.5–3 hours** with tests, the browser check and the deploy. Billing is the user's call.
+- **Order:** do this before sending the section 33 care home message. One reply can then cover both.
+
+#### Reply (draft; can be posted as a reply in his doc or sent on Upwork)
+
+Hi Paul,
+
+Thanks for the notes. Here is what I'll do today:
+
+1. **Links: you're right, 8 is correct.**
+   - **The ninth link** was for "I'm planning for myself". Your page no longer has that section, so you can ignore it.
+   - **Two cards on your site use older links:** "Caring is becoming too much" (…reason=respite) and "You want help
+     understanding what to do next" (…reason=planning_ahead). I'll make those work too, so nothing needs changing on
+     your side. The current ones are:
+     - https://plan.ageingnavigator.com/start?reason=carer_change&ref=website
+     - https://plan.ageingnavigator.com/start?reason=what_next&ref=website
+   - **Four buttons on your page still point to "#start-navigator".** They should use
+     https://plan.ageingnavigator.com/start?ref=website
+2. **Opening page:** I'll change it to your wording, word for word. For "Read our Privacy Policy", please send me the
+   address of your privacy policy page. Your site doesn't have one yet, so I'll leave that sentence out until then.
+3. **Bigger text:** I'll make the text on all the family pages much larger, in the style of My Aged Care, and remove
+   the small print under the buttons.
+
+I'll let you know when it's live, together with the care home list, which is now ready.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:** the user decides on hours and billing.
+- **Build order:**
+  1. reason aliases;
+  2. the opening page texts (content texts and small code: banner, heading, privacy-link slot, line under Start);
+  3. the type scale for family pages;
+  4. remove the card-screen small print;
+  5. tests, browser check at three widths with axe, deploy;
+  6. then send the section 33 message.
+
