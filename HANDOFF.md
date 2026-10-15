@@ -44,6 +44,24 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-15: the 20 extra hours agreed with Paul after the 52 are all built and live** (the user confirmed the
+  agreement and what it covers on 2026-10-15):
+
+  | Work | Estimate | `chatting.md` |
+  | --- | --- | --- |
+  | Launch changes: sent on submission, 8 cards, coordination wording, region drop-down, email test, documents | about 9 h | 26–28, 32 |
+  | Care homes that may suit | about 5.5 h | 29, 31–33, 38 |
+  | Useful contacts | about 3.5 h | 31, 32, 37, 38 |
+  | His three notes: links, opening page text, bigger text | about 2.5–3 h | 34, 38 |
+  | Privacy policy draft and page | about 1–1.5 h | 39 |
+
+  - **Billing:** hours are logged and billed by the user.
+  - **What is left waits on Paul:**
+    - wording approval, then approved-only mode;
+    - the privacy policy's approval: privacy officer, and the Home Carers sentence;
+    - Supabase Pro;
+    - the end of his testing, then `go-live.sql`;
+    - the password change and Resend key rotation.
 - **2026-10-15: privacy policy page live, as a draft** (`chatting.md` section 39):
   - **The page:** https://plan.ageingnavigator.com/privacy, from `demo/content/pilot/privacy-policy.md` (status
     `draft` until Paul approves).

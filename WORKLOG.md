@@ -132,3 +132,6 @@ day 5 AM work (line 9, with line 1e):
 | 2026-10-15 | new | His Drive checked, 62 files (section 36): no privacy policy; care home phone list for him to check; security warning |
 | 2026-10-15 | new | Useful contacts (sections 31 and 37, about 3.5 h): import of his Organisations tab, links to actions, plan section, review box I, docs |
 | 2026-10-15 | 8 | Privacy policy draft and page (section 39, about 1–1.5 h): /privacy, consent and footer links, tests, review PDF, docs |
+
+The rows from 2026-10-14 on are the **20 extra hours** agreed with Paul after the 52 (the user confirmed it on
+2026-10-15). All of it is done; the user logs and bills the hours.
