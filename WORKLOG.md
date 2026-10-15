@@ -131,3 +131,4 @@ day 5 AM work (line 9, with line 1e):
 | 2026-10-15 | 2, 5 | His three notes (section 34): old card links as aliases, his opening page text, larger text on family pages |
 | 2026-10-15 | new | His Drive checked, 62 files (section 36): no privacy policy; care home phone list for him to check; security warning |
 | 2026-10-15 | new | Useful contacts (sections 31 and 37, about 3.5 h): import of his Organisations tab, links to actions, plan section, review box I, docs |
+| 2026-10-15 | 8 | Privacy policy draft and page (section 39, about 1–1.5 h): /privacy, consent and footer links, tests, review PDF, docs |

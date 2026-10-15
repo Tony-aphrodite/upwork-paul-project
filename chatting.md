@@ -3872,7 +3872,7 @@ Valdis
   deploy. The import lists every organisation with its actions, and any problem.
 - **The other prep notes of section 36 still apply:** care home numbers, the Resend key, and access to his folder.
 
-### 38. 2026-10-15: Valdis to client: his three notes, the care home list and the useful contacts (ready to send)
+### 38. 2026-10-15: Valdis to client: his three notes, the care home list and the useful contacts (NOT SENT: replaced by section 39)
 
 #### Analysis
 
@@ -3966,3 +3966,143 @@ Valdis
   - the user decides whether to add hours and how to bill.
 - **Not in this message:** section 36's findings (the privacy policy search, the care home phone list in
   `deliverables/private/`, Rotorua, the Drive security warning). Raise them separately if the user wants.
+
+### 39. 2026-10-15: Valdis to client: section 38 plus the privacy policy page (ready to send)
+
+#### Analysis
+
+- **The user asked for the privacy policy draft and page** (the optional item of about 1–1.5 hours). Built and
+  deployed on 2026-10-15.
+- **The page:** https://plan.ageingnavigator.com/privacy, from `demo/content/pilot/privacy-policy.md`.
+  - **While it is a draft,** the page says "Draft. This policy is waiting for Ageing Navigator's approval."
+  - **Links to it:** the consent text ("Read our Privacy Policy.", so his opening page text from section 34 is now
+    complete) and the footer of every family page.
+- **The wording** is written from the privacy facts sheet and the code, in plain language, under the Privacy Act
+  2020 and the Health Information Privacy Code 2020. It covers:
+  - what is collected and why;
+  - who sees it (the team, and the developer for maintenance);
+  - Supabase in Sydney, Vercel and Resend (Japan), all US companies;
+  - no AI;
+  - browser storage and cookies;
+  - security;
+  - 12 months' retention;
+  - access, correction and deletion, with a reply within 20 working days;
+  - the Office of the Privacy Commissioner (0800 803 909, checked on privacy.org.nz).
+- **Not invented, so for him to confirm:**
+  - **The privacy officer:** Paul McLaren is named. Every agency needs one.
+  - **Home Carers:** the ownership relationship is not stated anywhere he gave us. The brand guide only says to
+    explain it. The policy says only that nothing is shared with Home Carers without permission.
+- **Tests:** `tests/privacy.test.ts` checks the policy against the app's settings: retention, email, Sydney, no AI,
+  no placeholders.
+- **Also in this change:**
+  - **The expired-link page** said "contact Ageing Navigator on  or paul@…" (empty phone). It now uses the confirmed
+    contact line.
+  - **Content 2026-10-15.4:** `privacy_policy_url` is `/privacy`.
+  - **Documents:** Privacy facts version 3 (his consent wording, the policy link); the Handover note gains the
+    policy's approval as a launch step; the Navigator guide gains a row for privacy questions.
+  - **Review copy:** `deliverables/Privacy-policy-draft.pdf`.
+- **Checks:**
+  - 114 tests pass;
+  - `tsc` and `next build` are clean, and `/privacy` is a static page;
+  - the full browser check passed, now also covering the policy page (axe, keyboard, desktop and 390 px) and both
+    links.
+- **The message** is section 38 with the opening page bullet updated and a fourth part added. Plain text.
+
+#### Message (ready to send; attach `deliverables/Navigator-guide.pdf`, `deliverables/Handover-note.pdf` and `deliverables/Privacy-policy-draft.pdf`)
+
+Hi Paul,
+
+Here is an update on what has been done. Everything below is live at https://plan.ageingnavigator.com/start
+
+1. Your three notes
+- Links: you're right, 8 is correct. The ninth link was for "I'm planning for myself", which your page no longer has.
+  The two older links on your site (...reason=respite and ...reason=planning_ahead) now open the right card as they
+  are, so nothing needs changing there.
+- Four buttons on your page still point to "#start-navigator", which doesn't lead anywhere. They should use
+  https://plan.ageingnavigator.com/start?ref=website
+- Opening page: it now uses your wording, word for word. "Read our Privacy Policy" links to the new privacy policy
+  page (see 4 below).
+- Bigger text: the text on all the family pages is much larger (body text 20 px, with larger headings and cards),
+  and the small print under the buttons is gone.
+
+2. Care homes that may suit
+- When residential care comes up in a plan, it now lists up to 3 care homes from your Repository sheet.
+- They offer the level of care the family told us about from an assessment, in or near the area where the person
+  lives. If no level is known, the plan shows the levels each home offers and explains that a needs assessment
+  decides the level.
+- Each home says why it appears. When more than three fit, the choice varies from family to family, so no home is
+  favoured.
+- The plan says the list is not a recommendation, and that availability and costs should be checked with each home.
+  Prices and vacancies are never shown.
+- To match by area, the town question is now a drop-down of Bay of Plenty areas.
+- Each home shows its address. When the "Website / Contact" column of your sheet has a phone number or website, the
+  plan shows that too.
+
+3. Useful contacts
+- Every plan now ends with the organisations from your Organisations tab that go with its actions. For example:
+  - Support Net with a needs assessment;
+  - Dementia Tauranga and Alzheimers New Zealand with a dementia action;
+  - Public Trust with the EPOA or will action;
+  - Seniorline on every plan.
+- Each shows its phone (tap to call on a mobile), email and website, and which actions it is for.
+- Local organisations such as Age Concern Tauranga show only to families in the areas they serve, going by your
+  "Region / Coverage" column.
+- Rows your Status Guide marks "Review due" or "Superseded" are left out.
+- Stroke Aotearoa and Parkinson's New Zealand aren't shown yet, because no question asks about stroke or Parkinson's.
+  To link them to an action, add a "Show with actions" column to the tab (see the attached Navigator guide).
+
+4. Privacy Policy (draft for your approval)
+- There is now a privacy policy page: https://plan.ageingnavigator.com/privacy. The opening page links to it, and so
+  does the footer of every family page.
+- I wrote it from how the system actually works:
+  - what is collected and why, and who can see it;
+  - where it is stored (Australia) and which services are used;
+  - that no AI is used;
+  - that information is kept for up to 12 months;
+  - how families can ask to see, correct or delete their information, and the Privacy Commissioner's details.
+- It is marked "Draft" until you approve it. The attached PDF is the same text, for your review.
+- Two points for you to confirm:
+  - Privacy officer: I've named you. Every organisation needs one under the Privacy Act.
+  - Home Carers: the policy says information is never shared with Home Carers without permission. Your brand guide
+    asks for the ownership relationship to be explained, so send me a sentence describing it and I'll add it.
+- If you'd prefer the policy on ageingnavigator.com, copy the text there and send me the address, and I'll point the
+  links to it.
+- It is a plain-language draft, not legal advice. A privacy adviser can check it if you want certainty.
+
+On the review screen you can remove a care home or a contact and send an updated plan. When you change your
+Repository sheet, let me know and I'll re-import it. It takes a few minutes.
+
+New plans include all of this. For a test case made earlier, use "Regenerate from answers" on the case to see it.
+
+Attached: the updated Navigator guide and handover note, and the privacy policy for your review.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - attach the three PDFs;
+  - hours and billing are the user's call (contacts about 3.5 h, care homes about 5.5 h, the policy about
+    1–1.5 h).
+- **If section 38 was already sent,** send this shorter message instead, with `deliverables/Privacy-policy-draft.pdf`
+  attached:
+
+  > Hi Paul,
+  >
+  > One more update: the privacy policy page is live at https://plan.ageingnavigator.com/privacy. "Read our Privacy
+  > Policy" on the opening page links to it, and so does the footer of every family page.
+  >
+  > I wrote it from how the system actually works: what is collected and why, who can see it, where it is stored
+  > (Australia), that no AI is used, that information is kept for up to 12 months, and how families can ask to see,
+  > correct or delete their information. It is marked "Draft" until you approve it. The attached PDF is the same text.
+  >
+  > Two points to confirm: I've named you as privacy officer (every organisation needs one), and your brand guide asks
+  > for the relationship with Home Carers to be explained, so send me a sentence describing it and I'll add it. If
+  > you'd prefer the policy on ageingnavigator.com, copy the text there and send me the address.
+  >
+  > Valdis
+
+- **When he approves:**
+  - set `status: approved` and `updated` in `demo/content/pilot/privacy-policy.md`, with his changes;
+  - rebuild the review PDF;
+  - run the tests, then deploy.
