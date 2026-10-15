@@ -44,7 +44,8 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
-- **2026-10-15: useful contacts live** (`chatting.md` section 37, message ready, not sent):
+- **2026-10-15: useful contacts live** (`chatting.md` section 37). **To send:** section 38, one message for his three
+  notes, the care home list and the contacts; sections 35 and 37 were never sent.
   - **The section:** "Useful contacts" at the end of every plan, with the organisations that go with its actions.
     It is also in the PDF and in box I of the review screen.
   - **The data:** his Organisations tab, imported with `npm run contacts:import` into
@@ -53,7 +54,8 @@ The bidding workspace it came from is frozen.
   - **Content** 2026-10-15.3 (`contacts_intro`).
   - **Documents:** Navigator guide version 4 and Handover note version 3.
   - **Checks:** 111 tests and the browser check pass.
-- **2026-10-15: his Drive checked** (`chatting.md` section 36; its reply is merged into section 37):
+- **2026-10-15: his Drive checked** (`chatting.md` section 36). Not sent: the user left these findings out of the
+  section 38 message.
   - **No privacy policy** in the Drive or on his site. `privacy_policy_url` stays empty.
   - **Care home phone numbers:** his outreach databases have 35 of the 38. The list for him to check is in
     `deliverables/private/` (git-ignored); after he fills his sheet's column, re-import.

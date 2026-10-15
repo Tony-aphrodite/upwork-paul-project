@@ -3592,7 +3592,7 @@ Valdis
   5. tests, browser check at three widths with axe, deploy;
   6. then send the section 33 message.
 
-### 35. 2026-10-15: Valdis to client: his three notes done, and the care home list (ready to send)
+### 35. 2026-10-15: Valdis to client: his three notes done, and the care home list (NOT SENT: merged into section 38)
 
 #### Analysis
 
@@ -3659,7 +3659,7 @@ Valdis
 - **Billing** for sections 33 and 34: the user decides.
 
 
-### 36. Client to Valdis (relayed by the user, 2026-10-15): "all the information is in my Drive" (reply NOT SENT: merged into section 37)
+### 36. Client to Valdis (relayed by the user, 2026-10-15): "all the information is in my Drive" (reply NOT SENT: left out of section 38)
 
 The user relayed it in their own words, not verbatim:
 
@@ -3767,7 +3767,7 @@ Valdis
 - **When he changes the password:** rotate `RESEND_API_KEY` too (new key in Resend, `vercel env add`, redeploy).
 - **If he restricts the folder,** ask for access for the user's Google account first.
 
-### 37. 2026-10-15: Valdis to client: useful contacts are live, and what his Drive holds (ready to send)
+### 37. 2026-10-15: Valdis to client: useful contacts are live, and what his Drive holds (NOT SENT: replaced by section 38)
 
 The user said "continue". The remaining planned work was the contacts section: about 3.5 hours, sections 31 and 32,
 the second part of the "about 8 hours" the user asked to start. It was built and deployed. This message replaces the
@@ -3871,3 +3871,98 @@ Valdis
 - **When he changes his Organisations tab:** run `npm run contacts:import -- <sheet.xlsx>`, then the tests, then
   deploy. The import lists every organisation with its actions, and any problem.
 - **The other prep notes of section 36 still apply:** care home numbers, the Resend key, and access to his folder.
+
+### 38. 2026-10-15: Valdis to client: his three notes, the care home list and the useful contacts (ready to send)
+
+#### Analysis
+
+- **The user's instructions, 2026-10-15:**
+  - **Section 35 was never sent,** because the contacts were not finished yet.
+  - **One new message:** what was changed, without the Drive findings of section 36.
+  - **It also reports the care home list,** the roughly 6-hour item brought forward from the second stage
+    (sections 29 and 31; "about 5.5 hours" in section 32).
+- **So it covers three pieces of work, all live:**
+  1. **His three notes** (section 34):
+     - the links;
+     - the opening page text;
+     - the larger text.
+  2. **Care homes that may suit** (section 33).
+  3. **Useful contacts** (section 37's build).
+- **Left out on purpose:**
+  - **The Drive findings** (section 36):
+    - the privacy policy search;
+    - the care home phone list;
+    - Rotorua;
+    - the security warning.
+
+    The user may raise them separately. The password change at launch is still in the attached handover note.
+  - **Hours:** as in sections 33 and 35, billing is the user's call. Section 32 told Paul "about 5.5 hours" for care
+    homes, "about 3.5" for contacts, "about 8" together.
+- **Kept, because they describe the change itself:**
+  - **The privacy sentence:** "Read our Privacy Policy" is not shown until there is a page address. Without this
+    note, "word for word" would not be accurate.
+  - **The website buttons:** checked again on 2026-10-15. His website still has four buttons pointing to
+    "#start-navigator". No element on the page has that id, so they go nowhere.
+  - **Older test cases:** cases made before these changes have no care homes or contacts; "Regenerate from answers"
+    adds them.
+- **Plain text,** because Upwork does not render markdown.
+
+#### Message (ready to send; attach `deliverables/Navigator-guide.pdf` and `deliverables/Handover-note.pdf`)
+
+Hi Paul,
+
+Here is an update on what has been done. Everything below is live at https://plan.ageingnavigator.com/start
+
+1. Your three notes
+- Links: you're right, 8 is correct. The ninth link was for "I'm planning for myself", which your page no longer has.
+  The two older links on your site (...reason=respite and ...reason=planning_ahead) now open the right card as they
+  are, so nothing needs changing there.
+- Four buttons on your page still point to "#start-navigator", which doesn't lead anywhere. They should use
+  https://plan.ageingnavigator.com/start?ref=website
+- Opening page: it now uses your wording. The one sentence not shown yet is "Read our Privacy Policy", which will
+  appear with its link once your privacy page address is in place.
+- Bigger text: the text on all the family pages is much larger (body text 20 px, with larger headings and cards),
+  and the small print under the buttons is gone.
+
+2. Care homes that may suit
+- When residential care comes up in a plan, it now lists up to 3 care homes from your Repository sheet.
+- They offer the level of care the family told us about from an assessment, in or near the area where the person
+  lives. If no level is known, the plan shows the levels each home offers and explains that a needs assessment
+  decides the level.
+- Each home says why it appears. When more than three fit, the choice varies from family to family, so no home is
+  favoured.
+- The plan says the list is not a recommendation, and that availability and costs should be checked with each home.
+  Prices and vacancies are never shown.
+- To match by area, the town question is now a drop-down of Bay of Plenty areas.
+- Each home shows its address. When the "Website / Contact" column of your sheet has a phone number or website, the
+  plan shows that too.
+
+3. Useful contacts
+- Every plan now ends with the organisations from your Organisations tab that go with its actions. For example:
+  - Support Net with a needs assessment;
+  - Dementia Tauranga and Alzheimers New Zealand with a dementia action;
+  - Public Trust with the EPOA or will action;
+  - Seniorline on every plan.
+- Each shows its phone (tap to call on a mobile), email and website, and which actions it is for.
+- Local organisations such as Age Concern Tauranga show only to families in the areas they serve, going by your
+  "Region / Coverage" column.
+- Rows your Status Guide marks "Review due" or "Superseded" are left out.
+- Stroke Aotearoa and Parkinson's New Zealand aren't shown yet, because no question asks about stroke or Parkinson's.
+  To link them to an action, add a "Show with actions" column to the tab (see the attached Navigator guide).
+
+On the review screen you can remove a care home or a contact and send an updated plan. When you change your
+Repository sheet, let me know and I'll re-import it. It takes a few minutes.
+
+New plans include all of this. For a test case made earlier, use "Regenerate from answers" on the case to see it.
+
+Attached: the updated Navigator guide and handover note.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - attach the two PDFs;
+  - the user decides whether to add hours and how to bill.
+- **Not in this message:** section 36's findings (the privacy policy search, the care home phone list in
+  `deliverables/private/`, Rotorua, the Drive security warning). Raise them separately if the user wants.
