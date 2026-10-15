@@ -127,3 +127,7 @@ day 5 AM work (line 9, with line 1e):
 | 2026-10-12 | 4, 8d | Navigator guide and privacy facts sheet (`deliverables/`), with `npm run doc:pdf` |
 | 2026-10-12 | 8 | Security patch: Next.js 15.5.27, postcss 8.5.29 (override inside Next), vitest 3.2.7, tsx 4.23.15; production `npm audit` now 0 |
 | 2026-10-14 | 6, 7, 2, 1 | Launch changes (the "about 9 hours" agreed in sections 27–29): plans sent on submission, 8 cards, coordination wording, region drop-down, live email test, docs and handover note. Hours to be logged by the user |
+| 2026-10-15 | new | Care homes that may suit (section 33, about 5.5 h): import of his care home tab, matching, plan section, review box F, docs |
+| 2026-10-15 | 2, 5 | His three notes (section 34): old card links as aliases, his opening page text, larger text on family pages |
+| 2026-10-15 | new | His Drive checked, 62 files (section 36): no privacy policy; care home phone list for him to check; security warning |
+| 2026-10-15 | new | Useful contacts (sections 31 and 37, about 3.5 h): import of his Organisations tab, links to actions, plan section, review box I, docs |

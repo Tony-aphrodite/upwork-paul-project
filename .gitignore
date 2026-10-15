@@ -11,3 +11,6 @@ node_modules/
 # Deploy scratch and the old prototype's Vercel link
 deploy-pilot/.export/
 demo/.vercel/
+
+# Working files for the client that hold his data (never committed)
+deliverables/private/

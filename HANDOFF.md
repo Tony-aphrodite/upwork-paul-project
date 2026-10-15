@@ -44,6 +44,22 @@ The bidding workspace it came from is frozen.
   - removal of the prototype code.
 
   Tests now run on a real PostgreSQL 16 as well.
+- **2026-10-15: useful contacts live** (`chatting.md` section 37, message ready, not sent):
+  - **The section:** "Useful contacts" at the end of every plan, with the organisations that go with its actions.
+    It is also in the PDF and in box I of the review screen.
+  - **The data:** his Organisations tab, imported with `npm run contacts:import` into
+    `content/pilot/contacts.json`. It holds 15 organisations; 13 are linked. Stroke Aotearoa and Parkinson's NZ are
+    not linked, because no question asks about them.
+  - **Content** 2026-10-15.3 (`contacts_intro`).
+  - **Documents:** Navigator guide version 4 and Handover note version 3.
+  - **Checks:** 111 tests and the browser check pass.
+- **2026-10-15: his Drive checked** (`chatting.md` section 36; its reply is merged into section 37):
+  - **No privacy policy** in the Drive or on his site. `privacy_policy_url` stays empty.
+  - **Care home phone numbers:** his outreach databases have 35 of the 38. The list for him to check is in
+    `deliverables/private/` (git-ignored); after he fills his sheet's column, re-import.
+  - **Rotorua:** six facilities, with no levels of care.
+  - **Security:** his Drive folder is open to anyone with the link and holds the shared password and the outreach
+    contact lists. Change the password and rotate the Resend key now, not at launch.
 - **2026-10-15: care homes that may suit** (`chatting.md` section 33):
   - **What:** on the residential pathway the plan lists up to 3 care homes. They offer the reported level, in or near
     the person's area, chosen fairly.
@@ -52,7 +68,7 @@ The bidding workspace it came from is frozen.
   - **The town question** (q5_town) is now a drop-down of Bay of Plenty areas.
   - **Content** 2026-10-15.1.
   - **His sheet's contact column is empty;** filling it shows the contact on plans.
-  - **Not started:** the contacts section (about 3.5 hours).
+  - **The contacts section** followed the same day (entry above).
 - **2026-10-14: launch changes live** (`chatting.md` sections 26–30):
   - **What changed:**
     - plans are sent on submission, with no review;

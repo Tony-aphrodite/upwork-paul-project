@@ -3658,3 +3658,216 @@ Valdis
   import, and deploy.
 - **Billing** for sections 33 and 34: the user decides.
 
+
+### 36. Client to Valdis (relayed by the user, 2026-10-15): "all the information is in my Drive" (reply NOT SENT: merged into section 37)
+
+The user relayed it in their own words, not verbatim:
+
+> The client says all the relevant information is in his main Google Drive folder.
+
+The open points were those of section 35: the privacy policy address, the care homes' contact details, and Rotorua.
+
+#### Analysis
+
+- **What was checked:** all 62 files in his main Drive folder and its 16 sub-folders, downloaded on 2026-10-15 to the
+  session's scratchpad only, never into this repository. That is 44 Google Docs and Word files, 5 sheets, 7 PDFs and
+  6 images or shortcuts; every text was searched.
+- **1. Privacy policy: not there.**
+  - **In the Drive:** no policy text and no address. The only mention is his opening page note ("Read our Privacy
+    Policy."), already built with an empty `privacy_policy_url`.
+  - **On his site:** ageingnavigator.com has no privacy page (`/privacy-policy`, `/privacy`, `/privacy-statement`
+    and `/terms` all return 404).
+  - **Choice for him:**
+    - he adds a page to his website and sends the address;
+    - or we draft a policy from `deliverables/Privacy-facts.md` for his approval and host it at
+      plan.ageingnavigator.com/privacy.
+- **2. Care home phone numbers: not in the Repository sheet, but in his outreach databases.**
+  - **The Repository sheet:** its "BOP Care Homes" tab is unchanged. The "Website / Contact" column is empty for all
+    38 homes.
+  - **His outreach databases** ("old database 1" and "Master List") have the main landline for 35 of the 38. Most
+    numbers come from the Health NZ facility list of July 2025.
+  - **The working list:** `deliverables/private/Care-home-phones-to-check.xlsx`, kept out of git through
+    `.gitignore`.
+    - **Its rule:** each home's main number only. No staff names, personal emails or mobiles.
+    - **26 are clean.**
+    - **4 have more than one number:** Accadia Manor, Cedar Manor, Metlifecare Bayswater and The Lodge. The Lodge's
+      second number is Thornton Park's in Ōpōtiki, an error in his database.
+    - **5 are only on a staff contact's row:** Copper Crest, Metlifecare Pāpāmoa Beach, Metlifecare The Avenues,
+      Pacific Coast Village and Summerset by the Sea.
+    - **3 have none:** Bethlehem Shores, Summerset by the Dunes and Te Puke Country Lodge.
+  - **Websites:** almost none (only cht.co.nz).
+  - **Next step:** he checks the list and pastes it into the column, and we re-import with
+    `npm run care-homes:import`. The plan then shows the phone instead of only the address.
+- **3. Rotorua: no care homes with levels of care.**
+  - **What exists:** "old database 1" lists six Rotorua aged care facilities, with phone and address only. They are
+    on the list's second tab, for him to fill in the levels of care.
+  - **Until then:** a Rotorua family's plan shows no care homes (`AREAS.rotorua` has no neighbours).
+- **4. Security: urgent, and his to fix.**
+  - **Open to anyone with the link:** the whole folder downloads without signing in.
+  - **"Ageing Navigator info" and "Action Plan Pilot Info"** both contain the password he shared for Supabase and
+    Resend, in plain text.
+  - **"Contact List", "Master List" (21,519 rows) and the other outreach sheets** hold people's names and email
+    addresses. These are personal information under the Privacy Act 2020.
+  - **The fix:**
+    - remove the password from both documents;
+    - set the folder's sharing to Restricted, with named people only (including the user's Google account);
+    - change the password now, not at launch, and turn on two-step sign-in;
+    - rotate the Resend key at the same time (HANDOFF, 2026-10-13).
+- **Nothing else new:**
+  - "Questionnaire + Logic - 13 Oct" matches `client-files/questionnaire-v2.1-2026-10-13.txt` word for word. Its one
+    added comment ("we won't need to review the plan") is done (section 27).
+  - "Action Plan notes" is the opening page text, done (section 34).
+  - The Organisations tab still has the 15 contacts for the contacts section (not started, about 3.5 hours).
+  - The rest is business, marketing and outreach material outside the pilot.
+
+#### Reply (ready to send; attach `deliverables/private/Care-home-phones-to-check.xlsx`)
+
+Hi Paul,
+
+Thanks. I went through every document in your Drive (62 files). Here is what I found for the open points:
+
+1. Privacy Policy: there isn't one in the Drive, and ageingnavigator.com has no privacy page yet, so "Read our
+   Privacy Policy" has nothing to link to. You can add a page to your website and send me the address. Or I can
+   write a draft from the privacy facts sheet, for you to approve, and put it at plan.ageingnavigator.com/privacy.
+
+2. Care home phone numbers: the "Website / Contact" column of your Repository sheet is still empty, but your outreach
+   database has the main phone number for 35 of the 38 homes. I've put them in the attached list. It has each
+   home's main number only, never staff names or personal emails.
+   - 26 look fine.
+   - 9 are marked "Please check": some homes have more than one number, and some numbers were only on a staff
+     member's row.
+   - 3 homes have no number: Bethlehem Shores, Summerset by the Dunes and Te Puke Country Lodge.
+   Once you're happy with it, paste the numbers into the column, and I'll re-import the sheet.
+
+3. Rotorua: the Drive has no Rotorua care homes with their levels of care. Your old database lists six Rotorua aged
+   care facilities, with phone and address only. They're on the second tab of the list. Add the levels of care for
+   each, as in your care homes tab, and they will show for Rotorua families.
+
+4. One important thing: your Drive folder opens for anyone who has the link, without signing in.
+   - Two documents in it, "Ageing Navigator info" and "Action Plan Pilot Info", contain the password you use for
+     Supabase and Resend.
+   - The outreach lists hold thousands of people's names and email addresses.
+   Please:
+   - delete the password from those two documents;
+   - change the folder's sharing to "Restricted" and add only the people who need it, including me;
+   - change the Supabase and Resend password now rather than at launch, and turn on two-step sign-in.
+
+Everything else in the Drive matches what is built: your opening page text, the 13 October questionnaire, and its
+note that plans go out without review.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - attach the xlsx;
+  - the user decides whether to offer the privacy policy draft and how to bill it (about 1–1.5 hours with the page).
+- **When he sends the numbers:** re-import with `npm run care-homes:import -- <his sheet as xlsx>` and check a
+  residential plan in the browser and the PDF. Then deploy.
+- **When he changes the password:** rotate `RESEND_API_KEY` too (new key in Resend, `vercel env add`, redeploy).
+- **If he restricts the folder,** ask for access for the user's Google account first.
+
+### 37. 2026-10-15: Valdis to client: useful contacts are live, and what his Drive holds (ready to send)
+
+The user said "continue". The remaining planned work was the contacts section: about 3.5 hours, sections 31 and 32,
+the second part of the "about 8 hours" the user asked to start. It was built and deployed. This message replaces the
+section 36 reply, so that one message carries both.
+
+#### Analysis
+
+- **Built on 2026-10-15:**
+  - **The section:** "Useful contacts", at the end of every plan, before the Sources. It is on the page, in the PDF,
+    and in box I of the review screen.
+  - **The data:** his Organisations tab, imported by `npm run contacts:import` into `content/pilot/contacts.json`.
+    - **Imported:** 15 organisations, checked 2026-09-16.
+    - **Kept:** name, phone, email, website and coverage only, never his research notes.
+  - **Status Guide:** rows whose status the guide marks "No" ("Review due", "Superseded / do not use") are left out.
+    - **None today:** all 15 have "Website loaded" statuses.
+    - **Not word for word in the guide:** five of his status variants. They are kept, and the import lists them.
+  - **Links to actions:**
+    - **Defaults:** in `scripts/contacts-import.mts`, after section 31's mapping. Seniorline is on every plan.
+    - **His own column:** an optional "Show with actions" column in his tab overrides the defaults.
+    - **On the plan:** a contact shows while one of its actions is on it, and says which ("For actions 1 and 3
+      above.").
+  - **Not linked:** Stroke Aotearoa and Parkinson's New Zealand, because no question asks about stroke or Parkinson's.
+    The "fall, stroke or change in mobility" card alone would show a stroke helpline after any fall.
+  - **Coverage:**
+    - "National" means everywhere.
+    - "Bay of Plenty" means Health NZ's Bay of Plenty district, which leaves out Rotorua (Lakes).
+    - Tauranga-only organisations (Age Concern Tauranga, Dementia Tauranga) show to Tauranga or Western Bay families
+      only.
+  - **On the page:**
+    - phone numbers are tap-to-call links on the web page;
+    - long website addresses show the site name only;
+    - the source line gives the check date.
+  - **Content 2026-10-15.3:** the new text `contacts_intro`. The spreadsheet in `deliverables/` is re-exported, and
+    the round trip is identical.
+  - **Checks:**
+    - 111 tests pass (6 new);
+    - `tsc` and `next build` are clean;
+    - the full browser check (axe, keyboard, desktop and 390 px, PDF text) passed on a fresh local build.
+  - **Documents:** Navigator guide version 4 and Handover note version 3, as Markdown and PDF.
+- **Hours:** about 3.5, as estimated. Billing is the user's call.
+
+#### Message (ready to send; attach `deliverables/private/Care-home-phones-to-check.xlsx`, `deliverables/Navigator-guide.pdf` and `deliverables/Handover-note.pdf`)
+
+Hi Paul,
+
+Thanks. Two updates: the useful contacts are now live, and here is what I found in your Drive.
+
+Useful contacts (live at https://plan.ageingnavigator.com/start):
+- Every plan now ends with the organisations from your Organisations tab that go with its actions. For example:
+  - Support Net with a needs assessment;
+  - Dementia Tauranga and Alzheimers New Zealand with a dementia action;
+  - Public Trust with the EPOA or will action;
+  - Seniorline on every plan.
+- Each shows its phone (tap to call on a mobile), email and website, and which actions it is for.
+- Local organisations such as Age Concern Tauranga show only to families in the areas they serve, going by your
+  "Region / Coverage" column.
+- Rows your Status Guide marks "Review due" or "Superseded" are left out. You can also remove a contact on the
+  review screen.
+- Stroke Aotearoa and Parkinson's New Zealand aren't shown yet, because no question asks about stroke or Parkinson's.
+  To link them to an action, add a "Show with actions" column to the tab (see the attached Navigator guide).
+
+Your Drive (I went through all 62 files):
+
+1. Privacy Policy: there isn't one in the Drive, and ageingnavigator.com has no privacy page yet, so "Read our
+   Privacy Policy" has nothing to link to. You can add a page to your website and send me the address. Or I can
+   write a draft from the privacy facts sheet, for you to approve, and put it at plan.ageingnavigator.com/privacy.
+
+2. Care home phone numbers: the "Website / Contact" column of your Repository sheet is still empty, but your outreach
+   database has the main phone number for 35 of the 38 homes. I've put them in the attached list. It has each
+   home's main number only, never staff names or personal emails.
+   - 26 look fine.
+   - 9 are marked "Please check": some homes have more than one number, and some numbers were only on a staff
+     member's row.
+   - 3 homes have no number: Bethlehem Shores, Summerset by the Dunes and Te Puke Country Lodge.
+   Once you're happy with it, paste the numbers into the column, and I'll re-import the sheet.
+
+3. Rotorua: the Drive has no Rotorua care homes with their levels of care. Your old database lists six Rotorua aged
+   care facilities, with phone and address only. They're on the second tab of the list. Add the levels of care for
+   each, as in your care homes tab, and they will show for Rotorua families.
+
+4. One important thing: your Drive folder opens for anyone who has the link, without signing in.
+   - Two documents in it, "Ageing Navigator info" and "Action Plan Pilot Info", contain the password you use for
+     Supabase and Resend.
+   - The outreach lists hold thousands of people's names and email addresses.
+   Please:
+   - delete the password from those two documents;
+   - change the folder's sharing to "Restricted" and add only the people who need it, including me;
+   - change the Supabase and Resend password now rather than at launch, and turn on two-step sign-in.
+
+Everything else in the Drive matches what is built: your opening page text, the 13 October questionnaire, and its
+note that plans go out without review.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - attach the three files;
+  - the user decides on the privacy policy offer (about 1–1.5 hours with the page) and on billing for the contacts
+    (about 3.5 hours).
+- **When he changes his Organisations tab:** run `npm run contacts:import -- <sheet.xlsx>`, then the tests, then
+  deploy. The import lists every organisation with its actions, and any problem.
+- **The other prep notes of section 36 still apply:** care home numbers, the Resend key, and access to his folder.

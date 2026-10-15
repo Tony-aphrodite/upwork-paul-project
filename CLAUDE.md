@@ -91,8 +91,10 @@ message first (updates, requests) get a section too, marked sent once the user c
 ## Product rules (health information about New Zealand families)
 
 - **Scope** is the ten-line plan in `HANDOFF.md`, plus the four additions in `IMPLEMENTATION-PLAN.md` section 8.
-  Paid tools, payments, matching and repositories come after the pilot. The one exception is the care home list on
-  the residential pathway, built from the client's own list on his request (2026-10-15, `chatting.md` section 33).
+  Paid tools, payments, matching and repositories come after the pilot. Two exceptions, both from the client's own
+  Repository sheet on his request:
+  - the care home list on the residential pathway (2026-10-15, `chatting.md` section 33);
+  - the useful contacts at the end of every plan (2026-10-15, sections 31 and 37).
 - **Plans are sent on submission** (the client's decision, 2026-10-13, `chatting.md` section 27). There is no
   review step: the family gets the plan at once. Navigators are emailed, and can edit and release an updated version.
   The gate is the content instead: production runs with `REQUIRE_APPROVED_CONTENT=1`, so only approved wording is
