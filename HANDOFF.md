@@ -69,7 +69,8 @@ The bidding workspace it came from is frozen.
   - **For Paul to confirm:** the privacy officer (Paul is named), and a sentence on the ownership relationship with
     Home Carers.
   - **Content** 2026-10-15.4; Privacy facts version 3.
-  - **To send:** section 39, a follow-up about the policy only (section 38 was sent before this work).
+  - **Sent:** section 39, a follow-up about the policy only. Section 38 had gone before this work. Every drafted
+    message up to section 39 has now been sent (the user confirmed this on 2026-10-15).
 - **2026-10-15: useful contacts live** (`chatting.md` section 37). Sections 35 and 37 were never sent. Section 38
   replaced them and was sent on 2026-10-15.
   - **The section:** "Useful contacts" at the end of every plan, with the organisations that go with its actions.

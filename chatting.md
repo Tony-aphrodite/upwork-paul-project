@@ -3967,7 +3967,7 @@ Valdis
 - **Not in this message:** section 36's findings (the privacy policy search, the care home phone list in
   `deliverables/private/`, Rotorua, the Drive security warning). Raise them separately if the user wants.
 
-### 39. 2026-10-15: Valdis to client: the privacy policy page, a follow-up to section 38 (ready to send)
+### 39. 2026-10-15: Valdis to client: the privacy policy page, a follow-up to section 38 (SENT 2026-10-15)
 
 #### Analysis
 
