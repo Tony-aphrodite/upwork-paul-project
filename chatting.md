@@ -4055,7 +4055,7 @@ Valdis
   - rebuild the review PDF;
   - run the tests, then deploy.
 
-### 40. Client to Valdis (received by 2026-10-16): four messages: his landing page brief, viewing the data, "good enough for the pilot", and a stroke question (reply ready to send)
+### 40. Client to Valdis (received by 2026-10-16): four messages: his landing page brief, viewing the data, "good enough for the pilot", and a stroke question (reply SENT 2026-10-16)
 
 The user pasted four messages together. The order is as pasted; the exact dates are unknown. The Google Doc link in
 40a is left out, because this repository is public.
