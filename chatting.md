@@ -4054,3 +4054,294 @@ Valdis
   - set `status: approved` and `updated` in `demo/content/pilot/privacy-policy.md`, with his changes;
   - rebuild the review PDF;
   - run the tests, then deploy.
+
+### 40. Client to Valdis (received by 2026-10-16): four messages: his landing page brief, viewing the data, "good enough for the pilot", and a stroke question (reply ready to send)
+
+The user pasted four messages together. The order is as pasted; the exact dates are unknown. The Google Doc link in
+40a is left out, because this repository is public.
+
+#### 40a. His landing page brief
+
+> LANDING PAGE DESIGN
+> https://ageingnavigator.com/
+> DESIGN INSPIRATION: https://www.myagedcare.gov.au/
+>
+> Button Links:
+>
+> Every "Start" and "Get your free personalised Action Plan" button: https://plan.ageingnavigator.com/start?ref=website ✅
+>
+> Each "What has brought you here?" card, so the family starts with that reason already chosen:
+>
+> Dementia diagnosis or memory concerns: https://plan.ageingnavigator.com/start?reason=dementia_diagnosis&ref=website
+> A hospital admission or discharge: https://plan.ageingnavigator.com/start?reason=hospital&ref=website
+> A fall, stroke or change in mobility: https://plan.ageingnavigator.com/start?reason=fall_stroke_mobility&ref=website
+> Managing at home is getting harder: https://plan.ageingnavigator.com/start?reason=managing_home&ref=website
+> Caring is becoming too much: https://plan.ageingnavigator.com/start?reason=carer_change&ref=website
+> You're considering a retirement village: https://plan.ageingnavigator.com/start?reason=considering_village&ref=website
+> You're exploring residential care: https://plan.ageingnavigator.com/start?reason=considering_residential&ref=website
+> You want help understanding what to do next: https://plan.ageingnavigator.com/start?reason=what_next&ref=website
+>
+> Every other button ("Start", "Get your free personalised Action Plan", "I'm helping someone else"):
+> https://plan.ageingnavigator.com/start?ref=website
+>
+> Final layout:
+> Hero — What has brought you here?
+> How Ageing Navigator works
+> What are your options?
+> Your free personalised Action Plan
+> Specialist tools
+> Optional Coordination Support
+> Why Ageing Navigator
+> FAQs and footer
+>
+> SECTION 1 — HERO / SECTION 2 — HOW AGEING NAVIGATOR WORKS / SECTION 3 — WHAT ARE YOUR OPTIONS? (Stay at home:
+> Retirement village: Residential care:) / SECTION 4 — YOUR PERSONALISED ACTION PLAN / SECTION 5 — COMING SOON:
+> SPECIALIST TOOLS / SECTION 6 — OPTIONAL COORDINATION SUPPORT / SECTION 7 — WHY AGEING NAVIGATOR
+> (the section headings are empty in his doc)
+>
+> I've started creating the landing pages for the paid tools, but we can look at this once this page is complete:
+> [link to his Google Doc, left out of this public repository]
+
+#### 40b. Viewing the data, and referral links
+
+> This is great, thanks so much Valdis.
+>
+> I think that's all for now. Now I'm wanting to get it tested by the organisations I've reached out to and test it
+> out.
+>
+> Is the information stored somewhere that we can easily view it and compare the data?
+>
+> Also what about the specific referral links we can give organisations to use so we can measure who shared it.
+
+#### 40c. "Good enough for the pilot", and future plans
+
+> Thanks Valdis, this is good enough now for the pilot.
+>
+> For now, we just need to focus on ensuring it works and then measuring the data from the user and from the
+> referrer.
+>
+> My plan is to get 100 users and enough info that we can then share with the referrers so we can build the full
+> system, knowing that they will help to distribute it to their clients.
+>
+> Once the links are set up from our web guy, I'll get some initial feedback and see if there's any changes we may
+> need to make, and I'll update you.
+>
+> Future plans:
+> Build the paid tools (cost comparisons). The Retirement Village cost comparison tool I think will get traction fast.
+> Create widgets - These will go on our partners (Age Concern or Dementia NZ, etc) web pages and direct people to fill
+> out the free action plan
+> Future paid tools - we can look at tools like Funeral Cost Comparison, etc. All tools will involve family so there
+> is consistency.
+
+#### 40d. A stroke question
+
+> Hi Valdis,
+>
+> You mentioned there is no questions about a stroke but I think it is worth adding this (and include Stroke NZ
+> details), as it is one of the headers (see pic).
+> What do you need from me to add this.
+
+#### Analysis
+
+**40a: his landing page brief.**
+- **What it is:** his brief for his web designer. The link list is ours from sections 32 and 35, and matches.
+- **His live site, checked 2026-10-16:**
+  - the 8 cards now use the current links, including `carer_change` and `what_next`;
+  - 7 buttons use `?ref=website`.
+- **Still broken:** three boxes (class `an-path`, apparently "What are your options?": Stay at home, Retirement
+  village, Residential care) still point to `#start-navigator`. No element on the page has that id, so they lead
+  nowhere. Suggested links:
+  - **Stay at home:** `?ref=website`;
+  - **Retirement village:** `?reason=considering_village&ref=website`;
+  - **Residential care:** `?reason=considering_residential&ref=website`.
+- **The paid-tool landing pages** are for later, by his own words.
+
+**40b: "Is the information stored somewhere that we can easily view it and compare the data?"**
+- **Already available, no work needed:**
+  - **Navigator area:** the case list, each case's answers and plan, and "via <referrer>" on each case.
+  - **Export CSV**, at the top of every navigator page. It gives one row per case:
+    - submitted and released dates, status, urgency, pathways and referrer;
+    - every choice answer, marketing consent and feedback;
+    - coordination requests and the services asked for.
+
+    It holds no names, contact details or free text. He can open it in Excel or Google Sheets and filter or pivot by
+    referrer.
+- **Two gaps for his goal** ("measure the data from the user and from the referrer", 100 users, figures to share
+  with referrers):
+  1. **Starts are not counted.** Only finished questionnaires are stored, so nobody can see how many people a
+     referrer sent who did not finish. The completion rate is one of the pilot's three questions (HANDOFF: "do
+     families finish").
+     - **Proposal:** anonymous counts per referrer and day: page opened, Start pressed after consent, submitted.
+     - **What it keeps:** no cookie, no IP address, no personal information. It fits the privacy policy ("anonymous
+       counts").
+     - **Estimate:** about 2 hours.
+  2. **No summary screen.**
+     - **Proposal:** a "Pilot results" page in the navigator area.
+       - **Per referrer:** started, finished, completion rate, urgent, coordination requests, and feedback (useful,
+         partly, not useful).
+       - **Overall:** progress to 100, reasons (cards), pathways, areas and top concerns.
+       - **Its own export,** for sharing with referrers.
+     - **Estimate:** about 3 hours. Both together are about 5.
+- **Privacy when sharing with referrers:**
+  - **Totals only:** referrers get totals, never individual families. The consent and the policy promise no sharing
+    without permission.
+  - **Small numbers:** hide breakdowns under 5 families, since a referrer could recognise one of their own clients.
+    Build this into the results page.
+
+**40b: referral links.**
+- **They already work** (section 27, the handover note's "Links for organisations"):
+  - **The format:** `https://plan.ageingnavigator.com/start?ref=<name>`, where the name is lower-case letters, numbers
+    and hyphens.
+  - **Where it shows:** on each case ("via age-concern-tauranga") and in the CSV.
+  - **Combined with a card:** `?reason=...&ref=...` works.
+- **Points to repeat to him:**
+  - **Use the direct link:** a family who goes through ageingnavigator.com counts as "website".
+  - **One name per organisation,** used consistently.
+- **Next step:** he sends the list of organisations, and we send back each one's link.
+- **Optional:** a QR code image per organisation (about 1 hour), for flyers and waiting rooms.
+- **His outreach list** in his Drive ("Pilot Outreach", 17 organisations) could seed it. Ask him for the final list
+  rather than guess.
+
+**40c: "good enough now for the pilot".**
+- **What it means:** organisations testing with their clients means real families. The go-live steps must come
+  first. They are part of the launch work already done (HANDOFF, 2026-10-14), so they are not new hours:
+  1. **Wording approval:** take "good enough now for the pilot" as approval of the current wording.
+     - **Then:** mark all rows Approved, import with `--production`, set `REQUIRE_APPROVED_CONTENT=1`, and redeploy.
+     - **Result:** the "Test version" labels disappear.
+  2. **The privacy policy:**
+     - **Default:** mark it approved, with him as privacy officer, unless he sends changes.
+     - **Home Carers:** the sentence is still his to give. The policy is accurate without it.
+  3. **Supabase Pro** for daily backups (his account).
+  4. **Change the Supabase and Resend password,** which he once put in a Google Doc (section 18), and turn on
+     two-step sign-in. The Resend key is rotated at the same time (the user).
+     - **Why now:** section 36's Drive findings were left out of section 38 by the user's decision. This step covers
+       the risk without them.
+  5. **Clear the test cases:** the user runs `deploy-pilot/go-live.sql`.
+     - **Before that:** one final live check with a fictional family; the script deletes it.
+- **"Ensuring it works" afterwards:**
+  - the daily case-list check for urgent cases (Navigator guide);
+  - a look at Vercel's error logs and email delivery in the first week.
+- **His future plans need nothing now:**
+  - **Retirement village cost comparison:** his Repository sheet already holds village data (entry prices, weekly
+    fees, DMF), a head start.
+  - **Widgets:**
+    - **Simplest:** an HTML button or banner with each partner's own `ref` link, about 1 hour.
+    - **An embedded questionnaire** (an iframe) is larger.
+  - **Funeral cost comparison:** later.
+  - **Estimates:** once the pilot's data is in. The main-build rate was agreed in September (HANDOFF); it is not
+    quoted here.
+
+**40d: a stroke question, with Stroke Aotearoa's details.**
+- **Today:** no question asks about stroke. The "A fall, stroke or change in mobility" card only adds the falls
+  action. So Stroke Aotearoa was left unlinked (section 37), to avoid showing a stroke helpline after any fall.
+- **Proposal:**
+  1. **The card's description:** "Recovering from a fall or stroke, or noticing changes in mobility." (Today it says
+     "Recovering from a fall or noticing changes in mobility.")
+  2. **A new option** "A stroke" in q9, "Has anything significant changed recently?". Every family answers it,
+     whichever card they chose.
+  3. **A new action `stroke-support`,** when q9 includes the stroke option. Draft wording for his approval:
+     - **What to do:** "Contact Stroke Aotearoa for support after a stroke".
+     - **Why:** its free helpline and community stroke navigators support people and families after a stroke.
+     - **Next step:** call the helpline and ask about a community stroke navigator in the Bay of Plenty.
+     - **Who can help:** Stroke Aotearoa, GP, hospital stroke team.
+     - **Safety line:** sudden face drooping, arm weakness or speech problems mean calling 111 at once.
+     - **Source:** stroke.org.nz, in the Sources tab.
+  4. **Useful contacts:** Stroke Aotearoa linked to `stroke-support`, and Health NZ Community Allied Health too (his
+     tab lists speech-language therapy after stroke).
+- **What we need from him:** nothing to start.
+  - **Stroke Aotearoa's details** (helpline, emails, website) are already in his Organisations tab.
+  - **Approval:** he approves the drafted wording.
+  - **If he has it:** the Bay of Plenty community stroke navigator's contact, which his tab lists as still needed.
+- **Estimate:** about 2 hours, with the content rows, spreadsheet, tests, browser check and deploy.
+- **Parkinson's New Zealand,** the same way: an option "A Parkinson's diagnosis", an action, and the contact. About
+  0.5 hour more if done together.
+
+**Hours and order.**
+- **New work** (beyond the 20 hours, all of which is done):
+  - stroke: about 2 hours, plus 0.5 with Parkinson's;
+  - measurement: about 5 hours;
+  - QR codes: about 1 hour.
+- **The go-live steps** are already covered.
+- **Billing** is the user's call.
+- **Suggested order:**
+  1. go-live steps;
+  2. the stroke question;
+  3. start counts and the results page, before many families arrive, so no early data is lost;
+  4. links and QR codes as soon as his organisation list arrives.
+
+#### Reply (ready to send; plain text)
+
+Hi Paul,
+
+Thanks, that's great to hear. Here are answers to your questions, and what happens next.
+
+1. Viewing and comparing the data
+- Everything is stored in your Supabase database. You can see it now in the navigator area: the case list, each
+  family's answers and plan, and which organisation sent them.
+- "Export CSV" at the top of every page downloads one row per family: dates, the reason they chose, their answers,
+  pathways, the referring organisation, coordination requests and feedback. It has no names or contact details. You
+  can open it in Excel or Google Sheets and compare by organisation.
+- Two additions I'd suggest for measuring the pilot, about 5 hours together:
+  - Anonymous counts of how many people each organisation's link brings in, and how many finish. Today only
+    finished questionnaires are recorded, so drop-offs can't be seen.
+  - A "Pilot results" page: per organisation, how many started and finished, coordination requests and how useful
+    families found the plan, plus progress towards your 100 users. Organisations would only ever see totals, never
+    individual families.
+
+2. Referral links for organisations
+- They already work. Give each organisation its own link, for example:
+  https://plan.ageingnavigator.com/start?ref=age-concern-tauranga
+- Each case then shows which organisation it came from, and so does the export.
+- Ask them to share their direct link rather than your website, because a family who comes through the website
+  counts as "website".
+- Send me the list of organisations and I'll send back each one's link. I can also make a QR code for each, for
+  flyers and waiting rooms (about 1 hour).
+
+3. Your website
+- The 8 cards and the buttons are now correct.
+- Three boxes, which look like Stay at home, Retirement village and Residential care, still point to
+  "#start-navigator", which doesn't lead anywhere. Suggested links:
+  - Stay at home: https://plan.ageingnavigator.com/start?ref=website
+  - Retirement village: https://plan.ageingnavigator.com/start?reason=considering_village&ref=website
+  - Residential care: https://plan.ageingnavigator.com/start?reason=considering_residential&ref=website
+
+4. Stroke question
+- Nothing needed from you to start: your Organisations tab already has Stroke Aotearoa's details.
+- I'll add "A stroke" to "Has anything significant changed recently?", mention stroke in the card's description,
+  and add an action with Stroke Aotearoa's helpline and community stroke navigators. Stroke Aotearoa will then
+  appear in the plan's useful contacts.
+- I'll draft the wording for your approval. If you have the Bay of Plenty community stroke navigator's contact,
+  send it and I'll include it.
+- About 2 hours. Parkinson's New Zealand can be added the same way at the same time, for about 30 minutes more.
+
+5. Before organisations start (real families)
+- I'll take "good enough for the pilot" as your approval of the wording. I'll switch on approved-only mode, which
+  also removes the "Test version" labels.
+- I'll mark the privacy policy approved, with you as privacy officer, unless you send changes.
+- On your side:
+  - turn on daily backups (Supabase, your project, Settings, Billing, Pro plan);
+  - change the Supabase and Resend password, since it was shared in a Google Doc, and turn on two-step sign-in.
+- Then I'll run a final check on the live site and clear all test cases, so the pilot starts from zero. Tell me the
+  day you want to start.
+
+Your future plans are noted: the retirement village cost comparison, partner widgets and later tools. Your
+Repository sheet already has the Bay of Plenty village data, which gives the village tool a head start. The
+simplest widget is a button for each partner's website with their own link. We can scope these once the pilot data
+is in.
+
+Valdis
+
+#### Prep notes
+
+- **Before sending:**
+  - **Hours:** the user decides on the figures (stroke 2, plus 0.5; measurement 5; QR codes 1) and on billing.
+  - **Whether 40b was already answered:** "Thanks Valdis" in 40c may mean the user already replied to 40b. If so,
+    trim points 1 and 2.
+- **Go-live order on the day:**
+  1. Paul: Supabase Pro and the password change.
+  2. The user: rotate the Resend key.
+  3. Content: mark all rows Approved, `content:import --production`, set `REQUIRE_APPROVED_CONTENT=1`, deploy.
+  4. The privacy policy: set `status: approved` and redeploy.
+  5. A final live check with a fictional family (`delivered@resend.dev`).
+  6. The user runs `go-live.sql`.
+- **Nothing is built yet;** the user said not to change code.
